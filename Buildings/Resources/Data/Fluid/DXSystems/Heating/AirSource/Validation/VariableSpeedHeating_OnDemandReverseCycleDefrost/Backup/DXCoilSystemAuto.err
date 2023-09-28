@@ -1,0 +1,56 @@
+Program Version,EnergyPlus, Version 23.1.0-87ed9199d4, YMD=2023.09.14 18:28,
+   ************* Beginning Zone Sizing Calculations
+   ** Warning ** GetInternalHeatGains: People="WESTPEOPLE", Activity Level Schedule Name values
+   **   ~~~   ** fall outside typical range [70,1000] W/person for Thermal Comfort Reporting.
+   **   ~~~   ** Odd comfort values may result; Schedule="ACTIVITY SCH".
+   **   ~~~   ** Entered min/max range=[0.0,] W/person.0.0
+   ** Warning ** GetInternalHeatGains: People="EASTPEOPLE", Activity Level Schedule Name values
+   **   ~~~   ** fall outside typical range [70,1000] W/person for Thermal Comfort Reporting.
+   **   ~~~   ** Odd comfort values may result; Schedule="ACTIVITY SCH".
+   **   ~~~   ** Entered min/max range=[0.0,] W/person.0.0
+   ** Warning ** GetInternalHeatGains: People="NORTHPEOPLE", Activity Level Schedule Name values
+   **   ~~~   ** fall outside typical range [70,1000] W/person for Thermal Comfort Reporting.
+   **   ~~~   ** Odd comfort values may result; Schedule="ACTIVITY SCH".
+   **   ~~~   ** Entered min/max range=[0.0,] W/person.0.0
+   ************* Beginning System Sizing Calculations
+   ************* Testing Individual Branch Integrity
+   ************* All Branches passed integrity testing
+   ************* Testing Individual Supply Air Path Integrity
+   ************* All Supply Air Paths passed integrity testing
+   ************* Testing Individual Return Air Path Integrity
+   ************* All Return Air Paths passed integrity testing
+   ************* No node connection errors were found.
+   ************* Beginning Simulation
+   ** Warning ** CoilSystem:Heating:DX - DX unit sensible part-load ratio calculation failed: part-load ratio limits exceeded, for unit = HEATPUMP DX COIL 1
+   **   ~~~   ** Estimated part-load ratio = 0.791
+   **   ~~~   ** The estimated part-load ratio will be used and the simulation continues. Occurrence info:
+   **   ~~~   **  Environment=JAN, at Simulation time=01/20 15:50 - 16:00
+   ** Warning ** Temperature out of range [-100. to 200.] (PsyPsatFnTemp)
+   **   ~~~   **  Routine=CalcVarSpeedCoilHeating, Environment=JAN, at Simulation time=02/05 12:40 - 12:50
+   **   ~~~   **  Input Temperature=-111.91
+   ************* Simulation Error Summary *************
+   ** Warning ** The following Report Variables were requested but not generated -- check.rdd file
+   **   ~~~   ** Either the IDF did not contain these elements, the variable name is misspelled,
+   **   ~~~   ** or the requested variable is an advanced output which requires Output : Diagnostics, DisplayAdvancedReportVariables;
+   ************* Key=HEAT PUMP DX HEATING COIL 1, VarName=HEATING COIL NATURALGAS ENERGY, Frequency=Hourly
+   ************* Key=HEAT PUMP DX HEATING COIL 1, VarName=HEATING COIL ANCILLARY NATURALGAS ENERGY, Frequency=Hourly
+   ************* Key=HEAT PUMP DX HEATING COIL 1, VarName=HEATING COIL ANCILLARY NATURALGAS RATE, Frequency=Hourly
+   *************
+   ************* ===== Recurring Error Summary =====
+   ************* The following recurring error messages occurred.
+   *************
+   *************  ** Warning ** CoilSystem:Heating:DX "HEATPUMP DX COIL 1" - DX unit sensible part-load ratio calculation failed error continues. Sensible PLR statistics follow.
+   *************  **   ~~~   **   This error occurred 4 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=0.790523  Min=0.403906
+   *************
+   *************  ** Warning ** Temperature out of range [-100. to 200.] (PsyPsatFnTemp)
+   *************  **   ~~~   **   This error occurred 1 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=-111.910614 C  Min=-111.910614 C
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 3 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 10 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  1.06sec

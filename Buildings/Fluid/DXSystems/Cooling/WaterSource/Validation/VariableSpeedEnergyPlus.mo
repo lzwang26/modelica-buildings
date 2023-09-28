@@ -364,7 +364,7 @@ model VariableSpeedEnergyPlus
         0.42634453; 61200,0; 64800,0; 64800,0; 68400,0; 68400,0; 72000,0; 72000,
         0; 75600,0; 75600,0; 79200,0; 79200,0; 82800,0; 82800,0; 86400,0])
         "Mass flowrate at the evaporator"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+    annotation (Placement(transformation(extent={{-142,20},{-122,40}})));
   Modelica.Blocks.Sources.TimeTable masConIn(table=[0,0; 3600,0; 3600,0; 7200,0;
         7200,0; 10800,0; 10800,0; 14400,0; 14400,0; 18000,0; 18000,0; 21600,0; 21600,
         0; 25200,0; 25200,0.380079667; 28800,0.380079667; 28800,0.380079667; 32400,
@@ -484,7 +484,7 @@ equation
           10},{80,-22},{60,-22}},
                               color={0,0,127}));
   connect(masEvaIn.y, souAir.m_flow_in)
-    annotation (Line(points={{-119,30},{-54,30},{-54,28}}, color={0,0,127}));
+    annotation (Line(points={{-121,30},{-54,30},{-54,28}}, color={0,0,127}));
   connect(sinWat.ports[1], TConOut.port_b) annotation (Line(points={{-34,-30},{
           -30,-30},{-26,-30}}, color={0,127,255}));
   connect(TConOut.port_a, varSpeDX.portCon_b)

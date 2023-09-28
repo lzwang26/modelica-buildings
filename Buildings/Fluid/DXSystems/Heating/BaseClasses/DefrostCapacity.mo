@@ -86,12 +86,6 @@ block DefrostCapacity
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}}),
       iconTransformation(extent={{-120,-120},{-100,-100}})));
 
-  Modelica.Blocks.Interfaces.RealInput uSpe(
-    final unit="1")
-    "Input speed signal"
-    annotation (Placement(transformation(extent={{-120,110},{-100,130}}),
-      iconTransformation(extent={{-120,130},{-100,150}})));
-
   Modelica.Blocks.Interfaces.RealOutput QDef_flow(
     final unit="W",
     final quantity="Power")
@@ -131,17 +125,6 @@ block DefrostCapacity
     final unit="1")
     "Defrost modifier curve value";
 
-  Real RTF(
-    final unit="1")
-    "Run-time fraction";
-
-  Real PLR(
-    final unit="1")
-    "Part-load ratio";
-
-  Real PLFra(
-    final unit="1")
-    "Part-load fraction";
 
   Modelica.Units.SI.ThermodynamicTemperature TConInWetBul
     "Wet bulb temperature of air entering indoor condenser coil";
@@ -166,34 +149,25 @@ equation
       x2=0.001,
       deltaX=0.0001);
 
-  PLR = uSpe;
 
   //  Calculate heat transferred from airflow to outdoor coil, and power consumed by
   //  compressor for defrost operation.
   if defOpe == Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation.resistive then
     QDef_flow = 0;
-    PDef =QDefResCap*tDefFra*RTF;
+    PDef =QDefResCap*tDefFra;
   else
     //  All coefficients are empirical values valid only for temperature in degree
     //  Celsius and heat flow rate in Watts.
     QDef_flow = 0.01*tDefFra*(7.222 - Modelica.Units.Conversions.to_degC(TOut))*
       QTot_flow/1.01667;
-    PDef =defMod_T*QTot_flow*tDefFra*RTF/1.01667;
+    PDef =defMod_T*QTot_flow*tDefFra/1.01667;
+
   end if;
-  QTotDef_flow = QTot_flow*heaCapMul;
-
-  // Partload fraction for heating coil
-  PLFra = Buildings.Fluid.Utilities.extendedPolynomial(
-      x=PLR,
-      c=defCur.PLFraFunPLR,
-      xMin=0,
-      xMax=1);
-
+    QTotDef_flow = QTot_flow*heaCapMul;
   //  Calculate total power consumption, run-time fraction and crankcase heater
   //  power consumption.
-  PTot =QTot_flow*EIR*PLR*inpPowMul/PLFra;
-  RTF = PLR/PLFra;
-  PCra = defCur.QCraCap * (1 - RTF);
+  PTot =QTot_flow*EIR*inpPowMul;
+  PCra = defCur.QCraCap;
 
    annotation (
     defaultComponentName="defCap",

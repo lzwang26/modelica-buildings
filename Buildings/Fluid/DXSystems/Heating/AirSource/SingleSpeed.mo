@@ -14,10 +14,6 @@ protected
     "Speed ratio 1 constant source"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaOn
-    "Convert Boolean enable signal to Real value 1, disable to Real value 0"
-    annotation (Placement(transformation(extent={{0,130},{20,150}})));
-
   Modelica.Blocks.Math.BooleanToInteger onSwi(
     final integerTrue=1,
     final integerFalse=0)
@@ -40,11 +36,6 @@ equation
       points={{-39,140},{-24,140},{-24,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));
-  connect(on, booToReaOn.u) annotation (Line(points={{-110,120},{-80,120},{-80,
-          158},{-8,158},{-8,140},{-2,140}},
-                      color={255,0,255}));
-  connect(booToReaOn.y, defCap.uSpe) annotation (Line(points={{22,140},{44,140},
-          {44,100},{61,100}}, color={0,0,127}));
   annotation (defaultComponentName="sinSpeDXHea", Documentation(info="<html>
 <p>
 This model can be used to simulate an air-source DX heating coil with single speed compressor.

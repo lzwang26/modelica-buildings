@@ -1,0 +1,48 @@
+Program Version,EnergyPlus, Version 23.1.0-87ed9199d4, YMD=2023.08.21 13:07,
+   ************* Beginning Zone Sizing Calculations
+   ** Warning ** GetInternalHeatGains: People="WESTPEOPLE", Activity Level Schedule Name values
+   **   ~~~   ** fall outside typical range [70,1000] W/person for Thermal Comfort Reporting.
+   **   ~~~   ** Odd comfort values may result; Schedule="ACTIVITY SCH".
+   **   ~~~   ** Entered min/max range=[0.0,] W/person.0.0
+   ** Warning ** GetInternalHeatGains: People="EASTPEOPLE", Activity Level Schedule Name values
+   **   ~~~   ** fall outside typical range [70,1000] W/person for Thermal Comfort Reporting.
+   **   ~~~   ** Odd comfort values may result; Schedule="ACTIVITY SCH".
+   **   ~~~   ** Entered min/max range=[0.0,] W/person.0.0
+   ** Warning ** GetInternalHeatGains: People="NORTHPEOPLE", Activity Level Schedule Name values
+   **   ~~~   ** fall outside typical range [70,1000] W/person for Thermal Comfort Reporting.
+   **   ~~~   ** Odd comfort values may result; Schedule="ACTIVITY SCH".
+   **   ~~~   ** Entered min/max range=[0.0,] W/person.0.0
+   ************* Beginning System Sizing Calculations
+   ************* Testing Individual Branch Integrity
+   ************* All Branches passed integrity testing
+   ************* Testing Individual Supply Air Path Integrity
+   ************* All Supply Air Paths passed integrity testing
+   ************* Testing Individual Return Air Path Integrity
+   ************* All Return Air Paths passed integrity testing
+   ************* No node connection errors were found.
+   ************* Beginning Simulation
+   ** Warning ** WetBulb not converged after 101 iterations(PsyTwbFnTdbWPb)
+   **   ~~~   **  Routine=CalcVarSpeedCoilHeating, Environment=JAN, at Simulation time=02/28 08:10 - 08:20
+   **   ~~~   **  Input Temperature = 4.93
+   **   ~~~   **  Input Humidity Ratio= 1.852756E-003
+   **   ~~~   **  Input Pressure = 99400.00
+   **   ~~~   **  Resultant Temperature= 9.69E-002
+   ************* Simulation Error Summary *************
+   ** Warning ** The following Report Variables were requested but not generated -- check.rdd file
+   **   ~~~   ** Either the IDF did not contain these elements, the variable name is misspelled,
+   **   ~~~   ** or the requested variable is an advanced output which requires Output : Diagnostics, DisplayAdvancedReportVariables;
+   ************* Key=HEAT PUMP DX HEATING COIL 1, VarName=HEATING COIL NATURALGAS ENERGY, Frequency=Hourly
+   ************* Key=HEAT PUMP DX HEATING COIL 1, VarName=HEATING COIL ANCILLARY NATURALGAS ENERGY, Frequency=Hourly
+   ************* Key=HEAT PUMP DX HEATING COIL 1, VarName=HEATING COIL ANCILLARY NATURALGAS RATE, Frequency=Hourly
+   *************
+   ************* ===== Recurring Error Summary =====
+   ************* The following recurring error messages occurred.
+   *************
+   *************  ** Warning ** WetBulb not converged after max iterations(PsyTwbFnTdbWPb)
+   *************  **   ~~~   **   This error occurred 1 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 3 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 5 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  6.30sec

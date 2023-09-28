@@ -2,5 +2,6 @@ SingleSpeed_OnDemandResistiveDefrost
 SingleSpeed_OnDemandReverseCycleDefrost
 SingleSpeed_TimedResistiveDefrost
 SingleSpeed_TimedReverseCycleDefrost
+VariableSpeed_OnDemandReverseCycleDefrost
 Data
 BaseClasses

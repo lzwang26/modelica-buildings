@@ -1,0 +1,4 @@
+Date/Time,Electricity:Facility [J](Monthly),Electricity:Building [J](Monthly),InteriorLights:Electricity [J](Monthly),Electricity:HVAC [J](Monthly),NaturalGas:Facility [J](Monthly),NaturalGas:HVAC [J](Monthly),Electricity:Facility [J](RunPeriod),Electricity:Building [J](RunPeriod),InteriorLights:Electricity [J](RunPeriod),Electricity:HVAC [J](RunPeriod),NaturalGas:Facility [J](RunPeriod),NaturalGas:HVAC [J](RunPeriod) 
+January,2355733475.9233522,0.0,0.0,2355733475.9233522,11530375794.776598,11530375794.776598 
+February,2998539997.637309,0.0,0.0,2998539997.637309,9593129705.971876,9593129705.971876 
+March,3397794527.6780243,0.0,0.0,3397794527.6780243,7411474977.791963,7411474977.791963,8752068001.238678,0.0,0.0,8752068001.238678,28534980478.540554,28534980478.540554 

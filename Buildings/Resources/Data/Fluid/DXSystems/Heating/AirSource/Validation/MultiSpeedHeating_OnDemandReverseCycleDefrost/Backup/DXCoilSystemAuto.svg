@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<svg width="250mm" height="200mm" viewBox="0 0 2500 1500"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events">
+<g font-family="Verdana" font-size="8">
+  <line x1="300" y1="190" x2="300" y2="270" style="stroke:silver;"/>
+  <line x1="800" y1="30" x2="550" y2="270" style="stroke:silver;"/>
+  <rect x="1950" y="20" width="200" height="20" style="fill:chartreuse; stroke: black;"/>1
+  <text x="1952" y="33">WEST ZONE</text>
+  <rect x="200" y="180" width="200" height="20" style="fill:snow; stroke: black;"/>4
+  <text x="202" y="193">OutdoorAir:NodeList</text>
+  <rect x="200" y="260" width="200" height="20" style="fill:snow; stroke: black;"/>5
+  <text x="202" y="273">OutdoorAir:NodeList</text>
+  <rect x="1450" y="20" width="200" height="20" style="fill:wheat; stroke: black;"/>8
+  <text x="1452" y="33">ZONE SUPPLY AIR SPLITTER</text>
+  <rect x="1700" y="20" width="200" height="20" style="fill:snow; stroke: black;"/>9
+  <text x="1702" y="33">ZONE1DIRECTAIR</text>
+  <rect x="1700" y="60" width="200" height="20" style="fill:snow; stroke: black;"/>10
+  <text x="1702" y="73">ZONE2DIRECTAIR</text>
+  <rect x="1700" y="100" width="200" height="20" style="fill:snow; stroke: black;"/>11
+  <text x="1702" y="113">ZONE3DIRECTAIR</text>
+  <rect x="2200" y="100" width="200" height="20" style="fill:wheat; stroke: black;"/>12
+  <text x="2202" y="113">ZONE RETURN AIR MIXER</text>
+  <rect x="200" y="20" width="200" height="20" style="fill:lawngreen; stroke: black;"/>13
+  <text x="202" y="33">OA MIXING BOX 1</text>
+  <rect x="450" y="20" width="200" height="20" style="fill:silver; stroke: black;"/>14
+  <text x="452" y="33">SUPPLY FAN 1</text>
+  <rect x="700" y="20" width="200" height="20" style="fill:aliceblue; stroke: black;"/>16
+  <text x="702" y="33">HEAT PUMP ACDXCOIL 1</text>
+  <rect x="450" y="260" width="200" height="20" style="fill:aliceblue; stroke: black;"/>17
+  <text x="452" y="273">HEAT PUMP ACDXCOIL 1</text>
+  <rect x="950" y="20" width="200" height="20" style="fill:aliceblue; stroke: black;"/>18
+  <text x="952" y="33">HEAT PUMP DX HEATING COIL 1</text>
+  <rect x="1200" y="20" width="200" height="20" style="fill:salmon; stroke: black;"/>19
+  <text x="1202" y="33">HEAT PUMP DX SUPP HEATING COIL 1</text>
+  <rect x="1950" y="60" width="200" height="20" style="fill:chartreuse; stroke: black;"/>20
+  <text x="1952" y="73">EAST ZONE</text>
+  <rect x="1950" y="100" width="200" height="20" style="fill:chartreuse; stroke: black;"/>21
+  <text x="1952" y="113">NORTH ZONE</text>
+  <line x1="400" y1="270" x2="450" y2="270" style="stroke:black;"/>
+  <line x1="1650" y1="30" x2="1700" y2="30" style="stroke:black;"/>
+  <line x1="1650" y1="30" x2="1700" y2="70" style="stroke:black;"/>
+  <line x1="1650" y1="30" x2="1700" y2="110" style="stroke:black;"/>
+  <line x1="1900" y1="30" x2="1950" y2="30" style="stroke:black;"/>
+  <line x1="1900" y1="70" x2="1950" y2="70" style="stroke:black;"/>
+  <line x1="1900" y1="110" x2="1950" y2="110" style="stroke:black;"/>
+  <line x1="400" y1="30" x2="450" y2="30" style="stroke:black;"/>
+  <line x1="650" y1="30" x2="700" y2="30" style="stroke:black;"/>
+  <line x1="900" y1="30" x2="950" y2="30" style="stroke:black;"/>
+  <line x1="1150" y1="30" x2="1200" y2="30" style="stroke:black;"/>
+  <line x1="1400" y1="30" x2="1450" y2="30" style="stroke:black;"/>
+  <line x1="2150" y1="30" x2="2200" y2="110" style="stroke:black;"/>
+  <line x1="2150" y1="70" x2="2200" y2="110" style="stroke:black;"/>
+  <line x1="2150" y1="110" x2="2200" y2="110" style="stroke:black;"/>
+  <line x1="200" y1="30" x2="175" y2="30" style="stroke:black;"/>
+  <line x1="175" y1="30" x2="175" y2="0" style="stroke:black;"/>
+  <line x1="175" y1="0" x2="2425" y2="0" style="stroke:black;"/>
+  <line x1="2425" y1="0" x2="2425" y2="110" style="stroke:black;"/>
+  <line x1="2425" y1="110" x2="2400" y2="110" style="stroke:black;"/>
+  <text x="200" y="320">Unused Non-Parent Objects:</text>
+  <text x="220" y="340">OutdoorAir:Node</text>
+  <text x="220" y="360">SYS 1 SETPOINT MANAGER</text>
+  <text x="220" y="380">OA CONTROLLER 1</text>
+  <text x="200" y="420">
+The following are not supported: objects related to controls or ZoneHVAC:IdealLoadsAirSystem</text>
+</g>
+</svg>
