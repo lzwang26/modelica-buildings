@@ -253,7 +253,7 @@ model VasriableSpeedWaterSourceFullLoad
     "Mean of sensible cooling rate"
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
   Modelica.Blocks.Math.Mean PMea(f=1/3600) "Mean of power"
-    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+    annotation (Placement(transformation(extent={{90,40},{110,60}})));
   Modelica.Blocks.Math.Add add(k1=-1)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Modelica.Blocks.Sources.Constant XEvaInMoiAir(k=1.0) "Moist air fraction = 1"
@@ -422,10 +422,12 @@ model VasriableSpeedWaterSourceFullLoad
     "Reader for EnergyPlus example results"
     annotation (Placement(transformation(extent={{-142,56},{-122,76}})));
 
-  Modelica.Blocks.Math.Gain gain(k=-1)
+  Modelica.Blocks.Math.Gain Modelica_CoolingRate(k=-1)
     annotation (Placement(transformation(extent={{28,100},{48,120}})));
-  Modelica.Blocks.Discrete.UnitDelay unitDelay(samplePeriod=3600)
-    annotation (Placement(transformation(extent={{-92,86},{-72,106}})));
+  Modelica.Blocks.Discrete.UnitDelay EnergyPlusQ_total(samplePeriod=3600)
+    annotation (Placement(transformation(extent={{-90,112},{-70,132}})));
+  Modelica.Blocks.Discrete.UnitDelay EnergyPlusElectricPower(samplePeriod=3600)
+    annotation (Placement(transformation(extent={{-92,78},{-72,98}})));
 equation
   connect(TOut.y, TOutMea.u)
                            annotation (Line(
@@ -460,7 +462,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(varSpeDX.P, PMea.u) annotation (Line(
-      points={{11,19},{14,19},{14,50},{78,50}},
+      points={{11,19},{14,19},{14,50},{88,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(XEvaInMod.y, mux.u1[1]) annotation (Line(
@@ -507,14 +509,16 @@ equation
           -88,66},{-88,28},{-54,28}}, color={0,0,127}));
   connect(datRea.y[12], souWat.m_flow_in) annotation (Line(points={{-121,66},{
           84,66},{84,-22},{60,-22}}, color={0,0,127}));
-  connect(Q_flowMea.y, gain.u) annotation (Line(points={{19,90},{22,90},{22,110},
-          {26,110}}, color={0,0,127}));
-  connect(datRea.y[3], unitDelay.u) annotation (Line(points={{-121,66},{-108,66},
-          {-108,96},{-94,96}}, color={0,0,127}));
+  connect(Q_flowMea.y, Modelica_CoolingRate.u) annotation (Line(points={{19,90},
+          {22,90},{22,110},{26,110}}, color={0,0,127}));
+  connect(datRea.y[3], EnergyPlusQ_total.u) annotation (Line(points={{-121,66},{
+          -108,66},{-108,122},{-92,122}}, color={0,0,127}));
+  connect(datRea.y[2], EnergyPlusElectricPower.u) annotation (Line(points={{-121,
+          66},{-108,66},{-108,88},{-94,88}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -140},{160,140}})),
              __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/DXSystems/Cooling/WaterSource/Validation/VariableSpeedEnergyPlusPartLoad.mos"
+          "modelica://Buildings/Resources/Data/Fluid/DXSystems/Cooling/FullLoad.mos"
         "Simulate and plot"),
     experiment(
       StopTime=864000,

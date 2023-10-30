@@ -423,10 +423,12 @@ model VasriableSpeedWaterSourcePartLoad
     "Reader for EnergyPlus example results"
     annotation (Placement(transformation(extent={{-142,56},{-122,76}})));
 
-  Modelica.Blocks.Math.Gain gain(k=-1)
+  Modelica.Blocks.Math.Gain Modelica_CoolingRate(k=-1)
     annotation (Placement(transformation(extent={{28,100},{48,120}})));
-  Modelica.Blocks.Discrete.UnitDelay unitDelay(samplePeriod=3600)
-    annotation (Placement(transformation(extent={{-88,84},{-68,104}})));
+  Modelica.Blocks.Discrete.UnitDelay EnergyPlusQ_total(samplePeriod=3600)
+    annotation (Placement(transformation(extent={{-86,108},{-66,128}})));
+  Modelica.Blocks.Discrete.UnitDelay EnergyPlusElectricPower(samplePeriod=3600)
+    annotation (Placement(transformation(extent={{-84,76},{-64,96}})));
 equation
   connect(TOut.y, TOutMea.u)
                            annotation (Line(
@@ -508,14 +510,16 @@ equation
           -88,66},{-88,28},{-54,28}}, color={0,0,127}));
   connect(datRea.y[12], souWat.m_flow_in) annotation (Line(points={{-121,66},{
           84,66},{84,-22},{60,-22}}, color={0,0,127}));
-  connect(Q_flowMea.y, gain.u) annotation (Line(points={{19,90},{22,90},{22,110},
-          {26,110}}, color={0,0,127}));
-  connect(datRea.y[3], unitDelay.u) annotation (Line(points={{-121,66},{-106.5,
-          66},{-106.5,94},{-90,94}}, color={0,0,127}));
+  connect(Q_flowMea.y, Modelica_CoolingRate.u) annotation (Line(points={{19,90},
+          {22,90},{22,110},{26,110}}, color={0,0,127}));
+  connect(datRea.y[3], EnergyPlusQ_total.u) annotation (Line(points={{-121,66},{
+          -106.5,66},{-106.5,118},{-88,118}}, color={0,0,127}));
+  connect(datRea.y[2], EnergyPlusElectricPower.u) annotation (Line(points={{-121,
+          66},{-104,66},{-104,86},{-86,86}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -140},{160,140}})),
              __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/DXSystems/Cooling/WaterSource/Validation/VariableSpeedEnergyPlusPartLoad.mos"
+          "modelica://Buildings/Resources/Data/Fluid/DXSystems/Cooling/PartLoad.mos"
         "Simulate and plot"),
     experiment(
       StopTime=864000,
