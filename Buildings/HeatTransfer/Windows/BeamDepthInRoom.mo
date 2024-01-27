@@ -9,13 +9,13 @@ block BeamDepthInRoom "Depth of solar beam in the room"
         caption="Select weather file"),
         group="Location"));
 
-  parameter Modelica.Units.SI.Angle lon(displayUnit="deg") =
+  parameter Modelica.Units.SI.Angle lon(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
     absFilNam) "Longitude" annotation (Evaluate=true, Dialog(group="Location"));
-  parameter Modelica.Units.SI.Angle lat(displayUnit="deg") =
+  parameter Modelica.Units.SI.Angle lat(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
     absFilNam) "Latitude" annotation (Evaluate=true, Dialog(group="Location"));
-  parameter Modelica.Units.SI.Time timZon(displayUnit="h") =
+  parameter Modelica.Units.SI.Time timZon(displayUnit="h")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(
     absFilNam) "Time zone" annotation (Evaluate=true, Dialog(group="Location"));
 

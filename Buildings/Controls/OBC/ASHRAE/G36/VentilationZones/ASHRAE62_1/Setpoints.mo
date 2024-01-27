@@ -84,15 +84,15 @@ block Setpoints
     "Detected CO2 concentration"
     annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta
-    if have_CO2Sen and have_parFanPowUni
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonSta if
+       have_CO2Sen and have_parFanPowUni
     "Zone state"
     annotation (Placement(transformation(extent={{-340,-240},{-300,-200}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VParFan_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s")
-    if have_CO2Sen and have_parFanPowUni
+    final unit="m3/s") if
+       have_CO2Sen and have_parFanPowUni
     "Parallel fan airflow rate"
     annotation (Placement(transformation(extent={{-340,-300},{-300,-260}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -255,8 +255,8 @@ protected
     "Occupied mode"
     annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooSta(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates.cooling)
-    if have_CO2Sen and have_parFanPowUni
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates.cooling) if
+       have_CO2Sen and have_parFanPowUni
     "Cooling state"
     annotation (Placement(transformation(extent={{-280,-250},{-260,-230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer2(
@@ -272,8 +272,8 @@ protected
     "Check if it is supplying cooling"
     annotation (Placement(transformation(extent={{-220,-320},{-200,-300}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter  gai2(
-    final k=1)
-    if have_CO2Sen and not have_SZVAV and not have_parFanPowUni
+    final k=1) if
+       have_CO2Sen and not have_SZVAV and not have_parFanPowUni
     "Dummy gain for conditional input"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant desAreAir(

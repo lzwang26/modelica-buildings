@@ -51,8 +51,8 @@ model MixedAirHeatMassBalance
     final til = datConExt.til,
     each conMod=conMod,
     each hFixed=hFixed,
-    each final homotopyInitialization=homotopyInitialization)
-    if haveConExt "Convective heat transfer"
+    each final homotopyInitialization=homotopyInitialization) if
+       haveConExt "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,210},{100,230}})));
 
   HeatTransfer.Convection.Interior convConExtWin[NConExtWin](
@@ -60,8 +60,8 @@ model MixedAirHeatMassBalance
     final til = datConExtWin.til,
     each conMod=conMod,
     each hFixed=hFixed,
-    each final homotopyInitialization=homotopyInitialization)
-    if haveConExtWin "Convective heat transfer"
+    each final homotopyInitialization=homotopyInitialization) if
+       haveConExtWin "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,170},{100,190}})));
 
   HeatTransfer.Windows.InteriorHeatTransferConvective convConWin[NConExtWin](
@@ -71,8 +71,8 @@ model MixedAirHeatMassBalance
     final til=datConExtWin.til,
     each conMod=conMod,
     each hFixed=hFixed,
-    final A=AConExtWinGla + AConExtWinFra)
-    if haveConExtWin "Model for convective heat transfer at window"
+    final A=AConExtWinGla + AConExtWinFra) if
+       haveConExtWin "Model for convective heat transfer at window"
     annotation (Placement(transformation(extent={{98,110},{118,130}})));
 
   HeatTransfer.Convection.Interior convConPar_a[nConPar](
@@ -80,8 +80,8 @@ model MixedAirHeatMassBalance
     final til=Modelica.Constants.pi .- datConPar.til,
     each conMod=conMod,
     each hFixed=hFixed,
-    each final homotopyInitialization=homotopyInitialization)
-    if haveConPar "Convective heat transfer"
+    each final homotopyInitialization=homotopyInitialization) if
+       haveConPar "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,-70},{100,-50}})));
 
   HeatTransfer.Convection.Interior convConPar_b[nConPar](
@@ -89,8 +89,8 @@ model MixedAirHeatMassBalance
     final til = datConPar.til,
     each conMod=conMod,
     each hFixed=hFixed,
-    each final homotopyInitialization=homotopyInitialization)
-    if haveConPar "Convective heat transfer"
+    each final homotopyInitialization=homotopyInitialization) if
+       haveConPar "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,-110},{100,-90}})));
 
   HeatTransfer.Convection.Interior convConBou[nConBou](
@@ -98,8 +98,8 @@ model MixedAirHeatMassBalance
     final til = datConBou.til,
     each conMod=conMod,
     each hFixed=hFixed,
-    each final homotopyInitialization=homotopyInitialization)
-    if haveConBou "Convective heat transfer"
+    each final homotopyInitialization=homotopyInitialization) if
+       haveConBou "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,-170},{100,-150}})));
 
   HeatTransfer.Convection.Interior convSurBou[nSurBou](
@@ -107,8 +107,8 @@ model MixedAirHeatMassBalance
     final til = surBou.til,
     each conMod=conMod,
     each hFixed=hFixed,
-    each final homotopyInitialization=homotopyInitialization)
-    if haveSurBou "Convective heat transfer"
+    each final homotopyInitialization=homotopyInitialization) if
+       haveSurBou "Convective heat transfer"
     annotation (Placement(transformation(extent={{122,-230},{102,-210}})));
 
   // Latent and convective sensible heat gains
@@ -132,51 +132,51 @@ protected
     annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
 
   // Thermal collectors
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExt(final m=nConExt)
-    if haveConExt
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExt(final m=nConExt) if
+       haveConExt
     "Thermal collector to convert from vector to scalar connector"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={48,220})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExtWin(final m=nConExtWin)
-    if haveConExtWin
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExtWin(final m=nConExtWin) if
+       haveConExtWin
     "Thermal collector to convert from vector to scalar connector"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={48,180})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConWin(final m=nConExtWin)
-    if haveConExtWin
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConWin(final m=nConExtWin) if
+       haveConExtWin
     "Thermal collector to convert from vector to scalar connector"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={50,120})));
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConPar_a(final m=nConPar)
-    if haveConPar
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConPar_a(final m=nConPar) if
+       haveConPar
     "Thermal collector to convert from vector to scalar connector"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={52,-60})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConPar_b(final m=nConPar)
-    if haveConPar
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConPar_b(final m=nConPar) if
+       haveConPar
     "Thermal collector to convert from vector to scalar connector"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={50,-100})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConBou(final m=nConBou)
-    if haveConBou
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConBou(final m=nConBou) if
+       haveConBou
     "Thermal collector to convert from vector to scalar connector"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={50,-160})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConSurBou(final m=nSurBou)
-    if haveSurBou
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConSurBou(final m=nSurBou) if
+       haveSurBou
     "Thermal collector to convert from vector to scalar connector"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

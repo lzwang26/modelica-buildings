@@ -49,8 +49,8 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     annotation (Placement(transformation(extent={{-10,62}, {10,82}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapDry(
     C=500*mDry,
-    T(start=T_start))
-    if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    T(start=T_start)) if
+       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Heat capacity of boiler metal"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
 

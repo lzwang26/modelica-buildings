@@ -95,8 +95,8 @@ protected
     final k=uHea_max) if have_heaCoi
     "Constant signal to map control action"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant negOne(final k=-1)
-    if have_heaCoi
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant negOne(final k=-1) if
+       have_heaCoi
     "Negative unity signal"
     annotation (Placement(transformation(extent={{0,18},{20,38}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant uCooMinCon(

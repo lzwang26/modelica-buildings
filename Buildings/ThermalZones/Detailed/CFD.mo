@@ -40,8 +40,8 @@ model CFD
     annotation (Dialog(group = "CFD",
         loadSelector(caption=
             "Select CFD input file")));
-  Modelica.Blocks.Interfaces.RealOutput yCFD[nSen]
-    if haveSensor "Sensor for output from CFD"
+  Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
+       haveSensor "Sensor for output from CFD"
     annotation (Placement(transformation(
      extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220,130}})));
 protected
@@ -52,8 +52,8 @@ protected
     "Flag, true if the model has at least one sensor";
   final parameter Integer nSen(min=0) = size(sensorName, 1)
     "Number of sensors that are connected to CFD output";
-  Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed)
-    if haveShade "Constant signal for shade"
+  Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed) if
+       haveShade "Constant signal for shade"
     annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
 
 equation

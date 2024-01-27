@@ -28,13 +28,13 @@ model Controller "Define current operation mode"
     "Engine temperature"
     annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleNet(final unit="W")
- if not per.warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleNet(final unit="W") if
+    not per.warmUpByTimeDelay
     "Net power output"
     annotation (Placement(transformation(extent={{-300,-60},{-260,-20}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEle(final unit="W")
- if not per.warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEle(final unit="W") if
+    not per.warmUpByTimeDelay
     "Power demand"
     annotation (Placement(transformation(extent={{-300,-100},{-260,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));

@@ -8,9 +8,9 @@ record Generic
      mLoa_flow = hea.mLoa_flow,
      mSou_flow = hea.mSou_flow)
    "Performance data for cooling mode (set coo.P = 0 to disable operation in cooling mode)";
-  parameter Modelica.Units.SI.PressureDifference dpHeaLoa_nominal(min=0) =
+  parameter Modelica.Units.SI.PressureDifference dpHeaLoa_nominal(min=0)=
     30000 "Nominal pressure drop at load heat exchanger side at hea.mLoa_flow";
-  parameter Modelica.Units.SI.PressureDifference dpHeaSou_nominal(min=0) =
+  parameter Modelica.Units.SI.PressureDifference dpHeaSou_nominal(min=0)=
     30000 "Nominal pressure drop at load heat exchanger side at hea.mSou_flow";
 
   final parameter Boolean reverseCycle=coo.P > Modelica.Constants.eps

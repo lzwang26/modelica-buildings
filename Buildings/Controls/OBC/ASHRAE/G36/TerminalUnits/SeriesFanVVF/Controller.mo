@@ -392,8 +392,8 @@ block Controller
     "Leaking valve alarm"
     annotation (Placement(transformation(extent={{240,-320},{280,-280}}),
         iconTransformation(extent={{100,-200},{140,-160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla if
+       have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{240,-350},{280,-310}}),
         iconTransformation(extent={{100,-220},{140,-180}})));
@@ -502,8 +502,8 @@ block Controller
     final VOccMin_flow=VOccMin_flow,
     final VAreMin_flow=VAreMin_flow,
     final VMin_flow=VMin_flow,
-    final VCooMax_flow=VCooMax_flow)
-    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
+    final VCooMax_flow=VCooMax_flow) if
+       venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
 equation

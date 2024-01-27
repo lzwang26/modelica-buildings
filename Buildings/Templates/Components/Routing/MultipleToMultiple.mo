@@ -48,7 +48,7 @@ model MultipleToMultiple
   parameter Integer icon_dy = 100
     "Distance in y-direction between each branch in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
-  parameter Buildings.Templates.Components.Types.IconPipe icon_pipe =
+  parameter Buildings.Templates.Components.Types.IconPipe icon_pipe=
     Buildings.Templates.Components.Types.IconPipe.Supply
     "Pipe symbol"
     annotation(Dialog(tab="Graphics", enable=false));
@@ -69,8 +69,8 @@ model MultipleToMultiple
   Modelica.Fluid.Interfaces.FluidPort_a port_aComLeg(
     redeclare final package Medium=Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_comLeg "Common leg port - Case with common leg"
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
+       have_comLeg "Common leg port - Case with common leg"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}}),
                              iconTransformation(extent={{-10,-10},{10,10}})));
 
@@ -82,14 +82,14 @@ model MultipleToMultiple
   Medium.ThermodynamicState sta_a[nPorts_a]=
       Medium.setState_phX(ports_a.p,
                           noEvent(actualStream(ports_a.h_outflow)),
-                          noEvent(actualStream(ports_a.Xi_outflow)))
-      if show_T "Medium properties in ports_a";
+                          noEvent(actualStream(ports_a.Xi_outflow))) if
+         show_T "Medium properties in ports_a";
 
   Medium.ThermodynamicState sta_b[nPorts_b]=
       Medium.setState_phX(ports_b.p,
                           noEvent(actualStream(ports_b.h_outflow)),
-                          noEvent(actualStream(ports_b.Xi_outflow)))
-      if show_T "Medium properties in ports_b";
+                          noEvent(actualStream(ports_b.Xi_outflow))) if
+         show_T "Medium properties in ports_b";
 
   Fluid.Delays.DelayFirstOrder del(
     redeclare final package Medium=Medium,
@@ -98,17 +98,17 @@ model MultipleToMultiple
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final prescribedHeatFlowRate=false,
-    final nPorts=nPorts_a+nPorts_b+1)
-    if have_controlVolume and have_comLeg
+    final nPorts=nPorts_a+nPorts_b+1) if
+       have_controlVolume and have_comLeg
     "Fluid volume to break algebraic loop - Case with common leg"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
 
-  PassThroughFluid pasSteInl(redeclare final package Medium = Medium)
-    if have_comLeg and not have_controlVolume
+  PassThroughFluid pasSteInl(redeclare final package Medium = Medium) if
+       have_comLeg and not have_controlVolume
     "Fluid pass-through in lieu of control volume - Case with common leg"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  PassThroughFluid pasSteOut(redeclare final package Medium = Medium)
-    if have_comLeg and not have_controlVolume
+  PassThroughFluid pasSteOut(redeclare final package Medium = Medium) if
+       have_comLeg and not have_controlVolume
     "Fluid pass-through in lieu of control volume - Case with common leg"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 

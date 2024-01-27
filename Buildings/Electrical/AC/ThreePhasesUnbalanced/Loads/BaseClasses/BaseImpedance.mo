@@ -16,8 +16,8 @@ partial model BaseImpedance
     CMax=CMax,
     use_L_in=use_L_in,
     LMin=LMin,
-    LMax=LMax)
-    if plugPhase1 "Load 1"
+    LMax=LMax) if
+       plugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
     load2(
@@ -33,8 +33,8 @@ partial model BaseImpedance
     CMax=CMax,
     use_L_in=use_L_in,
     LMin=LMin,
-    LMax=LMax)
-    if plugPhase2 "Load 2"
+    LMax=LMax) if
+       plugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
     load3(
@@ -50,8 +50,8 @@ partial model BaseImpedance
     CMax=CMax,
     use_L_in=use_L_in,
     LMin=LMin,
-    LMax=LMax)
-    if plugPhase3 "Load 3"
+    LMax=LMax) if
+       plugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   parameter Buildings.Electrical.Types.LoadConnection loadConn=
     Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
@@ -149,12 +149,12 @@ partial model BaseImpedance
     "Wye to grounded wye connection"
     annotation (Placement(transformation(extent={{-64,-20},{-44,0}})));
 protected
-  Interfaces.Adapter3to3 adaDel
-    if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
+  Interfaces.Adapter3to3 adaDel if
+       (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
     "Adapter"
     annotation (Placement(transformation(extent={{-40,-50},{-60,-30}})));
-  Interfaces.Adapter3to3 adaWye
-    if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
+  Interfaces.Adapter3to3 adaWye if
+       (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
     "Adapter"
     annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
 equation

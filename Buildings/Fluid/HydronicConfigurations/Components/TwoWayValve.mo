@@ -91,8 +91,8 @@ model TwoWayValve "Container class for two-way valves"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final y_start=y_start)
-    if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
+    final y_start=y_start) if
+       typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Two-way valve with equal percentage characteristic"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Actuators.Valves.TwoWayLinear valLin(
@@ -110,8 +110,8 @@ model TwoWayValve "Container class for two-way valves"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final y_start=y_start)
-    if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Linear
+    final y_start=y_start) if
+       typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Linear
     "Two-way valve with linear characteristic"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
   Actuators.Valves.TwoWayTable valTab(
@@ -129,8 +129,8 @@ model TwoWayValve "Container class for two-way valves"
     final riseTime=riseTime,
     final init=init,
     final y_start=y_start,
-    final flowCharacteristics=flowCharacteristics)
-    if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
+    final flowCharacteristics=flowCharacteristics) if
+       typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
     "Two-way valve with table-specified characteristic"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Actuators.Valves.TwoWayPressureIndependent valPre(
@@ -147,8 +147,8 @@ model TwoWayValve "Container class for two-way valves"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final y_start=y_start)
-    if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.PressureIndependent
+    final y_start=y_start) if
+       typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.PressureIndependent
     "Pressure-independent two-way valve"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 initial equation

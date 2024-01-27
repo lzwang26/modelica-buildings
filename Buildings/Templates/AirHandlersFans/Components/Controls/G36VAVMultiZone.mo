@@ -169,8 +169,8 @@ block G36VAVMultiZone
     final nZon=nZon,
     final nGro=nGro,
     final zonGroMat=isZonInGroInt,
-    final zonGroMatTra=isZonInGroIntTra)
-    if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
+    final zonGroMatTra=isZonInGroIntTra) if
+       stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Aggregate zone level ventilation signals - ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
@@ -179,8 +179,8 @@ block G36VAVMultiZone
     final nZon=nZon,
     final nGro=nGro,
     final zonGroMat=isZonInGroInt,
-    final have_CO2Sen=have_CO2Sen)
-    if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
+    final have_CO2Sen=have_CO2Sen) if
+       stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Aggregate zone level ventilation signals - California Title 24"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 

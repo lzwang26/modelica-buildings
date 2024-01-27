@@ -67,13 +67,13 @@ partial model PartialValve "Interface class for valve"
     redeclare final package Medium = Medium,
     p(start=Medium.p_default),
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition or
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
+       typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition or
       typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Fluid connector with bypass line"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  Buildings.Templates.Components.Interfaces.Bus bus
-    if typ<>Buildings.Templates.Components.Types.Valve.None
+  Buildings.Templates.Components.Interfaces.Bus bus if
+       typ<>Buildings.Templates.Components.Types.Valve.None
     "Control bus"
     annotation (Placement(
       transformation(

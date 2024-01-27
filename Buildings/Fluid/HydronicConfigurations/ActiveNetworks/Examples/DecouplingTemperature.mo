@@ -59,8 +59,8 @@ model DecouplingTemperature
         rotation=0,
         origin={110,-140})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor dTSetCor(
-    y(final unit="K"), final nin=3)
-                       if is_cor
+    y(final unit="K"), final nin=3) if
+                          is_cor
     "Delta-T set point corrected for low load operation" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

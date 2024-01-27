@@ -147,8 +147,8 @@ protected
   final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
 
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
-    if use_enthalpy "Add block determines difference between hOut and hOutCut"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2 if
+       use_enthalpy "Add block determines difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Add block determines difference between TOut and TOutCut"

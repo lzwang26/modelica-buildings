@@ -2,24 +2,24 @@ within Buildings.ThermalZones.Detailed.BaseClasses;
 model RadiationTemperature "Radiative temperature of the room"
   extends Buildings.ThermalZones.Detailed.BaseClasses.PartialSurfaceInterfaceRadiative;
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin]
-  if haveConExtWin
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
+     haveConExtWin
     "Heat port that connects to room-side surface of unshaded glass"
                               annotation (Placement(transformation(extent={{230,110},
             {250,130}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[NConExtWin]
- if haveShade "Heat port that connects to room-side surface of shaded glass"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[NConExtWin] if
+    haveShade "Heat port that connects to room-side surface of shaded glass"
                               annotation (Placement(transformation(extent={{230,70},
             {250,90}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a sha[NConExtWin]
- if haveShade "Heat port that connects to shade"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a sha[NConExtWin] if
+    haveShade "Heat port that connects to shade"
                                        annotation (Placement(transformation(extent={{230,28},
             {250,48}})));
   parameter Boolean haveShade "Set to true if the windows have a shade"
   annotation(HideResult=true);
 
-  Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin](each min=0, each max=1)
-    if haveShade
+  Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin](each min=0, each max=1) if
+       haveShade
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-280,160},{-240,200}}),
         iconTransformation(extent={{-280,160},{-240,200}})));

@@ -14,8 +14,8 @@ model MultiplePumpsFlow
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow_in(
     final unit="kg/s",
-    final min=0)
-    if have_var
+    final min=0) if
+       have_var
     "Mass flow rate setpoint (total over all pumps)"
     annotation (
     Placement(transformation(extent={{-140,40},{-100,80}}),

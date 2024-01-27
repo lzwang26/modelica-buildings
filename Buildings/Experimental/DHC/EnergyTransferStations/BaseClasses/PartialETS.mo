@@ -135,8 +135,8 @@ partial model PartialETS
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
     redeclare package Medium = MediumSer,
     m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default))
- if typ == TypDisSys.CombinedGeneration5
+    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
+    typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service supply line"
     annotation (
       Placement(transformation(extent={{-310,-210},{-290,-190}}),
@@ -144,8 +144,8 @@ partial model PartialETS
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerAmb(
     redeclare package Medium = MediumSer,
     m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default))
- if typ == TypDisSys.CombinedGeneration5
+    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
+    typ == TypDisSys.CombinedGeneration5
     "Fluid connector for ambient water service return line"
     annotation (
       Placement(transformation(extent={{290,-210},{310,-190}}),
@@ -153,8 +153,8 @@ partial model PartialETS
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerHea(
     redeclare package Medium = MediumSerHea_a,
     m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSerHea_a.h_default, nominal=MediumSerHea_a.h_default))
- if typ <> TypDisSys.Cooling and
+    h_outflow(start=MediumSerHea_a.h_default, nominal=MediumSerHea_a.h_default)) if
+    typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5
     "Fluid connector for heating service supply line"
     annotation (Placement(
@@ -163,8 +163,8 @@ partial model PartialETS
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerHea(
     redeclare package Medium = MediumSer,
     m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default))
- if typ <> TypDisSys.Cooling and
+    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
+    typ <> TypDisSys.Cooling and
     typ <> TypDisSys.CombinedGeneration5
     "Fluid connector for heating service return line"
     annotation (Placement(
@@ -173,8 +173,8 @@ partial model PartialETS
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerCoo(
     redeclare package Medium = MediumSer,
     m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default))
- if typ == TypDisSys.CombinedGeneration1 or
+    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
+    typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
     typ == TypDisSys.Cooling
     "Fluid connector for cooling service supply line"
@@ -182,8 +182,8 @@ partial model PartialETS
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerCoo(
     redeclare package Medium = MediumSer,
     m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default))
- if typ == TypDisSys.CombinedGeneration1 or
+    h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default)) if
+    typ == TypDisSys.CombinedGeneration1 or
     typ == TypDisSys.CombinedGeneration2to4 or
     typ == TypDisSys.Cooling
     "Fluid connector for cooling service return line"

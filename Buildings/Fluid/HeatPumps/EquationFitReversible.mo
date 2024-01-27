@@ -117,8 +117,8 @@ protected
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(
-    message="uMod cannot be -1 if reverseCycle is false.")
-      if not per.reverseCycle
+    message="uMod cannot be -1 if reverseCycle is false.") if
+         not per.reverseCycle
     "Generate alert message if control input is not valid"
     annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
 

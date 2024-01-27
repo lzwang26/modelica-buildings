@@ -21,8 +21,8 @@ partial model PartialAirHeatMassBalance
     annotation (Placement(transformation(extent={{-280,180},{-240,220}}),
         iconTransformation(extent={{-256,192},{-240,208}})));
   Modelica.Blocks.Interfaces.RealInput QRadAbs_flow[NConExtWin](
-  each final unit="W")
-  if haveShade
+  each final unit="W") if
+     haveShade
     "Total net radiation that is absorbed by the shade (positive if absorbed)"
     annotation (Placement(transformation(extent={{-280,70},{-240,110}}),
         iconTransformation(extent={{-260,90},{-240,110}})));
@@ -36,8 +36,8 @@ partial model PartialAirHeatMassBalance
 
   Modelica.Blocks.Interfaces.RealOutput TSha[NConExtWin](
    each final unit="K",
-   each final quantity="ThermodynamicTemperature")
-   if haveShade "Shade temperature"
+   each final quantity="ThermodynamicTemperature") if
+      haveShade "Shade temperature"
     annotation (Placement(transformation(extent={{-240,50},{-260,70}})));
 
   // Fluid port
@@ -51,52 +51,52 @@ partial model PartialAirHeatMassBalance
     "Heat port to air volume"
     annotation (Placement(transformation(extent={{-250,-10},{-230,10}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt[NConExt]
-  if haveConExt
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt[NConExt] if
+     haveConExt
     "Heat port that connects to room-side surface of exterior constructions"
                               annotation (Placement(transformation(extent={{230,210},
             {250,230}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWin[NConExtWin]
-  if haveConExtWin
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWin[NConExtWin] if
+     haveConExtWin
     "Heat port that connects to room-side surface of exterior constructions that contain a window"
                               annotation (Placement(transformation(extent={{230,170},
             {250,190}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin]
-  if haveConExtWin
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
+     haveConExtWin
     "Heat port that connects to room-side surface of unshaded glass"
                               annotation (Placement(transformation(extent={{230,110},
             {250,130}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[NConExtWin]
-    if haveShade "Heat port that connects to room-side surface of shaded glass"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[NConExtWin] if
+       haveShade "Heat port that connects to room-side surface of shaded glass"
                               annotation (Placement(transformation(extent={{230,70},
             {250,90}}), iconTransformation(extent={{230,70},
             {250,90}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWinFra[NConExtWin]
-  if haveConExtWin
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWinFra[NConExtWin] if
+     haveConExtWin
     "Heat port that connects to room-side surface of window frame"
                               annotation (Placement(transformation(extent={{232,-10},
             {252,10}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_a[NConPar]
-  if haveConPar
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_a[NConPar] if
+     haveConPar
     "Heat port that connects to room-side surface a of partition constructions"
                               annotation (Placement(transformation(extent={{232,-70},
             {252,-50}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_b[NConPar]
-  if haveConPar
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_b[NConPar] if
+     haveConPar
     "Heat port that connects to room-side surface b of partition constructions"
                               annotation (Placement(transformation(extent={{232,
             -110},{252,-90}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conBou[NConBou]
-  if haveConBou
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conBou[NConBou] if
+     haveConBou
     "Heat port that connects to room-side surface of constructions that expose their other surface to the outside"
                               annotation (Placement(transformation(extent={{232,
             -170},{252,-150}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conSurBou[NSurBou]
-  if haveSurBou
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conSurBou[NSurBou] if
+     haveSurBou
     "Heat port to surfaces of models that compute the heat conduction outside of this room"
                               annotation (Placement(transformation(extent={{231,
             -230},{251,-210}})));

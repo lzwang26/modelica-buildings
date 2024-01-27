@@ -38,8 +38,8 @@ partial model BaseLoadCtrl
     final mode=mode,
     final P_nominal = P_nominal,
     final V_nominal=V_nominal/sqrt(3),
-    final initMode=initMode)
-    if plugPhase1 "Load 1"
+    final initMode=initMode) if
+       plugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   replaceable Buildings.Electrical.Interfaces.Load load2(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
@@ -48,8 +48,8 @@ partial model BaseLoadCtrl
     final mode=mode,
     final P_nominal = P_nominal,
     final V_nominal=V_nominal/sqrt(3),
-    final initMode=initMode)
-    if plugPhase2 "Load 2"
+    final initMode=initMode) if
+       plugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   replaceable Buildings.Electrical.Interfaces.Load load3(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
@@ -58,10 +58,10 @@ partial model BaseLoadCtrl
     final mode=mode,
     final P_nominal = P_nominal,
     final V_nominal=V_nominal/sqrt(3),
-    final initMode=initMode)
-    if plugPhase3 "Load 3"
+    final initMode=initMode) if
+       plugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
-  Modelica.Blocks.Interfaces.RealInput y1  if plugPhase1 and
+  Modelica.Blocks.Interfaces.RealInput y1 if  plugPhase1 and
     mode == Buildings.Electrical.Types.Load.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -122,8 +122,8 @@ partial model BaseLoadCtrl
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     vThresh=vThresh,
     tDelay=tDelay,
-    V_nominal=V_nominal/sqrt(3))
-    if plugPhase1 and voltageCtrl "Voltage controller for load 1"
+    V_nominal=V_nominal/sqrt(3)) if
+       plugPhase1 and voltageCtrl "Voltage controller for load 1"
     annotation (Placement(transformation(extent={{10,80},{30,100}})));
   Modelica.Blocks.Math.Product cmd1 if plugPhase1 and voltageCtrl
     "Block that impose voltage ctrl"
@@ -133,8 +133,8 @@ partial model BaseLoadCtrl
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     vThresh=vThresh,
     tDelay=tDelay,
-    V_nominal=V_nominal/sqrt(3))
-    if plugPhase2 and voltageCtrl "Voltage controller for load 2"
+    V_nominal=V_nominal/sqrt(3)) if
+       plugPhase2 and voltageCtrl "Voltage controller for load 2"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
   Modelica.Blocks.Math.Product cmd2 if plugPhase2 and voltageCtrl
     "Block that impose voltage ctrl"
@@ -144,8 +144,8 @@ partial model BaseLoadCtrl
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     vThresh=vThresh,
     tDelay=tDelay,
-    V_nominal=V_nominal/sqrt(3))
-    if plugPhase3 and voltageCtrl "Voltage controller for load 3"
+    V_nominal=V_nominal/sqrt(3)) if
+       plugPhase3 and voltageCtrl "Voltage controller for load 3"
     annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
   Modelica.Blocks.Math.Product cmd3 if plugPhase3 and voltageCtrl
     "Block that impose voltage ctrl"
@@ -159,12 +159,12 @@ partial model BaseLoadCtrl
     "Wye to wye grounded connection"
     annotation (Placement(transformation(extent={{-54,-20},{-34,0}})));
 protected
-  Interfaces.Adapter3to3 adaDel
-    if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
+  Interfaces.Adapter3to3 adaDel if
+       (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
     "Adapter"
     annotation (Placement(transformation(extent={{-40,-50},{-60,-30}})));
-  Interfaces.Adapter3to3 adaWye
-    if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
+  Interfaces.Adapter3to3 adaWye if
+       (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
     "Adapter"
     annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
 equation

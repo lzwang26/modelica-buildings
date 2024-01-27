@@ -1,6 +1,7 @@
 within Buildings.Obsolete.Fluid.Movers;
 package Preconfigured "Obsolete preconfigured models"
   extends Modelica.Icons.Package;
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains obsolete preconfigured mover models.

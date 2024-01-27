@@ -76,8 +76,8 @@ model Pump "Container class for circulating pumps"
     "Pressure rise";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y(
-    final unit="1")
-    if typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput
+    final unit="1") if
+       typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.VariableInput
     "Analog control signal"
     annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
@@ -86,8 +86,8 @@ model Pump "Container class for circulating pumps"
             20}},
         rotation=-90,
         origin={0,120})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1 if
+       typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Start signal"
     annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
@@ -109,8 +109,8 @@ model Pump "Container class for circulating pumps"
     annotation (Placement(transformation(extent={{100,70},{140,110}}),
         iconTransformation(extent={{100,70},{140,110}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if
+       typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
@@ -131,8 +131,8 @@ model Pump "Container class for circulating pumps"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final per=per)
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+    final per=per) if
+       typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Head
     "Pump with ideally controlled head as input signal"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
@@ -152,8 +152,8 @@ model Pump "Container class for circulating pumps"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final per=per)
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+    final per=per) if
+       typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Speed
     "Pump with ideally controlled normalized speed as input"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
@@ -174,8 +174,8 @@ model Pump "Container class for circulating pumps"
     final use_inputFilter=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final per=per)
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+    final per=per) if
+       typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.MassFlowRate
     "Pump with ideally controlled mass flow rate as input"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
@@ -185,22 +185,22 @@ model Pump "Container class for circulating pumps"
     "Volume flow rate"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaHea(
-    final k=dp_nominal)
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+    final k=dp_nominal) if
+       typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Scale control input to design head" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,30})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaSpe(
-    final k=per.speed_nominal)
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+    final k=per.speed_nominal) if
+       typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Scale control input to design speed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,30})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaFlo(
-    final k=m_flow_nominal)
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+    final k=m_flow_nominal) if
+       typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Scale control input to design flow rate" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -209,20 +209,20 @@ model Pump "Container class for circulating pumps"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0.0)
                "Zero"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+  Buildings.Controls.OBC.CDL.Reals.Switch swi if
+       typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Switch on/off"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,60})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant One(final k=1.0)
-    if typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant One(final k=1.0) if
+       typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput
     "one"
     annotation (Placement(transformation(extent={{60,70},{40,90}})));
   FixedResistances.LosslessPipe noPum(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal)
-    if typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+    final m_flow_nominal=m_flow_nominal) if
+       typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Direct fluid pass-through in case of no pump" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},

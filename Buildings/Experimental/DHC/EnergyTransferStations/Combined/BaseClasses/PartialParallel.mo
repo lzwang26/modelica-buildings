@@ -106,7 +106,8 @@ model PartialParallel
     annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),iconTransformation(extent={{-380,-140},{-300,-60}})));
   // COMPONENTS
   replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.BaseClasses.PartialSupervisory conSup
-    constrainedby Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.BaseClasses.PartialSupervisory(
+    constrainedby
+    Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.BaseClasses.PartialSupervisory(
       final nSouAmb=nSouAmb)
     "Supervisory controller"
     annotation (Placement(transformation(extent={{-260,12},{-240,32}})));

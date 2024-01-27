@@ -13,8 +13,8 @@ model InfraredRadiationExchange
     annotation (Evaluate=true, Dialog(tab=
           "Experimental (may be changed in future releases)"));
 
-  HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin]
- if haveConExtWin
+  HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin] if
+    haveConExtWin
     "Incoming radiosity that connects to non-frame part of the window"
     annotation (Placement(transformation(extent={{260,70},{240,90}})));
   HeatTransfer.Interfaces.RadiosityOutflow JOutConExtWin[NConExtWin]

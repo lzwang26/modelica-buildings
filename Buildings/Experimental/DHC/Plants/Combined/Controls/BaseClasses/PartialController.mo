@@ -503,12 +503,12 @@ block PartialController "Interface class for plant controller"
     "TES tank temperature" annotation (Placement(
         transformation(extent={{-300,40},{-260,80}}),     iconTransformation(
           extent={{-260,20},{-220,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatHexCoo_flow(final unit
-      ="kg/s") "CW mass flow rate through secondary (plant) side of HX"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatHexCoo_flow(final unit=
+       "kg/s") "CW mass flow rate through secondary (plant) side of HX"
     annotation (Placement(transformation(extent={{-300,-300},{-260,-260}}),
         iconTransformation(extent={{-260,-280},{-220,-240}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatOutTan_flow(final unit
-      ="kg/s")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatOutTan_flow(final unit=
+       "kg/s")
     "Mass flow rate out of lower port of TES tank (>0 when charging)"
     annotation (Placement(transformation(extent={{-300,-320},{-260,-280}}),
         iconTransformation(extent={{-260,-300},{-220,-260}})));
@@ -615,8 +615,8 @@ block PartialController "Interface class for plant controller"
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,0})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConRet(final unit
-      ="K", displayUnit="degC") "Condenser loop CW return temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConRet(final unit=
+       "K", displayUnit="degC") "Condenser loop CW return temperature"
     annotation (Placement(transformation(extent={{-300,200},{-260,240}}),
         iconTransformation(extent={{-260,180},{-220,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConLvgChi[nChi](each final

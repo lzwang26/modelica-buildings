@@ -37,8 +37,8 @@ model PartialHexElement "Element of a heat exchanger 2"
     C=C,
     T(stateSelect=StateSelect.always,
       fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-    der_T( fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
-    if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    der_T( fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
+       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mass of metal"
     annotation (Placement(transformation(
         origin={-82,0},

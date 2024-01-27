@@ -156,21 +156,22 @@ model BuildingTimeSeries
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTSet(
     k=293.15,
     y(final unit="K",
-      displayUnit="degC"))
-    if have_heaWat
+      displayUnit="degC")) if
+       have_heaWat
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTSet(
     k=297.15,
     y(final unit="K",
-      displayUnit="degC"))
-    if have_chiWat
+      displayUnit="degC")) if
+       have_chiWat
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
   replaceable Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
     final k=k,
     final Ti=Ti) if have_heaWat
-  constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
+  constrainedby
+    Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
     final allowFlowReversal=allowFlowReversal,
@@ -211,8 +212,8 @@ model BuildingTimeSeries
     terUniCoo(
     final k=k,
     final Ti=Ti,
-    final QEnv_flow_nominal=if have_heaWat then QHea_flow_nominal/facMulHea else -QCoo_flow_nominal/facMulCoo)
-      if have_chiWat
+    final QEnv_flow_nominal=if have_heaWat then QHea_flow_nominal/facMulHea else -QCoo_flow_nominal/facMulCoo) if
+         have_chiWat
     constrainedby
     Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare final package Medium1 = Medium,

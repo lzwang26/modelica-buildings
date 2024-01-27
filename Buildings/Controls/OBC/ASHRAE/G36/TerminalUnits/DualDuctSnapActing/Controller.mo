@@ -332,13 +332,13 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Low airflow alarms"
     annotation (Placement(transformation(extent={{240,-150},{280,-110}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFloSenAla
-    if not have_duaSen
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFloSenAla if
+       not have_duaSen
     "Airflow sensor calibration alarm"
     annotation (Placement(transformation(extent={{240,-180},{280,-140}}),
         iconTransformation(extent={{100,-120},{140,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLeaDamAla
-    if not have_duaSen
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLeaDamAla if
+       not have_duaSen
     "Leaking dampers alarm, could be heating or cooling damper"
     annotation (Placement(transformation(extent={{240,-210},{280,-170}}),
         iconTransformation(extent={{100,-140},{140,-100}})));

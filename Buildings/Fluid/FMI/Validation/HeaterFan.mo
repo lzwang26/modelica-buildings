@@ -6,8 +6,8 @@ model HeaterFan
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/
       10 "Nominal mass flow rate";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
-     = 2000 "Pressure";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=
+       2000 "Pressure";
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=1000
     "Heat flow rate at u=1, positive for heating";
 
@@ -64,12 +64,12 @@ model HeaterFan
     "Moisture mass fraction for back flow"
     annotation (Placement(transformation(extent={{120,-6},{100,14}})));
 
-  Modelica.Blocks.Sources.Constant CBac[Medium.nC](each k=0.01)
-  if Medium.nC > 0 "Trace substances for back flow"
+  Modelica.Blocks.Sources.Constant CBac[Medium.nC](each k=0.01) if
+     Medium.nC > 0 "Trace substances for back flow"
     annotation (Placement(transformation(extent={{120,-60},{100,-40}})));
 
-  Modelica.Blocks.Sources.Constant C[Medium.nC](each k=0.01)
-  if Medium.nC > 0 "Trace substances for forward flow"
+  Modelica.Blocks.Sources.Constant C[Medium.nC](each k=0.01) if
+     Medium.nC > 0 "Trace substances for forward flow"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 equation
   connect(uHea.y, hea.u) annotation (Line(

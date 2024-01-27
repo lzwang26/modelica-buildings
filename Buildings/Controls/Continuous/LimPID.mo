@@ -66,15 +66,15 @@ block LimPID
     annotation(Dialog(enable=reset == Buildings.Types.Reset.Parameter,
                       group="Integrator reset"));
 
-  Modelica.Blocks.Interfaces.BooleanInput trigger
-    if reset <> Buildings.Types.Reset.Disabled
+  Modelica.Blocks.Interfaces.BooleanInput trigger if
+       reset <> Buildings.Types.Reset.Disabled
     "Resets the controller output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120})));
 
-  Modelica.Blocks.Interfaces.RealInput y_reset_in
-    if reset == Buildings.Types.Reset.Input
+  Modelica.Blocks.Interfaces.RealInput y_reset_in if
+       reset == Buildings.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = Buildings.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
@@ -89,7 +89,6 @@ block LimPID
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Utilities.Math.IntegratorWithReset I(
     final reset=if reset == Buildings.Types.Reset.Disabled then reset else Buildings.Types.Reset.Input,
-
     final y_reset=y_reset,
     final k=unitTime/Ti,
     final y_start=xi_start,
@@ -106,8 +105,8 @@ block LimPID
     final initType=if initType == Modelica.Blocks.Types.Init.SteadyState or
         initType == Modelica.Blocks.Types.Init.InitialOutput then Modelica.Blocks.Types.Init.SteadyState
          else if initType == Modelica.Blocks.Types.Init.InitialState then
-        Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit)
-    if with_D "Derivative term"
+        Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit) if
+       with_D "Derivative term"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Modelica.Blocks.Math.Add3 addPID(
@@ -179,8 +178,8 @@ protected
 
 
   Modelica.Blocks.Sources.RealExpression intRes(
-    final y=y_reset_internal/k - addPID.u1 - addPID.u2)
-    if reset <> Buildings.Types.Reset.Disabled
+    final y=y_reset_internal/k - addPID.u1 - addPID.u2) if
+       reset <> Buildings.Types.Reset.Disabled
     "Signal source for integrator reset"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 

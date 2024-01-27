@@ -66,13 +66,13 @@ model CFDFluidInterface
   Modelica.Blocks.Interfaces.RealOutput Xi_inflow[nPorts*Medium.nXi](
   each min=0,
   each max=1,
-  each unit="1")
-  if Medium.nXi > 0 "Species concentration if m_flow >= 0"
+  each unit="1") if
+     Medium.nXi > 0 "Species concentration if m_flow >= 0"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   Modelica.Blocks.Interfaces.RealOutput C_inflow[nPorts*Medium.nC](
-  each min=0)
-  if Medium.nC > 0 "Trace substances if m_flow >= 0"
+  each min=0) if
+     Medium.nC > 0 "Trace substances if m_flow >= 0"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 
   // Fluid port

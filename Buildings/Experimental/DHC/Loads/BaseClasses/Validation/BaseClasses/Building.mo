@@ -35,17 +35,17 @@ model Building
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final Q_flow_nominal=-QChiWat_flow_nominal,
     final m_flow_nominal=m_flow_nominal,
-    dp_nominal=0)  if have_chiWat
+    dp_nominal=0) if  have_chiWat
     "Cooling load"
     annotation (Placement(transformation(extent={{-10,-270},{10,-250}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(k=1) "One"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    k=-1)  if have_heaWat
+    k=-1) if  have_heaWat
     "Opposite"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
-    k=-1)  if have_chiWat
+    k=-1) if  have_chiWat
     "Opposite"
     annotation (Placement(transformation(extent={{30,-250},{50,-230}})));
 equation

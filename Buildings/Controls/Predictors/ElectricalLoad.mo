@@ -39,14 +39,14 @@ block ElectricalLoad "Block that predicts an electrical load"
     annotation (Dialog(enable=use_dayOfAdj,
                 group="Day of adjustment"));
 
-  Modelica.Blocks.Interfaces.RealInput TOut(unit="K")
-  if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+  Modelica.Blocks.Interfaces.RealInput TOut(unit="K") if
+     (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K")
-    if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K") if
+       (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Future outside air temperatures"
     annotation (Placement(
        transformation(extent={{-140,-120},{-100,-80}}),

@@ -113,8 +113,8 @@ model ThermalElectricalFollowing "CHP model that can be thermal or electrical lo
     final dPEleMax=per.dPEleMax)
     "Power after applied constraints"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per)
-    if per.compute_coolingWaterFlowRate
+  Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per) if
+       per.compute_coolingWaterFlowRate
     "Internal controller for water mass flow rate"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(

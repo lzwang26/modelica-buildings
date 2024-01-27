@@ -104,8 +104,8 @@ partial model PartialOutdoorReliefReturnSection
   Modelica.Fluid.Interfaces.FluidPort_b port_Rel(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.MixedAirNoRelief
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.MixedAirNoRelief
     "Relief (exhaust) air"
     annotation (Placement(transformation(
       extent={{-190,70},{-170,90}}),iconTransformation(extent={{-810,590},{-790,

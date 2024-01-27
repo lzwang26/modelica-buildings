@@ -55,8 +55,8 @@ partial model PartialFan "Interface class for fan"
   final parameter Modelica.Units.SI.PressureDifference dp_nominal=dat.dp_nominal
     "Total pressure rise";
 
-  Buildings.Templates.Components.Interfaces.Bus bus
-    if typ <> Buildings.Templates.Components.Types.Fan.None
+  Buildings.Templates.Components.Interfaces.Bus bus if
+       typ <> Buildings.Templates.Components.Types.Fan.None
     "Control bus"
     annotation (Placement(
       transformation(

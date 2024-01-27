@@ -27,8 +27,8 @@ model ExteriorBoundaryConditionsWithWindow
 
   Buildings.HeatTransfer.Windows.FixedShade sha[nCon](
     final conPar=conPar,
-    azi=conPar.azi)
-    if haveOverhangOrSideFins "Shade due to overhang or side fins"
+    azi=conPar.azi) if
+       haveOverhangOrSideFins "Shade due to overhang or side fins"
     annotation (Placement(transformation(extent={{140,100},{120,120}})));
 
   Modelica.Blocks.Interfaces.RealInput uSha[nCon](
@@ -73,13 +73,13 @@ model ExteriorBoundaryConditionsWithWindow
     "Incoming radiosity that connects to unshaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-320,10},{-300,30}}),
         iconTransformation(extent={{-320,10},{-300,30}})));
-  HeatTransfer.Interfaces.RadiosityOutflow JOutSha[nCon]
-    if haveShade
+  HeatTransfer.Interfaces.RadiosityOutflow JOutSha[nCon] if
+       haveShade
     "Outgoing radiosity that connects to shaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-300,-210},{-320,-190}}),
         iconTransformation(extent={{-300,-210},{-320,-190}})));
-  HeatTransfer.Interfaces.RadiosityInflow JInSha[nCon]
-    if haveShade
+  HeatTransfer.Interfaces.RadiosityInflow JInSha[nCon] if
+       haveShade
     "Incoming radiosity that connects to shaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-320,-170},{-300,-150}}),
         iconTransformation(extent={{-320,-170},{-300,-150}})));
@@ -88,8 +88,8 @@ model ExteriorBoundaryConditionsWithWindow
                                                     annotation (Placement(transformation(extent={{-310,
             -90},{-290,-70}}), iconTransformation(extent={{-310,-90},{-290,
             -70}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[nCon]
-    if haveShade "Heat port at shaded glass of exterior-facing surface"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[nCon] if
+       haveShade "Heat port at shaded glass of exterior-facing surface"
     annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}),
         iconTransformation(extent={{-310,-130},{-290,-110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra[nCon](

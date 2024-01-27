@@ -44,16 +44,16 @@ block PIDWithInputGains
   Buildings.Controls.OBC.CDL.Interfaces.RealInput Ti(
     quantity="Time",
     unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    if with_I
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps) if
+       with_I
     "Connector for time constant signal for the integral term"
     annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
     iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput Td(
     quantity="Time",
     unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    if with_D
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps) if
+       with_D
     "Connector for time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{-260,40},{-220,80}}),   iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
@@ -107,8 +107,8 @@ block PIDWithInputGains
     annotation (Placement(transformation(extent={{-200,150},{-180,170}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrkTd(
     t=1E-6,
-    h=1E-6/2)
-    if with_D
+    h=1E-6/2) if
+       with_D
     "Check if k*Td is larger than 0"
     annotation (Placement(transformation(extent={{140,160},{160,180}})));
 
@@ -150,8 +150,8 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Subtract antWinErr if with_I
     "Error for anti-windup compensation"
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter antWinGai1(k=1/Ni)
-    if with_I "Gain for anti-windup compensation without the proportional gain"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter antWinGai1(k=1/Ni) if
+       with_I "Gain for anti-windup compensation without the proportional gain"
     annotation (Placement(transformation(extent={{180,-30},{160,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yResSig(
     final k=y_reset) if with_I
@@ -167,8 +167,8 @@ protected
     message="LimPID: Limits must be yMin < yMax") "Assertion on yMin and yMax"
     annotation (Placement(transformation(extent={{180,120},{200,140}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMeskTd(
-    message="LimPIDWithInputGains: Limits must be k*Td > 0")
-    if with_D
+    message="LimPIDWithInputGains: Limits must be k*Td > 0") if
+       with_D
     "Assertion on k and Td"
     annotation (Placement(transformation(extent={{180,160},{200,180}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiT(final k=1/Nd) if with_D

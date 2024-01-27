@@ -239,8 +239,8 @@ model PartialHydronicConfiguration
         transformation(extent={{-140,60},{-100,100}}), iconTransformation(
           extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal_actual(
-    final unit="1")
-    if typVal <> Buildings.Fluid.HydronicConfigurations.Types.Valve.None
+    final unit="1") if
+       typVal <> Buildings.Fluid.HydronicConfigurations.Types.Valve.None
     "Valve position feedback"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
                          iconTransformation(extent={{100,-20},{140,20}})));
@@ -274,8 +274,8 @@ model PartialHydronicConfiguration
     else
       Medium.setState_phX(port_a1.p,
                           inStream(port_a1.h_outflow),
-                          inStream(port_a1.Xi_outflow))
-      if show_T "Medium properties in port_a1";
+                          inStream(port_a1.Xi_outflow)) if
+         show_T "Medium properties in port_a1";
   Medium.ThermodynamicState sta_b1=
     if allowFlowReversal then
       Medium.setState_phX(port_b1.p,
@@ -284,8 +284,8 @@ model PartialHydronicConfiguration
     else
       Medium.setState_phX(port_b1.p,
                           port_b1.h_outflow,
-                          port_b1.Xi_outflow)
-       if show_T "Medium properties in port_b1";
+                          port_b1.Xi_outflow) if
+          show_T "Medium properties in port_b1";
 
   Medium.ThermodynamicState sta_a2=
     if allowFlowReversal then
@@ -295,8 +295,8 @@ model PartialHydronicConfiguration
     else
       Medium.setState_phX(port_a2.p,
                           inStream(port_a2.h_outflow),
-                          inStream(port_a2.Xi_outflow))
-      if show_T "Medium properties in port_a2";
+                          inStream(port_a2.Xi_outflow)) if
+         show_T "Medium properties in port_a2";
   Medium.ThermodynamicState sta_b2=
     if allowFlowReversal then
       Medium.setState_phX(port_b2.p,
@@ -305,8 +305,8 @@ model PartialHydronicConfiguration
     else
       Medium.setState_phX(port_b2.p,
                           port_b2.h_outflow,
-                          port_b2.Xi_outflow)
-       if show_T "Medium properties in port_b2";
+                          port_b2.Xi_outflow) if
+          show_T "Medium properties in port_b2";
 protected
   final parameter Boolean have_yPum=
     typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None and

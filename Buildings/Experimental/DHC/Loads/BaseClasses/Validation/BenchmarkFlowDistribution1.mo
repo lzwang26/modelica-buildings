@@ -36,8 +36,8 @@ model BenchmarkFlowDistribution1
     annotation (Dialog(group="Scaling"));
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=sum(ter.mHeaWat_flow_nominal)
       *facMul "Nominal mass flow rate in the distribution line";
-  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
-     = Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
+  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
+       Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
     "#Peak space heating load", filNam=Modelica.Utilities.Files.loadResource(
     filNam))/facMul "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));

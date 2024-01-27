@@ -293,8 +293,8 @@ equation
   connect(ideUse1.yVal_actual, mulMax_yVal_actual.u[1]) annotation (Line(points={{141,158},
           {160,158},{160,-210},{180,-210},{180,-210.667},{198,-210.667}},
         color={0,0,127}));
-  connect(ideUse2.yVal_actual, mulMax_yVal_actual.u[2]) annotation (Line(points
-        ={{141,-2},{160,-2},{160,-210},{198,-210}}, color={0,0,127}));
+  connect(ideUse2.yVal_actual, mulMax_yVal_actual.u[2]) annotation (Line(points=
+         {{141,-2},{160,-2},{160,-210},{198,-210}}, color={0,0,127}));
   connect(ideUse3.yVal_actual, mulMax_yVal_actual.u[3]) annotation (Line(points={{141,
           -162},{160,-162},{160,-210},{180,-210},{180,-209.333},{198,-209.333}},
         color={0,0,127}));

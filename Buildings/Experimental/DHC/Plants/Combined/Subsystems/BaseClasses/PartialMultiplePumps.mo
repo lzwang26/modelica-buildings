@@ -117,8 +117,8 @@ partial model PartialMultiplePumps
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,40})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cst
-               if not have_var "Constant setpoint"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cst if
+                  not have_var "Constant setpoint"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isOpe(t=1E-2, h=0.5E-2)
     "Evaluate if pump is operating"

@@ -219,8 +219,8 @@ protected
       redeclare each final package Medium = Medium1,
       each final nPipPar = nPipPar,
       each final mStart_flow_a=mStart_flow_a1,
-      each allowFlowReversal=allowFlowReversal1)
-   if nReg > 1 "Pipe header to redirect flow into next register"
+      each allowFlowReversal=allowFlowReversal1) if
+      nReg > 1 "Pipe header to redirect flow into next register"
     annotation (Placement(transformation(
         origin={50,6},
         extent={{-10,-10},{10,10}},
@@ -229,8 +229,8 @@ protected
       redeclare each final package Medium = Medium1,
       each final nPipPar = nPipPar,
       each final mStart_flow_a=mStart_flow_a1,
-      each allowFlowReversal=allowFlowReversal1)
-   if nReg > 2 "Pipe header to redirect flow into next register"
+      each allowFlowReversal=allowFlowReversal1) if
+      nReg > 2 "Pipe header to redirect flow into next register"
       annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
   Modelica.Blocks.Math.Gain gai_1(k=1/nReg)
     "Gain medium-side 1 to take discretization into account"

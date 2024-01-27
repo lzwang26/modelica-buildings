@@ -173,8 +173,8 @@ block Alarms "Zone level alarms"
     "Check if it has been in unoccupied mode for long time and CO2 concentration exceeds threshold"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert lowTemAla4(
-    final message="Warning: the zone CO2 concentration exceeds 600 ppm in unoccupied mode. The CO2 sensor may be out of calibration.")
-    if have_CO2Sen "Level 3 CO2 alarm"
+    final message="Warning: the zone CO2 concentration exceeds 600 ppm in unoccupied mode. The CO2 sensor may be out of calibration.") if
+       have_CO2Sen "Level 3 CO2 alarm"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 if have_CO2Sen "Logical not"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
@@ -197,8 +197,8 @@ block Alarms "Zone level alarms"
     "Level 2 CO2 concentration alarm"
     annotation (Placement(transformation(extent={{80,-210},{100,-190}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert lowTemAla5(
-    final message="Warning: the zone CO2 concentration exceeds setpoint plus 10%.")
-    if have_CO2Sen "Level 2 CO2 alarm"
+    final message="Warning: the zone CO2 concentration exceeds setpoint plus 10%.") if
+       have_CO2Sen "Level 2 CO2 alarm"
     annotation (Placement(transformation(extent={{200,-230},{220,-210}})));
   Buildings.Controls.OBC.CDL.Integers.Add temAla
     "Zone temperature alarm"
@@ -246,8 +246,8 @@ block Alarms "Zone level alarms"
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant unoMod(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied)
-    if have_CO2Sen "Unoccupied mode"
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied) if
+       have_CO2Sen "Unoccupied mode"
     annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay twoHou(
     final delayTime=modChe) if have_CO2Sen

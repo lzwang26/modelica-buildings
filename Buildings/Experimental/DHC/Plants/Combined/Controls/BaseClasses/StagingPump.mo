@@ -21,8 +21,8 @@ block StagingPump "Pump staging"
     "Lead pump Enable signal (e.g. based on isolation valve opening command)"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow(final unit="kg/s")
-    if have_flowCriterion
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow(final unit="kg/s") if
+       have_flowCriterion
     "Mass flow rate as measured by the loop flow meter"
     annotation (Placement(
         transformation(extent={{-240,60},{-200,100}}),iconTransformation(extent={{-140,
@@ -47,27 +47,27 @@ block StagingPump "Pump staging"
     final k=1/m_flow_nominal) if have_flowCriterion
     "Ratio of current flow rate to design value"
     annotation (Placement(transformation(extent={{-148,70},{-128,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater cmp2(h=1e-3)
-    if have_flowCriterion
+  Buildings.Controls.OBC.CDL.Reals.Greater cmp2(h=1e-3) if
+       have_flowCriterion
     "Compare"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addOff(p=-0.03)
-    if have_flowCriterion
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addOff(p=-0.03) if
+       have_flowCriterion
     "Add offset"
     annotation (Placement(transformation(extent={{-80,130},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timFlo(t=10*60)
-    if have_flowCriterion
+  Buildings.Controls.OBC.CDL.Logical.Timer timFlo(t=10*60) if
+       have_flowCriterion
     "Check if true for a given time"
     annotation (Placement(transformation(extent={{-72,90},{-52,110}})));
   Buildings.Controls.OBC.CDL.Logical.Or up
     "Check if flow or speed criterion passed for staging up"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Less cmp3(h=1e-3)
-    if have_flowCriterion
+  Buildings.Controls.OBC.CDL.Reals.Less cmp3(h=1e-3) if
+       have_flowCriterion
     "Compare"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timFlo1(t=10*60)
-    if have_flowCriterion
+  Buildings.Controls.OBC.CDL.Logical.Timer timFlo1(t=10*60) if
+       have_flowCriterion
     "Check if true for a given time"
     annotation (Placement(transformation(extent={{-72,50},{-52,70}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold  cmp4(final t=yDow, h=1e-3)
@@ -89,8 +89,8 @@ block StagingPump "Pump staging"
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep(
     final nout=nPum) "Replicate"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-  StageIndex staLag(final nSta=max(1, nPum - 1), tSta=30)
-    if nPum>1
+  StageIndex staLag(final nSta=max(1, nPum - 1), tSta=30) if
+       nPum>1
     "Stage lag pumps (minimum runtime allowing for pump start time)"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal cvtInt "Convert"
@@ -106,12 +106,12 @@ block StagingPump "Pump staging"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Integers.Add numPre "Number of pumps enabled"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zer(final k=0)
-    if nPum==1
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zer(final k=0) if
+       nPum==1
     "Constant"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false)
-    if not have_flowCriterion
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false) if
+       not have_flowCriterion
     "Constant"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nPumEna

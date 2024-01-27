@@ -21,8 +21,8 @@ model SpeedControlled_y
     annotation(Dialog(tab="Dynamics", group="Filtered speed", enable=use_inputFilter));
 
   Modelica.Blocks.Interfaces.RealInput y(
-    unit="1")
- if inputType == Buildings.Fluid.Types.InputType.Continuous
+    unit="1") if
+    inputType == Buildings.Fluid.Types.InputType.Continuous
     "Constant normalized rotational speed"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

@@ -60,8 +60,8 @@ model ExteriorHeatTransfer
   Interfaces.RadiosityInflow JInSha if haveShade
     "Incoming radiosity that connects to shaded part of glass"
     annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
-  Modelica.Blocks.Interfaces.RealInput QSolAbs_flow(unit="W", quantity="Power")
-    if haveShade "Solar radiation absorbed by shade"
+  Modelica.Blocks.Interfaces.RealInput QSolAbs_flow(unit="W", quantity="Power") if
+       haveShade "Solar radiation absorbed by shade"
     annotation (Placement(transformation(
         origin={0,-120},
         extent={{-20,-20},{20,20}},
@@ -77,15 +77,15 @@ model ExteriorHeatTransfer
     final absIR_air=if thisSideHasShade then absIRSha_air else 0,
     final absIR_glass=if thisSideHasShade then absIRSha_glass else 0,
     final tauIR_air=if thisSideHasShade then tauIRSha_air else 1,
-    final tauIR_glass=if thisSideHasShade then tauIRSha_glass else 1)
-    if haveShade "Radiative heat balance of shade"
+    final tauIR_glass=if thisSideHasShade then tauIRSha_glass else 1) if
+       haveShade "Radiative heat balance of shade"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 protected
   Radiosity.RadiositySplitter radShaOut "Radiosity that strikes shading device"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   BaseClasses.ShadeConvection shaCon(final thisSideHasShade=thisSideHasShade,
-      final A=AGla)
-    if haveShade "Convective heat balance of shade"
+      final A=AGla) if
+       haveShade "Convective heat balance of shade"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 public
   Modelica.Thermal.HeatTransfer.Components.Convection conFra

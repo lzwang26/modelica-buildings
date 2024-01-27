@@ -60,8 +60,8 @@ model WaterBasedHeating "Hot water coil"
 
   Buildings.Templates.Components.Routing.PassThroughFluid pas(
     redeclare final package Medium = MediumHeaWat,
-    final allowFlowReversal=allowFlowReversalLiq)
-    if typVal <> Buildings.Templates.Components.Types.Valve.ThreeWayModulating
+    final allowFlowReversal=allowFlowReversalLiq) if
+       typVal <> Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Direct pass through" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -80,8 +80,8 @@ model WaterBasedHeating "Hot water coil"
       else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else Modelica.Fluid.Types.PortFlowDirection.Leaving)
-    if typVal==Buildings.Templates.Components.Types.Valve.ThreeWayModulating
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving) if
+       typVal==Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Junction"
     annotation (
       Placement(transformation(

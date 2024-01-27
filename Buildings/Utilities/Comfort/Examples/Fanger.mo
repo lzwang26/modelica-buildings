@@ -25,8 +25,7 @@ model Fanger "Test of Comfort Model"
   Modelica.Blocks.Sources.Constant pAtm(k=101325)
     annotation (Placement(transformation(extent={{0,68},{ 20,88}})));
   Modelica.Blocks.Sources.Constant phi(k=0.5) "Relative humidity"
-    annotation (Placement(transformation(extent={{-20,
-            30},{0,50}})));
+    annotation (Placement(transformation(extent={{-18,30},{2,50}})));
   Buildings.Utilities.Comfort.Fanger theComFixPar(
     use_vAir_in=false,
     use_M_in=false,
@@ -61,7 +60,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(phi.y, theCom.phi) annotation (Line(
-      points={{1,40},{60,40},{60,-28},{69,-28}},
+      points={{3,40},{60,40},{60,-28},{69,-28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRad.y, theComFixPar.TRad)
@@ -76,7 +75,7 @@ equation
       smooth=Smooth.None));
   connect(phi.y, theComFixPar.phi)
                               annotation (Line(
-      points={{1,40},{60,40},{60,6},{69,6}},
+      points={{3,40},{60,40},{60,6},{69,6}},
       color={0,0,127},
       smooth=Smooth.None));
  annotation (experiment(Tolerance=1e-6, StopTime=1.0),

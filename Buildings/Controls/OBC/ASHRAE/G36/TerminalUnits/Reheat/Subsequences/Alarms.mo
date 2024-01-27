@@ -127,8 +127,8 @@ block Alarms "Generate alarms of terminal unit with reheat"
     "Leaking valve alarm"
     annotation (Placement(transformation(extent={{240,-130},{280,-90}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla if
+       have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{240,-320},{280,-280}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
@@ -299,8 +299,8 @@ block Alarms "Generate alarms of terminal unit with reheat"
     "Logical not"
     annotation (Placement(transformation(extent={{40,-290},{60,-270}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(
-    final message="Warning: discharge air temperature is 17 degC less than the setpoint.")
-    if have_hotWatCoi
+    final message="Warning: discharge air temperature is 17 degC less than the setpoint.") if
+       have_hotWatCoi
     "Level 2 low discharge air temperature alarm"
     annotation (Placement(transformation(extent={{80,-290},{100,-270}})));
   Buildings.Controls.OBC.CDL.Integers.Switch lowTemAla if have_hotWatCoi
@@ -324,20 +324,20 @@ block Alarms "Generate alarms of terminal unit with reheat"
     "Logical not"
     annotation (Placement(transformation(extent={{60,-360},{80,-340}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes5(
-    final message="Warning: discharge air temperature is 8 degC less than the setpoint.")
-    if have_hotWatCoi
+    final message="Warning: discharge air temperature is 8 degC less than the setpoint.") if
+       have_hotWatCoi
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,-360},{120,-340}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conInt3(
     final k=hotWatRes) if have_hotWatCoi
     "Importance multiplier for hot water reset control"
     annotation (Placement(transformation(extent={{-120,-390},{-100,-370}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2 if
+       have_hotWatCoi
     "Check if the multiplier is greater than zero"
     annotation (Placement(transformation(extent={{-80,-390},{-60,-370}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt5
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt5 if
+       have_hotWatCoi
     "Suppress the alarm when multiplier is zero"
     annotation (Placement(transformation(extent={{140,-390},{160,-370}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply proInt1 if have_hotWatCoi

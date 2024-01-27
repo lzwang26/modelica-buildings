@@ -4,7 +4,8 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     final have_eleCoo=true,
     final have_fan=false,
     redeclare replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.Supervisory conSup
-      constrainedby Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.Supervisory(
+      constrainedby
+      Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.Supervisory(
         final controllerType=controllerType,
         final kHot=kHot,
         final kCol=kCol,
@@ -137,20 +138,20 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     min=0)=0.1
     "Gain of controller on cold side"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.Units.SI.Time TiHot(min=Buildings.Controls.OBC.CDL.Constants.small)
-     = 300 "Time constant of integrator block on hot side" annotation (Dialog(
+  parameter Modelica.Units.SI.Time TiHot(min=Buildings.Controls.OBC.CDL.Constants.small)=
+       300 "Time constant of integrator block on hot side" annotation (Dialog(
         group="Supervisory controller", enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.Units.SI.Time TiCol(min=Buildings.Controls.OBC.CDL.Constants.small)
-     = 120 "Time constant of integrator block on cold side" annotation (Dialog(
+  parameter Modelica.Units.SI.Time TiCol(min=Buildings.Controls.OBC.CDL.Constants.small)=
+       120 "Time constant of integrator block on cold side" annotation (Dialog(
         group="Supervisory controller", enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.Units.SI.Temperature THeaWatSupSetMin(displayUnit="degC")
-     = datChi.TConEntMin + 5
+  parameter Modelica.Units.SI.Temperature THeaWatSupSetMin(displayUnit="degC")=
+       datChi.TConEntMin + 5
     "Minimum value of heating water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.Units.SI.Temperature TChiWatSupSetMin(displayUnit="degC")
-     = datChi.TEvaLvgMin
+  parameter Modelica.Units.SI.Temperature TChiWatSupSetMin(displayUnit="degC")=
+       datChi.TEvaLvgMin
     "Minimum value of chilled water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
 

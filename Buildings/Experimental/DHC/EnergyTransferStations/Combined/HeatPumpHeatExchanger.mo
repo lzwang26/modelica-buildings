@@ -350,7 +350,7 @@ model HeatPumpHeatExchanger "Model of a substation with heat pump and compressor
     annotation (Placement(transformation(extent={{-10,24},{10,44}})));
   Fluid.Sources.Boundary_pT sinSHW(
     redeclare final package Medium = MediumBui,
-    nPorts=1)  if have_hotWat
+    nPorts=1) if  have_hotWat
     "Sink for service hot water" annotation (Placement(
       transformation(
       extent={{10,-10},{-10,10}},
@@ -450,15 +450,15 @@ model HeatPumpHeatExchanger "Model of a substation with heat pump and compressor
   Buildings.Controls.OBC.CDL.Reals.Max priOve if have_varFloCon
     "Ensure primary overflow"
     annotation (Placement(transformation(extent={{-60,270},{-40,290}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply loaHHW
-    if have_varFloEva or have_varFloCon "Heating load"
+  Buildings.Controls.OBC.CDL.Reals.Multiply loaHHW if
+       have_varFloEva or have_varFloCon "Heating load"
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSub(final k=-1)
-    if have_hotWat "Convert to subtraction"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSub(final k=-1) if
+       have_hotWat "Convert to subtraction"
     annotation (Placement(transformation(extent={{-80,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSub1(final k=-1)
-    if have_hotWat "Convert to subtraction"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSub1(final k=-1) if
+       have_hotWat "Convert to subtraction"
     annotation (Placement(transformation(extent={{-80,216},{-100,236}})));
 equation
   connect(TChiWatSupSet, conTChiWat.u_s) annotation (Line(points={{-320,0},{-200,

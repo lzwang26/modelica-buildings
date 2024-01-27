@@ -71,8 +71,8 @@ model ParallelCircuitsSlab
     else
       Medium.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
-                          noEvent(actualStream(port_a.Xi_outflow)))
-      if show_T "Medium properties in port_a";
+                          noEvent(actualStream(port_a.Xi_outflow))) if
+         show_T "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b=if homotopyInitialization then
       Medium.setState_phX(port_b.p,
@@ -83,8 +83,8 @@ model ParallelCircuitsSlab
     else
       Medium.setState_phX(port_b.p,
                           noEvent(actualStream(port_b.h_outflow)),
-                          noEvent(actualStream(port_b.Xi_outflow)))
-       if show_T "Medium properties in port_b";
+                          noEvent(actualStream(port_b.Xi_outflow))) if
+          show_T "Medium properties in port_b";
 
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla(
     redeclare final package Medium = Medium,

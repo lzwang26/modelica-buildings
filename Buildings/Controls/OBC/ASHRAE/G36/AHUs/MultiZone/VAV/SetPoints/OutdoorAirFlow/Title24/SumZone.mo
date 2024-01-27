@@ -48,8 +48,8 @@ block SumZone "Sum of the zone level setpoints calculation"
     annotation (Placement(transformation(extent={{120,-50},{160,-10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMaxCO2(
-    final unit="1")
-    if have_CO2Sen
+    final unit="1") if
+       have_CO2Sen
     "Maximum CO2 control loop signal"
     annotation (Placement(transformation(extent={{120,-120},{160,-80}}),
         iconTransformation(extent={{100,-70},{140,-30}})));

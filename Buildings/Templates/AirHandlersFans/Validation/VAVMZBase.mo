@@ -82,8 +82,8 @@ model VAVMZBase
     "Boundary conditions for CHW distribution system"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   UserProject.ZoneEquipment.VAVBoxControlPoints sigVAVBox[VAV_1.nZon](
-    each final stdVen=datAll.stdVen)
-    if VAV_1.ctl.typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
+    each final stdVen=datAll.stdVen) if
+       VAV_1.ctl.typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
     "Control signals from VAV box"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   ZoneEquipment.Validation.UserProject.BASControlPoints sigBAS(

@@ -74,8 +74,8 @@ extends Buildings.BaseClasses.BaseIcon;
     annotation (Placement(transformation(extent={{
             -120,-80},{-100,-60}}), iconTransformation(extent={{-120,-80},{-100,
             -60}})));
-  Modelica.Blocks.Interfaces.RealInput vAir_in
-    if use_vAir_in "Air velocity" annotation (
+  Modelica.Blocks.Interfaces.RealInput vAir_in if
+       use_vAir_in "Air velocity" annotation (
       Placement(transformation(extent={{-120,-20},{-100,0}}),
         iconTransformation(extent={{-120,-20},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput M_in(
@@ -185,7 +185,7 @@ equation
         - fCl*hCon*(TClo - TAir);
 
   PMV = (0.303*Modelica.Math.exp(-0.036*M_in_internal) + 0.028)*L;
-  PPD = 1 - 0.95*Modelica.Math.exp(-(0.03353*PMV^4 + 0.2179*PMV^2));
+  PPD = (1 - 0.95*Modelica.Math.exp(-(0.03353*PMV^4 + 0.2179*PMV^2)))*100;
 
   annotation (
 defaultComponentName="com",

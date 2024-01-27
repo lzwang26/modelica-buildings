@@ -9,8 +9,7 @@ partial block PartialCoilCondition
 
   replaceable
     Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource coiCap
-    constrainedby
-    Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialCapacity(
+    constrainedby Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialCapacity(
       sta=datCoi.sta,
       nSta=datCoi.nSta) "Performance data"
     annotation (Placement(transformation(extent={{-14,40},{6,60}})));

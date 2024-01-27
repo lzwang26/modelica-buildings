@@ -45,8 +45,8 @@ partial model PartialDamper "Interface class for damper"
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
 
-  Buildings.Templates.Components.Interfaces.Bus bus
-    if typ <> Buildings.Templates.Components.Types.Damper.None
+  Buildings.Templates.Components.Interfaces.Bus bus if
+       typ <> Buildings.Templates.Components.Types.Damper.None
      and typ <> Buildings.Templates.Components.Types.Damper.Barometric and typ
      <> Buildings.Templates.Components.Types.Damper.NoPath
     "Control bus"

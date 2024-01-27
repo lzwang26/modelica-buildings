@@ -25,7 +25,7 @@ model Load "Partial model for a generic load"
   max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current
     "Initialization mode for homotopy operator"  annotation(Dialog(tab = "Initialization"));
 
-  Modelica.Units.SI.Voltage v[:](start=PhaseSystem.phaseVoltages(V_nominal)) =
+  Modelica.Units.SI.Voltage v[:](start=PhaseSystem.phaseVoltages(V_nominal))=
     terminal.v "Voltage vector";
   Modelica.Units.SI.Current i[:](each start=0) = terminal.i "Current vector";
   Modelica.Units.SI.Power S[PhaseSystem.n]=PhaseSystem.phasePowers_vi(v, -i)
@@ -33,8 +33,8 @@ model Load "Partial model for a generic load"
   Modelica.Units.SI.Power P(start=0)
     "Power of the load (negative if consumed, positive if fed into the electrical grid)";
 
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
-    if (mode == Buildings.Electrical.Types.Load.VariableZ_y_input)
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1") if
+       (mode == Buildings.Electrical.Types.Load.VariableZ_y_input)
     "Fraction of the nominal power consumed" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -42,8 +42,8 @@ model Load "Partial model for a generic load"
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,0})));
-  Modelica.Blocks.Interfaces.RealInput Pow(unit="W")
-    if (mode == Buildings.Electrical.Types.Load.VariableZ_P_input)
+  Modelica.Blocks.Interfaces.RealInput Pow(unit="W") if
+       (mode == Buildings.Electrical.Types.Load.VariableZ_P_input)
     "Power consumed" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,

@@ -89,30 +89,30 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Low airflow alarms"
     annotation (Placement(transformation(extent={{240,340},{280,380}}),
         iconTransformation(extent={{100,160},{140,200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFloSenAla
-    if not have_duaSen
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yFloSenAla if
+       not have_duaSen
     "Airflow sensor calibration alarm"
     annotation (Placement(transformation(extent={{240,180},{280,220}}),
         iconTransformation(extent={{100,110},{140,150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLeaDamAla
-    if not have_duaSen
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLeaDamAla if
+       not have_duaSen
     "Leaking dampers alarm, could be heating or cooling damper"
     annotation (Placement(transformation(extent={{240,10},{280,50}}),
         iconTransformation(extent={{100,80},{140,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yColFloSenAla
-    if have_duaSen "Cold-duct airflow sensor calibration alarm"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yColFloSenAla if
+       have_duaSen "Cold-duct airflow sensor calibration alarm"
     annotation (Placement(transformation(extent={{240,-80},{280,-40}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yColLeaDamAla
-    if have_duaSen "Leaking cold-duct damper alarm"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yColLeaDamAla if
+       have_duaSen "Leaking cold-duct damper alarm"
     annotation (Placement(transformation(extent={{240,-210},{280,-170}}),
         iconTransformation(extent={{100,-120},{140,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotFloSenAla
-    if have_duaSen "Hot-duct airflow sensor calibration alarm"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotFloSenAla if
+       have_duaSen "Hot-duct airflow sensor calibration alarm"
     annotation (Placement(transformation(extent={{240,-310},{280,-270}}),
         iconTransformation(extent={{100,-160},{140,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotLeaDamAla
-    if have_duaSen "Leaking hot-duct damper alarm"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotLeaDamAla if
+       have_duaSen "Leaking hot-duct damper alarm"
     annotation (Placement(transformation(extent={{240,-440},{280,-400}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
 
@@ -220,8 +220,8 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Logical not"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-    final message="Warning: cold-duct airflow sensor should be calibrated.")
-    if have_duaSen
+    final message="Warning: cold-duct airflow sensor should be calibrated.") if
+       have_duaSen
     "Level 3 airflow sensor alarm"
     annotation (Placement(transformation(extent={{140,-110},{160,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2(
@@ -243,8 +243,8 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Logical not"
     annotation (Placement(transformation(extent={{100,-240},{120,-220}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(
-    final message="Warning: the cold-duct damper is leaking.")
-    if have_duaSen
+    final message="Warning: the cold-duct damper is leaking.") if
+       have_duaSen
     "Level 4 leaking damper alarm"
     annotation (Placement(transformation(extent={{140,-240},{160,-220}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3(
@@ -252,11 +252,11 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{140,-200},{160,-180}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaMaxFlo(
-    final k=VHeaMax_flow)
-    if have_duaSen "Heating maximum airflow setpoint"
+    final k=VHeaMax_flow) if
+       have_duaSen "Heating maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,-320},{-180,-300}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3(final k=0.1)
-    if have_duaSen
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3(final k=0.1) if
+       have_duaSen
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-160,-320},{-140,-300}})));
   Buildings.Controls.OBC.CDL.Logical.Not not6 if have_duaSen
@@ -267,8 +267,8 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-300},{40,-280}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre2(
-    final h=floHys)
-    if have_duaSen
+    final h=floHys) if
+       have_duaSen
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-100,-300},{-80,-280}})));
   Buildings.Controls.OBC.CDL.Logical.And and6 if have_duaSen
@@ -278,8 +278,8 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Logical not"
     annotation (Placement(transformation(extent={{100,-340},{120,-320}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(
-    final message="Warning: hot-duct airflow sensor should be calibrated.")
-    if have_duaSen
+    final message="Warning: hot-duct airflow sensor should be calibrated.") if
+       have_duaSen
     "Level 3 airflow sensor alarm"
     annotation (Placement(transformation(extent={{140,-340},{160,-320}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt4(
@@ -302,8 +302,8 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Logical not"
     annotation (Placement(transformation(extent={{100,-470},{120,-450}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes5(
-    final message="Warning: the hot-duct damper is leaking.")
-    if have_duaSen
+    final message="Warning: the hot-duct damper is leaking.") if
+       have_duaSen
     "Level 4 leaking damper alarm"
     annotation (Placement(transformation(extent={{140,-470},{160,-450}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt5(
@@ -315,13 +315,13 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai4(
-    final k=0.1)
-    if not have_duaSen
+    final k=0.1) if
+       not have_duaSen
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre3(
-    final h=floHys)
-    if not have_duaSen
+    final h=floHys) if
+       not have_duaSen
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
   Buildings.Controls.OBC.CDL.Logical.And and7 if not have_duaSen
@@ -331,8 +331,8 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Logical not"
     annotation (Placement(transformation(extent={{100,160},{120,180}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes6(
-    final message="Warning: airflow sensor should be calibrated.")
-    if not have_duaSen
+    final message="Warning: airflow sensor should be calibrated.") if
+       not have_duaSen
     "Level 3 airflow sensor alarm"
     annotation (Placement(transformation(extent={{140,160},{160,180}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt6(
@@ -363,8 +363,8 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Logical not"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes7(
-    final message="Warning: the cold-duct or hot-dcut damper is leaking.")
-    if not have_duaSen
+    final message="Warning: the cold-duct or hot-dcut damper is leaking.") if
+       not have_duaSen
     "Level 4 leaking damper alarm"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt7(

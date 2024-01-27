@@ -147,8 +147,8 @@ model DualMixing "Dual mixing circuit"
     final yMax=1,
     final controllerType=controllerType,
     final k=k,
-    final Ti=Ti)
-    if typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None
+    final Ti=Ti) if
+       typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None
     "Controller"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 

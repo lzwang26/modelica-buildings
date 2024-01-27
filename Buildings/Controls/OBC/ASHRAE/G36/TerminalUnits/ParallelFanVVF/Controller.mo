@@ -403,8 +403,8 @@ block Controller
     "Leaking valve alarm"
     annotation (Placement(transformation(extent={{240,-310},{280,-270}}),
         iconTransformation(extent={{100,-200},{140,-160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla if
+       have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{240,-340},{280,-300}}),
         iconTransformation(extent={{100,-220},{140,-180}})));

@@ -286,16 +286,16 @@ partial model PartialTerminalUnit
     annotation (Placement(transformation(extent={{210,-190},{190,-170}}),iconTransformation(extent={{130,-90},{110,-70}})));
   // COMPONENTS
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulQReqHea_flow(u(
-        final unit="W"), final k=1/facMul)
-    if have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea) "Scaling"
+        final unit="W"), final k=1/facMul) if
+       have_QReq_flow and (have_heaWat or have_chaOve or have_eleHea) "Scaling"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulQReqCoo_flow(u(
-        final unit="W"), final k=1/facMul)
-    if have_QReq_flow and (have_chiWat or have_eleCoo) "Scaling"
+        final unit="W"), final k=1/facMul) if
+       have_QReq_flow and (have_chiWat or have_eleCoo) "Scaling"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulQActHea_flow(u(
-        final unit="W"), final k=facMul*facMulZon)
-    if have_heaWat or have_chaOve or have_eleHea "Scaling"
+        final unit="W"), final k=facMul*facMulZon) if
+       have_heaWat or have_chaOve or have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulQActCoo_flow(u(
         final unit="W"), final k=facMul*facMulZon) if have_chiWat or
@@ -356,10 +356,10 @@ partial model PartialTerminalUnit
     "Load side mass flow rate multiplier"
     annotation (Placement(transformation(extent={{180,-10},{160,10}})));
   Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier mulHeaFloCon(final k=
-        facMul)     if have_heaPor "Convective heat flow rate multiplier"
+        facMul) if     have_heaPor "Convective heat flow rate multiplier"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
   Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier mulHeaFloRad(final k=
-        facMul)     if have_heaPor "Radiative heat flow rate multiplier"
+        facMul) if     have_heaPor "Radiative heat flow rate multiplier"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_nominal=

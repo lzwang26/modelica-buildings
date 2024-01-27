@@ -70,8 +70,8 @@ model ConstructionWithWindow
      annotation (Placement(transformation(extent={{-310,
             -270},{-290,-250}}), iconTransformation(extent={{-310,-270},{-290,
             -250}})));
-  Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1)
-    if haveShade
+  Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1) if
+       haveShade
     "Control signal for the shading device, 0: unshaded; 1: fully shaded (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-340,40},{-300,80}}),
         iconTransformation(extent={{-340,40},{-300,80}})));

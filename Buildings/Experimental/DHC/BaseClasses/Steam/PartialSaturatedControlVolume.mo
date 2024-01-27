@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.BaseClasses.Steam;
+﻿within Buildings.Experimental.DHC.BaseClasses.Steam;
 partial model PartialSaturatedControlVolume
   "Partial control volume for evaporation/condensation processes"
   extends Buildings.BaseClasses.BaseIcon;
@@ -71,7 +71,7 @@ protected
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem if not steadyDynamics
     "Prescribed temperature"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Modelica.Blocks.Sources.RealExpression portT(y=T)  if not steadyDynamics
+  Modelica.Blocks.Sources.RealExpression portT(y=T) if  not steadyDynamics
     "Port temperature"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen if not steadyDynamics

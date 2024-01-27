@@ -9,8 +9,8 @@ model MultiplePumpsSpeed
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y(
     final unit="1",
     final min=0,
-    final max=1)
-    if have_var
+    final max=1) if
+       have_var
     "Pump speed (common to all pumps)"
     annotation (
      Placement(transformation(extent={{-140,40},{-100,80}}), iconTransformation(

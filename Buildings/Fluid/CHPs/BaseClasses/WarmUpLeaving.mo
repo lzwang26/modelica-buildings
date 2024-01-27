@@ -24,13 +24,13 @@ model WarmUpLeaving
     "Warm-up state active signal"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEle(final unit="W")
- if not warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEle(final unit="W") if
+    not warmUpByTimeDelay
     "Power demand"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleNet(final unit="W")
- if not warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleNet(final unit="W") if
+    not warmUpByTimeDelay
     "Net power output"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -45,8 +45,8 @@ protected
     final uHigh=0) if not warmUpByTimeDelay
     "Check if actual engine temperature is higher than the nominal value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub
- if not warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub if
+    not warmUpByTimeDelay
     "Difference between actual engine temperature and the nominal value"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant temEngNom(
@@ -54,8 +54,8 @@ protected
     final k=TEngNom)
     "Nominal engine temperature"
     annotation (Placement(transformation(extent={{-88,-30},{-68,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
- if not warmUpByTimeDelay
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 if
+    not warmUpByTimeDelay
     "Difference between actual power output and demand"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hysPow(

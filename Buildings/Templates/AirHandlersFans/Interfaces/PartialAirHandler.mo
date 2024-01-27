@@ -110,8 +110,8 @@ partial model PartialAirHandler "Interface class for air handler"
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
     redeclare final package Medium = MediumAir,
     m_flow(min=if allowFlowReversalAir then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ <> Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly
     "Outdoor air intake"
     annotation (Placement(transformation(
           extent={{-310,-210},{-290,-190}}), iconTransformation(extent={{-210,
@@ -128,8 +128,8 @@ partial model PartialAirHandler "Interface class for air handler"
   Modelica.Fluid.Interfaces.FluidPort_b port_SupCol(
     redeclare final package Medium =MediumAir,
     m_flow(max=if allowFlowReversalAir then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ == Buildings.Templates.AirHandlersFans.Types.Configuration.DualDuct
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ == Buildings.Templates.AirHandlersFans.Types.Configuration.DualDuct
     "Dual duct cold deck air supply"
     annotation (Placement(transformation(
           extent={{290,-250},{310,-230}}), iconTransformation(extent={{190,
@@ -137,8 +137,8 @@ partial model PartialAirHandler "Interface class for air handler"
   Modelica.Fluid.Interfaces.FluidPort_b port_SupHot(
     redeclare final package Medium =MediumAir,
     m_flow(max=if allowFlowReversalAir then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ == Buildings.Templates.AirHandlersFans.Types.Configuration.DualDuct
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ == Buildings.Templates.AirHandlersFans.Types.Configuration.DualDuct
     "Dual duct hot deck air supply"
     annotation (Placement(
         transformation(extent={{290,-170},{310,-150}}), iconTransformation(
@@ -146,48 +146,48 @@ partial model PartialAirHandler "Interface class for air handler"
   Modelica.Fluid.Interfaces.FluidPort_a port_Ret(
     redeclare final package Medium =MediumAir,
     m_flow(min=if allowFlowReversalAir then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ <> Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly
     "Return air"
     annotation (Placement(transformation(extent={{290,-90},{310,-70}}),
         iconTransformation(extent={{190,90},{210,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Rel(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversalAir then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly and have_porRel
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ <> Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly and have_porRel
     "Relief (exhaust) air"
     annotation (Placement(transformation(extent={{-310,-90},{-290,-70}}),
       iconTransformation(extent={{-210,90}, {-190,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
     redeclare final package Medium = MediumChiWat,
     m_flow(max=if allowFlowReversalLiq then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
-    if have_souChiWat
+    h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default)) if
+       have_souChiWat
     "CHW return port" annotation (
       Placement(transformation(extent={{50,-290},{70,-270}}),
         iconTransformation(extent={{40,-210},{60,-190}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
     redeclare final package Medium = MediumChiWat,
     m_flow(min=if allowFlowReversalLiq then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
-    if have_souChiWat
+    h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default)) if
+       have_souChiWat
     "CHW supply port" annotation (
       Placement(transformation(extent={{90,-290},{110,-270}}),
         iconTransformation(extent={{120,-210},{140,-190}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
     redeclare final package Medium = MediumHeaWat,
     m_flow(max=if allowFlowReversalLiq then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
-    if have_souHeaWat
+    h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default)) if
+       have_souHeaWat
     "HHW return port" annotation (
     Placement(transformation(extent={{-30,-290},{-10,-270}}),
       iconTransformation(extent={{-140,-210},{-120,-190}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(
     redeclare final package Medium = MediumHeaWat,
     m_flow(min=if allowFlowReversalLiq then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
-    if have_souHeaWat
+    h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default)) if
+       have_souHeaWat
     "HHW supply port" annotation (
       Placement(transformation(extent={{10,-290},{30,-270}}),
         iconTransformation(extent={{-60,-210},{-40,-190}})));

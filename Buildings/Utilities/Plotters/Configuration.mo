@@ -18,8 +18,8 @@ model Configuration "Configuration for plotters"
     "Time that needs to elapse to enable plotting after activate becomes true"
     annotation (Dialog(group="Activation", enable=(activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)));
 
-  Modelica.Blocks.Interfaces.BooleanInput activate
-  if (activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)
+  Modelica.Blocks.Interfaces.BooleanInput activate if
+     (activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)
     "Set to true to enable plotting of time series after activationDelay elapsed"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));

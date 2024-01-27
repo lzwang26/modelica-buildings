@@ -71,8 +71,8 @@ block EquationFitReversible
    "Part load ratio";
 
 protected
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_small(min=Modelica.Constants.eps)
-     = per.hea.Q_flow*1E-9*scaling_factor
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_small(min=Modelica.Constants.eps)=
+       per.hea.Q_flow*1E-9*scaling_factor
     "Small value for heat flow rate or power, used to avoid division by zero";
   Real xNor[5] "Normalized inlet variables";
 

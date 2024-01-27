@@ -22,8 +22,8 @@ model SpeedControlled_Nrpm
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Filtered speed", enable=use_inputFilter));
 
-  Modelica.Blocks.Interfaces.RealInput Nrpm(final unit="rev/min")
- if inputType == Buildings.Fluid.Types.InputType.Continuous
+  Modelica.Blocks.Interfaces.RealInput Nrpm(final unit="rev/min") if
+    inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed rotational speed"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

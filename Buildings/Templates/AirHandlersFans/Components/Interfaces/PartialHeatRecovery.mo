@@ -14,8 +14,8 @@ partial model PartialHeatRecovery "Interface class for heat recovery"
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true, __ctrl_flow(enable=false));
 
-  Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
-    if typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
+  Buildings.Templates.AirHandlersFans.Interfaces.Bus bus if
+       typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
     "Control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -26,29 +26,29 @@ partial model PartialHeatRecovery "Interface class for heat recovery"
   Modelica.Fluid.Interfaces.FluidPort_a port_aOut(
     redeclare final package Medium = MediumAir,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
     "Outdoor air inlet"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bOut(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
     "Outdoor air outlet"
     annotation (Placement(transformation(extent={{110,-70},{90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aRel(
     redeclare final package Medium = MediumAir,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
     "Relief/exhaust air inlet"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bRel(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None
     "Relief/exhaust air outlet"
     annotation (Placement(transformation(extent={{-90,50},{-110,70}})));
   annotation (Icon(graphics={

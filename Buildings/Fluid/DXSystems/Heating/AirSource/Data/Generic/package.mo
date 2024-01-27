@@ -1,6 +1,7 @@
 within Buildings.Fluid.DXSystems.Heating.AirSource.Data;
 package Generic "Package with generic performance curves"
   extends Modelica.Icons.MaterialPropertiesPackage;
+
   annotation (Documentation(info="<html>
 <p>
 This package contains performance curves for the heat transfer capacity and the EIR

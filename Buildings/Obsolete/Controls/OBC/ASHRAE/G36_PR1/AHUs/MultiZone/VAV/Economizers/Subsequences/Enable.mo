@@ -143,8 +143,8 @@ protected
     final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
-    if use_enthalpy "Add block determines difference between hOut and hOutCut"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2 if
+       use_enthalpy "Add block determines difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Add block determines difference between TOut and TOutCut"

@@ -451,8 +451,8 @@ equation
           {4,26},{4,-420},{280,-420}},     color={0,0,127}));
   connect(mConWatCon_flow, modConLoo.mConWatCon_flow) annotation (Line(points={
           {-280,-240},{-232,-240},{-232,-164},{-172,-164}}, color={0,0,127}));
-  connect(TConWatConChiLvg, modConLoo.TConWatConChiLvg) annotation (Line(points
-        ={{-280,20},{-246,20},{-246,-166},{-172,-166}}, color={0,0,127}));
+  connect(TConWatConChiLvg, modConLoo.TConWatConChiLvg) annotation (Line(points=
+         {{-280,20},{-246,20},{-246,-166},{-172,-166}}, color={0,0,127}));
   connect(TConWatConRet, modConLoo.TConWatConRet) annotation (Line(points={{
           -280,220},{-232,220},{-232,-168},{-172,-168}}, color={0,0,127}));
   connect(u1Coo, u1CooOrHea.u1)

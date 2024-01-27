@@ -298,20 +298,20 @@ protected
     "Constant 2"
     annotation (Placement(transformation(extent={{40,-280},{60,-260}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant oneHeaResReq(final k=
-        1.0)   if have_heaWatCoi
+        1.0) if   have_heaWatCoi
     "Constant 1"
     annotation (Placement(transformation(extent={{40,-340},{60,-320}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerHeaResReq(final k=
-        0.0)   if have_heaWatCoi
+        0.0) if   have_heaWatCoi
     "Constant 0"
     annotation (Placement(transformation(extent={{40,-380},{60,-360}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerBoiPlaReq(final k=
-        0.0)   if (have_heaWatCoi
+        0.0) if   (have_heaWatCoi
      and have_heaPla)
     "Constant 0"
     annotation (Placement(transformation(extent={{40,-460},{60,-440}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant oneBoiPlaReq(final k=
-        1.0)   if (have_heaWatCoi and have_heaPla)
+        1.0) if   (have_heaWatCoi and have_heaPla)
     "Constant 1"
     annotation (Placement(transformation(extent={{40,-420},{60,-400}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxSupTim(k=1800)

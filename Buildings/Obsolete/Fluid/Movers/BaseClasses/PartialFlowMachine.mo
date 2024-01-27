@@ -64,8 +64,8 @@ partial model PartialFlowMachine
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
 
   // Connectors and ports
-  Modelica.Blocks.Interfaces.IntegerInput stage
-    if inputType == Buildings.Fluid.Types.InputType.Stages
+  Modelica.Blocks.Interfaces.IntegerInput stage if
+       inputType == Buildings.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"
     annotation (Placement(
         transformation(
@@ -129,8 +129,8 @@ partial model PartialFlowMachine
     else
       Medium.setState_phX(port_a.p,
                           noEvent(inStream(port_a.h_outflow)),
-                          noEvent(inStream(port_a.Xi_outflow)))
-      if show_T "Medium properties in port_a";
+                          noEvent(inStream(port_a.Xi_outflow))) if
+         show_T "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b=
     if allowFlowReversal then
@@ -140,8 +140,8 @@ partial model PartialFlowMachine
     else
       Medium.setState_phX(port_b.p,
                           noEvent(port_b.h_outflow),
-                          noEvent(port_b.Xi_outflow))
-       if show_T "Medium properties in port_b";
+                          noEvent(port_b.Xi_outflow)) if
+          show_T "Medium properties in port_b";
   // - Copy continues in protected section
 
 protected
@@ -199,17 +199,17 @@ protected
       riseTime) "Cut-off frequency of filter";
 
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
-    final k=stageInputs)
-   if inputType == Buildings.Fluid.Types.InputType.Stages "Stage input values"
+    final k=stageInputs) if
+      inputType == Buildings.Fluid.Types.InputType.Stages "Stage input values"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Constant setConst(
-    final k=constInput)
-   if inputType == Buildings.Fluid.Types.InputType.Constant
+    final k=constInput) if
+      inputType == Buildings.Fluid.Types.InputType.Constant
     "Constant input set point"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Extractor extractor(final nin=size(stageInputs,1))
-   if inputType == Buildings.Fluid.Types.InputType.Stages "Stage input extractor"
+  Extractor extractor(final nin=size(stageInputs,1)) if
+      inputType == Buildings.Fluid.Types.InputType.Stages "Stage input extractor"
     annotation (Placement(transformation(extent={{-50,60},{-30,40}})));
 
   Modelica.Blocks.Routing.RealPassThrough inputSwitch
@@ -242,8 +242,8 @@ protected
     "Second order filter to approximate dynamics of the fan or pump's speed, and to improve numerics"
     annotation (Placement(transformation(extent={{20,61},{40,80}})));
 
-  Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1"))
- if inputType == Buildings.Fluid.Types.InputType.Continuous and
+  Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1")) if
+    inputType == Buildings.Fluid.Types.InputType.Continuous and
     speedIsInput
     "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
     annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
@@ -258,17 +258,17 @@ protected
 
   Buildings.Fluid.Movers.BaseClasses.PowerInterface heaDis(
     final motorCooledByFluid=per.motorCooledByFluid,
-    final delta_V_flow=1E-3*V_flow_max)
-   if addPowerToMedium "Heat dissipation into medium"
+    final delta_V_flow=1E-3*V_flow_max) if
+      addPowerToMedium "Heat dissipation into medium"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
-  Modelica.Blocks.Math.Add PToMed(final k1=1, final k2=1)
- if addPowerToMedium "Heat and work input into medium"
+  Modelica.Blocks.Math.Add PToMed(final k1=1, final k2=1) if
+    addPowerToMedium "Heat and work input into medium"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow(
-    final alpha=0)
- if addPowerToMedium
+    final alpha=0) if
+    addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-14,-104},{-34,-84}})));
 

@@ -9,13 +9,13 @@ model HeatCapacity
   parameter Modelica.Units.SI.HeatCapacity C
     "Heat capacity of element (= cp*m)";
 
-  Modelica.Blocks.Interfaces.RealInput ySha
-    if haveShade
+  Modelica.Blocks.Interfaces.RealInput ySha if
+       haveShade
     "Control signal for shade"
   annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
-  Modelica.Blocks.Interfaces.RealInput yCom
-  if haveShade
+  Modelica.Blocks.Interfaces.RealInput yCom if
+     haveShade
   "Input 1-y"
   annotation (Placement(transformation(
           extent={{-140,-60},{-100,-20}}),
@@ -29,8 +29,8 @@ model HeatCapacity
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portSha(
     T = TSha,
-    Q_flow = QSha_flow)
-    if haveShade
+    Q_flow = QSha_flow) if
+       haveShade
     "Heat port to shaded part of the window"
    annotation (Placement(transformation(extent={{95,35},{105,45}}),
         iconTransformation(extent={{95,35},{105,45}})));

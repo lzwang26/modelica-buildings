@@ -34,8 +34,8 @@ partial block PartialPlotter "Partial block for plotters"
       Placement(transformation(extent={{-130,-20},{-90,20}}),
         iconTransformation(extent={{-140,20},{-100,-20}})));
 
-  Modelica.Blocks.Interfaces.BooleanInput activate
-  if (activation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input)
+  Modelica.Blocks.Interfaces.BooleanInput activate if
+     (activation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input)
     "Set to true to enable plotting of time series after activationDelay elapsed"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));

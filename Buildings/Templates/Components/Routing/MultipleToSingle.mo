@@ -41,7 +41,7 @@ model MultipleToSingle "Multiple inlet port, single outlet ports"
   parameter Integer icon_dy = 100
     "Distance in y-direction between each branch in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
-  parameter Buildings.Templates.Components.Types.IconPipe icon_pipe =
+  parameter Buildings.Templates.Components.Types.IconPipe icon_pipe=
     Buildings.Templates.Components.Types.IconPipe.Supply
     "Pipe symbol"
     annotation(Dialog(tab="Graphics", enable=false));
@@ -67,26 +67,26 @@ model MultipleToSingle "Multiple inlet port, single outlet ports"
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final prescribedHeatFlowRate=false,
-    final nPorts=nPorts+1)
-    if have_controlVolume
+    final nPorts=nPorts+1) if
+       have_controlVolume
     "Fluid volume to break algebraic loop"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   PassThroughFluid pasSte(
-    redeclare final package Medium=Medium)
-    if not have_controlVolume
+    redeclare final package Medium=Medium) if
+       not have_controlVolume
     "Fluid pass-through in lieu of control volume"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
   Medium.ThermodynamicState sta_a[nPorts]=
       Medium.setState_phX(ports_a.p,
                           noEvent(actualStream(ports_a.h_outflow)),
-                          noEvent(actualStream(ports_a.Xi_outflow)))
-      if show_T "Medium properties in ports_a";
+                          noEvent(actualStream(ports_a.Xi_outflow))) if
+         show_T "Medium properties in ports_a";
   Medium.ThermodynamicState sta_b=
       Medium.setState_phX(port_b.p,
                           noEvent(actualStream(port_b.h_outflow)),
-                          noEvent(actualStream(port_b.Xi_outflow)))
-      if show_T "Medium properties in port_b";
+                          noEvent(actualStream(port_b.Xi_outflow))) if
+         show_T "Medium properties in port_b";
 
 protected
   parameter Boolean have_controlVolume=

@@ -354,13 +354,13 @@ block Controller "Controller for room VAV box with reheat"
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{200,-50},{240,-10}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq if
+       have_hotWatCoi
     "Hot water reset requests"
     annotation (Placement(transformation(extent={{200,-80},{240,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if
+       have_hotWatCoi
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{200,-110},{240,-70}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
@@ -380,8 +380,8 @@ block Controller "Controller for room VAV box with reheat"
     "Leaking valve alarm"
     annotation (Placement(transformation(extent={{200,-230},{240,-190}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla if
+       have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{200,-260},{240,-220}}),
         iconTransformation(extent={{100,-210},{140,-170}})));

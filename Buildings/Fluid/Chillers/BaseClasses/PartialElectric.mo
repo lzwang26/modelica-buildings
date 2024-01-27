@@ -69,10 +69,10 @@ protected
     annotation (Placement(transformation(extent={{-100,-20},{-60,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Units.SI.HeatFlowRate QEva_flow_ava(nominal=QEva_flow_nominal, start
-      =QEva_flow_nominal) "Cooling capacity available at evaporator";
-  Modelica.Units.SI.HeatFlowRate QEva_flow_set(nominal=QEva_flow_nominal, start
-      =QEva_flow_nominal)
+  Modelica.Units.SI.HeatFlowRate QEva_flow_ava(nominal=QEva_flow_nominal, start=
+       QEva_flow_nominal) "Cooling capacity available at evaporator";
+  Modelica.Units.SI.HeatFlowRate QEva_flow_set(nominal=QEva_flow_nominal, start=
+       QEva_flow_nominal)
     "Cooling capacity required to cool to set point temperature";
   Modelica.Units.SI.HeatFlowRate QCon_flow_set(
     nominal=-QEva_flow_nominal * (1 + 1 / COP_nominal * etaMotor),

@@ -85,8 +85,8 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
     "Cooling damper position setpoint"
     annotation (Placement(transformation(extent={{-240,50},{-200,90}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooDam
-    if not have_duaSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooDam if
+       not have_duaSen
     "Cold duct damper proven on"
     annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -129,8 +129,8 @@ block SystemRequests "Output system requests for VAV terminal unit with reheat"
     "Heating damper position setpoint"
     annotation (Placement(transformation(extent={{-240,-350},{-200,-310}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaDam
-    if not have_duaSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaDam if
+       not have_duaSen
     "Hot duct damper proven on"
     annotation (Placement(transformation(extent={{-240,-380},{-200,-340}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));

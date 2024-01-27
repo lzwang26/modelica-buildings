@@ -56,8 +56,8 @@ partial model PartialEightPortInterface
     else
       Medium1.setState_phX(port_a1.p,
                           inStream(port_a1.h_outflow),
-                          inStream(port_a1.Xi_outflow))
-      if show_T "Medium properties in port_a1";
+                          inStream(port_a1.Xi_outflow)) if
+         show_T "Medium properties in port_a1";
   Medium1.ThermodynamicState sta_b1=
     if allowFlowReversal1 then
       Medium1.setState_phX(port_b1.p,
@@ -66,8 +66,8 @@ partial model PartialEightPortInterface
     else
       Medium1.setState_phX(port_b1.p,
                           port_b1.h_outflow,
-                          port_b1.Xi_outflow)
-       if show_T "Medium properties in port_b1";
+                          port_b1.Xi_outflow) if
+          show_T "Medium properties in port_b1";
 
   Medium2.ThermodynamicState sta_a2=
     if allowFlowReversal2 then
@@ -77,8 +77,8 @@ partial model PartialEightPortInterface
     else
       Medium2.setState_phX(port_a2.p,
                           inStream(port_a2.h_outflow),
-                          inStream(port_a2.Xi_outflow))
-      if show_T "Medium properties in port_a2";
+                          inStream(port_a2.Xi_outflow)) if
+         show_T "Medium properties in port_a2";
   Medium2.ThermodynamicState sta_b2=
     if allowFlowReversal2 then
       Medium2.setState_phX(port_b2.p,
@@ -87,8 +87,8 @@ partial model PartialEightPortInterface
     else
       Medium2.setState_phX(port_b2.p,
                           port_b2.h_outflow,
-                          port_b2.Xi_outflow)
-       if show_T "Medium properties in port_b2";
+                          port_b2.Xi_outflow) if
+          show_T "Medium properties in port_b2";
 
   Medium3.ThermodynamicState sta_a3=
     if allowFlowReversal3 then
@@ -98,8 +98,8 @@ partial model PartialEightPortInterface
     else
       Medium3.setState_phX(port_a3.p,
                           inStream(port_a3.h_outflow),
-                          inStream(port_a3.Xi_outflow))
-      if show_T "Medium properties in port_a3";
+                          inStream(port_a3.Xi_outflow)) if
+         show_T "Medium properties in port_a3";
   Medium3.ThermodynamicState sta_b3=
     if allowFlowReversal3 then
       Medium3.setState_phX(port_b3.p,
@@ -108,8 +108,8 @@ partial model PartialEightPortInterface
     else
       Medium3.setState_phX(port_b3.p,
                           port_b3.h_outflow,
-                          port_b3.Xi_outflow)
-       if show_T "Medium properties in port_b3";
+                          port_b3.Xi_outflow) if
+          show_T "Medium properties in port_b3";
 
   Medium4.ThermodynamicState sta_a4=
     if allowFlowReversal4 then
@@ -119,8 +119,8 @@ partial model PartialEightPortInterface
     else
       Medium4.setState_phX(port_a4.p,
                           inStream(port_a4.h_outflow),
-                          inStream(port_a4.Xi_outflow))
-      if show_T "Medium properties in port_a4";
+                          inStream(port_a4.Xi_outflow)) if
+         show_T "Medium properties in port_a4";
   Medium4.ThermodynamicState sta_b4=
     if allowFlowReversal4 then
       Medium4.setState_phX(port_b4.p,
@@ -129,8 +129,8 @@ partial model PartialEightPortInterface
     else
       Medium4.setState_phX(port_b4.p,
                           port_b4.h_outflow,
-                          port_b4.Xi_outflow)
-       if show_T "Medium properties in port_b4";
+                          port_b4.Xi_outflow) if
+          show_T "Medium properties in port_b4";
 
 protected
   Medium1.ThermodynamicState state_a1_inflow=

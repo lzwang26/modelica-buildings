@@ -159,18 +159,18 @@ block ModeAndSetPoints
     final quantity="Time") "Time to next occupied period"
     annotation (Placement(transformation(extent={{-200,-50},{-160,-10}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj
-    if have_locAdj and not sepAdj
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj if
+       have_locAdj and not sepAdj
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj
-    if have_locAdj and sepAdj
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj if
+       have_locAdj and sepAdj
     "Cooling setpoint adjustment value"
     annotation (Placement(transformation(extent={{-200,-110},{-160,-70}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj
-    if have_locAdj and sepAdj "Heating setpoint adjustment value"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj if
+       have_locAdj and sepAdj "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OccSen if have_occSen
@@ -239,8 +239,8 @@ block ModeAndSetPoints
     "Check if the zone is hot"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta(
-    final k=true)
-    if not have_winSen
+    final k=true) if
+       not have_winSen
     "Assume window is closed when there is no windows status sensor"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSta(

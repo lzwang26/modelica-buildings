@@ -14,8 +14,8 @@ partial model BaseUnbalancedPV "Partial model for an unbalanced PV source"
     A=A*areaFraction[2],
     fAct=fAct,
     eta=eta,
-    V_nominal=V_nominal/sqrt(3))
-    if plugPhase2 "PV phase 2"
+    V_nominal=V_nominal/sqrt(3)) if
+       plugPhase2 "PV phase 2"
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   replaceable OnePhase.Sources.PVSimple pv_phase3(
     pf=pf,
@@ -23,8 +23,8 @@ partial model BaseUnbalancedPV "Partial model for an unbalanced PV source"
     A=A*areaFraction[3],
     fAct=fAct,
     eta=eta,
-    V_nominal=V_nominal/sqrt(3))
-    if plugPhase3 "PV phase 3"
+    V_nominal=V_nominal/sqrt(3)) if
+       plugPhase3 "PV phase 3"
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
   replaceable OnePhase.Sources.PVSimple pv_phase1(
     pf=pf,
@@ -32,8 +32,8 @@ partial model BaseUnbalancedPV "Partial model for an unbalanced PV source"
     A=A*areaFraction[1],
     fAct=fAct,
     eta=eta,
-    V_nominal=V_nominal/sqrt(3))
-    if plugPhase1 "PV phase 1"
+    V_nominal=V_nominal/sqrt(3)) if
+       plugPhase1 "PV phase 1"
     annotation (Placement(transformation(extent={{-18,40},{-38,60}})));
   Modelica.Blocks.Math.Add3 sumBlock "Sum of the generated power on each phase"
     annotation (Placement(transformation(extent={{40,84},{60,64}})));

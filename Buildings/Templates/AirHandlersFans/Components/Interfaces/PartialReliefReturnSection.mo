@@ -69,8 +69,8 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoRelief
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ <> Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoRelief
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-170,-10},{-190,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaRec(
@@ -88,8 +88,8 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
   Modelica.Fluid.Interfaces.FluidPort_b port_bRet(
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoReturn
+    h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default)) if
+       typ <> Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoReturn
     "Optional fluid connector for return branch"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bPre(

@@ -66,8 +66,8 @@ model ShadeRadiation
 
   Modelica.Blocks.Interfaces.RealInput TSha(quantity="ThermodynamicTemperature",
       unit="K",
-      start=293.15)
-      if thisSideHasShade "Shade temperature"
+      start=293.15) if
+         thisSideHasShade "Shade temperature"
     annotation (Placement(transformation(
         origin={60,-120},
         extent={{-20,-20},{20,20}},

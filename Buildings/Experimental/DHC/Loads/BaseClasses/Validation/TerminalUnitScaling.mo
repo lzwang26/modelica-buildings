@@ -28,13 +28,13 @@ model TerminalUnitScaling
     displayUnit="degC") = T_aLoaHea_nominal + 12
     "Load side ourtlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mLoaHeaUni_flow_nominal(min=0) =
+  parameter Modelica.Units.SI.MassFlowRate mLoaHeaUni_flow_nominal(min=0)=
     QHeaUni_flow_nominal/(T_bLoaHea_nominal - T_aLoaHea_nominal)/
     Medium2.specificHeatCapacityCp(Medium2.setState_pTX(Medium2.p_default,
     T_aLoaHea_nominal))
     "Load side mass flow rate at nominal conditions for 1 unit"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal(min=0) =
+  final parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal(min=0)=
     mLoaHeaUni_flow_nominal*facMul
     "Load side mass flow rate at nominal conditions"
     annotation (Dialog(group="Nominal condition"));

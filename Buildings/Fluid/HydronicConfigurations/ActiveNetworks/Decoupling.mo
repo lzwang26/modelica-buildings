@@ -122,8 +122,8 @@ model Decoupling "Decoupling circuit with self-acting Delta-p control valve"
     final yMax=1,
     final controllerType=controllerType,
     final k=k,
-    final Ti=Ti)
-    if typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None
+    final Ti=Ti) if
+       typCtl <> Buildings.Fluid.HydronicConfigurations.Types.Control.None
     "Controller"
     annotation (Placement(transformation(extent={{-10,-50},{10,-70}})));
   Sensors.TemperatureTwoPort T2Ret(

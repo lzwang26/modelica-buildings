@@ -115,8 +115,8 @@ model ExteriorWallTwoWindows
     absIR_glass={glaSys1.shade.absIR_b, glaSys2.shade.absIR_b},
     tauIR_air={glaSys1.shade.tauIR_a, glaSys2.shade.tauIR_a},
     tauIR_glass={glaSys1.shade.tauIR_b, glaSys2.shade.tauIR_b},
-    A=AGla)
-  if glaSys1.haveShade or glaSys2.haveShade "Interior shade radiation model"
+    A=AGla) if
+     glaSys1.haveShade or glaSys2.haveShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon[nCon](
     A=A,

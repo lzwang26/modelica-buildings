@@ -88,8 +88,8 @@ model Window "Test model for the window"
     absIR_glass=glaSys.shade.absIR_b,
     tauIR_air=glaSys.shade.tauIR_a,
     tauIR_glass=glaSys.shade.tauIR_b,
-    A=AGla)
-  if glaSys.haveShade "Interior shade radiation model"
+    A=AGla) if
+     glaSys.haveShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{240,106},{220,126}})));
 
   Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal shaSig(

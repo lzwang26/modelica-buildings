@@ -236,7 +236,7 @@ model AllElectricCWStorage
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   // Default considering 1 m high thermmocline and 1 m high section below and above diffusers.
   // Thermocline only useless during last tank cycle, hence the scale factor.
-  parameter Real fraUslTan(final unit="1", final min=0, final max=1, start=0.1) =
+  parameter Real fraUslTan(final unit="1", final min=0, final max=1, start=0.1)=
     ((max(TTanSet[2]) - min(TTanSet)) / (max(TTanSet) - min(TTanSet)) * 1 + 1) / hTan
     "Useless fraction of TES"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));

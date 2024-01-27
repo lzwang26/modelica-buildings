@@ -54,8 +54,8 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
     "Control signals from AHU"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  UserProject.ZoneControlPoints sigZon
-    if VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly
+  UserProject.ZoneControlPoints sigZon if
+       VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly
     or VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
     "Control signals from zone-level equipment"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));

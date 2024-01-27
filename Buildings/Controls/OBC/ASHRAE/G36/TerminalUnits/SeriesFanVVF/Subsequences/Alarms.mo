@@ -141,8 +141,8 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     "Leaking valve alarm"
     annotation (Placement(transformation(extent={{240,-200},{280,-160}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla if
+       have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{240,-390},{280,-350}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
@@ -291,8 +291,8 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     final h=dTHys) if have_hotWatCoi
     "Discharge temperature lower than setpoint by a threshold"
     annotation (Placement(transformation(extent={{-120,-390},{-100,-370}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(final p=-8.3)
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(final p=-8.3) if
+       have_hotWatCoi
     "Setpoint temperature minus a threshold"
     annotation (Placement(transformation(extent={{-180,-430},{-160,-410}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(
@@ -313,8 +313,8 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     "Logical not"
     annotation (Placement(transformation(extent={{40,-360},{60,-340}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(
-    final message="Warning: discharge air temperature is 17 degC less than the setpoint.")
-    if have_hotWatCoi
+    final message="Warning: discharge air temperature is 17 degC less than the setpoint.") if
+       have_hotWatCoi
     "Level 2 low discharge air temperature alarm"
     annotation (Placement(transformation(extent={{80,-360},{100,-340}})));
   Buildings.Controls.OBC.CDL.Integers.Switch lowTemAla if have_hotWatCoi
@@ -338,20 +338,20 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     "Logical not"
     annotation (Placement(transformation(extent={{60,-430},{80,-410}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes5(
-    final message="Warning: discharge air temperature is 8 degC less than the setpoint.")
-    if have_hotWatCoi
+    final message="Warning: discharge air temperature is 8 degC less than the setpoint.") if
+       have_hotWatCoi
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,-430},{120,-410}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conInt3(
     final k=hotWatRes) if have_hotWatCoi
     "Importance multiplier for hot water reset control"
     annotation (Placement(transformation(extent={{-120,-460},{-100,-440}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2 if
+       have_hotWatCoi
     "Check if the multiplier is greater than zero"
     annotation (Placement(transformation(extent={{-80,-460},{-60,-440}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt5
-    if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt5 if
+       have_hotWatCoi
     "Suppress the alarm when multiplier is zero"
     annotation (Placement(transformation(extent={{140,-460},{160,-440}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply proInt1 if have_hotWatCoi

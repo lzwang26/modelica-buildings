@@ -195,8 +195,8 @@ block Controller "Single zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    if use_fixed_plus_differential_drybulb
+    final quantity="ThermodynamicTemperature") if
+       use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}}),
         iconTransformation(extent={{-120,52},{-100,72}})));
@@ -206,8 +206,8 @@ block Controller "Single zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}}),
       iconTransformation(extent={{-120,36},{-100,56}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(final unit="J/kg",
-      final quantity="SpecificEnergy")
-                                     if use_enthalpy
+      final quantity="SpecificEnergy") if
+                                        use_enthalpy
     "Outdoor air enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
@@ -322,8 +322,8 @@ protected
     "Ignore max evaluation if there is no TMix sensor"
     annotation (Placement(transformation(extent={{60,46},{80,66}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
-    final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0)
-                                                                                       if not use_G36FrePro
+    final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage0) if
+                                                                                          not use_G36FrePro
     "Freeze protection status is 0. Used if G36 freeze protection is not implemented"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
 

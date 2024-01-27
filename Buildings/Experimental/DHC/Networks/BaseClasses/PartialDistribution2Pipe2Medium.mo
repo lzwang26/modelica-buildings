@@ -65,7 +65,8 @@ partial model PartialDistribution2Pipe2Medium
   replaceable
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium
     con[nCon]
-    constrainedby Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium(
+    constrainedby
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium(
     redeclare each final package MediumSup = MediumSup,
     redeclare each final package MediumRet = MediumRet,
     final mDis_flow_nominal=mDisCon_flow_nominal,

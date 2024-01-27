@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Plants.Steam.BaseClasses;
+﻿within Buildings.Experimental.DHC.Plants.Steam.BaseClasses;
 model BoilerPolynomial
   "A equilibrium boiler with water phase change from liquid to vapor, discharging
   saturated steam vapor, with the efficiency curve described by a polynomial."
@@ -125,8 +125,8 @@ protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo if not steadyDynamics
   "Prescribed heat flow (if heatPort is connected)"
     annotation (Placement(transformation(extent={{-49,-40},{-29,-20}})));
-  Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow)
-    if not steadyDynamics
+  Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow) if
+       not steadyDynamics
     "Heat transfer from gas into water (if heatPort is connected)"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 

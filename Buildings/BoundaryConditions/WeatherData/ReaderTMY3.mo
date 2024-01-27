@@ -69,8 +69,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   Modelica.Blocks.Interfaces.RealInput TBlaSky_in(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
-    final unit="K")
- if (TBlaSkySou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    final unit="K") if
+    (TBlaSkySou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Black-body sky temperature"
     annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
         iconTransformation(extent={{-240,120},{-200,160}})));
@@ -139,8 +139,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // Global horizontal radiation
   Modelica.Blocks.Interfaces.RealInput HGloHor_in(
     final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2")
-      if (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or
+    final unit="W/m2") if
+         (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or
           HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor)
     "Input global horizontal radiation"
     annotation (Placement(transformation(extent={{-240,-320},{-200,-280}}),
@@ -149,8 +149,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // Diffuse horizontal radiation
   Modelica.Blocks.Interfaces.RealInput HDifHor_in(
     final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2")
-      if (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or
+    final unit="W/m2") if
+         (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or
           HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor)
     "Input diffuse horizontal radiation"
     annotation (Placement(transformation(extent={{-240,-240},{-200,-200}}),
@@ -158,8 +158,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   //--------------------------------------------------------------
   // Direct normal radiation
   Modelica.Blocks.Interfaces.RealInput HDirNor_in(final quantity="RadiantEnergyFluenceRate",
-      final unit="W/m2")
-      if (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor or
+      final unit="W/m2") if
+         (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor or
           HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor)
     "Input direct normal radiation"
     annotation (Placement(transformation(extent={{-240,-280},{-200,-240}}),
@@ -222,16 +222,16 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     Evaluate=true,
     Dialog(tab="Advanced", group="Sky temperature"));
 
-  final parameter Modelica.Units.SI.Angle lon(displayUnit="deg") =
+  final parameter Modelica.Units.SI.Angle lon(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(filNam)
     "Longitude";
-  final parameter Modelica.Units.SI.Angle lat(displayUnit="deg") =
+  final parameter Modelica.Units.SI.Angle lat(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(filNam)
     "Latitude";
-  final parameter Modelica.Units.SI.Time timZon(displayUnit="h") =
+  final parameter Modelica.Units.SI.Time timZon(displayUnit="h")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
-  final parameter Modelica.Units.SI.Length alt(displayUnit="m") =
+  final parameter Modelica.Units.SI.Length alt(displayUnit="m")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getAltitudeLocationTMY3(
     filNam) "Location altitude above sea level";
 
@@ -315,8 +315,8 @@ protected
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckDewPointTemperature
     cheTemDewPoi "Check dew point temperature"
     annotation (Placement(transformation(extent={{160,-240},{180,-220}})));
-  Modelica.Blocks.Math.Gain conRelHum(final k=0.01)
-    if relHumSou == Buildings.BoundaryConditions.Types.DataSource.File
+  Modelica.Blocks.Math.Gain conRelHum(final k=0.01) if
+       relHumSou == Buildings.BoundaryConditions.Types.DataSource.File
     "Convert the relative humidity from percentage to [0, 1] "
     annotation (Placement(transformation(extent={{40,14},{60,34}})));
   BaseClasses.CheckPressure chePre "Check the air pressure"
@@ -340,8 +340,8 @@ protected
   Buildings.BoundaryConditions.WeatherData.BaseClasses.LimiterWindDirection limWinDir
     "Limits the wind direction"
     annotation (Placement(transformation(extent={{160,-280},{180,-260}})));
-  SkyTemperature.BlackBody TBlaSkyCom(final calTSky=calTSky)
-    if TBlaSkySou == Buildings.BoundaryConditions.Types.DataSource.File
+  SkyTemperature.BlackBody TBlaSkyCom(final calTSky=calTSky) if
+       TBlaSkySou == Buildings.BoundaryConditions.Types.DataSource.File
     "Computation of the black-body sky temperature"
     annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
   Buildings.Utilities.Time.ModelTime modTim "Model time"
@@ -416,12 +416,12 @@ protected
 
   //---------------------------------------------------------------------------
   // Conversion blocks for sky cover
-  Modelica.Blocks.Math.Gain conTotSkyCov(final k=0.1)
-    if totSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
+  Modelica.Blocks.Math.Gain conTotSkyCov(final k=0.1) if
+       totSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
     "Convert sky cover from [0...10] to [0...1]"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Modelica.Blocks.Math.Gain conOpaSkyCov(final k=0.1)
-    if opaSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
+  Modelica.Blocks.Math.Gain conOpaSkyCov(final k=0.1) if
+       opaSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
     "Convert sky cover from [0...10] to [0...1]"
     annotation (Placement(transformation(extent={{40,-166},{60,-146}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckBlackBodySkyTemperature cheTemBlaSky(TMin=0)

@@ -13,12 +13,12 @@ model Supervisory
   parameter Real kCol(
     min=0)=0.1
     "Gain of controller on cold side";
-  parameter Modelica.Units.SI.Time TiHot(min=Buildings.Controls.OBC.CDL.Constants.small)
-     = 300 "Time constant of integrator block on hot side" annotation (Dialog(
+  parameter Modelica.Units.SI.Time TiHot(min=Buildings.Controls.OBC.CDL.Constants.small)=
+       300 "Time constant of integrator block on hot side" annotation (Dialog(
         enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.Units.SI.Time TiCol(min=Buildings.Controls.OBC.CDL.Constants.small)
-     = 120 "Time constant of integrator block on cold side" annotation (Dialog(
+  parameter Modelica.Units.SI.Time TiCol(min=Buildings.Controls.OBC.CDL.Constants.small)=
+       120 "Time constant of integrator block on cold side" annotation (Dialog(
         enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Temperature THeaWatSupSetMin(displayUnit="degC")
