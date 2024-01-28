@@ -71,4 +71,50 @@ package ESC
       Diagram(coordinateSystem(preserveAspectRatio=false)),
       experiment(StopTime=1000, __Dymola_Algorithm="Dassl"));
   end SingleObjectiveESCTest;
+
+  model ESCTest
+    Utilities.Comfort.Fanger com(use_ICl_in=false, M=60)
+      annotation (Placement(transformation(extent={{-8,18},{12,38}})));
+    Modelica.Blocks.Sources.Sine sine(f=0.1, offset=20 + 273.15)
+      annotation (Placement(transformation(extent={{-80,32},{-60,52}})));
+    Modelica.Blocks.Sources.Constant TRad(k=273.15 + 22) "Radiation temperature"
+      annotation (Placement(transformation(extent={{-74,68},{-54,88}})));
+    Modelica.Blocks.Sources.Constant phi(k=0.5) "Relative humidity"
+      annotation (Placement(transformation(extent={{-74,-8},{-54,12}})));
+    Modelica.Blocks.Continuous.Filter filter(filterType=Modelica.Blocks.Types.FilterType.HighPass,
+        f_cut=0.01)
+      annotation (Placement(transformation(extent={{44,20},{64,40}})));
+    Modelica.Blocks.Math.Product product1
+      annotation (Placement(transformation(extent={{84,0},{104,20}})));
+    Modelica.Blocks.Continuous.Integrator integrator(k=-0.003)
+      annotation (Placement(transformation(extent={{116,-26},{136,-6}})));
+    Modelica.Blocks.Math.Add add
+      annotation (Placement(transformation(extent={{-32,50},{-12,70}})));
+    Modelica.Blocks.Sources.Constant phi1(k=-273.15)
+                                                "Relative humidity"
+      annotation (Placement(transformation(extent={{-26,-26},{-6,-6}})));
+    Modelica.Blocks.Sources.Constant phi2(k=0)  "Relative humidity"
+      annotation (Placement(transformation(extent={{-28,84},{-8,104}})));
+  equation
+    connect(TRad.y, com.TRad) annotation (Line(points={{-53,78},{-40,78},{-40,
+            34},{-9,34}}, color={0,0,127}));
+    connect(phi.y, com.phi) annotation (Line(points={{-53,2},{-30,2},{-30,30},{
+            -9,30}}, color={0,0,127}));
+    connect(com.PPD, filter.u) annotation (Line(points={{13,24},{26,24},{26,30},
+            {42,30}}, color={0,0,127}));
+    connect(filter.y, product1.u1) annotation (Line(points={{65,30},{78,30},{78,
+            16},{82,16}}, color={0,0,127}));
+    connect(product1.y, integrator.u) annotation (Line(points={{105,10},{106,10},
+            {106,-16},{114,-16}}, color={0,0,127}));
+    connect(sine.y, add.u1) annotation (Line(points={{-59,42},{-46,42},{-46,66},
+            {-34,66}}, color={0,0,127}));
+    connect(add.y, com.TAir)
+      annotation (Line(points={{-11,60},{-9,60},{-9,38}}, color={0,0,127}));
+    connect(integrator.y, add.u2) annotation (Line(points={{137,-16},{146,-16},
+            {146,-50},{-34,-50},{-34,54}}, color={0,0,127}));
+    connect(sine.y, product1.u2) annotation (Line(points={{-59,42},{-44,42},{
+            -44,4},{82,4}}, color={0,0,127}));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+          coordinateSystem(preserveAspectRatio=false)));
+  end ESCTest;
 end ESC;
