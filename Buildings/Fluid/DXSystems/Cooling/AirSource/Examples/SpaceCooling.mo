@@ -146,11 +146,6 @@ model SpaceCooling "Space cooling with DX coils"
     "Controller to enable component when measurement falls below setpoint"
     annotation (Placement(transformation(extent={{-72,2},{-52,22}})));
 
-  Modelica.Blocks.Sources.Constant TRooSetPoi(
-    final k=TRooSet)
-    "Room temperature set point"
-    annotation (Placement(transformation(extent={{-120,8},{-100,28}})));
-
   Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed
     sinSpeDX(
     redeclare package Medium = Medium,
@@ -294,6 +289,11 @@ model SpaceCooling "Space cooling with DX coils"
     "Controller for variable speed DX coil"
     annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
 
+  Modelica.Blocks.Sources.Sine sine(
+    amplitude=1,
+    f=0.001,
+    offset=273.15 + 20)
+    annotation (Placement(transformation(extent={{-170,6},{-150,26}})));
 equation
   connect(out.ports[1], hex.port_a1) annotation (Line(
       points={{-154,-62.6667},{-125,-62.6667},{-125,-64},{-110,-64}},
@@ -707,10 +707,6 @@ equation
       points={{17,-231},{30,-231},{30,-210},{38,-210}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRooSetPoi.y, con.reference) annotation (Line(
-      points={{-99,18},{-74,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(rooSinSpe.TRoo, con.u) annotation (Line(
       points={{140.933,52.3077},{152,52.3077},{152,32},{-80,32},{-80,6},{-74,6}},
       color={0,0,127},
@@ -724,17 +720,9 @@ equation
       points={{-17,12},{-10,12},{-10,-56},{-3,-56}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(mulSpeCon.reference, TRooSetPoi.y) annotation (Line(
-      points={{-61,-124},{-86,-124},{-86,18},{-99,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(rooMulSpe.TRoo, mulSpeCon.u) annotation (Line(
-      points={{200.933,52.3077},{220,52.3077},{220,-100},{-70,-100},{-70,-134.633},
-          {-60.65,-134.633}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TRooSetPoi.y, conVarSpe.u_s) annotation (Line(
-      points={{-99,18},{-86,18},{-86,-210},{-62,-210}},
+      points={{200.933,52.3077},{220,52.3077},{220,-100},{-70,-100},{-70,
+          -134.633},{-60.65,-134.633}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conVarSpe.u_m, rooVarSpe.TRoo) annotation (Line(
@@ -746,6 +734,12 @@ equation
       points={{-39,-210},{-20,-210},{-20,-232},{-5,-232}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(sine.y, con.reference) annotation (Line(points={{-149,16},{-112,16},{
+          -112,18},{-74,18}}, color={0,0,127}));
+  connect(sine.y, mulSpeCon.reference) annotation (Line(points={{-149,16},{-104,
+          16},{-104,-124},{-61,-124}}, color={0,0,127}));
+  connect(sine.y, conVarSpe.u_s) annotation (Line(points={{-149,16},{-106,16},{
+          -106,-210},{-62,-210}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This model illustrates the use of the air source DX coil models with
@@ -816,10 +810,13 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-300},{300,
-            100}}), graphics),
+            100}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/DXSystems/Cooling/AirSource/Examples/SpaceCooling.mos"
         "Simulate and plot"),
-    experiment(StartTime=1.58112e+07,
-               Tolerance=1e-6, StopTime=1.6416e+07));
+    experiment(
+      StartTime=15811200,
+      StopTime=15897600,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"));
 end SpaceCooling;

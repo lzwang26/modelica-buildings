@@ -293,7 +293,7 @@ equation
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(senTZon.T, TRooAir) annotation (Line(points={{180,0},{210,0}},
+  connect(senTZon.T, TRooAir) annotation (Line(points={{181,0},{210,0}},
                     color={0,0,127}));
   connect(senTZon.port, roo.heaPorAir) annotation (Line(points={{160,0},{58.7,0}},
                              color={191,0,0}));

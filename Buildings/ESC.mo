@@ -30,7 +30,7 @@ package ESC
       annotation (Placement(transformation(extent={{-8,18},{12,38}})));
     Modelica.Blocks.Sources.Sine sine(
       amplitude=1,
-      f=0.1,
+      f=0.001,
       offset=0)
       annotation (Placement(transformation(extent={{-80,32},{-60,52}})));
     Modelica.Blocks.Sources.Constant TRad(k=273.15 + 22) "Radiation temperature"
@@ -69,8 +69,8 @@ package ESC
     connect(sine.y, product1.u2) annotation (Line(points={{-59,42},{-44,42},{
             -44,-6},{84,-6}},
                             color={0,0,127}));
-    connect(integrator.y, add.u2) annotation (Line(points={{155,0},{194,0},{194,
-            -76},{-34,-76},{-34,54}}, color={0,0,127}));
+    connect(integrator.y, add.u2) annotation (Line(points={{155,0},{192,0},{192,
+            -78},{-34,-78},{-34,54}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end ESCTest;
@@ -102,7 +102,7 @@ package ESC
       annotation (Placement(visible = true, transformation(origin={-20,-44},  extent = {{-74, -8}, {-54, 12}}, rotation = 0)));
     Modelica.Blocks.Math.Product product1
       annotation (Placement(transformation(extent={{194,28},{214,48}})));
-    Modelica.Blocks.Continuous.Integrator integrator(k=-0.01, y_start=20.5 +
+    Modelica.Blocks.Continuous.Integrator integrator(k=-0.05, y_start=20.5 +
           273.15)
       annotation (Placement(transformation(extent={{244,26},{264,46}})));
   equation
@@ -142,4 +142,12 @@ package ESC
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end TwoObjectiveESC;
+
+  model ZoneTest
+    ThermalZones.ReducedOrder.RC.OneElement theZon(redeclare package Medium =
+          Media.Air)
+      annotation (Placement(transformation(extent={{22,22},{70,58}})));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+          coordinateSystem(preserveAspectRatio=false)));
+  end ZoneTest;
 end ESC;
