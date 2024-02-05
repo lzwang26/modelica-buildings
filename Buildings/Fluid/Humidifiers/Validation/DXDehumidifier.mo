@@ -66,8 +66,7 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Calculate inlet air mass flow rate from component enable signal"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression1(
-    final y=dxDeh.port_a.m_flow)
+  Modelica.Blocks.Sources.RealExpression m_flow_airMod(final y=dxDeh.port_a.m_flow)
     "DX dehumidifier air mass flow rate (Modelica)"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
@@ -81,13 +80,11 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,60},{154,80}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression5(
-    final y=datRea.y[6])
+  Modelica.Blocks.Sources.RealExpression m_flow_airEP(final y=datRea.y[6])
     "DX dehumidifier air mass flow rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,60},{118,80}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression2(
-    final y=-dxDeh.deHum.mWat_flow)
+  Modelica.Blocks.Sources.RealExpression watRemRatMod(final y=-dxDeh.deHum.mWat_flow)
     "Water removal mass flow rate (Modelica)"
     annotation (Placement(transformation(extent={{20,26},{40,46}})));
 
@@ -101,13 +98,11 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,26},{154,46}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression6(
-    final y=datRea.y[4])
+  Modelica.Blocks.Sources.RealExpression watRemRatEP(final y=datRea.y[4])
     "Water removal mass flow rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,26},{118,46}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression3(
-    final y=dxDeh.P)
+  Modelica.Blocks.Sources.RealExpression airHeaRatMod(final y=dxDeh.P)
     "Air heating rate (Modelica)"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -121,14 +116,12 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,-10},{154,10}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression7(
-    final y=datRea.y[5])
+  Modelica.Blocks.Sources.RealExpression dehPowRatEP(final y=datRea.y[5])
     "DX dehumidifier power rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,-10},{118,10}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression4(
-    final y=dxDeh.heaFloSen.Q_flow -
-    dxDeh.deHum.mWat_flow*Buildings.Utilities.Psychrometrics.Constants.h_fg)
+  Modelica.Blocks.Sources.RealExpression dehHeaRatMod(final y=dxDeh.heaFloSen.Q_flow
+         - dxDeh.deHum.mWat_flow*Buildings.Utilities.Psychrometrics.Constants.h_fg)
     "DX dehumidifier heating rate (Modelica)"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
@@ -142,8 +135,7 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,-40},{154,-20}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression8(
-    final y=datRea.y[3])
+  Modelica.Blocks.Sources.RealExpression dehHeaRatEP(final y=datRea.y[3])
     "DX dehumidifier heating rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,-40},{118,-20}})));
 
@@ -159,21 +151,21 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
 equation
-  connect(realExpression1.y, m_flowFan.u)
+  connect(m_flow_airMod.y, m_flowFan.u)
     annotation (Line(points={{41,70},{52,70}}, color={0,0,127}));
-  connect(realExpression5.y, m_flowFanEP.u)
+  connect(m_flow_airEP.y, m_flowFanEP.u)
     annotation (Line(points={{119,70},{132,70}}, color={0,0,127}));
-  connect(realExpression2.y, mWatMod.u)
-    annotation (Line(points={{41,36},{52,36}},  color={0,0,127}));
-  connect(realExpression6.y, mWatEP.u)
+  connect(watRemRatMod.y, mWatMod.u)
+    annotation (Line(points={{41,36},{52,36}}, color={0,0,127}));
+  connect(watRemRatEP.y, mWatEP.u)
     annotation (Line(points={{119,36},{132,36}}, color={0,0,127}));
-  connect(realExpression3.y, PMod.u)
-    annotation (Line(points={{41,0},{52,0}},      color={0,0,127}));
-  connect(realExpression7.y, PEP.u)
+  connect(airHeaRatMod.y, PMod.u)
+    annotation (Line(points={{41,0},{52,0}}, color={0,0,127}));
+  connect(dehPowRatEP.y, PEP.u)
     annotation (Line(points={{119,0},{132,0}}, color={0,0,127}));
-  connect(realExpression4.y, QHeaMod.u)
+  connect(dehHeaRatMod.y, QHeaMod.u)
     annotation (Line(points={{41,-30},{52,-30}}, color={0,0,127}));
-  connect(realExpression8.y, QHeaEP.u)
+  connect(dehHeaRatEP.y, QHeaEP.u)
     annotation (Line(points={{119,-30},{132,-30}}, color={0,0,127}));
 
   connect(plrToPul.yEna, dxDeh.uEna) annotation (Line(points={{-98,70},{-54,70},
