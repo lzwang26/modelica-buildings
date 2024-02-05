@@ -75,12 +75,11 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{54,60},{74,80}})));
 
-  Modelica.Blocks.Math.Mean m_flowFanEP(
-    final f=1/tStepAve)
+  Modelica.Blocks.Math.Mean m_flowFan_engPlu(final f=1/tStepAve)
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,60},{154,80}})));
 
-  Modelica.Blocks.Sources.RealExpression m_flow_airEP(final y=datRea.y[6])
+  Modelica.Blocks.Sources.RealExpression m_flow_air_engPlu(final y=datRea.y[6])
     "DX dehumidifier air mass flow rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,60},{118,80}})));
 
@@ -93,12 +92,11 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{54,26},{74,46}})));
 
-  Modelica.Blocks.Math.Mean mWatEP(
-    final f=1/tStepAve)
+  Modelica.Blocks.Math.Mean mWat_engPlu(final f=1/tStepAve)
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,26},{154,46}})));
 
-  Modelica.Blocks.Sources.RealExpression watRemRatEP(final y=datRea.y[4])
+  Modelica.Blocks.Sources.RealExpression watRemRat_engPlu(final y=datRea.y[4])
     "Water removal mass flow rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,26},{118,46}})));
 
@@ -111,12 +109,11 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{54,-10},{74,10}})));
 
-  Modelica.Blocks.Math.Mean PEP(
-    final f=1/tStepAve)
+  Modelica.Blocks.Math.Mean P_engPlu(final f=1/tStepAve)
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,-10},{154,10}})));
 
-  Modelica.Blocks.Sources.RealExpression dehPowRatEP(final y=datRea.y[5])
+  Modelica.Blocks.Sources.RealExpression dehPowRat_engPlu(final y=datRea.y[5])
     "DX dehumidifier power rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,-10},{118,10}})));
 
@@ -130,12 +127,11 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{54,-40},{74,-20}})));
 
-  Modelica.Blocks.Math.Mean QHeaEP(
-    final f=1/tStepAve)
+  Modelica.Blocks.Math.Mean QHea_engPlu(final f=1/tStepAve)
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,-40},{154,-20}})));
 
-  Modelica.Blocks.Sources.RealExpression dehHeaRatEP(final y=datRea.y[3])
+  Modelica.Blocks.Sources.RealExpression dehHeaRat_engPlu(final y=datRea.y[3])
     "DX dehumidifier heating rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,-40},{118,-20}})));
 
@@ -153,19 +149,19 @@ model DXDehumidifier "Validation model for DX dehumidifier"
 equation
   connect(m_flow_airMod.y, m_flowFan.u)
     annotation (Line(points={{41,70},{52,70}}, color={0,0,127}));
-  connect(m_flow_airEP.y, m_flowFanEP.u)
+  connect(m_flow_air_engPlu.y, m_flowFan_engPlu.u)
     annotation (Line(points={{119,70},{132,70}}, color={0,0,127}));
   connect(watRemRatMod.y, mWatMod.u)
     annotation (Line(points={{41,36},{52,36}}, color={0,0,127}));
-  connect(watRemRatEP.y, mWatEP.u)
+  connect(watRemRat_engPlu.y, mWat_engPlu.u)
     annotation (Line(points={{119,36},{132,36}}, color={0,0,127}));
   connect(airHeaRatMod.y, PMod.u)
     annotation (Line(points={{41,0},{52,0}}, color={0,0,127}));
-  connect(dehPowRatEP.y, PEP.u)
+  connect(dehPowRat_engPlu.y, P_engPlu.u)
     annotation (Line(points={{119,0},{132,0}}, color={0,0,127}));
   connect(dehHeaRatMod.y, QHeaMod.u)
     annotation (Line(points={{41,-30},{52,-30}}, color={0,0,127}));
-  connect(dehHeaRatEP.y, QHeaEP.u)
+  connect(dehHeaRat_engPlu.y, QHea_engPlu.u)
     annotation (Line(points={{119,-30},{132,-30}}, color={0,0,127}));
 
   connect(plrToPul.yEna, dxDeh.uEna) annotation (Line(points={{-98,70},{-54,70},
