@@ -31,7 +31,7 @@ model DXDehumidifier "DX dehumidifier"
 
   Modelica.Blocks.Interfaces.BooleanInput uEna
     "Enable signal"
-    annotation (Placement(transformation(extent={{-142,-106},{-102,-66}}),
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput T(
@@ -48,6 +48,11 @@ model DXDehumidifier "DX dehumidifier"
     "Power consumption rate"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
+
+  Modelica.Blocks.Sources.RealExpression uWatRem(
+    final y=watRemMod)
+    "Humidity removed from inlet air when component is enabled"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Heat transfer into medium from dehumidifying action"
@@ -86,7 +91,7 @@ model DXDehumidifier "DX dehumidifier"
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert enable signal from Boolean to Real"
-    annotation (Placement(transformation(extent={{-92,-96},{-72,-76}})));
+    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 
   Modelica.Blocks.Routing.RealPassThrough QHea if addPowerToMedium
     "Heat transfer into medium only if required"
@@ -94,7 +99,7 @@ model DXDehumidifier "DX dehumidifier"
 
   Buildings.Controls.OBC.CDL.Reals.Multiply u
     "Calculate non-zero humidity removal from inlet air only when component is enabled"
-    annotation (Placement(transformation(extent={{-42,-50},{-22,-30}})));
+    annotation (Placement(transformation(extent={{-46,-50},{-26,-30}})));
 
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare package Medium = Medium,
@@ -114,6 +119,11 @@ model DXDehumidifier "DX dehumidifier"
     liter/kWh to m^3/J)"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 
+  Modelica.Blocks.Sources.RealExpression eneFacModVal(
+    final y=eneFacMod)
+    "Calculated value of energy factor modifier curve"
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter watRemRat(
     final k=VWat_flow_nominal)
     "Calculate water removal rate by multiplying water removal modifier by nominal
@@ -124,10 +134,6 @@ model DXDehumidifier "DX dehumidifier"
     "Calculate dehumidification power consumption"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
-  BaseClasses.WaterRemovalModifierCurve watRemModCur( per = per)
-    annotation (Placement(transformation(extent={{-82,-44},{-62,-24}})));
-  BaseClasses.EnergyFactorModifierCurve eneFacModCur( per = per)
-    annotation (Placement(transformation(extent={{-36,-102},{-16,-82}})));
 protected
   constant Modelica.Units.SI.SpecificEnthalpy h_fg= Buildings.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of water vapor";
@@ -153,22 +159,20 @@ equation
     // Since the regression for capacity can have negative values
     // (for unreasonable inputs), we constrain its return value to be
     // non-negative.
-
-
-     watRemMod =Buildings.Utilities.Math.Functions.smoothMax(
-         x1=Buildings.Utilities.Math.Functions.biquadratic(
-           a=per.watRem,
-           x1=Modelica.Units.Conversions.to_degC(senTIn.T),
-           x2=senRelHum.phi*100),
-         x2=0.001,
-         deltaX=0.0001);
-     eneFacMod =Buildings.Utilities.Math.Functions.smoothMax(
-         x1=Buildings.Utilities.Math.Functions.biquadratic(
-           a=per.eneFac,
-           x1=Modelica.Units.Conversions.to_degC(senTIn.T),
-           x2=senRelHum.phi*100),
-         x2=0.001,
-         deltaX=0.0001);
+    watRemMod =Buildings.Utilities.Math.Functions.smoothMax(
+        x1=Buildings.Utilities.Math.Functions.biquadratic(
+          a=per.watRem,
+          x1=Modelica.Units.Conversions.to_degC(senTIn.T),
+          x2=senRelHum.phi*100),
+        x2=0.001,
+        deltaX=0.0001);
+    eneFacMod =Buildings.Utilities.Math.Functions.smoothMax(
+        x1=Buildings.Utilities.Math.Functions.biquadratic(
+          a=per.eneFac,
+          x1=Modelica.Units.Conversions.to_degC(senTIn.T),
+          x2=senRelHum.phi*100),
+        x2=0.001,
+        deltaX=0.0001);
     XOut= (port_a.m_flow*senMasFra.X + deHum.mWat_flow)/(port_a.m_flow+1e-6);
 
   connect(preHeaFlo.port, heaFloSen.port_a)
@@ -192,16 +196,21 @@ equation
     annotation (Line(points={{10,0},{40,0}},color={0,127,255}));
   connect(QHea.y, preHeaFlo.Q_flow) annotation (Line(points={{-29,30},{-20,30},{
           -20,50},{-10,50}}, color={0,0,127}));
-  connect(u.y, deHum.u) annotation (Line(points={{-20,-40},{30,-40},{30,6},{39,6}},
+  connect(uWatRem.y, u.u1)
+    annotation (Line(points={{-59,-30},{-52,-30},{-52,-34},{-48,-34}},
+                                                   color={0,0,127}));
+  connect(u.y, deHum.u) annotation (Line(points={{-24,-40},{30,-40},{30,6},{39,6}},
         color={0,0,127}));
   connect(uEna, booToRea.u)
-    annotation (Line(points={{-122,-86},{-94,-86}}, color={255,0,255}));
-  connect(booToRea.y, u.u2) annotation (Line(points={{-70,-86},{-56,-86},{-56,-46},
-          {-44,-46}},      color={0,0,127}));
+    annotation (Line(points={{-120,-50},{-92,-50}}, color={255,0,255}));
+  connect(booToRea.y, u.u2) annotation (Line(points={{-68,-50},{-54,-50},{-54,-46},
+          {-48,-46}},      color={0,0,127}));
   connect(con.y, preHeaFlo.Q_flow) annotation (Line(points={{-28,60},{-20,60},{
           -20,50},{-10,50}},
                          color={0,0,127}));
-  connect(u.y, watRemRat.u) annotation (Line(points={{-20,-40},{-10,-40},{-10,-60},
+  connect(eneFacModVal.y, eneFac.u)
+    annotation (Line(points={{-19,-90},{-2,-90}}, color={0,0,127}));
+  connect(u.y, watRemRat.u) annotation (Line(points={{-24,-40},{-10,-40},{-10,-60},
           {-2,-60}}, color={0,0,127}));
   connect(watRemRat.y, PDeh.u1) annotation (Line(points={{22,-60},{30,-60},{30,
           -64},{38,-64}}, color={0,0,127}));
@@ -211,18 +220,6 @@ equation
           -56,-20},{-56,30},{-52,30}}, color={0,0,127}));
   connect(PDeh.y, P) annotation (Line(points={{62,-70},{80,-70},{80,-30},{120,-30}},
         color={0,0,127}));
-  connect(watRemModCur.watRemMod, u.u1)
-    annotation (Line(points={{-61,-34},{-44,-34}}, color={0,0,127}));
-  connect(senTIn.T, watRemModCur.T) annotation (Line(points={{-72,11},{-72,30},{
-          -90,30},{-90,-30},{-84,-30}}, color={0,0,127}));
-  connect(senRelHum.phi, watRemModCur.phi) annotation (Line(points={{0.1,11},{0.1,
-          18},{-94,18},{-94,-38},{-84,-38}}, color={0,0,127}));
-  connect(eneFacModCur.eneFacMod, eneFac.u) annotation (Line(points={{-15,-92},{
-          -8,-92},{-8,-90},{-2,-90}}, color={0,0,127}));
-  connect(senTIn.T, eneFacModCur.T) annotation (Line(points={{-72,11},{-60,11},{
-          -60,12},{-50,12},{-50,-88},{-38,-88}}, color={0,0,127}));
-  connect(senRelHum.phi, eneFacModCur.phi) annotation (Line(points={{0.1,11},{-48,
-          11},{-48,-96},{-38,-96}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),  graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
