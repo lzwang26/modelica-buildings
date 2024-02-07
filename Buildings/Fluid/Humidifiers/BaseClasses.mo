@@ -15,7 +15,7 @@ package BaseClasses "Package with base classes for Buildings.Fluid.Humidifiers"
       annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
 
-    Examples.Data.DXDehumidifier per
+    Buildings.Fluid.Humidifiers.Data.Generic per
       annotation (Placement(transformation(extent={{22,64},{42,84}})));
   equation
     watRemMod =Buildings.Utilities.Math.Functions.smoothMax(
@@ -56,7 +56,7 @@ package BaseClasses "Package with base classes for Buildings.Fluid.Humidifiers"
             Media.Air, m_flow_nominal=1)
         annotation (Placement(transformation(extent={{2,-20},{22,0}})));
       Buildings.Fluid.Humidifiers.BaseClasses.WaterRemovalModifierCurve
-        waterRemovalModifierCurve
+        waterRemovalModifierCurve( per = per)
         annotation (Placement(transformation(extent={{36,14},{56,34}})));
       Examples.Data.DXDehumidifier                             per
         "Data record for DX dehumidifier"
