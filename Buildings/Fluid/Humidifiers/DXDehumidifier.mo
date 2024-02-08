@@ -49,11 +49,6 @@ model DXDehumidifier "DX dehumidifier"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
 
-  Modelica.Blocks.Sources.RealExpression uWatRem(
-    final y=watRemMod)
-    "Humidity removed from inlet air when component is enabled"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Heat transfer into medium from dehumidifying action"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
@@ -119,11 +114,6 @@ model DXDehumidifier "DX dehumidifier"
     liter/kWh to m^3/J)"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 
-  Modelica.Blocks.Sources.RealExpression eneFacModVal(
-    final y=eneFacMod)
-    "Calculated value of energy factor modifier curve"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter watRemRat(
     final k=VWat_flow_nominal)
     "Calculate water removal rate by multiplying water removal modifier by nominal
@@ -134,6 +124,8 @@ model DXDehumidifier "DX dehumidifier"
     "Calculate dehumidification power consumption"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
+  BaseClasses.ModifierCurve modifierCurve(per = per)
+    annotation (Placement(transformation(extent={{-50,-94},{-30,-74}})));
 protected
   constant Modelica.Units.SI.SpecificEnthalpy h_fg= Buildings.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of water vapor";
@@ -141,17 +133,17 @@ protected
   constant Modelica.Units.SI.Density rhoWat=1000
     "Water density";
 
-  Real watRemMod(
-    min=0,
-    nominal=1,
-    start=1)
-    "Water removal modifier factor as a function of temperature and relative humidity";
-
-  Real eneFacMod(
-    min=0,
-    nominal=1,
-    start=1)
-    "Energy factor modifier factor as a function of temperature and relative humidity";
+//   Real watRemMod(
+//     min=0,
+//     nominal=1,
+//     start=1)
+//     "Water removal modifier factor as a function of temperature and relative humidity";
+//
+//   Real eneFacMod(
+//     min=0,
+//     nominal=1,
+//     start=1)
+//     "Energy factor modifier factor as a function of temperature and relative humidity";
 
 equation
     //-------------------------Part-load performance modifiers----------------------------//
@@ -159,20 +151,20 @@ equation
     // Since the regression for capacity can have negative values
     // (for unreasonable inputs), we constrain its return value to be
     // non-negative.
-    watRemMod =Buildings.Utilities.Math.Functions.smoothMax(
-        x1=Buildings.Utilities.Math.Functions.biquadratic(
-          a=per.watRem,
-          x1=Modelica.Units.Conversions.to_degC(senTIn.T),
-          x2=senRelHum.phi*100),
-        x2=0.001,
-        deltaX=0.0001);
-    eneFacMod =Buildings.Utilities.Math.Functions.smoothMax(
-        x1=Buildings.Utilities.Math.Functions.biquadratic(
-          a=per.eneFac,
-          x1=Modelica.Units.Conversions.to_degC(senTIn.T),
-          x2=senRelHum.phi*100),
-        x2=0.001,
-        deltaX=0.0001);
+//      watRemMod =Buildings.Utilities.Math.Functions.smoothMax(
+//          x1=Buildings.Utilities.Math.Functions.biquadratic(
+//            a=per.watRem,
+//            x1=Modelica.Units.Conversions.to_degC(senTIn.T),
+//            x2=senRelHum.phi*100),
+//          x2=0.001,
+//          deltaX=0.0001);
+//      eneFacMod =Buildings.Utilities.Math.Functions.smoothMax(
+//          x1=Buildings.Utilities.Math.Functions.biquadratic(
+//            a=per.eneFac,
+//            x1=Modelica.Units.Conversions.to_degC(senTIn.T),
+//            x2=senRelHum.phi*100),
+//          x2=0.001,
+//          deltaX=0.0001);
     XOut= (port_a.m_flow*senMasFra.X + deHum.mWat_flow)/(port_a.m_flow+1e-6);
 
   connect(preHeaFlo.port, heaFloSen.port_a)
@@ -196,9 +188,6 @@ equation
     annotation (Line(points={{10,0},{40,0}},color={0,127,255}));
   connect(QHea.y, preHeaFlo.Q_flow) annotation (Line(points={{-29,30},{-20,30},{
           -20,50},{-10,50}}, color={0,0,127}));
-  connect(uWatRem.y, u.u1)
-    annotation (Line(points={{-59,-30},{-52,-30},{-52,-34},{-48,-34}},
-                                                   color={0,0,127}));
   connect(u.y, deHum.u) annotation (Line(points={{-24,-40},{30,-40},{30,6},{39,6}},
         color={0,0,127}));
   connect(uEna, booToRea.u)
@@ -208,8 +197,6 @@ equation
   connect(con.y, preHeaFlo.Q_flow) annotation (Line(points={{-28,60},{-20,60},{
           -20,50},{-10,50}},
                          color={0,0,127}));
-  connect(eneFacModVal.y, eneFac.u)
-    annotation (Line(points={{-19,-90},{-2,-90}}, color={0,0,127}));
   connect(u.y, watRemRat.u) annotation (Line(points={{-24,-40},{-10,-40},{-10,-60},
           {-2,-60}}, color={0,0,127}));
   connect(watRemRat.y, PDeh.u1) annotation (Line(points={{22,-60},{30,-60},{30,
@@ -220,6 +207,14 @@ equation
           -56,-20},{-56,30},{-52,30}}, color={0,0,127}));
   connect(PDeh.y, P) annotation (Line(points={{62,-70},{80,-70},{80,-30},{120,-30}},
         color={0,0,127}));
+  connect(senTIn.T, modifierCurve.T) annotation (Line(points={{-72,11},{-66,11},
+          {-66,-80},{-52,-80}}, color={0,0,127}));
+  connect(senRelHum.phi, modifierCurve.phi) annotation (Line(points={{0.1,11},{0.1,
+          12},{-60,12},{-60,-88},{-52,-88}}, color={0,0,127}));
+  connect(modifierCurve.watRemMod, u.u1) annotation (Line(points={{-29,-80},{-24,
+          -80},{-24,-60},{-52,-60},{-52,-34},{-48,-34}}, color={0,0,127}));
+  connect(modifierCurve.eneFacMod, eneFac.u) annotation (Line(points={{-29,-88},
+          {-14,-88},{-14,-90},{-2,-90}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),  graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
