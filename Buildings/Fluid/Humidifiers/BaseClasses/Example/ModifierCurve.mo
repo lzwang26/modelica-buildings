@@ -14,7 +14,7 @@ model ModifierCurve
   Sensors.RelativeHumidityTwoPort senRelHum(redeclare package Medium =
         Media.Air, m_flow_nominal=1)
     annotation (Placement(transformation(extent={{2,-20},{22,0}})));
-  Buildings.Fluid.Humidifiers.BaseClasses.ModifierCurve waterRemovalModifierCurve(per=per)
+  Buildings.Fluid.Humidifiers.BaseClasses.ModifierCurve ModifierCurve(per=per)
     annotation (Placement(transformation(extent={{36,14},{56,34}})));
   Examples.Data.DXDehumidifier                             per
     "Data record for DX dehumidifier"
@@ -26,10 +26,10 @@ equation
     annotation (Line(points={{-18,-10},{2,-10}}, color={0,127,255}));
   connect(senRelHum.port_b, bou.ports[1]) annotation (Line(points={{22,-10},{42,
           -10},{42,-50},{22,-50}}, color={0,127,255}));
-  connect(senTem.T, waterRemovalModifierCurve.T)
+  connect(senTem.T, ModifierCurve.T)
     annotation (Line(points={{-28,1},{-28,28},{34,28}}, color={0,0,127}));
-  connect(senRelHum.phi, waterRemovalModifierCurve.phi) annotation (Line(
-        points={{12.1,1},{12.1,20},{34,20}}, color={0,0,127}));
+  connect(senRelHum.phi, ModifierCurve.phi)
+    annotation (Line(points={{12.1,1},{12.1,20},{34,20}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ModifierCurve;
