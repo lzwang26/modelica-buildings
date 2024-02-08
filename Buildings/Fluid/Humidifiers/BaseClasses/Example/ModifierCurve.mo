@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers.BaseClasses.Example;
-model WaterRemovalModifierCurve
+model ModifierCurve
   extends Modelica.Icons.Example;
   Sources.MassFlowSource_T boundary(
     redeclare package Medium = Media.Air,
@@ -14,7 +14,7 @@ model WaterRemovalModifierCurve
   Sensors.RelativeHumidityTwoPort senRelHum(redeclare package Medium =
         Media.Air, m_flow_nominal=1)
     annotation (Placement(transformation(extent={{2,-20},{22,0}})));
-  Buildings.Fluid.Humidifiers.BaseClasses.WaterRemovalModifierCurve waterRemovalModifierCurve(per=per)
+  Buildings.Fluid.Humidifiers.BaseClasses.ModifierCurve waterRemovalModifierCurve(per=per)
     annotation (Placement(transformation(extent={{36,14},{56,34}})));
   Examples.Data.DXDehumidifier                             per
     "Data record for DX dehumidifier"
@@ -32,4 +32,4 @@ equation
         points={{12.1,1},{12.1,20},{34,20}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end WaterRemovalModifierCurve;
+end ModifierCurve;

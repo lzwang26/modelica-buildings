@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers.BaseClasses;
-block WaterRemovalModifierCurve
+block ModifierCurve
 
   Modelica.Blocks.Interfaces.RealInput T annotation (Placement(transformation(
           extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},
@@ -25,4 +25,4 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end WaterRemovalModifierCurve;
+end ModifierCurve;
