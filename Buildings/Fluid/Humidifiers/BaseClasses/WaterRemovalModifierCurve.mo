@@ -10,7 +10,7 @@ block WaterRemovalModifierCurve
   Modelica.Blocks.Interfaces.RealInput phi
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Fluid.Humidifiers.Data.Generic per
+  parameter Buildings.Fluid.Humidifiers.Data.Generic per
     annotation (Placement(transformation(extent={{22,64},{42,84}})));
 equation
   watRemMod =Buildings.Utilities.Math.Functions.smoothMax(
