@@ -115,7 +115,7 @@ annotation (Icon(
 This block calculates the time duration for which the DX coil needs to be kept enabled
 based on the part-load ratio input signal <code>uPLR</code> for the constant simulation
 run period <code>tPer</code>, and then generates an output enable signal 
-<code>yEna</code> for that duration. Once the component has been kept enabled for 
+<code>yEna</code> for a duration <code>uPLR * tPer</code>. Once the component has been kept enabled for 
 the calculated duration, the component is kept disabled until the start of the next period.
 </p>
 </html>",
