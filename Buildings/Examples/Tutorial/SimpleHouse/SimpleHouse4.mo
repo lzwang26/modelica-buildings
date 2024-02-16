@@ -1,4 +1,4 @@
-within Buildings.Examples.Tutorial.SimpleHouse;
+﻿within Buildings.Examples.Tutorial.SimpleHouse;
 model SimpleHouse4 "Heating model"
   extends SimpleHouse3;
 
@@ -44,11 +44,11 @@ model SimpleHouse4 "Heating model"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={20,-180})));
-  Modelica.Blocks.Sources.Constant conHea(k=1)
-    if use_constantHeater "Gain for heater"
+  Modelica.Blocks.Sources.Constant conHea(k=1) if
+       use_constantHeater "Gain for heater"
     annotation (Placement(transformation(extent={{80,-110},{60,-90}})));
-  Modelica.Blocks.Sources.Constant conPum(k=mWat_flow_nominal)
-    if use_constantHeater "Gain for pump"
+  Modelica.Blocks.Sources.Constant conPum(k=mWat_flow_nominal) if
+       use_constantHeater "Gain for pump"
     annotation (Placement(transformation(extent={{130,-160},{110,-140}})));
 equation
   connect(heaWat.port_b,rad. port_a) annotation (Line(points={{80,-130},{140,-130}},
