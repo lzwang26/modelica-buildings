@@ -15,7 +15,8 @@ model SimpleHydronicLoop
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
         origin={60,28})));
   Fluid.FixedResistances.Junction jun(redeclare package Medium = Media.Water,
-      m_flow_nominal=m_priEnergyFlow_nominal_junctions)
+      m_flow_nominal=m_priEnergyFlow_nominal_junctions,
+    dp_nominal={1,2,3})
     annotation (Placement(transformation(extent={{-12,18},{8,38}})));
   Fluid.Sources.Boundary_pT bou3(
     redeclare package Medium = Media.Water,
