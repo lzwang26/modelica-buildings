@@ -171,7 +171,8 @@ equation
           1.77636e-15},{160,1.77636e-15}},
                          color={191,0,0}));
   connect(TOut.T, weaBus.TDryBul)
-    annotation (Line(points={{-82,0},{-130,0}},           color={0,0,127}));
+    annotation (Line(points={{-82,0},{-106,0},{-106,0.05},{-129.95,0.05}},
+                                                          color={0,0,127}));
   connect(TOut.port, walRes.port_a)
     annotation (Line(points={{-60,0},{60,0}},     color={191,0,0}));
   connect(heaWat.port_b, rad.port_a) annotation (Line(points={{80,-130},{120,-130}},
@@ -182,8 +183,8 @@ equation
           {150,-180},{140,-180}},color={0,127,255}));
   connect(senTemZonAir.port, zon.heatPort) annotation (Line(points={{120,180},{160,
           180},{160,40}},                      color={191,0,0}));
-  connect(bouAir.ports[1], hexRec.port_b1) annotation (Line(points={{-100,139},{
-          -100,149.6},{-75,149.6}},
+  connect(bouAir.ports[1], hexRec.port_b1) annotation (Line(points={{-100,142},
+          {-100,149.6},{-75,149.6}},
                               color={0,127,255}));
   connect(rad.heatPortCon, zon.heatPort) annotation (Line(points={{128,-122.8},{
           128,40},{160,40}},                    color={191,0,0}));
@@ -199,8 +200,8 @@ equation
           118}},           color={0,0,127}));
   connect(gaiWin.y, win.Q_flow) annotation (Line(points={{41,-40},{60,-40}},
                            color={0,0,127}));
-  connect(gaiWin.u, weaBus.HGloHor) annotation (Line(points={{18,-40},{-130,-40},
-          {-130,0}},             color={0,0,127}));
+  connect(gaiWin.u, weaBus.HGloHor) annotation (Line(points={{18,-40},{-129.95,
+          -40},{-129.95,0.05}},  color={0,0,127}));
   connect(booToInt.u, not1.y) annotation (Line(points={{-2,-150},{-11,-150},{-11,
           -110},{-19,-110}}, color={255,0,255}));
   connect(booToInt.y, pum.stage) annotation (Line(points={{21,-150},{130,-150},{
@@ -208,7 +209,7 @@ equation
   connect(hexRec.port_b2, fan.port_a) annotation (Line(points={{-45,130.4},{-30,
           130.4},{-30,130},{-20,130}}, color={0,127,255}));
   connect(vavDam.port_b, zon.ports[1])
-    annotation (Line(points={{120,130},{140,130},{140,50},{169,50}},
+    annotation (Line(points={{120,130},{140,130},{140,50},{168,50}},
                                                           color={0,127,255}));
   connect(senTemZonAir.T, hysRad.u) annotation (Line(points={{99,180},{-209.25,180},
           {-209.25,-110},{-82,-110}},         color={0,0,127}));
@@ -226,11 +227,13 @@ equation
   connect(TSupAirCoo.y, cooAir.TSet) annotation (Line(points={{21,100},{24,100},
           {24,122},{28,122}},color={0,0,127}));
   connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-122,144},{
-          -130,144},{-130,0}},  color={0,0,127}));
-  connect(bouAir.ports[2], hexRec.port_a2) annotation (Line(points={{-100,141},{
-          -100,130.4},{-75,130.4}}, color={0,127,255}));
-  connect(hexRec.port_a1, zon.ports[2]) annotation (Line(points={{-45,149.6},{171,
-          149.6},{171,50}}, color={0,127,255}));
+          -129.95,144},{-129.95,0.05}},
+                                color={0,0,127}));
+  connect(bouAir.ports[2], hexRec.port_a2) annotation (Line(points={{-100,138},
+          {-100,130.4},{-75,130.4}},color={0,127,255}));
+  connect(hexRec.port_a1, zon.ports[2]) annotation (Line(points={{-45,149.6},{
+          172,149.6},{172,50}},
+                            color={0,127,255}));
   connect(conRes.port_b, walCap.port) annotation (Line(points={{110,10},{110,0},
           {122,0},{122,1.77636e-15},{160,1.77636e-15}}, color={191,0,0}));
   connect(win.port, walCap.port) annotation (Line(points={{80,-40},{110,-40},{110,

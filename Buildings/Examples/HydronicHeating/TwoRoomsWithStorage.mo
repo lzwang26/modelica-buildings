@@ -662,7 +662,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.heaPorVol[1], tanTemTop.port) annotation (Line(
-      points={{170,-200.48},{170,-194},{272,-194},{272,-170},{284,-170}},
+      points={{170,-200.96},{170,-194},{272,-194},{272,-170},{284,-170}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(tanTemBot.port, tan.heaPorVol[tan.nSeg]) annotation (Line(
@@ -707,12 +707,12 @@ equation
       smooth=Smooth.None));
   connect(conRoo1.y, mulMax.u[1]) annotation (Line(
       points={{562,510},{580,510},{580,420},{160,420},{160,240},{-20,240},{-20,
-          69.5},{-2,69.5}},
+          71},{-2,71}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conRoo2.y, mulMax.u[2]) annotation (Line(
       points={{562,250},{580,250},{580,150},{160,150},{160,240},{-20,240},{-20,
-          70.5},{-2,70.5}},
+          69},{-2,69}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conVal.y, thrWayVal.y) annotation (Line(
@@ -767,7 +767,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(roo1.ports[1], dpFac1.port_b) annotation (Line(
-      points={{361,472.667},{350,472.667},{350,474},{340,474}},
+      points={{361,471.333},{350,471.333},{350,474},{340,474}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpFac1.port_a, hex.port_a2) annotation (Line(
@@ -775,7 +775,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpFac4.port_b, roo2.ports[1]) annotation (Line(
-      points={{340,214},{356,214},{356,214.667},{373,214.667}},
+      points={{340,214},{356,214},{356,213.333},{373,213.333}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpFac4.port_a, hex.port_a2) annotation (Line(
@@ -791,11 +791,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(out.ports[1], fanSup.port_a)  annotation (Line(
-      points={{20,478.5},{50,478.5},{50,500},{70,500}},
+      points={{20,483},{50,483},{50,500},{70,500}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fanRet.port_b, out.ports[2])  annotation (Line(
-      points={{70,460},{50,460},{50,479.5},{20,479.5}},
+      points={{70,460},{50,460},{50,481},{20,481}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(m_flow_out.y, fanRet.m_flow_in) annotation (Line(
@@ -807,7 +807,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(lea1.port_a, out.ports[3])  annotation (Line(
-      points={{320,440},{46,440},{46,480.5},{20,480.5}},
+      points={{320,440},{46,440},{46,479},{20,479}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(lea2.port_b, roo2.ports[2]) annotation (Line(
@@ -815,7 +815,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(lea2.port_a, out.ports[4])  annotation (Line(
-      points={{320,180},{266,180},{266,374},{40,374},{40,481.5},{20,481.5}},
+      points={{320,180},{266,180},{266,374},{40,374},{40,477},{20,477}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(swi.y, heaCha.TRoo_in)     annotation (Line(
@@ -832,7 +832,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaCha.TOut) annotation (Line(
-      points={{-40,340},{-40,-40},{78,-40}},
+      points={{-39.95,340.05},{-39.95,-40},{78,-40}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -984,7 +984,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, cooCon.TOut) annotation (Line(
-      points={{-40,340},{-40,534},{98,534}},
+      points={{-39.95,340.05},{-39.95,534},{98,534}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -1016,14 +1016,14 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(coo.port_b, roo1.ports[3]) annotation (Line(
-      points={{260,510},{338,510},{338,486},{350,486},{350,475.333},{361,
-          475.333}},
+      points={{260,510},{338,510},{338,486},{350,486},{350,476.667},{361,
+          476.667}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(coo.port_b, roo2.ports[3]) annotation (Line(
-      points={{260,510},{282,510},{282,228},{360,228},{360,217.333},{373,
-          217.333}},
+      points={{260,510},{282,510},{282,228},{360,228},{360,218.667},{373,
+          218.667}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -1071,13 +1071,13 @@ equation
           -90},{422,-90}},
                       color={255,0,255}));
   connect(pumOn2.active, pumOnSig.u[1]) annotation (Line(points={{630,-21},{630,
-          -92.3333},{660,-92.3333}},
+          -85.3333},{660,-85.3333}},
                            color={255,0,255}));
   connect(boiOn.active, pumOnSig.u[2]) annotation (Line(points={{570,-21},{570,
           -21},{570,-88},{570,-90},{660,-90}},
                                           color={255,0,255}));
   connect(pumOn.active, pumOnSig.u[3]) annotation (Line(points={{510,-21},{510,
-          -87.6667},{660,-87.6667}},
+          -94.6667},{660,-94.6667}},
                            color={255,0,255}));
   connect(off.outPort[1], T1.inPort)
     annotation (Line(points={{460.5,-10},{468.25,-10},{476,-10}},
@@ -1112,7 +1112,7 @@ equation
   connect(onOff.u, aveTOut.y) annotation (Line(points={{578,338},{572,338},{572,
           310},{562,310}}, color={0,0,127}));
   connect(weaBus.TDryBul, aveTOut.u) annotation (Line(
-      points={{-40,340},{470,340},{470,310},{538,310}},
+      points={{-39.95,340.05},{470,340.05},{470,310},{538,310}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -1120,7 +1120,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus.TDryBul, lesThrTOut.u) annotation (Line(
-      points={{-40,340},{-40,-70},{380,-70},{380,-50},{398,-50}},
+      points={{-39.95,340.05},{-39.95,-70},{380,-70},{380,-50},{398,-50}},
       color={255,204,51},
       thickness=0.5));
   connect(tan.port_b, splVal3.port_3)
