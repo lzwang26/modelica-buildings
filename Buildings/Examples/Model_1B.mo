@@ -1,6 +1,5 @@
 within Buildings.Examples;
-model Model_1A_Modified
-
+model Model_1B
 
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.MassFlowRate m_priEnergyFlow_nominal = 0.1
@@ -368,4 +367,4 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-360,-200},{360,200}})));
-end Model_1A_Modified;
+end Model_1B;
