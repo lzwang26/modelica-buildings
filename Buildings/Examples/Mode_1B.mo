@@ -1,5 +1,5 @@
 within Buildings.Examples;
-model Model_1A
+model Mode_1B
 
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.MassFlowRate m_priEnergyFlow_nominal = 0.1
@@ -160,7 +160,7 @@ model Model_1A
     annotation (Placement(transformation(extent={{230,30},{250,50}})));
   Modelica.Blocks.Sources.Constant const(k=1)
     annotation (Placement(transformation(extent={{-218,70},{-198,90}})));
-  Modelica.Blocks.Sources.Constant const1(k=1)
+  Modelica.Blocks.Sources.Constant const1(k=0)
     annotation (Placement(transformation(extent={{158,136},{178,156}})));
   Modelica.Blocks.Sources.Constant const2(k=0)
     annotation (Placement(transformation(extent={{-98,170},{-78,190}})));
@@ -195,7 +195,7 @@ model Model_1A
     m_flow_nominal=m_priEnergyFlow_nominal,
     dpValve_nominal=p_priEnergyFlow_nominal_valve)
     annotation (Placement(transformation(extent={{266,30},{286,50}})));
-  Modelica.Blocks.Sources.Constant const9(k=0)
+  Modelica.Blocks.Sources.Constant const9(k=1)
     annotation (Placement(transformation(extent={{234,88},{254,108}})));
   Fluid.FixedResistances.Junction jun16(
     redeclare package Medium = Media.Water,
@@ -295,8 +295,8 @@ equation
     annotation (Line(points={{-60,40},{-38,40}}, color={0,127,255}));
   connect(res1.port_b, jun9.port_1) annotation (Line(points={{-18,40},{-18,-38},
           {-150,-38},{-150,-40}}, color={0,127,255}));
-  connect(res2.port_a, jun5.port_2) annotation (Line(points={{10,40},{10,-40},{
-          44,-40}},              color={0,127,255}));
+  connect(res2.port_a, jun5.port_2) annotation (Line(points={{10,40},{10,-40},{44,
+          -40}},                 color={0,127,255}));
   connect(jun15.port_2, res3.port_a) annotation (Line(points={{-250,40},{-242,
           40},{-242,42},{-234,42}}, color={0,127,255}));
   connect(res3.port_b, jun10.port_1) annotation (Line(points={{-214,42},{-208,
@@ -350,17 +350,17 @@ equation
     annotation (Line(points={{54,-30},{54,-6}}, color={0,127,255}));
   connect(val2.port_a, jun16.port_3)
     annotation (Line(points={{54,14},{54,30}}, color={0,127,255}));
-  connect(const10.y, val2.y) annotation (Line(points={{105,-18},{114,-18},{114,
-          4},{66,4}}, color={0,0,127}));
+  connect(const10.y, val2.y) annotation (Line(points={{105,-18},{114,-18},{114,4},
+          {66,4}}, color={0,0,127}));
   connect(mov1.port_a, jun13.port_2)
     annotation (Line(points={{156,-40},{300,-40}}, color={0,127,255}));
   connect(jun4.port_1, jun6.port_1)
     annotation (Line(points={{150,40},{184,40}}, color={0,127,255}));
   connect(jun6.port_2, res4.port_a)
     annotation (Line(points={{204,40},{230,40}}, color={0,127,255}));
-  connect(val9.port_3, jun6.port_3) annotation (Line(points={{276,30},{276,-2},
-          {194,-2},{194,30}}, color={0,127,255}));
+  connect(val9.port_3, jun6.port_3) annotation (Line(points={{276,30},{276,-2},{
+          194,-2},{194,30}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-360,-200},{360,200}})));
-end Model_1A;
+end Mode_1B;
