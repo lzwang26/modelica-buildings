@@ -7,3 +7,10 @@ ScalableBenchmarks
 VAVCO2
 VAVReheat
 HeatPumpPlant_Hydronics
+JunctionTest
+PressureDropTest
+PressureDropTestWithPump
+PumpTest
+Mode_1A
+Mode_1B
+Mode_1D
