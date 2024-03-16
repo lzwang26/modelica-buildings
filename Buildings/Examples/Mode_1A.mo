@@ -57,7 +57,8 @@ model Mode_1A
         origin={54,4})));
   Fluid.FixedResistances.PressureDrop
                               res(redeclare package Medium = Media.Water,
-      m_flow_nominal=m_priEnergyFlow_nominal, dp_nominal = p_priEnergyFlow_nominal)
+      m_flow_nominal=m_priEnergyFlow_nominal,
+    from_dp=false,                            dp_nominal = p_priEnergyFlow_nominal)
     annotation (Placement(transformation(extent={{80,140},{100,160}})));
   Fluid.Movers.Preconfigured.FlowControlled_dp mov2(redeclare package Medium =
         Media.Water, m_flow_nominal=m_priEnergyFlow_nominal, dp_nominal = p_priEnergyFlow_nominal)
@@ -164,7 +165,7 @@ model Mode_1A
     annotation (Placement(transformation(extent={{158,136},{178,156}})));
   Modelica.Blocks.Sources.Constant const2(k=0)
     annotation (Placement(transformation(extent={{-98,170},{-78,190}})));
-  Modelica.Blocks.Sources.Constant const3(k=70000)
+  Modelica.Blocks.Sources.Constant const3(k=30000)
     annotation (Placement(transformation(extent={{-168,172},{-148,192}})));
   Modelica.Blocks.Sources.Constant const4(k=1)
     annotation (Placement(transformation(extent={{-332,-10},{-312,10}})));
