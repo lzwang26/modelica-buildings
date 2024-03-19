@@ -47,17 +47,15 @@ model AirToWater
     if have_chiWat
     "CHW system system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet(
     k=pla.THeaWatRet_nominal,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Source signal for HW return temperature"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
-  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRet(
     k=pla.TChiWatRet_nominal,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Source signal for CHW return temperature"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
@@ -119,15 +117,14 @@ model AirToWater
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
     k=293.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Placeholder signal for request generator"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
 initial equation
   fill(0, pla.nPumHeaWatPri)=Buildings.Templates.Utilities.computeBalancingPressureDrop(
     m_flow_nominal=fill(datAll.pla.hp.mHeaWatHp_flow_nominal, pla.nHp),
-    dp_nominal=pla.pumPri.dpValChe_nominal .+ fill(datAll.pla.hp.dpHeaWatHp_nominal, pla.nHp) .+
+    dp_nominal=pla.pumPri.dpValCheHeaWat_nominal .+ fill(datAll.pla.hp.dpHeaWatHp_nominal, pla.nHp) .+
       fill(Buildings.Templates.Data.Defaults.dpValIso, pla.nHp),
     datPum=datAll.pla.pumHeaWatPriSin,
     r_N=r_N);

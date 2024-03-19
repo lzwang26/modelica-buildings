@@ -74,7 +74,7 @@ record HeatPumpPlant
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri
     "Type of primary pump arrangement"
     annotation (Evaluate=true);
-  final parameter Boolean have_varPumHeaWatPri=typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+  final parameter Boolean have_pumHeaWatPriVar=typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     or typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
     "Set to true for variable speed primary HW pumps"
     annotation (Evaluate=true);
@@ -84,8 +84,8 @@ record HeatPumpPlant
   parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDis
     "Type of CHW/HW distribution system"
     annotation (Evaluate=true);
-  parameter Boolean have_senDpHeaWatLoc
-    "Set to true for local HW differential pressure sensor hardwired to plant controller"
+  parameter Boolean have_senDpHeaWatRemWir
+    "Set to true for remote HW differential pressure sensor(s) hardwired to plant or pump controller"
     annotation (Evaluate=true);
   parameter Integer nSenDpHeaWatRem
     "Number of remote HW differential pressure sensors used for HW pump speed control"
@@ -109,21 +109,24 @@ record HeatPumpPlant
   parameter Boolean have_valChiWatMinByp
     "Set to true if the CHW loop has a minimum flow bypass valve"
     annotation (Evaluate=true);
-  final parameter Boolean have_varPumChiWatPri=typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+  final parameter Boolean have_pumChiWatPriVar=typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     or typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
     "Set to true for variable speed primary CHW pumps"
     annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumChiWatSec
     "Type of secondary CHW pumps"
     annotation (Evaluate=true);
-  parameter Boolean have_senDpChiWatLoc
-    "Set to true for local CHW differential pressure sensor hardwired to plant controller"
+  parameter Boolean have_senDpChiWatRemWir
+    "Set to true for remote CHW differential pressure sensor(s) hardwired to plant or pump controller"
     annotation (Evaluate=true);
   parameter Integer nSenDpChiWatRem
     "Number of remote CHW differential pressure sensors used for CHW pump speed control"
     annotation (Evaluate=true);
   parameter Boolean have_senVChiWatSec
     "Set to true if secondary CHW loop is equipped with a flow meter"
+    annotation (Evaluate=true);
+  parameter Boolean have_inpSch
+    "Set to true to provide schedule via software input point"
     annotation (Evaluate=true);
   annotation (
     defaultComponentPrefixes="parameter",

@@ -28,8 +28,8 @@ model AirToWater
     final nHp=nHp,
     final typArrPumPri=typArrPumPri,
     final have_pumChiWatPriDed=have_pumChiWatPriDed,
-    final have_varPumHeaWatPri=have_varPumHeaWatPri,
-    final have_varPumChiWatPri=have_varPumChiWatPri,
+    final have_pumHeaWatPriVar=have_pumHeaWatPriVar,
+    final have_pumChiWatPriVar=have_pumChiWatPriVar,
     final datPumHeaWat=dat.pumHeaWatPri,
     final datPumChiWat=dat.pumChiWatPri,
     final energyDynamics=energyDynamics,
@@ -56,7 +56,7 @@ model AirToWater
     redeclare final package Medium=MediumChiWat,
     final dat=dat.pumChiWatPri,
     final nPum=nPumChiWatPri,
-    final have_var=have_varPumChiWatPri,
+    final have_var=have_pumChiWatPriVar,
     final have_varCom=true,
     final allowFlowReversal=allowFlowReversal)
     if have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
@@ -86,7 +86,8 @@ model AirToWater
     redeclare final package Medium=MediumChiWat,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
     final allowFlowReversal=allowFlowReversal)
-    if not(have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered)
+    if not
+          (have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered)
     "Primary CHW supply pipe - Plant with dedicated primary CHW pumps"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Templates.Components.Actuators.Valve valChiWatMinByp(
@@ -219,7 +220,7 @@ model AirToWater
     redeclare final package Medium=MediumHeaWat,
     final dat=dat.pumHeaWatPri,
     final nPum=nPumHeaWatPri,
-    final have_var=have_varPumHeaWatPri,
+    final have_var=have_pumHeaWatPriVar,
     final have_varCom=true,
     final allowFlowReversal=allowFlowReversal)
     if have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
@@ -239,7 +240,8 @@ model AirToWater
     redeclare final package Medium=MediumHeaWat,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
     final allowFlowReversal=allowFlowReversal)
-    if not(have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered)
+    if not
+          (have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered)
     "Primary HW supply pipe - Plant with dedicated primary HW pumps"
     annotation (Placement(transformation(extent={{40,-230},{60,-210}})));
   Buildings.Templates.Components.Actuators.Valve valHeaWatMinByp(
@@ -384,7 +386,8 @@ model AirToWater
     "Primary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{20,-210},{40,-190}})));
 equation
-  /* Control point connection - start */ connect(bus, hp.bus);
+  /* Control point connection - start */
+                                         connect(bus, hp.bus);
   connect(busWea, hp.busWea);
   connect(bus, pumPri.bus);
   connect(bus, valIso.bus);
@@ -400,7 +403,8 @@ equation
   connect(VHeaWatSec_flow.y, bus.VHeaWatSec_flow);
   connect(TChiWatPriSup.y, bus.TChiWatPriSup);
   connect(THeaWatPriSup.y, bus.THeaWatPriSup);
-  /* Control point connection - stop */connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
+  /* Control point connection - stop */
+                                       connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{60,40},{60,40}},color={0,127,255}));
   connect(inlPumChiWatPri.ports_b, pumChiWatPri.ports_a)
     annotation (Line(points={{40,40},{40,40}},color={0,127,255}));
@@ -499,7 +503,7 @@ equation
     Documentation(
       info="<html>
 <p>
-The parameter <code>is_rev</code> is bound to <code>have_chiWat</code> as 
+The parameter <code>is_rev</code> is bound to <code>have_chiWat</code> as
 AWHP that provide chilled water are necessary reversible units.
 </p>
 <p>

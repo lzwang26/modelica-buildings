@@ -13,20 +13,20 @@ record HeatPumpPlant
     final cfg=cfg)
     "Controller"
     annotation (Dialog(group="Controls"));
-  parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup hp(
+  parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup
+    hp(
     final typ=cfg.typ,
     final nHp=cfg.nHp,
     final is_rev=cfg.is_rev,
     final typMod=cfg.typMod,
     final cpHeaWat_default=cfg.cpHeaWat_default,
     final cpSou_default=cfg.cpSou_default,
-    TChiWatSupHp_nominal=ctl.TChiWatSupHp_nominal,
+    TChiWatSupHp_nominal=ctl.TChiWatSup_nominal,
     capCooHp_nominal=ctl.capCooHp_nominal,
-    mHeaWatHp_flow_nominal=ctl.VHeaWatHp_flow_nominal * cfg.rhoHeaWat_default,
+    mHeaWatHp_flow_nominal=ctl.VHeaWatHp_flow_nominal*cfg.rhoHeaWat_default,
     capHeaHp_nominal=ctl.capHeaHp_nominal,
-    mChiWatHp_flow_nominal=ctl.VChiWatHp_flow_nominal * cfg.rhoChiWat_default,
-    THeaWatSupHp_nominal=ctl.THeaWatSupHp_nominal)
-    "Heat pumps"
+    mChiWatHp_flow_nominal=ctl.VChiWatHp_flow_nominal*cfg.rhoChiWat_default,
+    THeaWatSupHp_nominal=ctl.THeaWatSupHp_nominal) "Heat pumps"
     annotation (Dialog(group="Heat pumps"));
   // HW loop
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatPri(
@@ -47,11 +47,11 @@ record HeatPumpPlant
     per(
       pressure(
         V_flow=if pumHeaWatPri.typ == Buildings.Templates.Components.Types.Pump.None
-          then[
-          0] else pumHeaWatPri.per.pressure.V_flow,
+          then
+              [0] else pumHeaWatPri.per.pressure.V_flow,
         dp=if pumHeaWatPri.typ == Buildings.Templates.Components.Types.Pump.None
-          then[
-          0] else pumHeaWatPri.per.pressure.dp)),
+          then
+              [0] else pumHeaWatPri.per.pressure.dp)),
     each rho_default=pumHeaWatPri.rho_default)
     "Cast multiple pump record into single pump record array";
   parameter Buildings.Templates.Components.Data.Valve valHeaWatMinByp(
@@ -89,10 +89,12 @@ record HeatPumpPlant
     per(
       pressure(
         V_flow=if pumChiWatPri.typ == Buildings.Templates.Components.Types.Pump.None
-          then[
+          then
+              [
           0] else pumChiWatPri.per.pressure.V_flow,
         dp=if pumChiWatPri.typ == Buildings.Templates.Components.Types.Pump.None
-          then[
+          then
+              [
           0] else pumChiWatPri.per.pressure.dp)),
     each rho_default=pumChiWatPri.rho_default)
     "Cast multiple pump record into single pump record array";

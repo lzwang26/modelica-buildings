@@ -19,11 +19,12 @@ partial model PartialHeatPumpPlant
   /*
   Derived classes representing AWHP shall use:
   redeclare final package MediumSou = MediumAir
-  */replaceable package MediumSou=Buildings.Media.Water
+  */
+    replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source-side medium"
     annotation (Dialog(enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater),
-  __ctrlFlow(enable=false));
+      __ctrlFlow(enable=false));
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
@@ -69,7 +70,8 @@ partial model PartialHeatPumpPlant
     final have_senVHeaWatSec=ctl.have_senVHeaWatSec,
     final have_senDpChiWatLoc=ctl.have_senDpChiWatLoc,
     final nSenDpChiWatRem=ctl.nSenDpChiWatRem,
-    final have_senVChiWatSec=ctl.have_senVChiWatSec)
+    final have_senVChiWatSec=ctl.have_senVChiWatSec,
+    final have_inpSch=ctl.have_inpSch)
     "Configuration parameters"
     annotation (Dialog(enable=false),
   __ctrlFlow(enable=false));
@@ -211,7 +213,7 @@ partial model PartialHeatPumpPlant
     then Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Type of primary HW pumps"
     annotation (Evaluate=true);
-  final parameter Boolean have_varPumHeaWatPri=typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+  final parameter Boolean have_pumHeaWatPriVar=typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     or typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
     "Set to true for variable speed primary HW pumps"
     annotation (Evaluate=true);
@@ -327,7 +329,7 @@ partial model PartialHeatPumpPlant
     then Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Type of primary CHW pumps"
     annotation (Evaluate=true);
-  final parameter Boolean have_varPumChiWatPri=typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+  final parameter Boolean have_pumChiWatPriVar=typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     or typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
     "Set to true for variable speed primary CHW pumps"
     annotation (Evaluate=true);
@@ -404,7 +406,7 @@ partial model PartialHeatPumpPlant
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-
     capCoo_nominal
     "Cooling heat flow rate - All units";
-  final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=dat.ctl.TChiWatSupHp_nominal
+  final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=dat.ctl.TChiWatSup_nominal
     "Minimum CHW supply temperature";
   final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=if is_rev
     then TChiWatSup_nominal - QCoo_flow_nominal / cpChiWat_default /
@@ -461,7 +463,8 @@ partial model PartialHeatPumpPlant
   - Impact of difference between TSouHea_nominal and TSouCoo_nominal on cp is about 0.5 %.
   - Impact of difference between TSouHea_nominal and TSouCoo_nominal on rho is about 2 %,
     with rhoSouHea_nominal > rhoSouCoo_nominal, so conservative for pump sizing.
-  */final parameter MediumSou.Density rhoSou_default=MediumSou.density(staSou_default)
+  */
+  final parameter MediumSou.Density rhoSou_default=MediumSou.density(staSou_default)
     "Source fluid default density"
     annotation (Evaluate=true);
   final parameter MediumSou.SpecificHeatCapacity cpSou_default=MediumSou.specificHeatCapacityCp(staSou_default)
@@ -557,8 +560,7 @@ partial model PartialHeatPumpPlant
     "OA temperature"
     annotation (Placement(transformation(extent={{30,240},{50,260}})));
 initial equation
-  if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-    then
+  if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated then
     assert(nPumHeaWatPri == nHp, "In " + getInstanceName() + ": " +
       "In case of dedicated primary HW pumps, the number pumps (=" + String(nPumHeaWatPri) +
       ") must be equal to the number of heat pumps (=" + String(nHp) + ").");
@@ -570,8 +572,10 @@ initial equation
       String(nHp) + ").");
   end if;
 equation
-  /* Control point connection - start */ connect(TOut.T, bus.TOut);
-  /* Control point connection - stop */connect(bus, ctl.bus)
+  /* Control point connection - start */
+                                         connect(TOut.T, bus.TOut);
+  /* Control point connection - stop */
+                                       connect(bus, ctl.bus)
     annotation (Line(points={{-300,240},{-220,240}},color={255,204,51},thickness=0.5));
   connect(ctl.busAirHan, busAirHan)
     annotation (Line(points={{-200,246},{-180,246},{-180,280},{300,280}},color={255,204,51},thickness=0.5));

@@ -83,7 +83,7 @@ block PlantReset
     unit="1")=0.07
     "Maximum response per reset period (must have same sign as respond amount)"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uReqRes
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqRes
     "Sum of reset requests of all loads served"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
@@ -196,7 +196,7 @@ equation
     annotation (Line(points={{12,100},{20,100},{20,68},{28,68}},color={0,0,127}));
   connect(triRes.y, res.u3)
     annotation (Line(points={{-28,100},{-20,100},{-20,52},{28,52}},color={0,0,127}));
-  connect(uReqRes, triRes.numOfReq)
+  connect(nReqRes, triRes.numOfReq)
     annotation (Line(points={{-180,140},{-80,140},{-80,92},{-52,92}},color={255,127,0}));
   connect(resTSup.y, TSupSet)
     annotation (Line(points={{142,-100},{180,-100}},color={0,0,127}));
