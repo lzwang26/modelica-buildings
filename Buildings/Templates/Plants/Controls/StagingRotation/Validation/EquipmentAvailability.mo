@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
+﻿within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model EquipmentAvailability
   Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability_state avaHeaCoo(
     have_heaWat=true,

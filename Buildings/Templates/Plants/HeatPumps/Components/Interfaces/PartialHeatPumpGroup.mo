@@ -9,16 +9,18 @@ model PartialHeatPumpGroup
   It is the same as MediumHeaWat for reversible HP.
   Non-reversible HP that can be controlled to produce either HW or CHW
   shall be modeled with chiller components (as a chiller/heater).
-  */final package MediumChiWat=MediumHeaWat
+  */
+    final package MediumChiWat=MediumHeaWat
     "CHW medium";
   /*
   Derived classes representing AWHP shall use:
   redeclare final package MediumSou = MediumAir
-  */replaceable package MediumSou=Buildings.Media.Water
+  */
+    replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source-side medium"
     annotation (Dialog(enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater),
-  __ctrlFlow(enable=false));
+      __ctrlFlow(enable=false));
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
@@ -204,8 +206,8 @@ model PartialHeatPumpGroup
     "Plant control bus"
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
       iconTransformation(extent={{-20,380},{20,420}})));
-  Buildings.BoundaryConditions.WeatherData.Bus busWea
-    if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
+  Buildings.BoundaryConditions.WeatherData.Bus busWea if
+       typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
     "Weather bus"
     annotation (Placement(transformation(extent={{20,180},{60,220}}),
       iconTransformation(extent={{-220,380},{-180,420}})));
@@ -213,17 +215,17 @@ model PartialHeatPumpGroup
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced",group="Diagnostics"),HideResult=true);
-  MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_aChiHeaWat.p, noEvent(actualStream(ports_aChiHeaWat.h_outflow)), noEvent(actualStream(ports_aChiHeaWat.Xi_outflow)))
-    if show_T
+  MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_aChiHeaWat.p, noEvent(actualStream(ports_aChiHeaWat.h_outflow)), noEvent(actualStream(ports_aChiHeaWat.Xi_outflow))) if
+       show_T
     "CHW/HW medium properties in port_aChiHeaWat";
-  MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_bChiHeaWat.p, noEvent(actualStream(ports_bChiHeaWat.h_outflow)), noEvent(actualStream(ports_bChiHeaWat.Xi_outflow)))
-    if show_T
+  MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_bChiHeaWat.p, noEvent(actualStream(ports_bChiHeaWat.h_outflow)), noEvent(actualStream(ports_bChiHeaWat.Xi_outflow))) if
+       show_T
     "CHW/HW medium properties in port_bChiHeaWat";
-  MediumSou.ThermodynamicState sta_aSou[nHp]=MediumSou.setState_phX(ports_aSou.p, noEvent(actualStream(ports_aSou.h_outflow)), noEvent(actualStream(ports_aSou.Xi_outflow)))
-    if show_T
+  MediumSou.ThermodynamicState sta_aSou[nHp]=MediumSou.setState_phX(ports_aSou.p, noEvent(actualStream(ports_aSou.h_outflow)), noEvent(actualStream(ports_aSou.Xi_outflow))) if
+       show_T
     "Source medium properties in port_aSou";
-  MediumSou.ThermodynamicState sta_bSou[nHp]=MediumSou.setState_phX(ports_bSou.p, noEvent(actualStream(ports_bSou.h_outflow)), noEvent(actualStream(ports_bSou.Xi_outflow)))
-    if show_T
+  MediumSou.ThermodynamicState sta_bSou[nHp]=MediumSou.setState_phX(ports_bSou.p, noEvent(actualStream(ports_bSou.h_outflow)), noEvent(actualStream(ports_bSou.Xi_outflow))) if
+       show_T
     "Source medium properties in port_bSou";
 protected
   Buildings.Templates.Components.Interfaces.Bus busHp[nHp]

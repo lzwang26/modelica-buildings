@@ -88,8 +88,8 @@ model PumpsPrimaryDedicated
       max=if allowFlowReversal then + Modelica.Constants.inf else 0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default))
-    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+      nominal=Medium.h_default)) if
+       typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
       or typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
       and not have_pumChiWatPriDed
     "CHW/HW supply (to primary loop)"
@@ -124,8 +124,8 @@ model PumpsPrimaryDedicated
       min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default))
-    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      nominal=Medium.h_default)) if
+       typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
       and have_pumChiWatPriDed
     "HW supply (to primary loop)"
     annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
@@ -137,8 +137,8 @@ model PumpsPrimaryDedicated
       min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default))
-    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      nominal=Medium.h_default)) if
+       typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
       and have_pumChiWatPriDed
     "CHW supply (to primary loop)"
     annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
@@ -168,8 +168,8 @@ model PumpsPrimaryDedicated
     final dpValChe_nominal=dpValCheHeaWat_nominal,
     final allowFlowReversal=allowFlowReversal,
     final tau=tau,
-    final energyDynamics=energyDynamics)
-    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    final energyDynamics=energyDynamics) if
+       typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     "Dedicated primary (HW) Pumps"
     annotation (Placement(transformation(extent={{-110,-70},{-130,-50}})));
   Buildings.Templates.Components.Pumps.Multiple pumChiWat(
@@ -181,13 +181,13 @@ model PumpsPrimaryDedicated
     final dpValChe_nominal=dpValCheChiWat_nominal,
     final allowFlowReversal=allowFlowReversal,
     final tau=tau,
-    final energyDynamics=energyDynamics)
-    if have_pumChiWatPriDed
+    final energyDynamics=energyDynamics) if
+       have_pumChiWatPriDed
     "Dedicated primary CHW pumps - Optional"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Templates.Components.Routing.PassThroughFluid pas[nHp](
-    redeclare each final package Medium=Medium)
-    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    redeclare each final package Medium=Medium) if
+       typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Direct fluid pass-through in case of headered primary pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
       origin={-100,120})));
@@ -196,8 +196,8 @@ protected
     "Primary HW pump control bus"
     annotation (Placement(transformation(extent={{-20,-40},{20,0}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri
-    if have_pumChiWatPriDed
+  Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri if
+       have_pumChiWatPriDed
     "Primary CHW pump control bus"
     annotation (Placement(transformation(extent={{-20,-70},{20,-30}}),
       iconTransformation(extent={{-466,50},{-426,90}})));

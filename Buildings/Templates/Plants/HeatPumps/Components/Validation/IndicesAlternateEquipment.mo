@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.HeatPumps.Components.Validation;
+﻿within Buildings.Templates.Plants.HeatPumps.Components.Validation;
 model IndicesAlternateEquipment
   "Validation model for computing indices of lead/lad alternate equipment"
   extends Modelica.Icons.Example;

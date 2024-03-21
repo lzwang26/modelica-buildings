@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.StagingRotation;
+﻿within Buildings.Templates.Plants.Controls.StagingRotation;
 block StageAvailability
   "Compute stage availability"
   parameter Real staEqu[:,:](

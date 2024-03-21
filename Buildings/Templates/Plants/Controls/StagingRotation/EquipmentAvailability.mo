@@ -16,18 +16,18 @@ block EquipmentAvailability
     "Equipment enable command"
     annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea
-    if have_heaWat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea if
+       have_heaWat
     "Equipment available for heating"
     annotation (Placement(transformation(extent={{160,60},{200,100}}),
       iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea
-    if have_heaWat and have_chiWat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea if
+       have_heaWat and have_chiWat
     "Equipment operating mode command"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo
-    if have_chiWat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo if
+       have_chiWat
     "Equipment available for cooling"
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
@@ -44,12 +44,12 @@ block EquipmentAvailability
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Logical.And avaCooAva
-    if have_chiWat
+  Buildings.Controls.OBC.CDL.Logical.And avaCooAva if
+       have_chiWat
     "Return true if equipment available for cooling and hardware available"
     annotation (Placement(transformation(extent={{130,-90},{150,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.And avaHeaAva
-    if have_heaWat
+  Buildings.Controls.OBC.CDL.Logical.And avaHeaAva if
+       have_heaWat
     "Return true if equipment available for heating and hardware available"
     annotation (Placement(transformation(extent={{132,70},{152,90}})));
   Utilities.PlaceHolder phHea(final have_inp=have_heaWat and have_chiWat,
@@ -63,12 +63,12 @@ block EquipmentAvailability
     t=dtOff)
     "Time elapsed since equipment is off"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Or avaOrOnHea
-    if have_heaWat
+  Buildings.Controls.OBC.CDL.Logical.Or avaOrOnHea if
+       have_heaWat
     "Available after off time or already on in heating mode"
     annotation (Placement(transformation(extent={{90,70},{110,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Or avaOrOnCoo
-    if have_chiWat
+  Buildings.Controls.OBC.CDL.Logical.Or avaOrOnCoo if
+       have_chiWat
     "Available after off time or already on in cooling mode"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch latCoo

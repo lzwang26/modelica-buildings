@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.HeatPumps.Validation;
+﻿within Buildings.Templates.Plants.Controls.HeatPumps.Validation;
 model AirToWater
   final parameter Real capHea_nominal(
     final unit="W")=sum(ctl.capHeaHp_nominal)
@@ -98,20 +98,20 @@ model AirToWater
   Components.Controls.StatusEmulator y1Hp_actual[ctl.nHp]
     "HP status"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Components.Controls.StatusEmulator y1PumHeaWatPri_actual1[ctl.nPumHeaWatPri]
-    if ctl.have_pumHeaWatPri
+  Components.Controls.StatusEmulator y1PumHeaWatPri_actual1[ctl.nPumHeaWatPri] if
+       ctl.have_pumHeaWatPri
     "Primary HW pump status"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Components.Controls.StatusEmulator y1PumChiWatPri_actual[ctl.nPumChiWatPri]
-    if ctl.have_pumChiWatPri
+  Components.Controls.StatusEmulator y1PumChiWatPri_actual[ctl.nPumChiWatPri] if
+       ctl.have_pumChiWatPri
     "Primary CHW pump status"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
-  Components.Controls.StatusEmulator y1PumHeaWatSec_actual[ctl.nPumHeaWatSec]
-    if ctl.have_pumHeaWatSec
+  Components.Controls.StatusEmulator y1PumHeaWatSec_actual[ctl.nPumHeaWatSec] if
+       ctl.have_pumHeaWatSec
     "Secondary HW pump status"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
-  Components.Controls.StatusEmulator y1PumChiWatSec_actual[ctl.nPumChiWatSec]
-    if ctl.have_pumChiWatSec
+  Components.Controls.StatusEmulator y1PumChiWatSec_actual[ctl.nPumChiWatSec] if
+       ctl.have_pumChiWatSec
     "Secondary CHW pump status"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOut(
@@ -150,26 +150,26 @@ model AirToWater
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin[1](
     amplitude=0.1 * ctl.dpHeaWatRemSet_max,
     freqHz={4 / 8000},
-    each phase=3.1415926535898)
-    if ctl.have_heaWat
+    each phase=3.1415926535898) if
+       ctl.have_heaWat
     "Source signal used to generate measurement values"
     annotation (Placement(transformation(extent={{-160,-76},{-140,-56}})));
-  Buildings.Controls.OBC.CDL.Reals.Add dpHeaWatRem[1]
-    if ctl.have_heaWat
+  Buildings.Controls.OBC.CDL.Reals.Add dpHeaWatRem[1] if
+       ctl.have_heaWat
     "Differential pressure at remote location"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.Add dpChiWatRem[1]
-    if ctl.have_chiWat
+  Buildings.Controls.OBC.CDL.Reals.Add dpChiWatRem[1] if
+       ctl.have_chiWat
     "Differential pressure at remote location"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Pumps.Generic.ResetLocalDifferentialPressure resDpHeaWatLoc[1](each
-      dpLocSet_max=20E4)
-    if ctl.have_heaWat
+      dpLocSet_max=20E4) if
+       ctl.have_heaWat
     "Local HW DP reset"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Pumps.Generic.ResetLocalDifferentialPressure resDpChiWatLoc[1](each
-      dpLocSet_max=15E4)
-    if ctl.have_chiWat
+      dpLocSet_max=15E4) if
+       ctl.have_chiWat
     "Local CHW DP reset"
     annotation (Placement(transformation(extent={{-40,-170},{-20,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1[1](
@@ -178,12 +178,12 @@ model AirToWater
     each phase=3.1415926535898)
     "Source signal used to generate measurement values"
     annotation (Placement(transformation(extent={{-160,-116},{-140,-96}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dpHeaWatLoc(final k=4)
-    if ctl.have_heaWat
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dpHeaWatLoc(final k=4) if
+       ctl.have_heaWat
     "Differential pressure local to the plant"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dpChiWatLoc(final k=3)
-    if ctl.have_chiWat
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dpChiWatLoc(final k=3) if
+       ctl.have_chiWat
     "Differential pressure local to the plant"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
 equation

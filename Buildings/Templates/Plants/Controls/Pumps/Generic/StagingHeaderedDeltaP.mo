@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Pumps.Generic;
+﻿within Buildings.Templates.Plants.Controls.Pumps.Generic;
 block StagingHeaderedDeltaP
   "Staging logic for headered variable speed pumps using ∆p pump speed control"
   parameter Integer nPum(
@@ -185,8 +185,7 @@ and down command and computes the stage index must enforce a minimum stage runti
 of <code>dtRun</code>.
 </p>
 </html>
-"),
-    Diagram(
+"), Diagram(
       coordinateSystem(
         extent={{-120,-120},{120,120}})));
 end StagingHeaderedDeltaP;

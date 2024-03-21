@@ -12,22 +12,18 @@ class AllSystems
       capCooHp_nominal=500E3,
       mHeaWatHp_flow_nominal=pla.hp.capHeaHp_nominal/abs(pla.ctl.THeaWatSupHp_nominal
            - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-
       mChiWatHp_flow_nominal=pla.hp.capCooHp_nominal/abs(pla.ctl.TChiWatSup_nominal
            - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-
       dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
       TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
       TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
       perFitHp(hea(
           P=pla.hp.capHeaHp_nominal/Buildings.Templates.Data.Defaults.COPHpAwHea,
-
           coeQ={-4.2670305442,-0.7381077035,6.0049480456,0,0},
           coeP={-4.9107455513,5.3665308366,0.5447612754,0,0},
           TRefLoa=pla.hp.THeaWatRetHp_nominal,
           TRefSou=pla.hp.TSouHeaHp_nominal), coo(
           P=pla.hp.capCooHp_nominal/Buildings.Templates.Data.Defaults.COPHpAwCoo,
-
           coeQ={-2.2545246871,6.9089257665,-3.6548225094,0,0},
           coeP={-5.8086010402,1.6894933858,5.1167787436,0,0},
           TRefLoa=pla.hp.TChiWatRetHp_nominal,
@@ -51,17 +47,14 @@ class AllSystems
       TOutChiWatLck=Buildings.Templates.Data.Defaults.TOutChiWatLck,
       TOutHeaWatLck=Buildings.Templates.Data.Defaults.TOutHeaWatLck,
       dpChiWatLocSet_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max,
-
       dpHeaWatLocSet_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max,
-
       VHeaWatHp_flow_nominal=pla.hp.mHeaWatHp_flow_nominal/pla.cfg.rhoHeaWat_default,
-
       VChiWatHp_flow_nominal=pla.hp.mChiWatHp_flow_nominal/pla.cfg.rhoChiWat_default,
-
       capHeaHp_nominal=pla.hp.capHeaHp_nominal,
       capCooHp_nominal=pla.hp.capCooHp_nominal,
       TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup))
     "Parameters for heat pump plant" annotation (Dialog(group="Plants"));
+
   annotation (
     defaultComponentPrefixes="inner parameter",
     defaultComponentName="datAll",

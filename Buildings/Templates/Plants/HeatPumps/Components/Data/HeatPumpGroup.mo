@@ -32,7 +32,8 @@ record HeatPumpGroup
   It is the same as cpChiWat_default for reversible HP.
   Non-reversible HP that can be controlled to produce either HW or CHW
   shall be modeled with chiller components (as a chiller/heater).
-  */final parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default=
+  */
+    final parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default=
     cpHeaWat_default
     "CHW default specific heat capacity";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpSou_default=if typ ==
@@ -159,7 +160,8 @@ record HeatPumpGroup
     use_TEvaOutForOpeEnv=false,
     use_TConOutForTab=true,
     use_TEvaOutForTab=false)
-    constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump
+    constrainedby
+    Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump
     "Performance data in heating mode - Modular model"
     annotation (Dialog(enable=typMod==Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D),
   choicesAllMatching=true,
@@ -182,7 +184,8 @@ record HeatPumpGroup
     use_TEvaOutForOpeEnv=true,
     use_TConOutForTab=false,
     use_TEvaOutForTab=true)
-    constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
+    constrainedby
+    Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
     "Performance data in cooling mode - Modular model - Each heat pump"
     annotation (Dialog(enable=typMod==Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D
       and is_rev),

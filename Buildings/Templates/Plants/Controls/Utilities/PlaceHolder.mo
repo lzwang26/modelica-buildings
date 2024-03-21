@@ -11,13 +11,13 @@ block PlaceHolder
     start=true)
     "Placeholder value if input signal is not available"
     annotation (Dialog(enable=not have_inpPla));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    if have_inp
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u if
+       have_inp
     "Input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
-    if not have_inp and have_inpPla
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla if
+       not have_inp and have_inpPla
     "Input"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -26,8 +26,8 @@ block PlaceHolder
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant pla(
-    final k=u_internal)
-    if not have_inp and not have_inpPla
+    final k=u_internal) if
+       not have_inp and not have_inpPla
     "Placeholder signal if input signal is not available"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
 equation

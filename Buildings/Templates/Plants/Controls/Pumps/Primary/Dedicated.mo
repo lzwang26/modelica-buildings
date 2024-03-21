@@ -36,8 +36,8 @@ block Dedicated
     "Return true if lead equipment is proven off"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(
-    final k=false)
-    if not have_req
+    final k=false) if
+       not have_req
     "Placeholder constant"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or offOrNotReq
@@ -53,8 +53,8 @@ block Dedicated
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Trigger true signal when disable conditions turn true"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Not noReq
-    if have_req
+  Buildings.Controls.OBC.CDL.Logical.Not noReq if
+       have_req
     "Return true if no flow request"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Utilities.Initialization ini(

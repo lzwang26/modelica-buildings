@@ -43,8 +43,8 @@ model AirToWater
     show_T=true,
     final dp_nominal=0,
     final energyDynamics=energyDynamics,
-    tau=300)
-    if have_chiWat
+    tau=300) if
+       have_chiWat
     "CHW system system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet(
@@ -70,8 +70,8 @@ model AirToWater
     redeclare final package Medium=Medium,
     m_flow_nominal=pla.mChiWat_flow_nominal,
     dpValve_nominal=1E4,
-    dpFixed_nominal=datAll.pla.ctl.dpChiWatLocSet_nominal - 1E4)
-    if have_chiWat
+    dpFixed_nominal=datAll.pla.ctl.dpChiWatLocSet_nominal - 1E4) if
+       have_chiWat
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   .Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(

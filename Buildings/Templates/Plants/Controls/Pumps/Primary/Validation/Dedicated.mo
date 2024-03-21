@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Pumps.Primary.Validation;
+﻿within Buildings.Templates.Plants.Controls.Pumps.Primary.Validation;
 model Dedicated "Validation model for dedicated primary pump logic"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse y1(
     period=60 * 30)

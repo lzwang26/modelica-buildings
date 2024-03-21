@@ -288,7 +288,7 @@ equation
   connect(THeaWatSupSet.y, TSetAct.u1)
     annotation (Line(points={{-68,160},{-60,160},{-60,108},{-42,108}},color={0,0,127}));
   connect(TSup.port_b, sup.ports[1])
-    annotation (Line(points={{150,0},{170,0},{170,38.6667}},color={0,127,255}));
+    annotation (Line(points={{150,0},{170,0},{170,42.6667}},color={0,127,255}));
   connect(THeaWatRet.y, TRetAct.u1)
     annotation (Line(points={{-68,82},{-60,82},{-60,68},{-42,68}},color={0,0,127}));
   connect(y1Hea.y[1], TRetAct.u2)
@@ -306,7 +306,7 @@ equation
     annotation (Line(points={{-158,140},{-50,140},{-50,120},{80,120},{80,40}},
       color={255,0,255}));
   connect(TSetAct.y, bus.TSet)
-    annotation (Line(points={{-18,100},{80,100},{80,40.1},{80.1,40.1}},color={0,0,127}));
+    annotation (Line(points={{-18,100},{80,100},{80,40},{80,40}},      color={0,0,127}));
   connect(pInl_rel.y, inlHp.p_in)
     annotation (Line(points={{-18,-20},{0,-20},{0,8},{8,8}}, color={0,0,127}));
   connect(pHeaWatInl.y, pInl_rel.u1)
@@ -321,8 +321,8 @@ equation
   connect(weaDat.weaBus, hpAw.busWea)
     annotation (Line(points={{170,140},{160,140},{160,16},{104,16},{104,10}},
       color={255,204,51},thickness=0.5));
-  connect(inlHp.ports[1], TRet.port_a) annotation (Line(points={{30,-1.33333},{
-          40,-1.33333},{40,0},{50,0}}, color={0,127,255}));
+  connect(inlHp.ports[1], TRet.port_a) annotation (Line(points={{30,2.66667},{
+          40,2.66667},{40,0},{50,0}},  color={0,127,255}));
   connect(TRet.port_b, hpAw.port_a)
     annotation (Line(points={{70,0},{100,0}},color={0,127,255}));
   connect(bus1, hpAwNrv.bus)
@@ -341,13 +341,13 @@ equation
     annotation (Line(points={{170,140},{160,140},{160,94},{104,94},{104,90}},
       color={255,204,51},thickness=0.5));
   connect(THeaWatSupSet.y, bus1.TSet)
-    annotation (Line(points={{-68,160},{80.1,160},{80.1,120.1}},color={0,0,127}));
+    annotation (Line(points={{-68,160},{80,160},{80,120}},      color={0,0,127}));
   connect(hpWw.port_b, TSup2.port_a)
     annotation (Line(points={{120,-80},{130,-80}}, color={0,127,255}));
   connect(TSup2.port_b, sup.ports[3])
-    annotation (Line(points={{150,-80},{170,-80},{170,41.3333}},color={0,127,255}));
-  connect(inlHp.ports[3], TRet2.port_a) annotation (Line(points={{30,1.33333},{
-          30,0},{40,0},{40,-80},{50,-80}}, color={0,127,255}));
+    annotation (Line(points={{150,-80},{170,-80},{170,37.3333}},color={0,127,255}));
+  connect(inlHp.ports[3], TRet2.port_a) annotation (Line(points={{30,-2.66667},
+          {30,0},{40,0},{40,-80},{50,-80}},color={0,127,255}));
   connect(bus2, hpWw.bus) annotation (Line(
       points={{80,-40},{110,-40},{110,-70}},
       color={255,204,51},
@@ -372,7 +372,7 @@ equation
   connect(pInl_rel1.y, inlHpSou.p_in) annotation (Line(points={{-18,-140},{-20,
           -140},{-20,-92},{8,-92}}, color={0,0,127}));
   connect(TSetAct.y, bus2.TSet)
-    annotation (Line(points={{-18,100},{80,100},{80,50},{80.1,50},{80.1,-39.9}},
+    annotation (Line(points={{-18,100},{80,100},{80,50},{80,50},{80,-40}},
       color={0,0,127}));
   connect(y1.y[1], bus2.y1)
     annotation (Line(points={{-158,140},{-50,140},{-50,-40},{80,-40}},color={255,0,255}));

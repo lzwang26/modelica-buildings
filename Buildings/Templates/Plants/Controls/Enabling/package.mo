@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls;
-package Enabling
-  "Package of sequences for system enabling"
+package Enabling "Package of sequences for system enabling"
   annotation (
     Icon(
       graphics={

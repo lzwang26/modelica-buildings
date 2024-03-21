@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Pumps.Primary;
+﻿within Buildings.Templates.Plants.Controls.Pumps.Primary;
 block VariableSpeedNoDpControl
   "Variable speed pump without differential pressure control"
   parameter Boolean have_heaWat
@@ -57,33 +57,33 @@ block VariableSpeedNoDpControl
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=have_chiWat));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri[nPumHeaWatPri]
-    if have_pumHeaWatPri
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri[nPumHeaWatPri] if
+       have_pumHeaWatPri
     "Primary HW pump start command"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriHdr
-    if have_pumHeaWatPri and have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriHdr if
+       have_pumHeaWatPri and have_pumPriHdr
     "Headered primary HW pump speed command"
     annotation (Placement(transformation(extent={{140,80},{180,120}}),
       iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri[nPumChiWatPri]
-    if have_pumChiWatPri
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri[nPumChiWatPri] if
+       have_pumChiWatPri
     "Primary CHW pump start command"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriHdr
-    if have_pumChiWatPri and have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriHdr if
+       have_pumChiWatPri and have_pumPriHdr
     "Headered primary CHW pump speed command"
     annotation (Placement(transformation(extent={{140,40},{180,80}}),
       iconTransformation(extent={{100,0},{140,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDed[nPumHeaWatPri]
-    if have_pumHeaWatPri and not have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDed[nPumHeaWatPri] if
+       have_pumHeaWatPri and not have_pumPriHdr
     "Dedicated primary HW pump speed command"
     annotation (Placement(transformation(extent={{140,-80},{180,-40}}),
       iconTransformation(extent={{100,-40},{140,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDed[nPumChiWatPri]
-    if have_pumChiWatPri and not have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDed[nPumChiWatPri] if
+       have_pumChiWatPri and not have_pumPriHdr
     "Dedicated primary CHW pump speed command"
     annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
@@ -92,8 +92,8 @@ block VariableSpeedNoDpControl
     "Heating/cooling mode command"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch setPumChiWatPriDed[nPumChiWatPri]
-    if have_pumChiWatPri and not have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Reals.Switch setPumChiWatPriDed[nPumChiWatPri] if
+       have_pumChiWatPri and not have_pumPriHdr
     "Set prescribed speed when pump is enabled"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
@@ -101,72 +101,72 @@ block VariableSpeedNoDpControl
     "Constant"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant spePumChiWatPri(
-    final k=yPumChiWatPriSet)
-    if have_chiWat
+    final k=yPumChiWatPriSet) if
+       have_chiWat
     "Constant"
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch setPumHeaWatPriDed[nPumHeaWatPri]
-    if have_pumHeaWatPri and not have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Reals.Switch setPumHeaWatPriDed[nPumHeaWatPri] if
+       have_pumHeaWatPri and not have_pumPriHdr
     "Set prescribed speed when pump is enabled"
     annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep(
-    nout=nPumHeaWatPri)
-    if have_pumHeaWatPri
+    nout=nPumHeaWatPri) if
+       have_pumHeaWatPri
     "Replicate signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep1(
-    nout=nPumChiWatPri)
-    if have_pumChiWatPri
+    nout=nPumChiWatPri) if
+       have_pumChiWatPri
     "Replicate signal"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep2(
-    nout=nPumChiWatPri)
-    if have_pumChiWatPri
+    nout=nPumChiWatPri) if
+       have_pumChiWatPri
     "Replicate signal"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant spePumHeaWatPri(
-    final k=yPumHeaWatPriSet)
-    if have_pumHeaWatPri
+    final k=yPumHeaWatPriSet) if
+       have_pumHeaWatPri
     "Constant"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch setPumChiWatPriHdr
-    if have_pumChiWatPri and have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Reals.Switch setPumChiWatPriHdr if
+       have_pumChiWatPri and have_pumPriHdr
     "Set prescribed speed when pump is enabled"
     annotation (Placement(transformation(extent={{110,50},{130,70}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch setPumHeaWatPriHdr
-    if have_pumHeaWatPri and have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Reals.Switch setPumHeaWatPriHdr if
+       have_pumHeaWatPri and have_pumPriHdr
     "Set prescribed speed when pump is enabled"
     annotation (Placement(transformation(extent={{110,90},{130,110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyPumChiWatPri(
-    nin=nPumChiWatPri)
-    if have_pumChiWatPri
+    nin=nPumChiWatPri) if
+       have_pumChiWatPri
     "Return true if any pump is enabled"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyPumHeaWatPri(
-    nin=nPumHeaWatPri)
-    if have_pumHeaWatPri
+    nin=nPumHeaWatPri) if
+       have_pumHeaWatPri
     "Return true if any pump is enabled"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch selSpeHea[nPumHeaWatPri]
-    if have_heaWat and not have_pumChiWatPri and not have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Reals.Switch selSpeHea[nPumHeaWatPri] if
+       have_heaWat and not have_pumChiWatPri and not have_pumPriHdr
     "Select prescribed pump speed depending on heating/cooling mode – Case with common CHW and HW dedicated pumps"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep3(
-    nout=nPumHeaWatPri)
-    if have_pumHeaWatPri
+    nout=nPumHeaWatPri) if
+       have_pumHeaWatPri
     "Replicate signal"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep4(
-    nout=nPumHeaWatPri)
-    if have_pumHeaWatPri
+    nout=nPumHeaWatPri) if
+       have_pumHeaWatPri
     "Replicate signal"
     annotation (Placement(transformation(extent={{-30,2},{-10,22}})));
   Utilities.PlaceHolderReal ph[nPumHeaWatPri](
     each final have_inp=have_heaWat and not have_pumChiWatPri and not
         have_pumPriHdr,
     each final have_inpPla=false,
-    each final u_internal=yPumHeaWatPriSet)
-    if have_pumHeaWatPri and not have_pumPriHdr
+    each final u_internal=yPumHeaWatPriSet) if
+       have_pumHeaWatPri and not have_pumPriHdr
     "Always use HW pump speed in case of separate dedicated CHW pumps "
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
 equation

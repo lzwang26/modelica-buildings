@@ -2,32 +2,32 @@ within Buildings.Templates.Plants.Controls;
 package Types
   "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-  type Application=enumeration(
-    Cooling
+  type Application = enumeration(
+      Cooling
       "Cooling system",
-    Heating
+      Heating
       "Heating system")
     "Enumeration to specify the type of application";
-  type Actuator=enumeration(
-    Modulating
+  type Actuator = enumeration(
+      Modulating
       "Modulating",
-    TwoPosition
+      TwoPosition
       "Two-position")
     "Enumeration to specify the type of actuator";
-  type EquipmentConnection=enumeration(
-    Parallel
+  type EquipmentConnection = enumeration(
+      Parallel
       "Parallel piped",
-    Series
+      Series
       "Series piped")
     "Enumeration to specify the type of connection between equipment and primary loop";
-  type PrimaryOverflowMeasurement=enumeration(
-    FlowDecoupler
+  type PrimaryOverflowMeasurement = enumeration(
+      FlowDecoupler
       "Flow meter in the decoupler",
-    FlowDifference
+      FlowDifference
       "Primary and secondary loop flow meters",
-    TemperatureSupplySensor
+      TemperatureSupplySensor
       "Delta-T with single supply temperature sensor measuring combined flow",
-    TemperatureUnitSensor
+      TemperatureUnitSensor
       "Delta-T with weighted average of supply temperature sensors of all units proven on")
     "Enumeration to configure the sensors for variable speed primary pump control in primary-secondary plants";
 end Types;
