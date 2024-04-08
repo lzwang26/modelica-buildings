@@ -142,55 +142,6 @@ record HeatPumpGroup
   final parameter Modelica.Units.SI.PressureDifference dpSouCooHp_nominal=
     dpSouHeaHp_nominal *(mSouCooHp_flow_nominal / mSouHeaHp_flow_nominal) ^ 2
     "Source fluid pressure drop in cooling mode - Each heat pump";
-  replaceable parameter Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump modHeaHp(
-    mCon_flow_nominal=mHeaWatHp_flow_nominal,
-    mEva_flow_nominal=mSouHeaHp_flow_nominal,
-    dpCon_nominal=dpHeaWatHp_nominal,
-    dpEva_nominal=dpSouHeaHp_nominal,
-    tabPEle=[
-      0, TSouHeaHp_nominal;
-      THeaWatSupHp_nominal, 0],
-    tabQCon_flow=[
-      0, TSouHeaHp_nominal;
-      THeaWatSupHp_nominal, 0],
-    tabUppBou=[
-      TSouHeaHp_nominal, THeaWatSupHp_nominal],
-    devIde="",
-    use_TConOutForOpeEnv=true,
-    use_TEvaOutForOpeEnv=false,
-    use_TConOutForTab=true,
-    use_TEvaOutForTab=false)
-    constrainedby
-    Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump
-    "Performance data in heating mode - Modular model"
-    annotation (Dialog(enable=typMod==Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D),
-  choicesAllMatching=true,
-  Placement(transformation(extent={{-38,0},{-22,16}})));
-  replaceable parameter Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic modCooHp(
-    mCon_flow_nominal=mSouCooHp_flow_nominal,
-    mEva_flow_nominal=mChiWatHp_flow_nominal,
-    dpCon_nominal=dpSouCooHp_nominal,
-    dpEva_nominal=dpChiWatHp_nominal,
-    tabPEle=[
-      0, TSouCooHp_nominal;
-      TSouCooHp_nominal, 0],
-    tabQEva_flow=[
-      0, TSouCooHp_nominal;
-      TSouCooHp_nominal, 0],
-    tabLowBou=[
-      TSouCooHp_nominal, TChiWatSupHp_nominal],
-    devIde="",
-    use_TConOutForOpeEnv=false,
-    use_TEvaOutForOpeEnv=true,
-    use_TConOutForTab=false,
-    use_TEvaOutForTab=true)
-    constrainedby
-    Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
-    "Performance data in cooling mode - Modular model - Each heat pump"
-    annotation (Dialog(enable=typMod==Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D
-      and is_rev),
-  choicesAllMatching=true,
-  Placement(transformation(extent={{22,0},{38,16}})));
   replaceable parameter Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic perFitHp(
     dpHeaLoa_nominal=dpHeaWatHp_nominal,
     dpHeaSou_nominal=dpSouHeaHp_nominal,
@@ -219,5 +170,16 @@ record HeatPumpGroup
   Placement(transformation(extent={{-8,-40},{8,-24}})));
   annotation (
     defaultComponentPrefixes="parameter",
-    defaultComponentName="datHp");
+    defaultComponentName="datHp",
+    Documentation(info="<html>
+<p>
+This record provides the set of parameters for heat pump group models 
+that can be found within
+<a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups\">
+Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups</a>.
+</p>
+<p>
+Only identical heat pumps are currently supported.
+</p>
+</html>"));
 end HeatPumpGroup;

@@ -1,4 +1,13 @@
+CountTrue
 FirstTrueIndex
+HoldReal
 LastTrueIndex
-MultiMin
+MultiMaxInteger
+MultiMinInteger
+PlaceholderInteger
+PlaceholderLogical
+PlaceholderReal
+SortWithIndices
 StageIndex
+TimerWithReset
+TrueArrayConditional

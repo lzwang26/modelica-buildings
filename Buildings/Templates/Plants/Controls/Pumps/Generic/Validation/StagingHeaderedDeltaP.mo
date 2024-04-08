@@ -1,4 +1,4 @@
-﻿within Buildings.Templates.Plants.Controls.Pumps.Generic.Validation;
+within Buildings.Templates.Plants.Controls.Pumps.Generic.Validation;
 model StagingHeaderedDeltaP
   "Validation model for staging of headered variable speed pumps using ∆p pump speed control"
   parameter Integer nPum=4
@@ -110,7 +110,7 @@ to <i>0</i>. This transition is not subject to the minimum runtime.
       revisions="<html>
 <ul>
 <li>
-FIXME, 2024, by Antoine Gautier:<br/>
+March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

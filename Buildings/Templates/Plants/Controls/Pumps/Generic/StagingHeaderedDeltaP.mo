@@ -1,4 +1,4 @@
-﻿within Buildings.Templates.Plants.Controls.Pumps.Generic;
+within Buildings.Templates.Plants.Controls.Pumps.Generic;
 block StagingHeaderedDeltaP
   "Staging logic for headered variable speed pumps using ∆p pump speed control"
   parameter Integer nPum(
@@ -140,8 +140,42 @@ equation
           textColor={0,0,255})}),
     Documentation(
       info="<html>
-<p>Used in Guideline 36 for staging:
+<p>
+Pumps are staged as a function of the ratio <i>ratV_flow</i>
+of current volume flow rate <i>V_flow</i> to design volume 
+flow rate <i>V_flow_nominal</i>,
+the number of operating pumps <i>nPum_actual</i> 
+and the number of pumps that operate at design conditions
+<i>nPum</i>. 
+Pumps are assumed to be equally sized.
+<p>
+<i>FR = V_flow / V_flow_nominal</i>
 </p>
+<p>
+The next lag pump is enabled whenever the following is true for 
+<code>dtRun</code>:
+</p>
+<p>
+<i>FR &gt; nPum_actual / nPum − dVOffUp</i>
+</p>
+<p>
+The last lag pump is disabled whenever the following is true for 
+<code>dtRun</code>:
+</p>
+<p>
+<i>FR &lt; (nPum_actual - 1) / nPum − dVOffDow</i>
+</p>
+<p>
+If desired, the stage down flow point <code>dVOffDow</code> can be
+offset slightly below the stage up point <code>dVOffUp</code> to
+prevent cycling between pump stages in applications with highly variable loads.
+</p>
+<p>
+The timers are reset to zero when the status of a pump changes.
+This is necessary to ensure the minimum pump runtime with rapidly changing loads.
+</p>
+<h4>Details</h4>
+<p>This logic is prescribed in ASHRAE, 2021 for:</p>
 <ul>
 <li>
 headered variable speed primary pumps in primary-only chiller
@@ -153,7 +187,7 @@ with one or more sets of secondary loop pumps serving downstream
 control valves,
 </li>
 <li>
-variable speed secondary pumps in primary-secondary boiler plants
+variable speed secondary pumps in primary-secondary boiler
 plants with serving a secondary loop with a flow meter.
 </li>
 </ul>
@@ -163,16 +197,6 @@ i.e., the number of pumps matches the number of chillers or boilers.
 The actual logic for generating the pump enable commands is part of the
 staging event sequencing.
 </p>
-<p>
-If desired, the stage down flow point <code>dVOffDow</code> can be
-offset slightly below the stage up point <code>dVOffUp</code> to
-prevent cycling between pump stages in applications with highly variable loads.
-</p>
-<p>
-The timers are reset to zero when the status of a pump changes.
-This is necessary to ensure the minimum pump runtime with rapidly changing loads.
-</p>
-<h4>Implementation details</h4>
 <p>
 A \"if\" condition is used to generate the stage up and down command as opposed
 to a \"when\" condition. This means that the command remains true as long as the
@@ -184,8 +208,23 @@ To avoid multiple consecutive stage changes, the block that receives the stage u
 and down command and computes the stage index must enforce a minimum stage runtime
 of <code>dtRun</code>.
 </p>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2021\">
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>
-"), Diagram(
+", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+    Diagram(
       coordinateSystem(
         extent={{-120,-120},{120,120}})));
 end StagingHeaderedDeltaP;

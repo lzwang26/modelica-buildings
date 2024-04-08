@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps.Components.Interfaces;
-model PartialHeatPumpGroup
+model PartialHeatPumpGroup "Interface for heat pump group"
   replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HW medium"
@@ -39,7 +39,8 @@ model PartialHeatPumpGroup
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod=Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D
+  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod=
+    Buildings.Templates.Components.Types.HeatPumpModel.EquationFit
     "Type of heat pump model"
     annotation (Evaluate=true,
     Dialog(group="Configuration"),
@@ -69,8 +70,6 @@ model PartialHeatPumpGroup
     each final dpHeaWat_nominal=dat.dpHeaWatHp_nominal,
     each final mSouWwHea_flow_nominal=dat.mSouWwHeaHp_flow_nominal,
     each final TSouCoo_nominal=dat.TSouCooHp_nominal,
-    each final modHea=dat.modHeaHp,
-    each final modCoo=dat.modCooHp,
     each final perFit=dat.perFitHp,
     each final capCoo_nominal=dat.capCooHp_nominal,
     each final TChiWatSup_nominal=dat.TChiWatSupHp_nominal,
@@ -206,8 +205,8 @@ model PartialHeatPumpGroup
     "Plant control bus"
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
       iconTransformation(extent={{-20,380},{20,420}})));
-  Buildings.BoundaryConditions.WeatherData.Bus busWea if
-       typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
+  Buildings.BoundaryConditions.WeatherData.Bus busWea
+    if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
     "Weather bus"
     annotation (Placement(transformation(extent={{20,180},{60,220}}),
       iconTransformation(extent={{-220,380},{-180,420}})));
@@ -215,17 +214,17 @@ model PartialHeatPumpGroup
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced",group="Diagnostics"),HideResult=true);
-  MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_aChiHeaWat.p, noEvent(actualStream(ports_aChiHeaWat.h_outflow)), noEvent(actualStream(ports_aChiHeaWat.Xi_outflow))) if
-       show_T
+  MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_aChiHeaWat.p, noEvent(actualStream(ports_aChiHeaWat.h_outflow)), noEvent(actualStream(ports_aChiHeaWat.Xi_outflow)))
+    if show_T
     "CHW/HW medium properties in port_aChiHeaWat";
-  MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_bChiHeaWat.p, noEvent(actualStream(ports_bChiHeaWat.h_outflow)), noEvent(actualStream(ports_bChiHeaWat.Xi_outflow))) if
-       show_T
+  MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_bChiHeaWat.p, noEvent(actualStream(ports_bChiHeaWat.h_outflow)), noEvent(actualStream(ports_bChiHeaWat.Xi_outflow)))
+    if show_T
     "CHW/HW medium properties in port_bChiHeaWat";
-  MediumSou.ThermodynamicState sta_aSou[nHp]=MediumSou.setState_phX(ports_aSou.p, noEvent(actualStream(ports_aSou.h_outflow)), noEvent(actualStream(ports_aSou.Xi_outflow))) if
-       show_T
+  MediumSou.ThermodynamicState sta_aSou[nHp]=MediumSou.setState_phX(ports_aSou.p, noEvent(actualStream(ports_aSou.h_outflow)), noEvent(actualStream(ports_aSou.Xi_outflow)))
+    if show_T
     "Source medium properties in port_aSou";
-  MediumSou.ThermodynamicState sta_bSou[nHp]=MediumSou.setState_phX(ports_bSou.p, noEvent(actualStream(ports_bSou.h_outflow)), noEvent(actualStream(ports_bSou.Xi_outflow))) if
-       show_T
+  MediumSou.ThermodynamicState sta_bSou[nHp]=MediumSou.setState_phX(ports_bSou.p, noEvent(actualStream(ports_bSou.h_outflow)), noEvent(actualStream(ports_bSou.Xi_outflow)))
+    if show_T
     "Source medium properties in port_bSou";
 protected
   Buildings.Templates.Components.Interfaces.Bus busHp[nHp]
@@ -235,12 +234,98 @@ protected
 equation
   connect(bus.hp, busHp)
     annotation (Line(points={{0,200},{0,200},{0,160}},color={255,204,51},thickness=0.5));
-  annotation (
-    Diagram(
-      coordinateSystem(
-        extent={{-200,-200},{200,200}})),
-    Icon(
-      coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-1000,-400},{1000,400}})));
+  annotation (Diagram(coordinateSystem(extent={{-200,-200},{200,200}})), Icon(
+        coordinateSystem(preserveAspectRatio=false, extent={{-2400,-400},{2400,
+            400}}), graphics={
+        Bitmap(
+          extent={{1880,160},{1960,240}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 1),
+        Rectangle(
+          extent={{2240,400},{1960,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 1),
+        Text(
+          extent={{1960,250},{2240,150}},
+          textColor={0,0,0},
+          visible=nHp >= 1,
+          textString="HP-1"),
+        Bitmap(
+          extent={{1080,160},{1160,240}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 2),
+        Rectangle(
+          extent={{1440,400},{1160,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 2),
+        Text(
+          extent={{1160,250},{1440,150}},
+          textColor={0,0,0},
+          visible=nHp >= 2,
+          textString="HP-2"),
+        Bitmap(
+          extent={{280,160},{360,240}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 3),
+        Rectangle(
+          extent={{640,400},{360,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 3),
+        Text(
+          extent={{360,250},{640,150}},
+          textColor={0,0,0},
+          visible=nHp >= 3,
+          textString="HP-3"),
+        Bitmap(
+          extent={{-520,160},{-440,240}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 4),
+        Rectangle(
+          extent={{-160,400},{-440,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 4),
+        Text(
+          extent={{-440,250},{-160,150}},
+          textColor={0,0,0},
+          visible=nHp >= 4,
+          textString="HP-4"),
+        Bitmap(
+          extent={{-1320,160},{-1240,240}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 5),
+        Rectangle(
+          extent={{-960,400},{-1240,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 5),
+        Text(
+          extent={{-1240,250},{-960,150}},
+          textColor={0,0,0},
+          visible=nHp >= 5,
+          textString="HP-5"),
+        Bitmap(
+          extent={{-2120,160},{-2040,240}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 6),
+        Rectangle(
+          extent={{-1760,400},{-2040,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 6),
+        Text(
+          extent={{-2040,250},{-1760,150}},
+          textColor={0,0,0},
+          visible=nHp >= 6,
+          textString="HP-6")}),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for heat pump
+group models.
+</p>
+</html>"));
 end PartialHeatPumpGroup;

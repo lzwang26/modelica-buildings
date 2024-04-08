@@ -40,7 +40,7 @@ model PartialHeatPump
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.HeatPumpModel typMod=
-    Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D
+    Buildings.Templates.Components.Types.HeatPumpModel.EquationFit
     "Type of heat pump model"
     annotation (Evaluate=true, Dialog(group="Configuration"),
     __ctrlFlow(enable=false));
@@ -217,11 +217,19 @@ Icon(graphics={
           lineThickness=1),
     Bitmap(extent={{-20,60},{20,100}}, fileName=
     "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
-    Text( extent={{-60,-20},{60,-60}},
+    Text( extent={{-60,0},{60,-40}},
           textColor={0,0,0},
           textString="HP")}), Documentation(info="<html>
-RFE: Add check for design capacity below the one computed
-from reference values (per record).
+<p>
+This partial class provides a standard interface for heat pump models.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-140},{100,160}})));
 end PartialHeatPump;

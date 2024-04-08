@@ -36,26 +36,26 @@ block ControlDifferentialPressure
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpRemSet[nSenDpRem](
-    each final unit="Pa") if
-       have_senDpRemWir
+    each final unit="Pa")
+    if have_senDpRemWir
     "Remote differential pressure setpoint"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpLoc(
-    final unit="Pa") if
-       not have_senDpRemWir
+    final unit="Pa")
+    if not have_senDpRemWir
     "Loop differential pressure local to the plant"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpRem[nSenDpRem](
-    each final unit="Pa") if
-       have_senDpRemWir
+    each final unit="Pa")
+    if have_senDpRemWir
     "Remote loop differential pressure"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpLocSet[nSenDpRem](
-    each final unit="Pa") if
-       not have_senDpRemWir
+    each final unit="Pa")
+    if not have_senDpRemWir
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -73,8 +73,8 @@ block ControlDifferentialPressure
     "Replicate"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMax maxSet(
-    nin=nSenDpRem) if
-       not have_senDpRemWir
+    nin=nSenDpRem)
+    if not have_senDpRemWir
     "Maximum DP setpoint"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Utilities.PIDWithEnable ctlDpRem[nSenDpRem](
@@ -84,8 +84,8 @@ block ControlDifferentialPressure
     each final yMin=y_min,
     each final yMax=y_max,
     each final y_reset=y_min,
-    each final y_neutral=0) if
-       have_senDpRemWir
+    each final y_neutral=0)
+    if have_senDpRemWir
     "Remote differential pressure control"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Utilities.PIDWithEnable ctlDpLoc(
@@ -95,13 +95,13 @@ block ControlDifferentialPressure
     final yMin=y_min,
     final yMax=y_max,
     final y_reset=y_min,
-    final y_neutral=0) if
-       not have_senDpRemWir
+    final y_neutral=0)
+    if not have_senDpRemWir
     "Local differential pressure control"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMax maxY(
-    nin=nSenDpRem) if
-       have_senDpRemWir
+    nin=nSenDpRem)
+    if have_senDpRemWir
     "Maximum control loop output"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 protected
@@ -189,7 +189,7 @@ from each of the remote loops.
 </li>
 </ul>
 <h4>Details</h4>
-<p>Used in Guideline 36 for controlling:
+<p>This logic is prescribed in ASHRAE, 2021 for:
 </p>
 <ul>
 <li>
@@ -202,17 +202,32 @@ where the remote DP sensor(s) is not hardwired to the plant controller, but
 a local DP sensor is hardwired to the plant controller,
 </li>
 <li>
-variable speed secondary pumps in primary-secondary chiller and boiler plants
+variable speed secondary pumps in primary-secondary chiller and boiler
 plants where a remote DP sensor(s) is hardwired to the secondary pump controller,
 </li>
 <li>
-variable speed secondary pumps in primary-secondary chiller and boiler plants plants
+variable speed secondary pumps in primary-secondary chiller and boiler plants
 where a remote DP sensor is not hardwired to the secondary pump controller,
 but a local DP sensor is hardwired to the secondary pump controller.
 </li>
 </ul>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2021\">
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>
-"), Diagram(
+", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+    Diagram(
       coordinateSystem(
         extent={{-100,-100},{100,100}})));
 end ControlDifferentialPressure;

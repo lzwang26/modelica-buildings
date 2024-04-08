@@ -1,4 +1,4 @@
-﻿within Buildings.Templates.Plants.HeatPumps.Components.Controls;
+within Buildings.Templates.Plants.HeatPumps.Components.Controls;
 model AirToWater
   "Controller for AWHP plant"
   extends
@@ -33,8 +33,8 @@ model AirToWater
     final TOutHeaWatLck=dat.TOutHeaWatLck,
     final VChiWatSec_flow_nominal=dat.VChiWatSec_flow_nominal,
     final VHeaWatSec_flow_nominal=dat.VHeaWatSec_flow_nominal,
-    final capCooHp_nominal=dat.capCooHp_nominal,
-    final capHeaHp_nominal=dat.capHeaHp_nominal,
+    final capCooHp_nominal=fill(dat.capCooHp_nominal, cfg.nHp),
+    final capHeaHp_nominal=fill(dat.capHeaHp_nominal, cfg.nHp),
     final cp_default=if cfg.have_heaWat then cfg.cpHeaWat_default else cfg.cpChiWat_default,
     final dpChiWatRemSet_max=dat.dpChiWatRemSet_max,
     final dpChiWatRemSet_min=dat.dpChiWatRemSet_min,
@@ -44,15 +44,19 @@ model AirToWater
     final have_heaWat=cfg.have_heaWat,
     final have_inpSch=have_inpSch,
     final have_pumChiWatPriDed_select=cfg.have_pumChiWatPriDed,
-    final have_pumChiWatSec=cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
-    final have_pumHeaWatSec=cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
+    final have_pumChiWatSec_select=cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
+    final have_pumHeaWatSec_select=cfg.typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
     final have_pumPriHdr=cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered,
     final have_pumHeaWatPriVar=cfg.have_pumHeaWatPriVar,
     final have_pumChiWatPriVar=cfg.have_pumChiWatPriVar,
     final have_senDpChiWatRemWir=cfg.have_senDpChiWatRemWir,
     final have_senDpHeaWatRemWir=cfg.have_senDpHeaWatRemWir,
-    final have_senPri_select=cfg.have_senPri_select,
-    final have_senSec_select=cfg.have_senSec_select,
+    final have_senTChiWatPriRet_select=have_senTChiWatPriRet_select,
+    final have_senTChiWatSecRet=have_senTChiWatSecRet,
+    final have_senTHeaWatPriRet_select=have_senTHeaWatPriRet_select,
+    final have_senTHeaWatSecRet=have_senTHeaWatSecRet,
+    final have_senVChiWatPri_select=have_senVChiWatPri_select,
+    final have_senVHeaWatPri_select=have_senVHeaWatPri_select,
     final have_valHpInlIso=cfg.have_valHpInlIso,
     final have_valHpOutIso=cfg.have_valHpOutIso,
     final idxEquAlt=idxEquAlt,
@@ -61,8 +65,8 @@ model AirToWater
     final nPumChiWatSec=cfg.nPumChiWatSec,
     final nPumHeaWatPri=cfg.nPumHeaWatPri,
     final nPumHeaWatSec=cfg.nPumHeaWatSec,
-    final nSenDpChiWatRem=cfg.nSenDpChiWatRem,
-    final nSenDpHeaWatRem=cfg.nSenDpHeaWatRem,
+    final nSenDpChiWatRem=nSenDpChiWatRem,
+    final nSenDpHeaWatRem=nSenDpHeaWatRem,
     final plrSta=dat.plrSta,
     final rho_default=if cfg.have_heaWat then cfg.rhoHeaWat_default else cfg.rhoChiWat_default,
     final schCoo=dat.schCoo,
@@ -79,8 +83,8 @@ model AirToWater
     final nin=nEquZon) if cfg.have_heaWat
     "Sum of HW plant requests from zone equipment"
     annotation (Placement(transformation(extent={{210,-90},{190,-70}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum reqResHeaWatAirHan(nin=1) if
-       cfg.have_heaWat "Sum of HW reset requests from AHU"
+  Buildings.Controls.OBC.CDL.Integers.MultiSum reqResHeaWatAirHan(nin=1)
+    if cfg.have_heaWat "Sum of HW reset requests from AHU"
     annotation (Placement(transformation(extent={{210,110},{190,130}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqResHeaWatEquZon(
     final nin=nEquZon) if cfg.have_heaWat
@@ -100,36 +104,36 @@ model AirToWater
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqPlaChiWatAirHan(final nin=
         nAirHan) if cfg.have_chiWat "Sum of CHW plant requests from AHU"
     annotation (Placement(transformation(extent={{210,150},{190,170}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqPlaHeaWatAirHan(
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqPlaHeaWatAirHan(
     final have_inp=cfg.have_heaWat,
     final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,190},{150,210}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqPlaChiWatAirHan(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqPlaChiWatAirHan(final
       have_inp=cfg.have_chiWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,150},{150,170}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqResHeaWatAirHan(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqResHeaWatAirHan(final
       have_inp=cfg.have_heaWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,110},{150,130}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqResChiWatAirHan(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqResChiWatAirHan(final
       have_inp=cfg.have_chiWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,70},{150,90}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqPlaHeaWatEquZon(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqPlaHeaWatEquZon(final
       have_inp=cfg.have_heaWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,-90},{150,-70}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqPlaChiWatEquZon(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqPlaChiWatEquZon(final
       have_inp=cfg.have_chiWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,-130},{150,-110}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqResHeaWatEquZon(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqResHeaWatEquZon(final
       have_inp=cfg.have_heaWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,-170},{150,-150}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqResChiWatEquZon(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqResChiWatEquZon(final
       have_inp=cfg.have_chiWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,-210},{150,-190}})));
@@ -149,9 +153,13 @@ equation
   /* Control point connection - start */
   // Inputs from plant control bus
   connect(bus.TChiWatPriRet, ctl.TChiWatPriRet);
+  connect(bus.TChiWatPriSup, ctl.TChiWatPriSup);
   connect(bus.TChiWatSecRet, ctl.TChiWatSecRet);
+  connect(bus.TChiWatSecSup, ctl.TChiWatSecSup);
   connect(bus.THeaWatPriRet, ctl.THeaWatPriRet);
+  connect(bus.THeaWatPriSup, ctl.THeaWatPriSup);
   connect(bus.THeaWatSecRet, ctl.THeaWatSecRet);
+  connect(bus.THeaWatSecSup, ctl.THeaWatSecSup);
   connect(bus.TOut, ctl.TOut);
   connect(bus.VChiWatPri_flow, ctl.VChiWatPri_flow);
   connect(bus.VChiWatSec_flow, ctl.VChiWatSec_flow);
@@ -172,6 +180,8 @@ equation
   connect(bus.u1SchHea, ctl.u1SchHea);
   // Outputs to plant control bus
   connect(ctl.TSupSet, busHp.TSet);
+  connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
+  connect(ctl.THeaWatSupSet, bus.THeaWatSupSet);
   connect(ctl.dpChiWatRemSet, bus.dpChiWatRemSet);
   connect(ctl.dpHeaWatRemSet, bus.dpHeaWatRemSet);
   connect(ctl.y1HeaHp, busHp.y1Hea);
@@ -191,31 +201,31 @@ equation
   connect(ctl.yPumHeaWatPriHdr, busPumHeaWatPri.y);
   connect(ctl.yPumHeaWatSec, busPumHeaWatSec.y);
   /* Control point connection - stop */
-  connect(busAirHan.reqResChiWat, reqResChiWatAirHan.u[0:0]) annotation (Line(
+  connect(busAirHan.reqResChiWat, reqResChiWatAirHan.u) annotation (Line(
       points={{260,140},{240,140},{240,80},{212,80}},
       color={255,204,51},
       thickness=0.5));
-  connect(busEquZon.reqPlaHeaWat, reqPlaHeaWatEquZon.u[0:0]) annotation (Line(
+  connect(busEquZon.reqPlaHeaWat, reqPlaHeaWatEquZon.u) annotation (Line(
       points={{260,-140},{240,-140},{240,-80},{212,-80}},
       color={255,204,51},
       thickness=0.5));
-  connect(busEquZon.reqResHeaWat, reqResHeaWatEquZon.u[0:0]) annotation (Line(
+  connect(busEquZon.reqResHeaWat, reqResHeaWatEquZon.u) annotation (Line(
       points={{260,-140},{240,-140},{240,-160},{212,-160}},
       color={255,204,51},
       thickness=0.5));
-  connect(busEquZon.reqPlaChiWat, reqPlaChiWatEquZon.u[0:0]) annotation (Line(
+  connect(busEquZon.reqPlaChiWat, reqPlaChiWatEquZon.u) annotation (Line(
       points={{260,-140},{240,-140},{240,-120},{212,-120}},
       color={255,204,51},
       thickness=0.5));
-  connect(busEquZon.reqResChiWat, reqResChiWatEquZon.u[0:0]) annotation (Line(
+  connect(busEquZon.reqResChiWat, reqResChiWatEquZon.u) annotation (Line(
       points={{260,-140},{240,-140},{240,-200},{212,-200}},
       color={255,204,51},
       thickness=0.5));
-  connect(busAirHan.reqPlaChiWat, reqPlaChiWatAirHan.u[0:0]) annotation (Line(
+  connect(busAirHan.reqPlaChiWat, reqPlaChiWatAirHan.u) annotation (Line(
       points={{260,140},{240,140},{240,160},{212,160}},
       color={255,204,51},
       thickness=0.5));
-  connect(busAirHan.reqPlaHeaWat, reqPlaHeaWatAirHan.u[0:0]) annotation (Line(
+  connect(busAirHan.reqPlaHeaWat, reqPlaHeaWatAirHan.u) annotation (Line(
       points={{260,140},{240,140},{240,200},{212,200}},
       color={255,204,51},
       thickness=0.5));
@@ -231,14 +241,14 @@ equation
     annotation (Line(points={{188,120},{172,120}}, color={255,127,0}));
   connect(reqResChiWatAirHan.y, phReqResChiWatAirHan.u)
     annotation (Line(points={{188,80},{172,80}}, color={255,127,0}));
-  connect(reqPlaHeaWatEquZon.y, phReqPlaHeaWatEquZon.u) annotation (Line(points=
-         {{188,-80},{180,-80},{180,-80},{172,-80}}, color={255,127,0}));
+  connect(reqPlaHeaWatEquZon.y, phReqPlaHeaWatEquZon.u) annotation (Line(points
+        ={{188,-80},{180,-80},{180,-80},{172,-80}}, color={255,127,0}));
   connect(reqPlaChiWatEquZon.y, phReqPlaChiWatEquZon.u)
     annotation (Line(points={{188,-120},{172,-120}}, color={255,127,0}));
   connect(reqResChiWatEquZon.y, phReqResChiWatEquZon.u)
     annotation (Line(points={{188,-200},{172,-200}}, color={255,127,0}));
-  connect(reqResHeaWatEquZon.y, phReqResHeaWatEquZon.u) annotation (Line(points=
-         {{188,-160},{178,-160},{178,-160},{172,-160}}, color={255,127,0}));
+  connect(reqResHeaWatEquZon.y, phReqResHeaWatEquZon.u) annotation (Line(points
+        ={{188,-160},{178,-160},{178,-160},{172,-160}}, color={255,127,0}));
   connect(phReqPlaHeaWatAirHan.y, reqPlaHeaWat.u1)
     annotation (Line(points={{148,200},{112,200}}, color={255,127,0}));
   connect(phReqPlaHeaWatEquZon.y, reqPlaHeaWat.u2) annotation (Line(points={{148,
@@ -255,14 +265,68 @@ equation
           -160},{136,-160},{136,108},{112,108}}, color={255,127,0}));
   connect(phReqResChiWatEquZon.y, reqResChiWat.u2) annotation (Line(points={{148,
           -200},{134,-200},{134,68},{112,68}}, color={255,127,0}));
-  connect(reqPlaHeaWat.y, ctl.nReqPlaHeaWat) annotation (Line(points={{88,194},{
-          -40,194},{-40,20},{-22,20}}, color={255,127,0}));
-  connect(reqPlaChiWat.y, ctl.nReqPlaChiWat) annotation (Line(points={{88,154},{
-          -38,154},{-38,18},{-22,18}}, color={255,127,0}));
-  connect(reqResHeaWat.y,ctl.nReqResHeaWat)  annotation (Line(points={{88,114},{
-          -36,114},{-36,16},{-22,16}}, color={255,127,0}));
-  connect(reqResChiWat.y,ctl.nReqResChiWat)  annotation (Line(points={{88,74},{-34,
-          74},{-34,14},{-22,14}}, color={255,127,0}));
+  connect(reqPlaHeaWat.y, ctl.nReqPlaHeaWat) annotation (Line(points={{88,194},
+          {-40,194},{-40,22.3529},{-22,22.3529}},
+                                       color={255,127,0}));
+  connect(reqPlaChiWat.y, ctl.nReqPlaChiWat) annotation (Line(points={{88,154},
+          {-38,154},{-38,20.5882},{-22,20.5882}},
+                                       color={255,127,0}));
+  connect(reqResHeaWat.y,ctl.nReqResHeaWat)  annotation (Line(points={{88,114},
+          {-36,114},{-36,18.8235},{-22,18.8235}},
+                                       color={255,127,0}));
+  connect(reqResChiWat.y,ctl.nReqResChiWat)  annotation (Line(points={{88,74},{
+          -34,74},{-34,17.0588},{-22,17.0588}},
+                                  color={255,127,0}));
   annotation (
-    defaultComponentName="ctl");
+    defaultComponentName="ctl", Documentation(info="<html>
+<p>
+This class implements the sequence of operation for plants with 
+air-to-water heat pumps.
+It is based on the controller
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
+Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>.
+</p>
+<h4>Control points</h4>
+<p>
+The control sequence requires the following external input points in
+addition to those already included in the HP plant template.
+</p>
+<ul>
+<li>Outdoor air temperature <code>TOut</code>:
+AI signal with a dimensionality of zero</li>
+<li>HW differential pressure from remote sensor(s) <code>dpHeaWatRem</code>:
+AI signal with a dimensionality of one, the number of remote
+sensors is specified by the parameter <code>nSenDpHeaWatRem</code>.</li>
+<li>CHW differential pressure from remote sensor(s) <code>dpChiWatRem</code> – 
+only for heating and cooling plants:
+AI signal with a dimensionality of one, the number of remote
+sensors is specified by the parameter <code>nSenDpChiWatRem</code>.</li>
+<li>
+Inside the sub-bus <code>busAirHan[:]</code> or <code>busEquZon[:]</code>,
+with a dimensionality of one
+<ul>
+<li>HW plant requests yielded by the air handler or zone
+equipment controller <code>bus(AirHan|EquZon)[:].reqPlaHeaWat</code>:
+AI signal (Integer), with a dimensionality of one
+</li>
+<li>HW reset requests yielded by the air handler or zone
+equipment controller <code>bus(AirHan|EquZon)[:].reqResHeaWat</code>:
+AI signal (Integer), with a dimensionality of one
+</li>
+</ul>
+</li>
+<li>
+CHW plant requests yielded by the air handler or zone – 
+only for heating and cooling plants:
+equipment controller <code>bus(AirHan|EquZon)[:].reqPlaChiWat</code>:
+AI signal (Integer), with a dimensionality of one
+</li>
+<li>
+CHW reset requests yielded by the air handler or zone – 
+only for heating and cooling plants:
+equipment controller <code>bus(AirHan|EquZon)[:].reqResChiWat</code>:
+AI signal (Integer), with a dimensionality of one
+</li>
+</ul>
+</html>"));
 end AirToWater;
