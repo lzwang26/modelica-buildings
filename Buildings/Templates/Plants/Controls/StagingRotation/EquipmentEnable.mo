@@ -1,11 +1,12 @@
-﻿within Buildings.Templates.Plants.Controls.StagingRotation;
+within Buildings.Templates.Plants.Controls.StagingRotation;
 block EquipmentEnable
-  "Return array of equipment to enable at given stage"
+  "Return array of equipment to be enabled at given stage"
   parameter Real staEqu[:,:](
     each unit="1",
     each min=0,
     each max=1)
-    "Staging matrix – Equipment required for each stage";
+    "Staging matrix – Equipment required for each stage"
+    annotation (Evaluate=true);
   final parameter Integer nEquAlt=max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1
     then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
@@ -17,7 +18,11 @@ block EquipmentEnable
     "Number of equipment"
     annotation (Evaluate=true);
   final parameter Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
-    "Tranpose of staging matrix";
+    "Transpose of staging matrix";
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxAltSor[nEquAlt]
+    "Indices of lead/lag alternate equipment sorted by increasing runtime"
+    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
     "Stage index"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
@@ -54,11 +59,11 @@ block EquipmentEnable
     "Return true if equipment required without lead/lag alternate and available"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isReqPosAlt[nEqu](
-    each final t=0)
+      each final t=1E-4)
     "Return true if equipment required (with or without lead/lag alternate)"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold isNotReqNoAlt[nEqu](
-    each final t=1)
+      each final t=0.9999)
     "Return true if equipment not required or required with lead/lag alternate"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd isReqAltAva[nEqu](
@@ -107,13 +112,9 @@ block EquipmentEnable
   Buildings.Controls.OBC.CDL.Logical.And isEnaPreAva[nEqu]
     "Return true if equipment previously enabled and available"
     annotation (Placement(transformation(extent={{130,-110},{110,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxAltSor[nEquAlt]
-    "Indices of lead/lag alternate equipment sorted by increasing runtime"
-    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
   Utilities.TrueArrayConditional truArrCon(
     final nout=nEqu,
-    nin=nEquAlt)
+    final nin=nEquAlt)
     "Generate array of size nEqu with nAltReq true elements at uIdxAltSor indices "
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
@@ -140,10 +141,6 @@ block EquipmentEnable
     "Void if stage is equal to zero"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 equation
-  // HACK(AntoineGautier): Explicit `for` loops needed for OCT that cannot flatten the model otherwise.
-  for i in 1:nEqu loop
-    for j in 1:i loop end for;
-  end for;
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-108,0},{-100,0},{-100,60},{-150,60},{-150,68}},
       color={255,127,0}));
@@ -258,9 +255,45 @@ equation
     Documentation(
       info="<html>
 <p>
-\"Count the number of required equipment without lead/lag alternate not necessarily available\":
-because we don't want to replace an unavailable required equipment by a lead/lag alternate equipment.
+This block generates the equipment enable commands based on the
+active stage index <code>uSta</code>, the equipment available
+signal <code>u1Ava</code> and the indices of lead/lag alternate
+equipment, sorted by increasing staging runtime.
 </p>
+<p>
+A staging matrix <code>staEqu</code> is required as a parameter.
+</p>
+<ul>
+<li>Each row of this matrix corresponds to a given stage.</li>
+<li>Each column of this matrix corresponds to a given equipment.</li>
+<li>A coefficient <code>staEqu[i, j]</code> equal to <i>0</i>
+means that equipment <code>j</code> shall not be enabled at
+stage <code>i</code>.</li>
+<li>A coefficient <code>staEqu[i, j]</code> equal to <i>1</i>
+means that equipment <code>j</code> is required at stage <code>i</code>.
+If equipment <code>j</code> is unavailable, stage <code>i</code> is
+deemed unavailable.
+</li>
+<li>A coefficient <code>staEqu[i, j]</code> strictly lower than <i>1</i>
+and strictly greater than <i>0</i> means that equipment <code>j</code>
+may be enabled at stage <code>i</code> as a lead/lag alternate equipment.
+If equipment <code>j</code> is unavailable but another lead/lag alternate
+equipment is available, then the latter equipment is enabled.
+Stage <code>i</code> is only deemed unavailable if all
+lead/lag alternate equipment specified for stage <code>i</code>
+are unavailable.
+</li>
+<li>
+The sum of the coefficients in a given row <code>∑_j staEqu[i, j]</code>
+gives the number of equipment required at stage <code>i</code>.
+If this number cannot be achieved with the available equipment,
+stage <code>i</code> is deemed unavailable.
+</li>
+<li>
+The condition <code>∑_j staEqu[i+1, j] &ge; ∑_j staEqu[i, j]</code>
+is required for all <code>i &lt; size(staEqu, 1)</code>.
+</li>
+</ul>
 <p>
 The state of the enable signals is only updated at stage change, or
 if the number of previously enabled equipment that is available is

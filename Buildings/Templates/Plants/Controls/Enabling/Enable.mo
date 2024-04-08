@@ -1,6 +1,6 @@
-﻿within Buildings.Templates.Plants.Controls.Enabling;
+within Buildings.Templates.Plants.Controls.Enabling;
 block Enable
-  "Evaluation of system enable command"
+  "Plant enable"
   parameter Buildings.Templates.Plants.Controls.Types.Application typ
     "Type of application"
     annotation (Evaluate=true);
@@ -32,8 +32,8 @@ block Enable
     final min=0,
     final unit="s")=3 * 60
     "Runtime with low number of request before disabling";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Sch if
-       have_inpSch
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Sch
+    if have_inpSch
     "System enable via schedule"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
@@ -53,8 +53,8 @@ block Enable
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable schEna(
     final table=sch,
-    final period=max(sch[:, 1])) if
-       not have_inpSch
+    final period=max(sch[:, 1]))
+    if not have_inpSch
     "Enable schedule"
     annotation (Placement(transformation(extent={{-150,50},{-130,70}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold greIgn(
@@ -62,13 +62,13 @@ block Enable
     "Return true if number of requests > number of ignored requests"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greLck(
-    final t=TOutLck) if
-       typ == Buildings.Templates.Plants.Controls.Types.Application.Cooling
+    final t=TOutLck)
+    if typ == Buildings.Templates.Plants.Controls.Types.Application.Cooling
     "Return true if OAT > lockout temperature"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesLck(
-    final t=TOutLck) if
-       typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
+    final t=TOutLck)
+    if typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
     "Return true if OAT < lockout temperature"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Pre preEna
@@ -105,13 +105,13 @@ block Enable
     "Return true if low number of requests for specified duration"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lowLckHys(
-    final t=TOutLck - dTOutLck) if
-       typ == Buildings.Templates.Plants.Controls.Types.Application.Cooling
+    final t=TOutLck - dTOutLck)
+    if typ == Buildings.Templates.Plants.Controls.Types.Application.Cooling
     "Return true if OAT < lockout temperature - hysteresis"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greLckHys(
-    final t=TOutLck + dTOutLck) if
-       typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
+    final t=TOutLck + dTOutLck)
+    if typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
     "Return true if OAT > lockout temperature + hysteresis"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And andRun
@@ -233,14 +233,11 @@ equation
     Documentation(
       info="<html>
 <p>
-This block generates the system enable command.
-</p>
-<p>
-The system is enabled when it has been disabled for at least the duration <code>dtRun</code> and:
+The plant is enabled when it has been disabled for at least the duration <code>dtRun</code> and:
 </p>
 <ul>
 <li>
-Number of system requests &gt; number of ignored requests <code>nReqIgn</code>, and
+Number of plant requests &gt; number of ignored requests <code>nReqIgn</code>, and
 </li>
 <li>
 <b>For cooling systems</b>: outdoor air temperature &gt; outdoor air lockout 
@@ -255,12 +252,12 @@ The enable schedule is active.
 </li>
 </ul>
 <p>
-The system is disabled when it has been enabled for at least the duration 
+The plant is disabled when it has been enabled for at least the duration 
 <code>dtRun</code> and:
 </p>
 <ul>
 <li>
-Number of system requests &le; number of ignored requests <code>nReqIgn</code> 
+Number of plant requests &le; number of ignored requests <code>nReqIgn</code> 
 for at least the duration <code>dtReq</code>, or
 </li>
 <li>
@@ -272,7 +269,14 @@ temperature <code>TOutLck</code> minus hysteresis <code>dTOutLck</code>, or
 temperature <code>TOutLck</code> plus hysteresis <code>dTOutLck</code>, or
 </li>
 <li>
-The system enable schedule is inactive.
+The plant enable schedule is inactive.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),

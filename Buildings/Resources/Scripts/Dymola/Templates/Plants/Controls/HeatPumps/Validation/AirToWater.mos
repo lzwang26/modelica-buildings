@@ -22,7 +22,7 @@ createPlot(
 createPlot(
     id=2,
     position={310, 5, 300, 500},
-    y={"mulAHUPlaReq.yHotWatPlaReq", "mulAHUPlaReq.yChiPlaReq", "ctl.enaHea.y1", "ctl.enaCoo.y1"},
+    y={"ctl.nReqPlaHeaWat", "ctl.nReqPlaChiWat", "ctl.enaHea.y1", "ctl.enaCoo.y1"},
     autoscale=true,
     grid=true,
     timeUnit="h"

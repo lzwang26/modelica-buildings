@@ -41,8 +41,7 @@ block SortRuntime
     "Return true if equipment off"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Res[nEquAlt](
-    each k=false)
-    "FIXME: Add input signal for staging runtime reset"
+    each k=false) "Signal for staging runtime reset"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
   Utilities.SortWithIndices sor(
     final ascending=true,
@@ -55,7 +54,7 @@ block SortRuntime
     "Weight to be applied to runtime of equipment off and available"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply appWeiOffAva[nEquAlt]
-    "Apply weigths to runtime of equipment off and available"
+    "Apply weights to runtime of equipment off and available"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply voiRunUna[nEquAlt]
     "Void runtime of unavailable equipment"
@@ -99,7 +98,7 @@ block SortRuntime
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal[nEquAlt](
     each final k=false)
     "Constant"
-    annotation (Placement(transformation(extent={{-150,90},{-130,110}})));
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal u1RunEquAlt(
     final nin=nin,
     final nout=nEquAlt,
@@ -115,7 +114,7 @@ block SortRuntime
   Buildings.Controls.OBC.CDL.Routing.IntegerExtractor resIdxInp[nEquAlt](
     each final nin=nEquAlt)
     "Restore indices consistent with input vectors"
-    annotation (Placement(transformation(extent={{150,-10},{170,10}})));
+    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxEquAltMat[nEquAlt, nEquAlt](
     final k={idxEquAlt for i in 1:nEquAlt})
     "Indices of lead/lag alternate equipment repeated nEquAlt times"
@@ -129,9 +128,9 @@ block SortRuntime
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
   connect(u1Res.y, timRun.reset)
-    annotation (Line(points={{-158,-100},{-140,-100},{-140,-8},{-92,-8}},color={255,0,255}));
+    annotation (Line(points={{-158,-100},{-120,-100},{-120,-8},{-92,-8}},color={255,0,255}));
   connect(weiOffAva.y, appWeiOffAva.u1)
-    annotation (Line(points={{-28,40},{-26,40},{-26,6},{-12,6}},color={0,0,127}));
+    annotation (Line(points={{-28,40},{-20,40},{-20,6},{-12,6}},color={0,0,127}));
   connect(off.y, offAva.u1)
     annotation (Line(points={{-108,40},{-92,40}},color={255,0,255}));
   connect(offAva.y, weiOffAva.u)
@@ -141,7 +140,7 @@ equation
   connect(zerUna.y, voiRunUna.u2)
     annotation (Line(points={{-28,-40},{20,-40},{20,-6},{28,-6}},color={0,0,127}));
   connect(una.y, timUna.u)
-    annotation (Line(points={{-68,-40},{-56,-40},{-56,-80},{-52,-80}},color={255,0,255}));
+    annotation (Line(points={{-68,-40},{-60,-40},{-60,-80},{-52,-80}},color={255,0,255}));
   connect(una.y, zerUna.u)
     annotation (Line(points={{-68,-40},{-52,-40}},color={255,0,255}));
   connect(timUna.y, opp.u)
@@ -162,7 +161,7 @@ equation
   connect(timRunLif.y, yRunTimLif)
     annotation (Line(points={{-28,80},{220,80}},color={0,0,127}));
   connect(fal.y, timRunLif.reset)
-    annotation (Line(points={{-128,100},{-60,100},{-60,72},{-52,72}},color={255,0,255}));
+    annotation (Line(points={{-158,100},{-60,100},{-60,72},{-52,72}},color={255,0,255}));
   connect(u1Run, u1RunEquAlt.u)
     annotation (Line(points={{-220,40},{-182,40}},color={255,0,255}));
   connect(u1RunEquAlt.y, off.u)
@@ -180,12 +179,12 @@ equation
   connect(u1AvaEquAlt.y, offAva.u2)
     annotation (Line(points={{-158,-40},{-100,-40},{-100,32},{-92,32}},color={255,0,255}));
   connect(idxEquAltMat.y, resIdxInp.u)
-    annotation (Line(points={{132,-40},{140,-40},{140,0},{148,0}},color={255,127,0}));
+    annotation (Line(points={{132,-40},{160,-40},{160,0},{168,0}},color={255,127,0}));
   connect(sor.yIdx, resIdxInp.index)
-    annotation (Line(points={{132,-6},{144,-6},{144,-16},{160,-16},{160,-12}},
+    annotation (Line(points={{132,-6},{164,-6},{164,-16},{180,-16},{180,-12}},
       color={255,127,0}));
   connect(resIdxInp.y, yIdx)
-    annotation (Line(points={{172,0},{220,0}},color={255,127,0}));
+    annotation (Line(points={{192,0},{220,0}},color={255,127,0}));
   connect(runTimSta.y, iniRunTim.u1)
     annotation (Line(points={{-78,120},{-66,120},{-66,6},{-52,6}},color={0,0,127}));
   connect(timRun.y, iniRunTim.u2)
@@ -230,7 +229,7 @@ system server so the recorded value is not lost due to controller reset,
 loss of power, programming file update, etc.
 The Staging Runtime is an operator resettable runtime point that stores
 cumulative runtime since the last operator reset.
-<p>
+</p>
 <p>
 In the case of available equipment,
 when more than one equipment is off or more than one is on,
@@ -260,17 +259,57 @@ The parameter <code>runTim_start</code> should be set to a vector of
 strictly increasing values, where the minimum value is greater than
 the time needed for the equipment to report status.
 </p>
-<h4>Implementation details</h4>
+<h4>Details</h4>
 <p>
-Weighting/sorting logic to be explained.
+The sorting logic is implemented using the following method.
+</p>
+<ul>
+<li>
+If a unit is on and available, its staging runtime is used as is.
+</li>
+<li>
+If a unit is off and available, its staging runtime is increased 
+by a constant of <i>1E10</i>&nbsp;s.
+</li>
+<li>
+If a unit is unavailable, its staging runtime is replaced by
+the time that has elapsed since the unit became unavailable.
+This time is then increased by a constant of <i>1E20</i>&nbsp;s.
+</li>
+<li>
+A unique instance of the sorting block is then used to order
+the different units.
+</li>
+</ul>
+<p>
+This is effectively the same as sorting the units within
+the three following subsets: units that are on and available, 
+units that are off and available, units that are unavailable.
+In particular, the order index of a given unit remains unchanged
+if it is the only element of a given subset.
+Note that the staging runtime and the time elapsed since an equipment became unavailable
+are both computed from Boolean signals (<code>u1Run</code> and <code>u1Ava</code>).
+These are discrete-time, piecewise constant variables,
+which is why the caveat in the documentation of
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.SortWithIndices\">
+Buildings.Templates.Plants.Controls.Utilities.SortWithIndices</a>
+for purely continuous time-varying variables does not apply here.
+Therefore, no sampling is performed before sorting the equipment runtimes.
 </p>
 <p>
 To facilitate integration into the plant controller, the input vectors
 cover the full set of equipment, including equipment that may not be
 lead/lag alternate.
-The ouput vectors cover only the lead/lag alternate equipment,
+The output vectors cover only the subset of lead/lag alternate equipment,
 and the vector of sorted equipment provides indices with respect
-to the input vectors.
+to the input vectors (full set of equipment).
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end SortRuntime;

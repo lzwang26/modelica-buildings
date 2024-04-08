@@ -117,7 +117,7 @@ In primary-only plants, the minimum setpoint needs to be high enough to drive de
 minimum flow for the largest equipment through the minimum flow bypass valve.
 </p>
 <h4>Details</h4>
-<p>Used in Guideline 36 for controlling:
+<p>This logic is prescribed in ASHRAE, 2021 for:
 </p>
 <ul>
 <li>
@@ -126,13 +126,28 @@ where the remote DP sensor(s) is not hardwired to the plant controller, but
 a local DP sensor is hardwired to the plant controller,
 </li>
 <li>
-variable speed secondary pumps in primary-secondary chiller and boiler plants plants
+variable speed secondary pumps in primary-secondary chiller and boiler plants
 where a remote DP sensor is not hardwired to the secondary pump controller,
 but a local DP sensor is hardwired to the secondary pump controller.
 </li>
 </ul>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2021\">
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>
-"), Diagram(
+", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+    Diagram(
       coordinateSystem(
         extent={{-100,-100},{100,100}})));
 end ResetLocalDifferentialPressure;

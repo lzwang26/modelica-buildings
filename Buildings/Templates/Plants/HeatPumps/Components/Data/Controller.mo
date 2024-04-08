@@ -1,8 +1,8 @@
-﻿within Buildings.Templates.Plants.HeatPumps.Components.Data;
+within Buildings.Templates.Plants.HeatPumps.Components.Data;
 record Controller
   "Record for plant controller"
   extends Modelica.Icons.Record;
-  replaceable parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg
+  parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg
     "Plant configuration parameters";
   // HW loop
   // RFE: Declare array parameters for unequally sized units.
@@ -50,8 +50,7 @@ record Controller
     annotation (Evaluate=true,
     Dialog(group="Capacity",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-        and cfg.have_senVHeaWatSec));
+        and cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None));
   parameter Modelica.Units.SI.PressureDifference dpHeaWatRemSet_min(
     final min=0,
     start=5 * 6894)=5 * 6894
@@ -61,8 +60,12 @@ record Controller
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         or cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
-  parameter Modelica.Units.SI.PressureDifference dpHeaWatRemSet_max[cfg.nSenDpHeaWatRem](
-    start=fill(Buildings.Templates.Data.Defaults.dpHeaWatSet_max, cfg.nSenDpHeaWatRem),
+  // HACK(AntoineGautier):
+  // Using cfg.nSenDpHeaWatRem for size(dpHeaWatRemSet_max, 1) is not supported by Dymola which fails to "evaluate and check the size declaration".
+  // So the size is kept unassigned.
+  // This requires explicitely providing a value with OCT, even if enable=false.
+  parameter Modelica.Units.SI.PressureDifference dpHeaWatRemSet_max[:](
+    start=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max, cfg.nSenDpHeaWatRem),
     final min=fill(0, cfg.nSenDpHeaWatRem))
     "Maximum HW differential pressure setpoint - Remote sensor"
     annotation (Dialog(group=
@@ -78,16 +81,8 @@ record Controller
     "Primary pump speed providing design heat pump flow in heating mode"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
-      enable=cfg.have_heaWat and cfg.have_pumHeaWatPriVar));
-  parameter Real yPumHeaWatPri_min(
-    final unit="1",
-    final min=0,
-    final max=1)=0.1
-    "Primary HW pump minimum speed"
-    annotation (Dialog(group=
-      "Information provided by testing, adjusting, and balancing contractor",
-      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
+      enable=cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater and
+      cfg.have_heaWat and cfg.have_pumHeaWatPriVar));
   parameter Real yPumHeaWatSec_min(
     final unit="1",
     final min=0,
@@ -115,7 +110,7 @@ record Controller
   parameter Modelica.Units.SI.Temperature TOutChiWatLck(
     displayUnit="degC",
     final min=273.15)=Buildings.Templates.Data.Defaults.TOutChiWatLck
-    "Outdoor air lockout temperature above which the CHW loop is prevented from operating"
+    "Outdoor air lockout temperature below which the CHW loop is prevented from operating"
     annotation (Dialog(group="Temperature setpoints",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatHp_flow_nominal(
@@ -140,8 +135,7 @@ record Controller
     annotation (Evaluate=true,
     Dialog(group="Capacity",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-        and cfg.have_senVChiWatSec));
+        and cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None));
   parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_min(
     final min=0,
     start=5 * 6894)=5 * 6894
@@ -151,8 +145,12 @@ record Controller
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         or cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_max[cfg.nSenDpChiWatRem](
-    start=fill(Buildings.Templates.Data.Defaults.dpChiWatSet_max, cfg.nSenDpChiWatRem),
+  // HACK(AntoineGautier):
+  // Using cfg.nSenDpChiWatRem for size(dpChiWatRemSet_max, 1) is not supported by Dymola which fails to "evaluate and check the size declaration".
+  // So the size is kept unassigned.
+  // This requires explicitely providing a value with OCT, even if enable=false.
+  parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_max[:](
+    start=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, cfg.nSenDpChiWatRem),
     final min=fill(0, cfg.nSenDpChiWatRem))
     "Maximum CHW differential pressure setpoint - Remote sensor"
     annotation (Dialog(group=
@@ -168,7 +166,8 @@ record Controller
     "Primary pump speed providing design heat pump flow in cooling mode"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
-      enable=cfg.have_chiWat and cfg.have_pumChiWatPriVar));
+      enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+      and cfg.have_pumChiWatPriVar));
   parameter Real yPumChiWatSec_min(
     final unit="1",
     final min=0,
@@ -196,13 +195,18 @@ record Controller
     annotation (Dialog(enable=not cfg.have_inpSch and
     cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater,
     group="Plant enable"));
-  parameter Real staEqu[:, cfg.nHp](
+  // HACK(AntoineGautier):
+  // Using cfg.nHp for size(staEqu, 2) is not supported by Dymola which fails to "evaluate and check the size declaration".
+  // So the size is kept unassigned and a check is performed at initialization.
+  // Furthermore, a start value cannot be provided as the number of plant stages is not known beforehand.
+  // If provided, there will likely be a mismatch between assigned value and start value.
+  // Therefore, no enable annotation can be used.
+  parameter Real staEqu[:, :](
     each final max=1,
     each final min=0,
     each final unit="1")
     "Staging matrix – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation",
-    enable=cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
+    annotation (Dialog(group="Equipment staging and rotation"));
   parameter Real plrSta(
     final max=1,
     final min=0,
@@ -215,11 +219,8 @@ record Controller
     defaultComponentName="datCtl",
     Documentation(
       info="<html>
-FIXME: Consider have_senV(Hea|Chi)WatSec=true systematically for primary-secondary
-plants. We don't want to stage sceondary pumps based on speed, see
-the caveats in G36 Section 5.21.7.4.
 <p>
-This record provides the set of sizing and operating parameters for
+This record provides the set of parameters for
 heat pump plant controllers that can be found within
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.Controls\">
 Buildings.Templates.Plants.HeatPumps.Components.Controls</a>.

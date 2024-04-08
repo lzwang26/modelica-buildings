@@ -1,4 +1,4 @@
-﻿within Buildings.Templates.Plants.Controls.StagingRotation;
+within Buildings.Templates.Plants.Controls.StagingRotation;
 block StageChangeCommand
   "Generate stage change command"
   parameter Boolean have_inpPlrSta=false
@@ -8,11 +8,11 @@ block StageChangeCommand
     final max=1,
     final min=0,
     start=0.9,
-    final unit="1")
+    final unit="1")=0.9
     "Staging part load ratio"
     annotation (Dialog(enable=not have_inpPlrSta));
   final parameter Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
-    "Tranpose of staging matrix";
+    "Transpose of staging matrix";
   parameter Real staEqu[:,:](
     each final max=1,
     each final min=0,
@@ -55,8 +55,8 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPlrSta(
     final unit="1",
     final min=0,
-    final max=1) if
-       have_inpPlrSta
+    final max=1)
+    if have_inpPlrSta
     "Input signal for staging part load ratio"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -99,15 +99,15 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Reals.Abs absDelT(
     y(final unit="K"))
     "Compute absolute value of ∆T"
-    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+    annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter capFlo(
     y(final unit="W/K"),
     final k=rho_default * cp_default)
     "Compute capacity flow rate"
-    annotation (Placement(transformation(extent={{-168,-150},{-148,-130}})));
+    annotation (Placement(transformation(extent={{-130,-150},{-110,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply capReq
     "Compute required capacity"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+    annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant traMatStaEqu[nEqu, nSta](
     final k=traStaEqu)
     "Transpose of staging matrix"
@@ -131,28 +131,27 @@ block StageChangeCommand
     nin=nEqu)
     "Compute nominal capacity of active stage"
     annotation (Placement(transformation(extent={{70,210},{90,230}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre
-    "Compare OPLR to SPLR"
-    annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(h=1E-4*min(capEqu))
+    "Compare OPLR to SPLR (hysteresis is to avoid chattering with some simulators)"
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve(
     delta=dtMea)
     "Compute moving average"
-    annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
+    annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
   Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timUp(
     final t=dtRun)
     "Timer"
-    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.Less les
-    "Compare OPLR to SPLR"
-    annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
+    annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Less les(h=1E-4*min(capEqu))
+    "Compare OPLR to SPLR (hysteresis is to avoid chattering with some simulators)"
+    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
   Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timDow(
     final t=dtRun)
     "Timer"
-    annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
-  Utilities.HoldValue hol(
-    final dtHol=dtRun)
+    annotation (Placement(transformation(extent={{110,-130},{130,-110}})));
+  Utilities.HoldReal hol(final dtHol=dtRun)
     "Hold value of required capacity at stage change"
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Max maxInt
     "Maximum between stage index and 1"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
@@ -206,32 +205,25 @@ block StageChangeCommand
     annotation (Placement(transformation(extent={{110,170},{130,190}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply splTimCapSta
     "SPLR times capacity of active stage"
-    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
+    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply splTimCapStaLow
     "SPLR times capacity of next available lower stage"
-    annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
-  Utilities.PlaceHolderReal parPlrSta(
+    annotation (Placement(transformation(extent={{20,-170},{40,-150}})));
+  Utilities.PlaceholderReal parPlrSta(
     final have_inp=have_inpPlrSta,
-    final have_inpPla=false,
+    final have_inpPh=false,
     final u_internal=plrSta) "Parameter value for SPLR"
-    annotation (Placement(transformation(extent={{-170,-190},{-150,-170}})));
+    annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge endStaPro
     "True when staging process terminates"
-    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 equation
-  connect(TSupSet, delT.u1)
-    annotation (Line(points={{-220,-60},{-180,-60},{-180,-74},{-172,-74}},color={0,0,127}));
-  connect(TRet, delT.u2)
-    annotation (Line(points={{-220,-100},{-180,-100},{-180,-86},{-172,-86}},
-      color={0,0,127}));
   connect(delT.y, absDelT.u)
-    annotation (Line(points={{-148,-80},{-142,-80}},color={0,0,127}));
-  connect(V_flow, capFlo.u)
-    annotation (Line(points={{-220,-140},{-170,-140}},color={0,0,127}));
+    annotation (Line(points={{-148,-80},{-132,-80}},color={0,0,127}));
   connect(absDelT.y, capReq.u1)
-    annotation (Line(points={{-118,-80},{-110,-80},{-110,-74},{-102,-74}},color={0,0,127}));
+    annotation (Line(points={{-108,-80},{-100,-80},{-100,-74},{-92,-74}}, color={0,0,127}));
   connect(capFlo.y, capReq.u2)
-    annotation (Line(points={{-146,-140},{-110,-140},{-110,-86},{-102,-86}},
+    annotation (Line(points={{-108,-140},{-100,-140},{-100,-86},{-92,-86}},
       color={0,0,127}));
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-82,200},{0,200},{0,208}},color={255,127,0}));
@@ -243,10 +235,8 @@ equation
     annotation (Line(points={{-48,160},{20,160},{20,214},{28,214}},color={0,0,127}));
   connect(capEquSta.y, capSta.u)
     annotation (Line(points={{52,220},{68,220}},color={0,0,127}));
-  connect(capReq.y, movAve.u)
-    annotation (Line(points={{-78,-80},{-72,-80}},color={0,0,127}));
   connect(movAve.y, hol.u)
-    annotation (Line(points={{-48,-80},{-40,-80},{-40,-66},{-12,-66}},color={0,0,127}));
+    annotation (Line(points={{-28,-80},{-10,-80},{-10,-66},{18,-66}}, color={0,0,127}));
   connect(intScaRep.u, maxInt.y)
     annotation (Line(points={{-106,200},{-118,200}},color={255,127,0}));
   connect(idxSta.y, idxStaLesAct.u1)
@@ -292,41 +282,56 @@ equation
   connect(intToRea.y, setZer.u2)
     annotation (Line(points={{32,80},{100,80},{100,174},{108,174}},color={0,0,127}));
   connect(hol.y, gre.u1)
-    annotation (Line(points={{12,-60},{28,-60}},color={0,0,127}));
+    annotation (Line(points={{42,-60},{58,-60}},color={0,0,127}));
   connect(splTimCapSta.y, gre.u2)
-    annotation (Line(points={{12,-120},{14,-120},{14,-68},{28,-68}},color={0,0,127}));
+    annotation (Line(points={{42,-120},{44,-120},{44,-68},{58,-68}},color={0,0,127}));
   connect(capSta.y, splTimCapSta.u2)
-    annotation (Line(points={{92,220},{160,220},{160,-140},{-20,-140},{-20,-126},{-12,-126}},
+    annotation (Line(points={{92,220},{184,220},{184,-140},{10,-140},{10,-126},
+          {18,-126}},
       color={0,0,127}));
   connect(setZer.y, splTimCapStaLow.u2)
-    annotation (Line(points={{132,180},{156,180},{156,-180},{-20,-180},{-20,-166},{-12,-166}},
+    annotation (Line(points={{132,180},{180,180},{180,-180},{10,-180},{10,-166},
+          {18,-166}},
       color={0,0,127}));
   connect(splTimCapStaLow.y, les.u2)
-    annotation (Line(points={{12,-160},{20,-160},{20,-128},{28,-128}},color={0,0,127}));
+    annotation (Line(points={{42,-160},{50,-160},{50,-128},{58,-128}},color={0,0,127}));
   connect(hol.y, les.u1)
-    annotation (Line(points={{12,-60},{20,-60},{20,-120},{28,-120}},color={0,0,127}));
+    annotation (Line(points={{42,-60},{50,-60},{50,-120},{58,-120}},color={0,0,127}));
   connect(gre.y, timUp.u)
-    annotation (Line(points={{52,-60},{78,-60}},color={255,0,255}));
+    annotation (Line(points={{82,-60},{108,-60}},
+                                                color={255,0,255}));
   connect(les.y, timDow.u)
-    annotation (Line(points={{52,-120},{78,-120}},color={255,0,255}));
+    annotation (Line(points={{82,-120},{108,-120}},
+                                                  color={255,0,255}));
   connect(uPlrSta, parPlrSta.u)
-    annotation (Line(points={{-220,-180},{-172,-180}}, color={0,0,127}));
-  connect(parPlrSta.y, splTimCapSta.u1) annotation (Line(points={{-148,-180},{-40,
-          -180},{-40,-114},{-12,-114}}, color={0,0,127}));
-  connect(parPlrSta.y, splTimCapStaLow.u1) annotation (Line(points={{-148,-180},
-          {-40,-180},{-40,-154},{-12,-154}}, color={0,0,127}));
+    annotation (Line(points={{-220,-180},{-182,-180}}, color={0,0,127}));
+  connect(parPlrSta.y, splTimCapSta.u1) annotation (Line(points={{-158,-180},{
+          -40,-180},{-40,-114},{18,-114}},
+                                        color={0,0,127}));
+  connect(parPlrSta.y, splTimCapStaLow.u1) annotation (Line(points={{-158,-180},
+          {-40,-180},{-40,-154},{18,-154}},  color={0,0,127}));
   connect(u1StaPro, hol.u1)
-    annotation (Line(points={{-220,-20},{-40,-20},{-40,-60},{-12,-60}},color={255,0,255}));
+    annotation (Line(points={{-220,-20},{-10,-20},{-10,-60},{18,-60}}, color={255,0,255}));
   connect(u1StaPro, endStaPro.u)
-    annotation (Line(points={{-220,-20},{-12,-20}},color={255,0,255}));
+    annotation (Line(points={{-220,-20},{18,-20}}, color={255,0,255}));
   connect(endStaPro.y, timUp.reset)
-    annotation (Line(points={{12,-20},{60,-20},{60,-68},{78,-68}},color={255,0,255}));
+    annotation (Line(points={{42,-20},{90,-20},{90,-68},{108,-68}},
+                                                                  color={255,0,255}));
   connect(endStaPro.y, timDow.reset)
-    annotation (Line(points={{12,-20},{60,-20},{60,-128},{78,-128}},color={255,0,255}));
-  connect(timUp.passed, y1Up) annotation (Line(points={{102,-68},{120,-68},{120,
+    annotation (Line(points={{42,-20},{90,-20},{90,-128},{108,-128}},
+                                                                    color={255,0,255}));
+  connect(timUp.passed, y1Up) annotation (Line(points={{132,-68},{140,-68},{140,
           80},{220,80}}, color={255,0,255}));
-  connect(timDow.passed, y1Dow) annotation (Line(points={{102,-128},{120,-128},{
-          120,-80},{220,-80}}, color={255,0,255}));
+  connect(timDow.passed, y1Dow) annotation (Line(points={{132,-128},{140,-128},
+          {140,-80},{220,-80}},color={255,0,255}));
+  connect(TSupSet, delT.u1) annotation (Line(points={{-220,-60},{-180,-60},{
+          -180,-74},{-172,-74}}, color={0,0,127}));
+  connect(TRet, delT.u2) annotation (Line(points={{-220,-100},{-180,-100},{-180,
+          -86},{-172,-86}}, color={0,0,127}));
+  connect(V_flow, capFlo.u) annotation (Line(points={{-220,-140},{-132,-140}},
+                                   color={0,0,127}));
+  connect(capReq.y, movAve.u)
+    annotation (Line(points={{-68,-80},{-52,-80}}, color={0,0,127}));
   annotation (
     defaultComponentName="chaSta",
     Icon(
@@ -349,26 +354,101 @@ equation
         extent={{-200,-240},{200,240}})),
     Documentation(
       info="<html>
-FIXME: Add failsafe conditions.
 <p>
-Timers are reset to zero at the completion of every stage change.
+The plant equipment is staged in part based on required capacity, <i>Qrequired</i>, 
+relative to nominal capacity of a given stage, <i>Qstage</i>. 
+This ratio is the operative part load ratio, <i>OPLR</i>.
 </p>
 <p>
-The availability condition, which consists of staging up when
-the equipment necessary to operate the current stage is unavailable,
-is implemented in
+<i>OPLR = Qrequired / Qstage</i>
+</p>
+<p>
+If both primary and secondary hot water temperatures and flow rates are available, 
+the sensors in the primary loop are used for calculating <i>Qrequired</i>. 
+If a heat recovery chiller is piped into the secondary return, the sensors in the 
+primary loop are used.
+(These conditions are implemented in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
+Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>.)
+</p>
+<p>
+The required capacity is calculated based on return temperature, 
+active supply temperature setpoint and measured flow through the 
+associated circuit flow meter.
+</p>
+<p>
+The required capacity used in logic is a rolling average over a period
+of <code>dtMea</code>
+of instantaneous values sampled at minimum once every <i>30</i>&nbsp;s.
+</p>
+<p>
+When a stage up or stage down transition is initiated, 
+<i>Qrequired</i> is held fixed at its last value until the longer of 
+the successful completion of the stage change 
+and the duration <code>dtRun</code>.
+</p>
+<p>
+The nominal capacity of a given stage, <i>Qstage</i>, is calculated 
+as the sum of the design capacities of all units enabled in a given stage.
+</p>
+<p>
+Staging is executed per the conditions below subject to the following requirements.
+</p>
+<ul>
+<li>
+Each stage has a minimum runtime of <code>dtRun</code>.
+(This condition is implemented in
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.StageIndex\">
-Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>.
+Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>.)
+</li>
+<li>
+Timers are reset to zero at the completion of every stage change.
+</li>
+<li>
+Any unavailable stage is skipped during staging events, 
+but staging conditionals in the current stage are evaluated as per usual.
+</li>
+</ul>
+<p>
+A stage up command is triggered if any of the following is true:
 </p>
+<ul>
+<li>
+Availability Condition: The equipment necessary to operate the 
+current stage is unavailable. 
+The availability condition is not subject to the minimum stage runtime requirement.
+(This condition is implemented in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.StageIndex\">
+Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>.)
+</li>
+<li>
+Efficiency Condition: Current stage <i>OPLR &gt; plrSta</i> for a duration of <code>dtRun</code>.
+</li>
+</ul>
+<p>
+A stage down command is triggered if the following is true:
+</p>
+<ul>
+<li>
+Next available lower stage <i>OPLR &lt; plrSta</i> for a duration of <code>dtRun</code>.
+</li>
+</ul>
 <h4>
-Implementation details
+Details
 </h4>
 <p>
-A \"if\" condition is used to generate the stage up and down command as opposed
+A staging matrix <code>staEqu</code> is required as a parameter. 
+See the documentation of 
+<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
+Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
+for the associated definition and requirements.
+</p>
+<p>
+An \"if\" condition is used to generate the stage up and down command as opposed
 to a \"when\" condition. This means that the command remains true as long as the
-condition is verified. This is necessary, for example, if no higher stage is 
+condition is verified. This is necessary, for example, if no higher stage is
 available when a stage up command is triggered. Using a \"when\" condition &ndash;
-which is only valid at the point in time at which the condition becomes true &ndash; 
+which is only valid at the point in time at which the condition becomes true &ndash;
 would prevent the plant from staging when a higher stage becomes available again.
 To avoid multiple consecutive stage changes, the block that receives the stage up
 and down command and computes the stage index must enforce a minimum stage runtime

@@ -1,92 +1,98 @@
 within Buildings.Templates.Plants.Controls.Setpoints;
 block PlantReset
   "Plant reset logic"
-  parameter Integer nSenDpRem(min=1)
+  parameter Integer nSenDpRem(final min=1)
     "Number of remote loop differential pressure sensors used for pump speed control"
     annotation (Evaluate=true);
-  parameter Real dpSet_max[nSenDpRem](min=5*6894, unit="Pa")
+  parameter Real dpSet_max[nSenDpRem](
+    each final min=5*6894,
+    each unit="Pa")
     "Maximum differential pressure setpoint";
   parameter Real dpSet_min(
-    min=0,
-    unit="Pa")=5*6894
+    final min=0,
+    final unit="Pa")=5*6894
     "Minimum value to which the differential pressure can be reset";
   parameter Real TSup_nominal(
-    min=273.15,
-    unit="K",
+    final min=273.15,
+    final unit="K",
     displayUnit="degC")
     "Design supply temperature";
-  parameter Real TSupSet_lim(
-    min=273.15,
-    unit="K",
+  parameter Real TSupSetLim(
+    final min=273.15,
+    final unit="K",
     displayUnit="degC")
     "Limit value to which the supply temperature can be reset";
   parameter Real dtHol(
-    min=0,
-    unit="s")=900
+    final min=0,
+    final unit="s")=900
     "Minimum hold time during stage change"
     annotation (Dialog(tab="Advanced"));
   parameter Real resDp_max(
-    max=1,
-    min=0,
-    unit="1")=0.5
+    final max=1,
+    final min=0,
+    final unit="1")=0.5
     "Upper limit of plant reset interval for differential pressure reset"
     annotation (Dialog(tab="Advanced"));
   parameter Real resTSup_min(
-    max=1,
-    min=0,
-    unit="1")=resDp_max
+    final max=1,
+    final min=0,
+    final unit="1")=resDp_max
     "Lower limit of plant reset interval for supply temperature reset"
     annotation (Dialog(tab="Advanced"));
   parameter Real res_init(
-    max=1,
-    min=0,
-    unit="1")=1
+    final max=1,
+    final min=0,
+    final unit="1")=1
     "Initial reset value"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real res_min(
-    max=1,
-    min=0,
-    unit="1")=0
+    final max=1,
+    final min=0,
+    final unit="1")=0
     "Minimum reset value"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real res_max(
-    max=1,
-    min=0,
-    unit="1")=1
+    final max=1,
+    final min=0,
+    final unit="1")=1
     "Maximum reset value"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real dtDel(
-    min=100*1E-15,
-    unit="s")=900
+    final min=100*1E-15,
+    final unit="s")=900
     "Delay time before the reset begins"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real dtRes(
-    min=1E-3,
-    unit="s")=300
+    final min=1E-3,
+    final unit="s")=300
     "Sample period of component"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Integer nReqResIgn(min=0)=2
     "Number of ignored requests"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real tri(
-    max=0,
-    unit="1")=-0.02
+    final max=0,
+    final unit="1")=-0.02
     "Trim amount"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real rsp(
-    min=0,
-    unit="1")=0.03
+    final min=0,
+    final unit="1")=0.03
     "Respond amount (must have opposite sign of trim amount)"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real rsp_max(
-    min=0,
-    unit="1")=0.07
+    final min=0,
+    final unit="1")=0.07
     "Maximum response per reset period (must have same sign as respond amount)"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqRes
     "Sum of reset requests of all loads served"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ena
+    "Plant enable"
+    annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1StaPro
     "Staging process in progress"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
@@ -115,11 +121,7 @@ block PlantReset
     final triAmo=tri)
     "Compute plant reset with trim and respond logic "
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ena
-    "Plant enable"
-    annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
+  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
     final duration=dtHol)
     "Hold true value of input signal for given time"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
@@ -179,9 +181,8 @@ block PlantReset
     final nout=nSenDpRem)
     "Replicate signal"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSetMinMax(
-    final k=TSupSet_lim)
-    "Constant"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSetMinMax(final k=
+        TSupSetLim) "Constant"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
 equation
   connect(u1StaPro, truHol.u)
@@ -249,11 +250,12 @@ equation
       coordinateSystem(
         extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
-<p>
-FIXME: To represent the expected control intent, the T\\&R block
-needs to be updated with an additional input to lock/release the
-output. 
-See https://github.com/lbl-srg/modelica-buildings/pull/2299#issuecomment-1997466979
-</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PlantReset;

@@ -26,7 +26,8 @@ record HeatPumpPlant
     mHeaWatHp_flow_nominal=ctl.VHeaWatHp_flow_nominal*cfg.rhoHeaWat_default,
     capHeaHp_nominal=ctl.capHeaHp_nominal,
     mChiWatHp_flow_nominal=ctl.VChiWatHp_flow_nominal*cfg.rhoChiWat_default,
-    THeaWatSupHp_nominal=ctl.THeaWatSupHp_nominal) "Heat pumps"
+    THeaWatSupHp_nominal=ctl.THeaWatSup_nominal)
+    "Heat pumps"
     annotation (Dialog(group="Heat pumps"));
   // HW loop
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatPri(
@@ -34,11 +35,14 @@ record HeatPumpPlant
     final rho_default=cfg.rhoHeaWat_default,
     final typ=if cfg.typPumHeaWatPri <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
       then Buildings.Templates.Components.Types.Pump.Multiple else Buildings.Templates.Components.Types.Pump.None,
-    m_flow_nominal=fill(hp.mHeaWatHp_flow_nominal * hp.nHp / max(cfg.nPumHeaWatPri, 1), cfg.nPumHeaWatPri))
+    m_flow_nominal=fill(hp.nHp * (
+      if cfg.have_chiWat and cfg.typPumChiWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then
+        max(hp.mHeaWatHp_flow_nominal, hp.mChiWatHp_flow_nominal) else hp.mHeaWatHp_flow_nominal) /
+        max(cfg.nPumHeaWatPri, 1),
+      cfg.nPumHeaWatPri))
     "Primary HW pumps"
-    annotation (Dialog(group="Primary HW loop",
-      enable=cfg.have_heaWat));
-  final parameter Buildings.Templates.Components.Data.PumpSingle pumHeaWatPriSin[max(pumHeaWatPri.nPum, 1)](
+    annotation (Dialog(group="Primary HW loop"));
+  final parameter Buildings.Templates.Components.Data.PumpSingle pumHeaWatPriSin[max(cfg.nPumHeaWatPri, 1)](
     each typ=pumHeaWatPri.typ,
     m_flow_nominal=if pumHeaWatPri.typ == Buildings.Templates.Components.Types.Pump.None
       then {0} else pumHeaWatPri.m_flow_nominal,
@@ -54,14 +58,6 @@ record HeatPumpPlant
               [0] else pumHeaWatPri.per.pressure.dp)),
     each rho_default=pumHeaWatPri.rho_default)
     "Cast multiple pump record into single pump record array";
-  parameter Buildings.Templates.Components.Data.Valve valHeaWatMinByp(
-    final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    m_flow_nominal=if cfg.have_valHeaWatMinByp then ctl.VHeaWatHp_flow_min * cfg.rhoHeaWat_default
-      else 0,
-    dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
-    "HW minimum flow bypass valve"
-    annotation (Dialog(group="Primary HW loop",
-      enable=cfg.have_heaWat and cfg.have_valHeaWatMinByp));
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatSec(
     final nPum=cfg.nPumHeaWatSec,
     final rho_default=cfg.rhoHeaWat_default,
@@ -79,8 +75,8 @@ record HeatPumpPlant
     m_flow_nominal=fill(hp.mChiWatHp_flow_nominal * hp.nHp / max(cfg.nPumChiWatPri, 1), cfg.nPumChiWatPri))
     "Primary CHW pumps"
     annotation (Dialog(group="Primary CHW loop",
-      enable=cfg.typPumChiWatPri<>Buildings.Templates.Components.Types.None));
-  final parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatPriSin[max(pumChiWatPri.nPum, 1)](
+      enable=cfg.typPumChiWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None));
+  final parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatPriSin[max(cfg.nPumChiWatPri, 1)](
     each typ=pumChiWatPri.typ,
     m_flow_nominal=if pumChiWatPri.typ == Buildings.Templates.Components.Types.Pump.None
       then {0} else pumChiWatPri.m_flow_nominal,
@@ -98,14 +94,6 @@ record HeatPumpPlant
           0] else pumChiWatPri.per.pressure.dp)),
     each rho_default=pumChiWatPri.rho_default)
     "Cast multiple pump record into single pump record array";
-  parameter Buildings.Templates.Components.Data.Valve valChiWatMinByp(
-    final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    m_flow_nominal=if cfg.have_valChiWatMinByp then ctl.VChiWatHp_flow_min * cfg.rhoChiWat_default
-      else 0,
-    dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
-    "CHW minimum flow bypass valve"
-    annotation (Dialog(group="Primary CHW loop",
-      enable=cfg.have_chiWat));
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatSec(
     final nPum=cfg.nPumChiWatSec,
     final rho_default=cfg.rhoChiWat_default,

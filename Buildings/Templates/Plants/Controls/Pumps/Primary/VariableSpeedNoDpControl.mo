@@ -1,6 +1,6 @@
-﻿within Buildings.Templates.Plants.Controls.Pumps.Primary;
+within Buildings.Templates.Plants.Controls.Pumps.Primary;
 block VariableSpeedNoDpControl
-  "Variable speed pump without differential pressure control"
+  "Variable speed primary pumps without differential pressure control"
   parameter Boolean have_heaWat
     "Set to true for plants that provide HW"
     annotation (Evaluate=true,
@@ -25,7 +25,7 @@ block VariableSpeedNoDpControl
     "Set to true for headered primary pumps, false for dedicated pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Integer nEqu(min=1, start=0)
+  parameter Integer nEqu(start=0)
     "Number of equipment"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
@@ -34,7 +34,8 @@ block VariableSpeedNoDpControl
     "Number of primary HW pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Integer nPumChiWatPri(start=if have_pumChiWatPri then nEqu else 0)
+  parameter Integer nPumChiWatPri(start=if have_chiWat and have_pumChiWatPri
+         then nEqu else 0)
     "Number of primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
@@ -57,33 +58,33 @@ block VariableSpeedNoDpControl
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=have_chiWat));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri[nPumHeaWatPri] if
-       have_pumHeaWatPri
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri[nPumHeaWatPri]
+    if have_heaWat and have_pumHeaWatPri
     "Primary HW pump start command"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriHdr if
-       have_pumHeaWatPri and have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriHdr
+    if have_heaWat and have_pumHeaWatPri and have_pumPriHdr
     "Headered primary HW pump speed command"
     annotation (Placement(transformation(extent={{140,80},{180,120}}),
       iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri[nPumChiWatPri] if
-       have_pumChiWatPri
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri[nPumChiWatPri]
+    if have_chiWat and have_pumChiWatPri
     "Primary CHW pump start command"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriHdr if
-       have_pumChiWatPri and have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriHdr
+    if have_chiWat and have_pumChiWatPri and have_pumPriHdr
     "Headered primary CHW pump speed command"
     annotation (Placement(transformation(extent={{140,40},{180,80}}),
       iconTransformation(extent={{100,0},{140,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDed[nPumHeaWatPri] if
-       have_pumHeaWatPri and not have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDed[nPumHeaWatPri]
+    if have_heaWat and have_pumHeaWatPri and not have_pumPriHdr
     "Dedicated primary HW pump speed command"
     annotation (Placement(transformation(extent={{140,-80},{180,-40}}),
       iconTransformation(extent={{100,-40},{140,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDed[nPumChiWatPri] if
-       have_pumChiWatPri and not have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDed[nPumChiWatPri]
+    if have_chiWat and have_pumChiWatPri and not have_pumPriHdr
     "Dedicated primary CHW pump speed command"
     annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
@@ -92,8 +93,8 @@ block VariableSpeedNoDpControl
     "Heating/cooling mode command"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch setPumChiWatPriDed[nPumChiWatPri] if
-       have_pumChiWatPri and not have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Reals.Switch setPumChiWatPriDed[nPumChiWatPri]
+    if have_chiWat and have_pumChiWatPri and not have_pumPriHdr
     "Set prescribed speed when pump is enabled"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
@@ -101,72 +102,73 @@ block VariableSpeedNoDpControl
     "Constant"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant spePumChiWatPri(
-    final k=yPumChiWatPriSet) if
-       have_chiWat
+    final k=yPumChiWatPriSet)
+    if have_chiWat
     "Constant"
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch setPumHeaWatPriDed[nPumHeaWatPri] if
-       have_pumHeaWatPri and not have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Reals.Switch setPumHeaWatPriDed[nPumHeaWatPri]
+    if have_heaWat and have_pumHeaWatPri and not have_pumPriHdr
     "Set prescribed speed when pump is enabled"
     annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep(
-    nout=nPumHeaWatPri) if
-       have_pumHeaWatPri
+    nout=nPumHeaWatPri)
+    if have_heaWat and have_pumHeaWatPri
     "Replicate signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep1(
-    nout=nPumChiWatPri) if
-       have_pumChiWatPri
+    nout=nPumChiWatPri)
+    if have_chiWat and have_pumChiWatPri
     "Replicate signal"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep2(
-    nout=nPumChiWatPri) if
-       have_pumChiWatPri
+    nout=nPumChiWatPri)
+    if have_chiWat and have_pumChiWatPri
     "Replicate signal"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant spePumHeaWatPri(
-    final k=yPumHeaWatPriSet) if
-       have_pumHeaWatPri
+    final k=yPumHeaWatPriSet)
+    if have_heaWat and have_pumHeaWatPri
     "Constant"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch setPumChiWatPriHdr if
-       have_pumChiWatPri and have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Reals.Switch setPumChiWatPriHdr
+    if have_chiWat and have_pumChiWatPri and have_pumPriHdr
     "Set prescribed speed when pump is enabled"
     annotation (Placement(transformation(extent={{110,50},{130,70}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch setPumHeaWatPriHdr if
-       have_pumHeaWatPri and have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Reals.Switch setPumHeaWatPriHdr
+    if have_heaWat and have_pumHeaWatPri and have_pumPriHdr
     "Set prescribed speed when pump is enabled"
     annotation (Placement(transformation(extent={{110,90},{130,110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyPumChiWatPri(
-    nin=nPumChiWatPri) if
-       have_pumChiWatPri
+    nin=nPumChiWatPri)
+    if have_chiWat and have_pumChiWatPri
     "Return true if any pump is enabled"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyPumHeaWatPri(
-    nin=nPumHeaWatPri) if
-       have_pumHeaWatPri
+    nin=nPumHeaWatPri)
+    if have_heaWat and have_pumHeaWatPri
     "Return true if any pump is enabled"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Buildings.Controls.OBC.CDL.Reals.Switch selSpeHea[nPumHeaWatPri] if
-       have_heaWat and not have_pumChiWatPri and not have_pumPriHdr
+    have_heaWat and have_chiWat and not have_pumChiWatPri and not
+    have_pumPriHdr
     "Select prescribed pump speed depending on heating/cooling mode – Case with common CHW and HW dedicated pumps"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep3(
-    nout=nPumHeaWatPri) if
-       have_pumHeaWatPri
+    nout=nPumHeaWatPri)
+    if have_heaWat and have_pumHeaWatPri
     "Replicate signal"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep4(
-    nout=nPumHeaWatPri) if
-       have_pumHeaWatPri
+    nout=nPumHeaWatPri) if have_heaWat and have_chiWat and not
+    have_pumChiWatPri and not have_pumPriHdr
     "Replicate signal"
     annotation (Placement(transformation(extent={{-30,2},{-10,22}})));
-  Utilities.PlaceHolderReal ph[nPumHeaWatPri](
-    each final have_inp=have_heaWat and not have_pumChiWatPri and not
-        have_pumPriHdr,
-    each final have_inpPla=false,
-    each final u_internal=yPumHeaWatPriSet) if
-       have_pumHeaWatPri and not have_pumPriHdr
+  Utilities.PlaceholderReal ph[nPumHeaWatPri](
+    each final have_inp=have_heaWat and have_chiWat and not have_pumChiWatPri
+         and not have_pumPriHdr,
+    each final have_inpPh=false,
+    each final u_internal=yPumHeaWatPriSet)
+    if have_heaWat and have_pumHeaWatPri and not have_pumPriHdr
     "Always use HW pump speed in case of separate dedicated CHW pumps "
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
 equation
@@ -243,5 +245,37 @@ equation
           textColor={0,0,255})}),
     Diagram(
       coordinateSystem(
-        extent={{-140,-140},{140,140}})));
+        extent={{-140,-140},{140,140}})),
+    Documentation(info="<html>
+<h5>
+Heating-only plants with variable speed primary pumps that are not controlled to maintain differential pressure or flow setpoint
+</h5>
+<p>
+When commanded on, the primary HW pumps are commanded at a fixed
+speed <code>yPumHeaWatPriSet</code>, as determined during the Testing, Adjusting, 
+and Balancing phase to provide the design heat pump flow.
+</p>
+<h5>
+Heating and cooling plants with common variable speed primary pumps that are not controlled to maintain differential pressure or flow setpoint
+</h5>
+<p>
+When commanded on, the primary pumps are commanded at a fixed
+speed <code>yPumHeaWatPriSet</code> in heating mode or 
+<code>yPumChiWatPriSet</code> in cooling mode, as determined during the
+Testing, Adjusting, and Balancing phase to provide the design heat pump flow
+in heating mode or cooling mode.
+</p>
+<h5>
+Heating and cooling plants with separate variable speed primary pumps that are not controlled to maintain differential pressure or flow setpoint
+</h5>
+<p>
+When commanded on, the primary HW pumps are commanded at a fixed
+speed <code>yPumHeaWatPriSet</code>.
+When commanded on, the primary CHW pumps are commanded at a fixed
+speed <code>yPumChiWatPriSet</code>.
+The pump speed <code>yPumHeaWatPriSet</code> or <code>yPumChiWatPriSet</code> 
+is determined during the Testing, Adjusting, and Balancing phase to provide 
+the design heat pump flow in heating mode or cooling mode.
+</p>
+</html>"));
 end VariableSpeedNoDpControl;

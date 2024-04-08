@@ -18,8 +18,7 @@ block LastTrueIndex
     each final integerFalse=0)
     "Return index if element is true, 0 otherwise"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  MultiMax mulMax(
-    nin=nin)
+  Buildings.Templates.Plants.Controls.Utilities.MultiMaxInteger mulMax(nin=nin)
     "Return minimum index"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
@@ -38,6 +37,13 @@ Returns the index of the last <code>true</code> element of the Boolean
 input vector.
 If no element is <code>true</code>, the block returns <i>0</i>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Icon(
       coordinateSystem(

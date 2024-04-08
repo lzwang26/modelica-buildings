@@ -174,7 +174,6 @@ equation
         preserveAspectRatio=false)),
     Documentation(
       info="<html>
-FIXME: Replace Experimental.DHC...PIDWithEnable with this class.
 <p>
 This is an update of
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PIDWithReset\">
@@ -193,6 +192,13 @@ enable time.
 When disabled, the output of the controller is set to <code>y_neutral</code>
 and the setpoint is overridden by the measurement signal in order to avoid
 time integration of the control error.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));
