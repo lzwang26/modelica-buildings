@@ -10,26 +10,26 @@ block PlaceholderInteger "Output a placeholder signal"
     start=0)
     "Placeholder value if input signal is not available"
     annotation (Dialog(enable=not have_inpPh));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
-    if have_inp
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u if
+       have_inp
     "Input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPh
-    if not have_inp and have_inpPh "Input"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPh if
+       not have_inp and have_inpPh "Input"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Output"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant ph(final k=u_internal)
-    if not have_inp and not have_inpPh
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant ph(final k=u_internal) if
+       not have_inp and not have_inpPh
     "Placeholder signal if input signal is not available"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
 equation
-  connect(u, y) annotation (Line(points={{-120,0},{-6,0},{-6,0},{120,0}}, color
-        ={255,127,0}));
+  connect(u, y) annotation (Line(points={{-120,0},{-6,0},{-6,0},{120,0}}, color=
+         {255,127,0}));
   connect(uPh, y) annotation (Line(points={{-120,-40},{60,-40},{60,0},{120,0}},
         color={255,127,0}));
   connect(ph.y, y) annotation (Line(points={{12,-80},{80,-80},{80,0},{120,0}},

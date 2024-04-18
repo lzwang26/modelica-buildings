@@ -1,6 +1,7 @@
 within Buildings.Templates.Plants.HeatPumps;
 package Data "Records for design and operating parameters"
   extends Modelica.Icons.MaterialPropertiesPackage;
+
   annotation (
     Documentation(
       info="<html>

@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.HeatPumps;
+﻿within Buildings.Templates.Plants.HeatPumps;
 model AirToWater
   "Air-to-water heat pump plant"
   extends Buildings.Templates.Plants.HeatPumps.Interfaces.PartialHeatPumpPlant(
@@ -58,8 +58,8 @@ model AirToWater
     final nPum=nPumChiWatPri,
     final have_var=have_pumChiWatPriVar,
     final have_varCom=true,
-    final allowFlowReversal=allowFlowReversal)
-    if have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    final allowFlowReversal=allowFlowReversal) if
+       have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Headered primary CHW pumps"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumChiWatPri(
@@ -69,8 +69,8 @@ model AirToWater
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    final icon_dy=300) if
+       have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary CHW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
@@ -80,8 +80,8 @@ model AirToWater
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    final icon_dy=300) if
+       have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary CHW pumps outlet manifold"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Templates.Components.Routing.PassThroughFluid supChiWatPri(
@@ -98,8 +98,8 @@ model AirToWater
     final have_sen=ctl.have_senVChiWatPri,
     final text_flip=false,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
-    if have_chiWat
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply) if
+       have_chiWat
     "Primary CHW volume flow rate"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Templates.Components.Routing.Junction junChiWatBypSup(
@@ -142,8 +142,8 @@ model AirToWater
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Entering,
     icon_pipe1=Buildings.Templates.Components.Types.IconPipe.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IconPipe.Supply)
-    if have_chiWat
+    icon_pipe3=Buildings.Templates.Components.Types.IconPipe.Supply) if
+       have_chiWat
     "Fluid junction"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=0,
       origin={100,0})));
@@ -204,8 +204,8 @@ model AirToWater
     final have_sen=ctl.have_senVChiWatSec,
     final text_flip=false,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
-    if have_chiWat
+    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply) if
+       have_chiWat
     "Secondary CHW volume flow rate"
     annotation (Placement(transformation(extent={{208,70},{228,90}})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatSecSup(
@@ -236,8 +236,8 @@ model AirToWater
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    final icon_dy=300) if
+       have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-40,-290},{-20,-270}})));
   Buildings.Templates.Components.Pumps.Multiple pumHeaWatPri(
@@ -247,8 +247,8 @@ model AirToWater
     final nPum=nPumHeaWatPri,
     final have_var=have_pumHeaWatPriVar,
     final have_varCom=true,
-    final allowFlowReversal=allowFlowReversal)
-    if have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    final allowFlowReversal=allowFlowReversal) if
+       have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Headered primary HW pumps"
     annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumHeaWatPri(
@@ -258,8 +258,8 @@ model AirToWater
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    final icon_dy=300) if
+       have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary HW pumps outlet manifold"
     annotation (Placement(transformation(extent={{0,-290},{20,-270}})));
   Buildings.Templates.Components.Routing.PassThroughFluid supHeaWatPri(
@@ -327,8 +327,8 @@ model AirToWater
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Entering,
     icon_pipe1=Buildings.Templates.Components.Types.IconPipe.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IconPipe.Supply)
-    if have_heaWat
+    icon_pipe3=Buildings.Templates.Components.Types.IconPipe.Supply) if
+       have_heaWat
     "Fluid junction"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=0,
       origin={100,-360})));
@@ -347,8 +347,8 @@ model AirToWater
     final nPum=nPumHeaWatSec,
     final have_var=true,
     final have_varCom=true,
-    final dat=dat.pumHeaWatSec)
-    if typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+    final dat=dat.pumHeaWatSec) if
+       typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary HW pumps"
     annotation (Placement(transformation(extent={{170,-290},{190,-270}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumHeaWatSec(
@@ -358,8 +358,8 @@ model AirToWater
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+    final icon_dy=300) if
+       typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{150,-290},{170,-270}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumHeaWatSec(
@@ -369,8 +369,8 @@ model AirToWater
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+    final icon_dy=300) if
+       typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary HW pumps outlet manifold"
     annotation (Placement(transformation(extent={{190,-290},{210,-270}})));
   Buildings.Templates.Components.Routing.PassThroughFluid supHeaWatSec(

@@ -12,13 +12,13 @@ block EnableLeadHeadered
     final min=1)
     "Number of isolation valves"
     annotation (Evaluate=true);
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValIso[nValIso]
-    if typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.TwoPosition
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValIso[nValIso] if
+       typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.TwoPosition
     "Isolation valve command"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uValIso[nValIso]
-    if typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.Modulating
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uValIso[nValIso] if
+       typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.Modulating
     "Isolation valve command"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -27,23 +27,23 @@ block EnableLeadHeadered
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyOpePar(
-    nin=nValIso)
-    if typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel
+    nin=nValIso) if
+       typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel
     "Return true if any valve is commanded open - Parallel piped equipment"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd allCloPar(
-    nin=nValIso)
-    if typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel
+    nin=nValIso) if
+       typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel
     "Return true if all valves are commanded closed - Parallel piped equipment"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Not cloParMod[nValIso]
-    if typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.Modulating
+  Buildings.Controls.OBC.CDL.Logical.Not cloParMod[nValIso] if
+       typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.Modulating
       and typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel
     "Return true if valve is commanded closed"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold opeParMod[nValIso](
-    each final t=0)
-    if typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.Modulating
+    each final t=0) if
+       typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.Modulating
       and typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel
     "Return true if valve commanded > 0 % open"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -51,28 +51,28 @@ block EnableLeadHeadered
     "Clear enable signal if disable conditions are met"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyCloSer(
-    nin=nValIso)
-    if typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Series
+    nin=nValIso) if
+       typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Series
     "Return true if any valve is commanded closed - Series piped equipment"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd allOpeSer(
-    nin=nValIso)
-    if typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Series
+    nin=nValIso) if
+       typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Series
     "Return true if all valves are commanded open - Series piped equipment"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold cloSerMod[nValIso](
-    each final t=0.99)
-    if typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.Modulating
+    each final t=0.99) if
+       typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.Modulating
       and typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Series
     "Return true if valve commanded < 99 % open"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Not opeSerMod[nValIso]
-    if typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.Modulating
+  Buildings.Controls.OBC.CDL.Logical.Not opeSerMod[nValIso] if
+       typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.Modulating
       and typCon == Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Series
     "Return true if valve is commanded open"
     annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Not cloTwo[nValIso]
-    if typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.TwoPosition
+  Buildings.Controls.OBC.CDL.Logical.Not cloTwo[nValIso] if
+       typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.TwoPosition
     "Return true if valve is commanded closed"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
 equation

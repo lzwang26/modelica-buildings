@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.HeatPumps.Components.Controls;
+﻿within Buildings.Templates.Plants.HeatPumps.Components.Controls;
 model AirToWater
   "Controller for AWHP plant"
   extends
@@ -83,8 +83,8 @@ model AirToWater
     final nin=nEquZon) if cfg.have_heaWat
     "Sum of HW plant requests from zone equipment"
     annotation (Placement(transformation(extent={{210,-90},{190,-70}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum reqResHeaWatAirHan(nin=1)
-    if cfg.have_heaWat "Sum of HW reset requests from AHU"
+  Buildings.Controls.OBC.CDL.Integers.MultiSum reqResHeaWatAirHan(nin=1) if
+       cfg.have_heaWat "Sum of HW reset requests from AHU"
     annotation (Placement(transformation(extent={{210,110},{190,130}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqResHeaWatEquZon(
     final nin=nEquZon) if cfg.have_heaWat
@@ -241,14 +241,14 @@ equation
     annotation (Line(points={{188,120},{172,120}}, color={255,127,0}));
   connect(reqResChiWatAirHan.y, phReqResChiWatAirHan.u)
     annotation (Line(points={{188,80},{172,80}}, color={255,127,0}));
-  connect(reqPlaHeaWatEquZon.y, phReqPlaHeaWatEquZon.u) annotation (Line(points
-        ={{188,-80},{180,-80},{180,-80},{172,-80}}, color={255,127,0}));
+  connect(reqPlaHeaWatEquZon.y, phReqPlaHeaWatEquZon.u) annotation (Line(points=
+         {{188,-80},{180,-80},{180,-80},{172,-80}}, color={255,127,0}));
   connect(reqPlaChiWatEquZon.y, phReqPlaChiWatEquZon.u)
     annotation (Line(points={{188,-120},{172,-120}}, color={255,127,0}));
   connect(reqResChiWatEquZon.y, phReqResChiWatEquZon.u)
     annotation (Line(points={{188,-200},{172,-200}}, color={255,127,0}));
-  connect(reqResHeaWatEquZon.y, phReqResHeaWatEquZon.u) annotation (Line(points
-        ={{188,-160},{178,-160},{178,-160},{172,-160}}, color={255,127,0}));
+  connect(reqResHeaWatEquZon.y, phReqResHeaWatEquZon.u) annotation (Line(points=
+         {{188,-160},{178,-160},{178,-160},{172,-160}}, color={255,127,0}));
   connect(phReqPlaHeaWatAirHan.y, reqPlaHeaWat.u1)
     annotation (Line(points={{148,200},{112,200}}, color={255,127,0}));
   connect(phReqPlaHeaWatEquZon.y, reqPlaHeaWat.u2) annotation (Line(points={{148,

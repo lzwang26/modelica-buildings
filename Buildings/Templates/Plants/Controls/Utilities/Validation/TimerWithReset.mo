@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Utilities.Validation;
+﻿within Buildings.Templates.Plants.Controls.Utilities.Validation;
 model TimerWithReset
   "Validation model for the Timer block"
   Buildings.Templates.Plants.Controls.Utilities.TimerWithReset noThr

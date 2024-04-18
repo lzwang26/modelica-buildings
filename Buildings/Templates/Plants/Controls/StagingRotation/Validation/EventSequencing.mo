@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
+﻿within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model EventSequencing "Validation model for event sequencing logic"
   Buildings.Templates.Plants.Controls.StagingRotation.EventSequencing seqEveHea(
     have_heaWat=true,

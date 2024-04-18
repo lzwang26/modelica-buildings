@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Utilities.Validation;
+﻿within Buildings.Templates.Plants.Controls.Utilities.Validation;
 model LastTrueIndex
   "Validation model"
   Buildings.Templates.Plants.Controls.Utilities.LastTrueIndex idxLasTru(

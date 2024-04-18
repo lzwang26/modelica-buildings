@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
+﻿within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model EquipmentAvailability "Validation model for the evaluation of equipment availability"
   Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability
     avaHeaCoo(have_heaWat=true, have_chiWat=true)

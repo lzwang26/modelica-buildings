@@ -10,21 +10,21 @@ block PlaceholderReal "Output a placeholder signal"
     start=0)
     "Placeholder value if input signal is not available"
     annotation (Dialog(enable=not have_inpPh));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    if have_inp
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u if
+       have_inp
     "Input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uPh
-    if not have_inp and have_inpPh "Input"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uPh if
+       not have_inp and have_inpPh "Input"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Output"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant ph(final k=u_internal)
-    if not have_inp and not have_inpPh
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant ph(final k=u_internal) if
+       not have_inp and not have_inpPh
     "Placeholder signal if input signal is not available"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
 equation

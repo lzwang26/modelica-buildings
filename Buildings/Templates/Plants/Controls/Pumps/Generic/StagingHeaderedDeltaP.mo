@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Pumps.Generic;
+﻿within Buildings.Templates.Plants.Controls.Pumps.Generic;
 block StagingHeaderedDeltaP
   "Staging logic for headered variable speed pumps using ∆p pump speed control"
   parameter Integer nPum(

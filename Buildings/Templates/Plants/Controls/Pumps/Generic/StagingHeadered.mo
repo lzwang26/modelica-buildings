@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Pumps.Generic;
+﻿within Buildings.Templates.Plants.Controls.Pumps.Generic;
 block StagingHeadered "Generic staging logic for headered pumps"
   parameter Boolean is_pri(start=true)
     "Set to true for primary pumps, false for secondary pumps"
@@ -58,8 +58,8 @@ block StagingHeadered "Generic staging logic for headered pumps"
     each max=1)={fill(i / nPum, nPum) for i in 1:nPum}
     "Pump staging matrix"
     annotation(Evaluate=true);
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Pum[nEqu]
-    if is_pri and (not is_hdr or is_hdr and not is_ctlDp)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Pum[nEqu] if
+       is_pri and (not is_hdr or is_hdr and not is_ctlDp)
     "Pump command from equipment enable logic"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -78,8 +78,8 @@ block StagingHeadered "Generic staging logic for headered pumps"
   Utilities.StageIndex nPumHdrDp(
     final have_inpAva=false,
     final nSta=nPum,
-    final dtRun=dtRun)
-    if is_hdr and is_ctlDp
+    final dtRun=dtRun) if
+       is_hdr and is_ctlDp
     "Compute number of pumps to be staged on – Headered pumps using ∆p control"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Generic.StagingHeaderedDeltaP staHdrDp(
@@ -87,73 +87,73 @@ block StagingHeadered "Generic staging logic for headered pumps"
     final V_flow_nominal=V_flow_nominal,
     final dtRun=dtRun,
     final dVOffUp=dVOffUp,
-    final dVOffDow=dVOffDow)
-    if is_hdr and is_ctlDp
+    final dVOffDow=dVOffDow) if
+       is_hdr and is_ctlDp
     "Stage headered variable speed pumps using ∆p control"
     annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
   StagingRotation.SortRuntime sorRunTimHdr(
-    nin=nPum)
-    if is_hdr
+    nin=nPum) if
+       is_hdr
     "Sort by increasing staging runtime"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nEqu](
     each final integerTrue=1,
-    each final integerFalse=0)
-    if is_pri and is_hdr and not is_ctlDp
+    each final integerFalse=0) if
+       is_pri and is_hdr and not is_ctlDp
     "Convert to integer"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum nPumHdrPriNotDp0(
-    nin=nEqu)
-    if is_pri and is_hdr and not is_ctlDp
+    nin=nEqu) if
+       is_pri and is_hdr and not is_ctlDp
     "Compute number of pumps to be staged on – Headered primary pumps not using ∆p control"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Ava[nPum](
-    each final k=true)
-    if is_hdr
+    each final k=true) if
+       is_hdr
     "Pump available signal – Block does not handle faulted equipment yet"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
-    final unit="m3/s")
-    if is_hdr and is_ctlDp
+    final unit="m3/s") if
+       is_hdr and is_ctlDp
     "Flow rate"
     annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal sigPumPriDed(final nin
-      =nEqu, final nout=nPum)
-    if is_pri and not is_hdr
+  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal sigPumPriDed(final nin=
+       nEqu, final nout=nPum) if
+       is_pri and not is_hdr
     "Extract dedicated primary pump command signal assuming nEqu=nPum"
     annotation (Placement(transformation(extent={{-10,-150},{10,-130}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal y1Ded_actual(
     nin=nPum,
-    nout=nEqu)
-    if not is_hdr
+    nout=nEqu) if
+       not is_hdr
     "Extract dedicated pump status assuming nEqu=nPum"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractor y1LeaHdr_actual(
-    final nin=nPum)
-    if is_hdr
+    final nin=nPum) if
+       is_hdr
     "Lead headered pump status"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
-    final nout=nEqu)
-    if is_hdr
+    final nout=nEqu) if
+       is_hdr
     "Replicate signal"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValInlIso[nEqu]
-    if is_pri and is_hdr and have_valInlIso
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValInlIso[nEqu] if
+       is_pri and is_hdr and have_valInlIso
     "Equipment inlet isolation valve command"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValOutIso[nEqu]
-    if is_pri and is_hdr and have_valOutIso
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValOutIso[nEqu] if
+       is_pri and is_hdr and have_valOutIso
     "Equipment outlet isolation valve command"
     annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Primary.EnableLeadHeadered enaLeaHdrPri(
     final typCon=Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel,
     final typValIso=Buildings.Templates.Plants.Controls.Types.Actuator.TwoPosition,
-    final nValIso=2 * nEqu)
-    if is_pri and is_hdr
+    final nValIso=2 * nEqu) if
+       is_pri and is_hdr
     "Enable/disable lead primary headered pump"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
   Utilities.PlaceholderLogical phValInlIso[nEqu](each final have_inp=
@@ -164,25 +164,25 @@ block StagingHeadered "Generic staging logic for headered pumps"
         have_valOutIso, each final have_inpPh=true) if is_pri and is_hdr
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{-130,-130},{-110,-110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Pla
-    if not is_pri and is_hdr
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Pla if
+       not is_pri and is_hdr
     "Plant enable signal"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
     final integerTrue=1,
-    final integerFalse=0)
-    if is_pri and is_hdr and not is_ctlDp
+    final integerFalse=0) if
+       is_pri and is_hdr and not is_ctlDp
     "Convert lead pump enable signal to integer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
       origin={-40,-50})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply nPumHdrPriNotDp
-    if is_pri and is_hdr and not is_ctlDp
+  Buildings.Controls.OBC.CDL.Integers.Multiply nPumHdrPriNotDp if
+       is_pri and is_hdr and not is_ctlDp
     "Reset number of enabled pumps to zero if lead pump disabled"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   StagingRotation.EquipmentEnable enaHdr(
-    final staEqu=staPum)
-    if is_hdr
+    final staEqu=staPum) if
+       is_hdr
     "Enable headered pumps"
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
 equation

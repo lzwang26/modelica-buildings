@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Utilities;
+﻿within Buildings.Templates.Plants.Controls.Utilities;
 block StageIndex
   "Evaluation of stage index from staging signals"
   parameter Boolean have_inpAva=true
@@ -27,8 +27,8 @@ block StageIndex
     "Stage down command"
     annotation (Placement(transformation(extent={{-280,-60},{-240,-20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1AvaSta[nSta]
-    if have_inpAva
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1AvaSta[nSta] if
+       have_inpAva
     "Stage available signal"
     annotation (Placement(transformation(extent={{-280,-180},{-240,-140}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -123,8 +123,8 @@ block StageIndex
   Buildings.Controls.OBC.CDL.Logical.Timer tim[nSta](
     passed(
       each start=false),
-    each final t=dtRun)
-    if dtRun > 0
+    each final t=dtRun) if
+       dtRun > 0
     "Timer for minimum runtime"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   PlaceholderLogical phAvaSta[nSta](

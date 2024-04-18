@@ -470,8 +470,8 @@ partial model PartialHeatPumpPlant
       final min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     h_outflow(
       start=MediumHeaWat.h_default,
-      nominal=MediumHeaWat.h_default))
-    if have_heaWat
+      nominal=MediumHeaWat.h_default)) if
+       have_heaWat
     "HW return"
     annotation (Placement(transformation(extent={{590,-370},{610,-350}}),
       iconTransformation(extent={{190,-190},{210,-170}})));
@@ -481,8 +481,8 @@ partial model PartialHeatPumpPlant
       max=if allowFlowReversal then + Modelica.Constants.inf else 0),
     h_outflow(
       start=MediumHeaWat.h_default,
-      nominal=MediumHeaWat.h_default))
-    if have_heaWat
+      nominal=MediumHeaWat.h_default)) if
+       have_heaWat
     "HW supply"
     annotation (Placement(transformation(extent={{590,-290},{610,-270}}),
       iconTransformation(extent={{190,-110},{210,-90}})));
@@ -492,8 +492,8 @@ partial model PartialHeatPumpPlant
       final min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     h_outflow(
       start=MediumChiWat.h_default,
-      nominal=MediumChiWat.h_default))
-    if have_chiWat
+      nominal=MediumChiWat.h_default)) if
+       have_chiWat
     "CHW return"
     annotation (Placement(transformation(extent={{590,-10},{610,10}}),
       iconTransformation(extent={{190,-50},{210,-30}})));
@@ -503,8 +503,8 @@ partial model PartialHeatPumpPlant
       max=if allowFlowReversal then + Modelica.Constants.inf else 0),
     h_outflow(
       start=MediumChiWat.h_default,
-      nominal=MediumChiWat.h_default))
-    if have_chiWat
+      nominal=MediumChiWat.h_default)) if
+       have_chiWat
     "CHW supply"
     annotation (Placement(transformation(extent={{590,70},{610,90}}),
       iconTransformation(extent={{190,30},{210,50}})));
@@ -513,14 +513,14 @@ partial model PartialHeatPumpPlant
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,
       origin={-600,320}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-200,180})));
-  Buildings.Templates.AirHandlersFans.Interfaces.Bus busAirHan[cfg.nAirHan]
-    if cfg.nAirHan > 0
+  Buildings.Templates.AirHandlersFans.Interfaces.Bus busAirHan[cfg.nAirHan] if
+       cfg.nAirHan > 0
     "Air handling unit control bus"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=-90,
       origin={600,340}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={200,180})));
-  Buildings.Templates.ZoneEquipment.Interfaces.Bus busEquZon[cfg.nEquZon]
-    if cfg.nEquZon > 0
+  Buildings.Templates.ZoneEquipment.Interfaces.Bus busEquZon[cfg.nEquZon] if
+       cfg.nEquZon > 0
     "Terminal unit control bus"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=-90,
       origin={600,300}),
