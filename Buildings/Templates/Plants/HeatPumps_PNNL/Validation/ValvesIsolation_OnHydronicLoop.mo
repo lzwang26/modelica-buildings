@@ -136,283 +136,236 @@ model ValvesIsolation_OnHydronicLoop
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=-90,
-        origin={138,44})));
-  Fluid.Movers.Preconfigured.SpeedControlled_y mov(
+        origin={168,76})));
+  Fluid.Movers.Preconfigured.FlowControlled_dp mov(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
     dp_nominal=p_priEnergyFlow_nominal)
-    annotation (Placement(transformation(extent={{-142,74},{-122,94}})));
+    annotation (Placement(transformation(extent={{-112,106},{-92,126}})));
   Fluid.FixedResistances.Junction jun1(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
-    annotation (Placement(transformation(extent={{68,34},{88,54}})));
+    annotation (Placement(transformation(extent={{118,66},{138,86}})));
   Fluid.FixedResistances.Junction jun2(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
-    annotation (Placement(transformation(extent={{-122,34},{-102,54}})));
+    annotation (Placement(transformation(extent={{-92,66},{-72,86}})));
   Fluid.FixedResistances.Junction jun3(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=90,
-        origin={-162,44})));
+        origin={-132,76})));
   Fluid.FixedResistances.Junction jun4(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={138,-46})));
+        origin={168,6})));
   Fluid.Actuators.Valves.TwoWayLinear val(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
-    dpValve_nominal=p_priEnergyFlow_nominal_valve)
+    dpValve_nominal=p_priEnergyFlow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-        origin={138,14})));
+        origin={168,46})));
   Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
-    dpValve_nominal=p_priEnergyFlow_nominal_valve)
+    dpValve_nominal=p_priEnergyFlow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-        origin={78,10})));
+        origin={128,-34})));
   Fluid.FixedResistances.Junction jun5(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={52,-126})));
-  Fluid.Movers.Preconfigured.SpeedControlled_y mov1(
+        origin={128,-74})));
+  Fluid.Movers.Preconfigured.FlowControlled_dp mov1(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
     dp_nominal=p_priEnergyFlow_nominal)
-    annotation (Placement(transformation(extent={{154,-136},{134,-116}})));
+    annotation (Placement(transformation(extent={{88,-4},{108,16}})));
+  Fluid.FixedResistances.Junction jun6(
+    redeclare package Medium = Media.Water,
+    m_flow_nominal=m_priEnergyFlow_nominal_junctions,
+    dp_nominal=p_priEnergyFlow_nominal_junctions)
+    annotation (Placement(transformation(extent={{198,-4},{218,16}})));
   Fluid.Actuators.Valves.TwoWayLinear val2(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
-    dpValve_nominal=p_priEnergyFlow_nominal_valve)
+    dpValve_nominal=p_priEnergyFlow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-        origin={52,-82})));
+        origin={208,-34})));
+  Fluid.FixedResistances.Junction jun7(
+    redeclare package Medium = Media.Water,
+    m_flow_nominal=m_priEnergyFlow_nominal_junctions,
+    dp_nominal=p_priEnergyFlow_nominal_junctions)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
+        origin={208,-74})));
   Fluid.FixedResistances.PressureDrop
                               res(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
     dp_nominal=p_priEnergyFlow_nominal)
-    annotation (Placement(transformation(extent={{78,74},{98,94}})));
+    annotation (Placement(transformation(extent={{108,106},{128,126}})));
   Fluid.Movers.Preconfigured.FlowControlled_dp mov2(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
     dp_nominal=p_priEnergyFlow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={-72,-26})));
+        origin={-42,6})));
   Fluid.FixedResistances.Junction jun8(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={-114,-26})));
+        origin={-84,6})));
   Fluid.Actuators.Valves.TwoWayLinear val3(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
-    dpValve_nominal=p_priEnergyFlow_nominal_valve)
+    dpValve_nominal=p_priEnergyFlow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-        origin={-112,14})));
+        origin={-82,46})));
   Fluid.Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
-    dpValve_nominal=p_priEnergyFlow_nominal_valve)
+    dpValve_nominal=p_priEnergyFlow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-        origin={-160,-66})));
+        origin={-132,-34})));
   Fluid.FixedResistances.Junction jun9(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={-162,-106})));
+        origin={-132,-74})));
   Fluid.FixedResistances.Junction jun10(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
-    annotation (Placement(transformation(extent={{-202,-36},{-182,-16}})));
+    annotation (Placement(transformation(extent={{-172,-4},{-152,16}})));
   Fluid.FixedResistances.Junction jun11(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={-192,-106})));
+        origin={-162,-74})));
   Fluid.Actuators.Valves.TwoWayLinear val5(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
-    dpValve_nominal=p_priEnergyFlow_nominal_valve)
+    dpValve_nominal=p_priEnergyFlow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-        origin={-200,-62})));
+        origin={-170,-30})));
   Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
-    dpValve_nominal=p_priEnergyFlow_nominal_valve) if                                                            not
-    hasSecondary
+    dpValve_nominal=p_priEnergyFlow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-        origin={308,-86})));
+        origin={278,-34})));
   Fluid.FixedResistances.Junction jun12(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
-    annotation (Placement(transformation(extent={{298,-56},{318,-36}})));
+    annotation (Placement(transformation(extent={{268,-4},{288,16}})));
   Fluid.FixedResistances.Junction jun13(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={308,-126})));
+        origin={278,-74})));
   Fluid.Movers.Preconfigured.FlowControlled_dp mov3(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
-    dp_nominal=p_priEnergyFlow_nominal) if
-    hasSecondary
-    annotation (Placement(transformation(extent={{338,-56},{358,-36}})));
+    dp_nominal=p_priEnergyFlow_nominal)
+    annotation (Placement(transformation(extent={{308,-4},{328,16}})));
+  Fluid.Sources.Boundary_pT bou(
+    redeclare package Medium = Media.Water,
+    p=300000,
+    nPorts=1)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
+        origin={358,-74})));
+  Fluid.Sources.Boundary_pT bou1(
+    redeclare package Medium = Media.Water,
+    p=370000,
+    nPorts=1)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
+        origin={358,6})));
   Fluid.FixedResistances.Junction jun14(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={-262,-106})));
+        origin={-232,-74})));
   Fluid.FixedResistances.Junction jun15(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal_junctions,
     dp_nominal=p_priEnergyFlow_nominal_junctions)
-    annotation (Placement(transformation(extent={{-272,-36},{-252,-16}})));
+    annotation (Placement(transformation(extent={{-242,-4},{-222,16}})));
   Fluid.Actuators.Valves.TwoWayLinear val7(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
-    dpValve_nominal=p_priEnergyFlow_nominal_valve)
+    dpValve_nominal=p_priEnergyFlow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-        origin={-262,-66})));
+        origin={-232,-34})));
   Fluid.Movers.Preconfigured.FlowControlled_dp mov4(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
     dp_nominal=p_priEnergyFlow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={-302,-26})));
+        origin={-272,6})));
   Fluid.Sources.Boundary_pT bou2(
     redeclare package Medium = Media.Water,
     p=370000,
     nPorts=1)
-    annotation (Placement(transformation(extent={{-352,-36},{-332,-16}})));
+    annotation (Placement(transformation(extent={{-322,-4},{-302,16}})));
   Fluid.Sources.Boundary_pT bou3(
     redeclare package Medium = Media.Water,
     p=300000,
     nPorts=1)
-    annotation (Placement(transformation(extent={{-352,-116},{-332,-96}})));
+    annotation (Placement(transformation(extent={{-322,-84},{-302,-64}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=-1)
+    annotation (Placement(transformation(extent={{228,-134},{248,-114}})));
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(p=1)
+    annotation (Placement(transformation(extent={{268,-134},{288,-114}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=-1)
+    annotation (Placement(transformation(extent={{-142,-134},{-122,-114}})));
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(p=1)
+    annotation (Placement(transformation(extent={{-102,-134},{-82,-114}})));
   Fluid.FixedResistances.PressureDrop
                               res1(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
     dp_nominal=p_priEnergyFlow_nominal)
-    annotation (Placement(transformation(extent={{-40,-36},{-20,-16}})));
+    annotation (Placement(transformation(extent={{-10,-4},{10,16}})));
   Fluid.FixedResistances.PressureDrop
                               res3(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
     dp_nominal=p_priEnergyFlow_nominal)
-    annotation (Placement(transformation(extent={{-236,-34},{-216,-14}})));
+    annotation (Placement(transformation(extent={{-206,-2},{-186,18}})));
   Fluid.FixedResistances.PressureDrop
                               res4(
     redeclare package Medium = Media.Water,
     m_flow_nominal=m_priEnergyFlow_nominal,
     dp_nominal=p_priEnergyFlow_nominal)
-    annotation (Placement(transformation(extent={{228,-56},{248,-36}})));
-  Fluid.FixedResistances.PressureDrop
-                              res5(
-    redeclare package Medium = Media.Water,
-    m_flow_nominal=m_priEnergyFlow_nominal,
-    dp_nominal=p_priEnergyFlow_nominal)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={386,-84})));
-  Fluid.Actuators.Valves.TwoWayLinear val8(
-    redeclare package Medium = Media.Water,
-    m_flow_nominal=m_priEnergyFlow_nominal,
-    dpValve_nominal=p_priEnergyFlow_nominal_valve)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-        origin={108,44})));
-  Fluid.Actuators.Valves.ThreeWayLinear val9(
-    redeclare package Medium = Media.Water,
-    m_flow_nominal=m_priEnergyFlow_nominal,
-    dpValve_nominal=p_priEnergyFlow_nominal_valve)
-    annotation (Placement(transformation(extent={{264,-56},{284,-36}})));
-  Fluid.FixedResistances.Junction jun16(
-    redeclare package Medium = Media.Water,
-    m_flow_nominal=m_priEnergyFlow_nominal_junctions,
-    dp_nominal=p_priEnergyFlow_nominal_junctions)
-    annotation (Placement(transformation(extent={{42,-56},{62,-36}})));
-  Fluid.FixedResistances.Junction jun17(
-    redeclare package Medium = Media.Water,
-    m_flow_nominal=m_priEnergyFlow_nominal_junctions,
-    dp_nominal=p_priEnergyFlow_nominal_junctions)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={78,-46})));
-  Fluid.FixedResistances.Junction jun6(
-    redeclare package Medium = Media.Water,
-    m_flow_nominal=m_priEnergyFlow_nominal_junctions,
-    dp_nominal=p_priEnergyFlow_nominal_junctions)
-    annotation (Placement(transformation(extent={{182,-56},{202,-36}})));
-  Fluid.Sensors.VolumeFlowRate
-                             senVolFlo(redeclare package Medium = Media.Water,
-      m_flow_nominal=m_priEnergyFlow_nominal)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={228,-126})));
-  Fluid.Sensors.VolumeFlowRate
-                             senVolFlo1(redeclare package Medium = Media.Water,
-      m_flow_nominal=m_priEnergyFlow_nominal)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=-90,
-        origin={138,-18})));
-  Fluid.Sensors.VolumeFlowRate
-                             senVolFlo2(redeclare package Medium = Media.Water,
-      m_flow_nominal=m_priEnergyFlow_nominal)
-    annotation (Placement(transformation(extent={{96,-56},{116,-36}})));
-  Fluid.Sensors.VolumeFlowRate
-                             senVolFlo3(redeclare package Medium = Media.Water,
-      m_flow_nominal=m_priEnergyFlow_nominal)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=180,
-        origin={348,-126})));
-  Fluid.Actuators.Valves.TwoWayLinear val10(
-    redeclare package Medium = Media.Water,
-    m_flow_nominal=m_priEnergyFlow_nominal,
-    dpValve_nominal=p_priEnergyFlow_nominal_valve)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,
-        origin={374,-126})));
-  Fluid.Sensors.VolumeFlowRate
-                             senVolFlo4(redeclare package Medium = Media.Water,
-      m_flow_nominal=m_priEnergyFlow_nominal) if hasSecondary
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=-90,
-        origin={288,-92})));
-  Modelica.Blocks.Sources.Constant const2(k=70000)
-    annotation (Placement(transformation(extent={{-216,112},{-196,132}})));
-  Modelica.Blocks.Sources.Constant const3(k=1)
-    annotation (Placement(transformation(extent={{338,-186},{358,-166}})));
-  Modelica.Blocks.Sources.Constant const4(k=70000) if
-                                                  not hasSecondary
-    annotation (Placement(transformation(extent={{102,-110},{122,-90}})));
-  Modelica.Blocks.Sources.Constant const5(k=0)
-    annotation (Placement(transformation(extent={{192,52},{212,72}})));
+    annotation (Placement(transformation(extent={{234,-4},{254,16}})));
+  Modelica.Blocks.Sources.Constant const(k=1)
+    annotation (Placement(transformation(extent={{-190,36},{-170,56}})));
+  Modelica.Blocks.Sources.Constant const1(k=1)
+    annotation (Placement(transformation(extent={{186,102},{206,122}})));
+  Modelica.Blocks.Sources.Constant const2(k=0)
+    annotation (Placement(transformation(extent={{-70,136},{-50,156}})));
+  Modelica.Blocks.Sources.Constant const3(k=70000)
+    annotation (Placement(transformation(extent={{-140,138},{-120,158}})));
+  Modelica.Blocks.Sources.Constant const4(k=1)
+    annotation (Placement(transformation(extent={{-304,-44},{-284,-24}})));
+  Modelica.Blocks.Sources.Constant const5(k=1)
+    annotation (Placement(transformation(extent={{-78,-42},{-58,-22}})));
   Modelica.Blocks.Sources.Constant const6(k=0)
-    annotation (Placement(transformation(extent={{-90,52},{-70,72}})));
+    annotation (Placement(transformation(extent={{258,52},{278,72}})));
   Modelica.Blocks.Sources.Constant const7(k=0)
-    annotation (Placement(transformation(extent={{-290,42},{-270,62}})));
-  Modelica.Blocks.Sources.Constant const8(k=0)
-    annotation (Placement(transformation(extent={{-110,-84},{-90,-64}})));
-  Modelica.Blocks.Sources.Constant const9(k=0)
-    annotation (Placement(transformation(extent={{-334,-84},{-314,-64}})));
-  Modelica.Blocks.Sources.Constant const10(k=0)
-    annotation (Placement(transformation(extent={{74,-120},{94,-100}})));
-  Modelica.Blocks.Sources.Constant const11(k=70000)
-    annotation (Placement(transformation(extent={{314,-14},{334,6}})));
-  Modelica.Blocks.Sources.Constant const13(k=0)
-    annotation (Placement(transformation(extent={{234,-14},{254,6}})));
-  Modelica.Blocks.Sources.Constant const14(k=0)
-    annotation (Placement(transformation(extent={{82,122},{102,142}})));
-  Modelica.Blocks.Sources.Constant const1(k=0)
-    annotation (Placement(transformation(extent={{296,46},{316,66}})));
+    annotation (Placement(transformation(extent={{58,36},{78,56}})));
 equation
   connect(ctlHeaInl.bus, valIsoHeaInl.bus)
     annotation (Line(points={{6,366},{36,366},{36,316}},   color={255,204,51},thickness=0.5));
@@ -420,193 +373,152 @@ equation
     annotation (Line(points={{86,206},{46,206}},        color={0,127,255}));
   connect(hpHea.port_b, valIsoHeaInl.ports_aChiHeaWatHp)
     annotation (Line(points={{26,206},{-14,206}},         color={0,127,255}));
+  connect(jun1.port_2,jun. port_3)
+    annotation (Line(points={{138,76},{158,76}},
+                                               color={0,127,255}));
   connect(jun2.port_2,jun1. port_1)
-    annotation (Line(points={{-102,44},{68,44}},color={0,127,255}));
+    annotation (Line(points={{-72,76},{118,76}},color={0,127,255}));
   connect(jun3.port_3,jun2. port_1)
-    annotation (Line(points={{-152,44},{-122,44}},
-                                                 color={0,127,255}));
-  connect(jun3.port_2,mov. port_a) annotation (Line(points={{-162,54},{-162,84},
-          {-142,84}},         color={0,127,255}));
+    annotation (Line(points={{-122,76},{-92,76}},color={0,127,255}));
+  connect(jun3.port_2,mov. port_a) annotation (Line(points={{-132,86},{-132,116},
+          {-112,116}},        color={0,127,255}));
+  connect(jun4.port_3,val. port_b)
+    annotation (Line(points={{168,16},{168,36}},color={0,127,255}));
   connect(val.port_a,jun. port_2)
-    annotation (Line(points={{138,24},{138,34}}, color={0,127,255}));
+    annotation (Line(points={{168,56},{168,66}}, color={0,127,255}));
+  connect(val1.port_a,jun1. port_3)
+    annotation (Line(points={{128,-24},{128,66}},
+                                                color={0,127,255}));
+  connect(jun5.port_3,val1. port_b)
+    annotation (Line(points={{128,-64},{128,-44}},
+                                              color={0,127,255}));
+  connect(mov1.port_b,jun4. port_2)
+    annotation (Line(points={{108,6},{158,6}}, color={0,127,255}));
+  connect(jun4.port_1,jun6. port_1)
+    annotation (Line(points={{178,6},{198,6}},  color={0,127,255}));
+  connect(val2.port_a,jun6. port_3)
+    annotation (Line(points={{208,-24},{208,-4}},         color={0,127,255}));
+  connect(jun5.port_1,jun7. port_2)
+    annotation (Line(points={{138,-74},{198,-74}},color={0,127,255}));
+  connect(jun7.port_3,val2. port_b)
+    annotation (Line(points={{208,-64},{208,-44}},
+                                                color={0,127,255}));
   connect(mov.port_b,res. port_a)
-    annotation (Line(points={{-122,84},{78,84}},   color={0,127,255}));
+    annotation (Line(points={{-92,116},{108,116}}, color={0,127,255}));
   connect(res.port_b,jun. port_1)
-    annotation (Line(points={{98,84},{138,84},{138,54}},  color={0,127,255}));
+    annotation (Line(points={{128,116},{168,116},{168,86}},
+                                                          color={0,127,255}));
   connect(jun8.port_1,mov2. port_b)
-    annotation (Line(points={{-104,-26},{-82,-26}},color={0,127,255}));
+    annotation (Line(points={{-74,6},{-52,6}},     color={0,127,255}));
   connect(jun8.port_3,val3. port_b)
-    annotation (Line(points={{-114,-16},{-114,-6},{-112,-6},{-112,4}},
+    annotation (Line(points={{-84,16},{-84,26},{-82,26},{-82,36}},
                                                     color={0,127,255}));
   connect(val3.port_a,jun2. port_3)
-    annotation (Line(points={{-112,24},{-112,34}},   color={0,127,255}));
+    annotation (Line(points={{-82,56},{-82,66}},     color={0,127,255}));
   connect(val4.port_a,jun3. port_1)
-    annotation (Line(points={{-160,-56},{-160,-10},{-162,-10},{-162,34}},
-                                                    color={0,127,255}));
+    annotation (Line(points={{-132,-24},{-132,66}}, color={0,127,255}));
   connect(jun9.port_3,val4. port_b)
-    annotation (Line(points={{-162,-96},{-162,-76},{-160,-76}},
+    annotation (Line(points={{-132,-64},{-132,-44}},
                                                   color={0,127,255}));
   connect(jun10.port_2,jun8. port_2)
-    annotation (Line(points={{-182,-26},{-124,-26}},
-                                                   color={0,127,255}));
+    annotation (Line(points={{-152,6},{-94,6}},    color={0,127,255}));
   connect(jun11.port_1,jun9. port_2)
-    annotation (Line(points={{-182,-106},{-172,-106}},
-                                                     color={0,127,255}));
+    annotation (Line(points={{-152,-74},{-142,-74}}, color={0,127,255}));
   connect(val5.port_a,jun10. port_3)
-    annotation (Line(points={{-200,-52},{-200,-46},{-192,-46},{-192,-36}},
+    annotation (Line(points={{-170,-20},{-170,-14},{-162,-14},{-162,-4}},
                                                    color={0,127,255}));
   connect(val5.port_b,jun11. port_3)
-    annotation (Line(points={{-200,-72},{-200,-86},{-192,-86},{-192,-96}},
+    annotation (Line(points={{-170,-40},{-170,-54},{-162,-54},{-162,-64}},
                                                   color={0,127,255}));
   connect(jun12.port_3,val6. port_a)
-    annotation (Line(points={{308,-56},{308,-76}},
-                                                 color={0,127,255}));
+    annotation (Line(points={{278,-4},{278,-24}},color={0,127,255}));
+  connect(jun7.port_1,jun13. port_2)
+    annotation (Line(points={{218,-74},{268,-74}}, color={0,127,255}));
   connect(jun13.port_3,val6. port_b)
-    annotation (Line(points={{308,-116},{308,-96}},
+    annotation (Line(points={{278,-64},{278,-44}},
                                                 color={0,127,255}));
   connect(jun12.port_2,mov3. port_a)
-    annotation (Line(points={{318,-46},{338,-46}},
-                                                 color={0,127,255}));
+    annotation (Line(points={{288,6},{308,6}},   color={0,127,255}));
+  connect(jun13.port_1,bou. ports[1])
+    annotation (Line(points={{288,-74},{348,-74}}, color={0,127,255}));
+  connect(mov3.port_b,bou1. ports[1])
+    annotation (Line(points={{328,6},{348,6}},   color={0,127,255}));
   connect(jun14.port_1,jun11. port_2)
-    annotation (Line(points={{-252,-106},{-202,-106}},
-                                                     color={0,127,255}));
+    annotation (Line(points={{-222,-74},{-172,-74}}, color={0,127,255}));
   connect(val7.port_a,jun15. port_3)
-    annotation (Line(points={{-262,-56},{-262,-36}},
-                                                   color={0,127,255}));
+    annotation (Line(points={{-232,-24},{-232,-4}},color={0,127,255}));
   connect(val7.port_b,jun14. port_3)
-    annotation (Line(points={{-262,-76},{-262,-96}}, color={0,127,255}));
+    annotation (Line(points={{-232,-44},{-232,-64}}, color={0,127,255}));
   connect(mov4.port_a,jun15. port_1)
-    annotation (Line(points={{-292,-26},{-272,-26}},
-                                                   color={0,127,255}));
+    annotation (Line(points={{-262,6},{-242,6}},   color={0,127,255}));
   connect(bou2.ports[1],mov4. port_b)
-    annotation (Line(points={{-332,-26},{-312,-26}},
-                                                   color={0,127,255}));
+    annotation (Line(points={{-302,6},{-282,6}},   color={0,127,255}));
   connect(bou3.ports[1],jun14. port_2)
-    annotation (Line(points={{-332,-106},{-272,-106}},
-                                                     color={0,127,255}));
-  connect(val.y_actual,val1. y) annotation (Line(points={{145,9},{145,6},{158,6},
-          {158,28},{108,28},{108,10},{90,10}},
+    annotation (Line(points={{-302,-74},{-242,-74}}, color={0,127,255}));
+  connect(gai.u,val2. y_actual) annotation (Line(points={{226,-124},{222,-124},
+          {222,-39},{215,-39}},
+                         color={0,0,127}));
+  connect(gai.y,addPar. u)
+    annotation (Line(points={{250,-124},{266,-124}},
+                                                   color={0,0,127}));
+  connect(addPar.y,val6. y) annotation (Line(points={{290,-124},{308,-124},{308,
+          -34},{290,-34}},
+                    color={0,0,127}));
+  connect(val.y_actual,val1. y) annotation (Line(points={{175,41},{175,26},{148,
+          26},{148,-34},{140,-34}},
                                 color={0,0,127}));
-  connect(val3.y_actual,val4. y) annotation (Line(points={{-105,9},{-105,-6},{-142,
-          -6},{-142,-66},{-148,-66}},
+  connect(val3.y_actual,val4. y) annotation (Line(points={{-75,41},{-75,26},{
+          -112,26},{-112,-34},{-120,-34}},
                                   color={0,0,127}));
+  connect(gai1.y,addPar1. u)
+    annotation (Line(points={{-120,-124},{-104,-124}},
+                                                     color={0,0,127}));
+  connect(addPar1.y,val7. y) annotation (Line(points={{-80,-124},{-72,-124},{
+          -72,-154},{-212,-154},{-212,-34},{-220,-34}},
+                                                color={0,0,127}));
+  connect(val5.y_actual,gai1. u) annotation (Line(points={{-163,-35},{-163,-46},
+          {-148,-46},{-148,-124},{-144,-124}},
+                                            color={0,0,127}));
   connect(mov2.port_a,res1. port_a)
-    annotation (Line(points={{-62,-26},{-40,-26}},
-                                                 color={0,127,255}));
-  connect(res1.port_b,jun9. port_1) annotation (Line(points={{-20,-26},{-14,-26},
-          {-14,-106},{-152,-106}},color={0,127,255}));
-  connect(jun15.port_2,res3. port_a) annotation (Line(points={{-252,-26},{-244,-26},
-          {-244,-24},{-236,-24}},   color={0,127,255}));
-  connect(res3.port_b,jun10. port_1) annotation (Line(points={{-216,-24},{-210,-24},
-          {-210,-26},{-202,-26}},   color={0,127,255}));
-  connect(mov3.port_b,res5. port_a) annotation (Line(points={{358,-46},{370,-46},
-          {370,-44},{386,-44},{386,-74}},
-                                      color={0,127,255}));
-  connect(jun.port_3,val8. port_b)
-    annotation (Line(points={{128,44},{118,44}},   color={0,127,255}));
-  connect(val8.port_a,jun1. port_2)
-    annotation (Line(points={{98,44},{88,44}},    color={0,127,255}));
-  connect(mov1.port_b,jun5. port_1)
-    annotation (Line(points={{134,-126},{62,-126}},
-                                                  color={0,127,255}));
-  connect(res4.port_b,val9. port_1)
-    annotation (Line(points={{248,-46},{264,-46}},
-                                                 color={0,127,255}));
-  connect(val9.port_2,jun12. port_1)
-    annotation (Line(points={{284,-46},{298,-46}},
-                                                 color={0,127,255}));
-  connect(jun16.port_2,jun17. port_2)
-    annotation (Line(points={{62,-46},{68,-46}},
-                                               color={0,127,255}));
-  connect(jun17.port_3,val1. port_b)
-    annotation (Line(points={{78,-36},{78,0}}, color={0,127,255}));
-  connect(val1.port_a,jun1. port_3)
-    annotation (Line(points={{78,20},{78,34}},  color={0,127,255}));
-  connect(jun5.port_3,val2. port_b)
-    annotation (Line(points={{52,-116},{52,-92}},
-                                                color={0,127,255}));
-  connect(val2.port_a,jun16. port_3)
-    annotation (Line(points={{52,-72},{52,-56}},
-                                               color={0,127,255}));
-  connect(jun4.port_1,jun6. port_1)
-    annotation (Line(points={{148,-46},{182,-46}},
-                                                 color={0,127,255}));
-  connect(jun6.port_2,res4. port_a)
-    annotation (Line(points={{202,-46},{228,-46}},
-                                                 color={0,127,255}));
-  connect(val9.port_3,jun6. port_3) annotation (Line(points={{274,-56},{274,-88},
-          {192,-88},{192,-56}},
+    annotation (Line(points={{-32,6},{-10,6}},   color={0,127,255}));
+  connect(res1.port_b,jun9. port_1) annotation (Line(points={{10,6},{10,-72},{
+          -122,-72},{-122,-74}},  color={0,127,255}));
+  connect(jun15.port_2,res3. port_a) annotation (Line(points={{-222,6},{-214,6},
+          {-214,8},{-206,8}},       color={0,127,255}));
+  connect(res3.port_b,jun10. port_1) annotation (Line(points={{-186,8},{-180,8},
+          {-180,6},{-172,6}},       color={0,127,255}));
+  connect(jun6.port_2,res4. port_a) annotation (Line(points={{218,6},{234,6}},
                               color={0,127,255}));
-    connect(jun12.port_2,res5. port_a) annotation (Line(points={{318,-46},{318,-66},
-          {386,-66},{386,-74}},
+  connect(res4.port_b,jun12. port_1) annotation (Line(points={{254,6},{268,6}},
                               color={0,127,255}));
-  connect(mov1.port_a,senVolFlo. port_b)
-    annotation (Line(points={{154,-126},{218,-126}},
-                                                   color={0,127,255}));
-  connect(senVolFlo.port_a,jun13. port_2)
-    annotation (Line(points={{238,-126},{298,-126}},
-                                                   color={0,127,255}));
-  connect(val.port_b,senVolFlo1. port_a)
-    annotation (Line(points={{138,4},{138,-8}},  color={0,127,255}));
-  connect(senVolFlo1.port_b,jun4. port_3)
-    annotation (Line(points={{138,-28},{138,-36}},
-                                                 color={0,127,255}));
-  connect(jun17.port_1,senVolFlo2. port_a)
-    annotation (Line(points={{88,-46},{96,-46}},
-                                               color={0,127,255}));
-  connect(senVolFlo2.port_b,jun4. port_2)
-    annotation (Line(points={{116,-46},{128,-46}},
-                                                 color={0,127,255}));
-  connect(senVolFlo3.port_b,jun13. port_1)
-    annotation (Line(points={{338,-126},{318,-126}},
-                                                   color={0,127,255}));
-  connect(res5.port_b,val10. port_a) annotation (Line(points={{386,-94},{386,-126},
-          {384,-126}},color={0,127,255}));
-  connect(val10.port_b,senVolFlo3. port_a)
-    annotation (Line(points={{364,-126},{358,-126}},
-                                                   color={0,127,255}));
-  connect(jun12.port_3,senVolFlo4. port_a)
-    annotation (Line(points={{308,-56},{288,-56},{288,-82}},
-                                                           color={0,127,255}));
-  connect(senVolFlo4.port_b,jun13. port_3) annotation (Line(points={{288,-102},{
-          288,-116},{308,-116}},
-                           color={0,127,255}));
-  connect(const3.y,val10. y) annotation (Line(points={{359,-176},{374,-176},{374,
-          -138}},    color={0,0,127}));
-  connect(const4.y,mov1. y) annotation (Line(points={{123,-100},{128,-100},{128,
-          -106},{144,-106},{144,-114}},
-                                     color={0,0,127}));
-  connect(const5.y, val.y) annotation (Line(points={{213,62},{213,38},{214,38},{
-          214,14},{150,14}}, color={0,0,127}));
-  connect(const6.y, val3.y) annotation (Line(points={{-69,62},{-60,62},{-60,14},
-          {-100,14}}, color={0,0,127}));
-  connect(const7.y, val7.y) annotation (Line(points={{-269,52},{-260,52},{-260,-66},
-          {-250,-66}}, color={0,0,127}));
-  connect(const7.y, val5.y) annotation (Line(points={{-269,52},{-228,52},{-228,-62},
-          {-188,-62}}, color={0,0,127}));
-  connect(const8.y, mov2.dp_in) annotation (Line(points={{-89,-74},{-80,-74},{-80,
-          -38},{-72,-38}}, color={0,0,127}));
-  connect(const9.y, mov4.dp_in) annotation (Line(points={{-313,-74},{-304,-74},{
-          -304,-38},{-302,-38}}, color={0,0,127}));
-  connect(const10.y, val2.y) annotation (Line(points={{95,-110},{80,-110},{80,-82},
-          {64,-82}}, color={0,0,127}));
-  connect(const11.y, mov3.dp_in) annotation (Line(points={{335,-4},{342,-4},{342,
-          -34},{348,-34}}, color={0,0,127}));
-  connect(const13.y, val9.y) annotation (Line(points={{255,-4},{255,-19},{274,-19},
-          {274,-34}}, color={0,0,127}));
-  connect(const14.y, val8.y) annotation (Line(points={{103,132},{103,87},{108,
-          87},{108,56}},
-                     color={0,0,127}));
-  connect(jun5.port_2, valIsoHeaInl.port_aHeaWat) annotation (Line(points={{42,
-          -126},{-142,-126},{-142,-134},{-474,-134},{-474,316},{-204,316}},
-        color={0,127,255}));
-  connect(jun16.port_1, valIsoHeaInl.port_bHeaWat) annotation (Line(points={{42,
-          -46},{-392,-46},{-392,266},{-298,266},{-298,276},{-204,276}}, color={
+  connect(const.y,val5. y) annotation (Line(points={{-169,46},{-154,46},{-154,
+          42},{-152,42},{-152,-30},{-158,-30}},
+                                            color={0,0,127}));
+  connect(const1.y,val2. y) annotation (Line(points={{207,112},{230,112},{230,
+          -34},{220,-34}},
+                    color={0,0,127}));
+  connect(const1.y,val. y) annotation (Line(points={{207,112},{216,112},{216,46},
+          {180,46}}, color={0,0,127}));
+  connect(const2.y,val3. y) annotation (Line(points={{-49,146},{-36,146},{-36,
+          46},{-70,46}}, color={0,0,127}));
+  connect(const3.y,mov. dp_in) annotation (Line(points={{-119,148},{-110,148},{
+          -110,138},{-102,138},{-102,128}}, color={0,0,127}));
+  connect(const4.y,mov4. dp_in)
+    annotation (Line(points={{-283,-34},{-272,-34},{-272,-6}},
+                                                           color={0,0,127}));
+  connect(const5.y,mov2. dp_in) annotation (Line(points={{-57,-32},{-48,-32},{
+          -48,-6},{-42,-6}},
+                         color={0,0,127}));
+  connect(const6.y,mov3. dp_in)
+    annotation (Line(points={{279,62},{318,62},{318,18}}, color={0,0,127}));
+  connect(const7.y,mov1. dp_in)
+    annotation (Line(points={{79,46},{98,46},{98,18}}, color={0,0,127}));
+  connect(jun5.port_2, valIsoHeaInl.port_aHeaWat) annotation (Line(points={{118,
+          -74},{-96,-74},{-96,-106},{-316,-106},{-316,316},{-204,316}}, color={
           0,127,255}));
-  connect(const1.y, val6.y) annotation (Line(points={{317,56},{344,56},{344,42},
-          {320,42},{320,-86}}, color={0,0,127}));
-  connect(const2.y, mov.y) annotation (Line(points={{-195,122},{-132,122},{-132,
-          96}}, color={0,0,127}));
+  connect(mov1.port_a, valIsoHeaInl.port_bHeaWat) annotation (Line(points={{88,
+          6},{-76,6},{-76,58},{-250,58},{-250,276},{-204,276}}, color={0,127,
+          255}));
   annotation (
     __Dymola_Commands(
       file=
