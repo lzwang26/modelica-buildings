@@ -124,7 +124,7 @@ model ValvesIsolation_Test
     nPorts=1)
     "Boundary condition at HW supply"
     annotation (Placement(transformation(extent={{-256,270},{-236,290}})));
-  Buildings.Templates.Plants.HeatPumps.Components.Controls.OpenLoop ctlHeaInl(
+  Buildings.Templates.Plants.HeatPumps_PNNL.Components.Controls.OpenLoop ctlHeaInl(
     final cfg=datCtlHeaInl.cfg,
     final dat=datCtlHeaInl)
     "Plant controller"

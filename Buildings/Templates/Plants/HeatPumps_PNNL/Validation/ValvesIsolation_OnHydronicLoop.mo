@@ -126,7 +126,7 @@ model ValvesIsolation_OnHydronicLoop
     dp_nominal=fill(0, valIsoHeaInl.nHp))
     "Heat pump HX with zero fluid resistance: pressure drop computed in valve component"
     annotation (Placement(transformation(extent={{46,196},{26,216}})));
-  Buildings.Templates.Plants.HeatPumps.Components.Controls.OpenLoop ctlHeaInl(
+  Buildings.Templates.Plants.HeatPumps_PNNL.Components.Controls.OpenLoop ctlHeaInl(
     final cfg=datCtlHeaInl.cfg,
     final dat=datCtlHeaInl)
     "Plant controller"
