@@ -460,14 +460,13 @@ package Validation
       redeclare final package Medium=Medium,
       p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
       nPorts=1) "Boundary condition at HW supply"
-      annotation (Placement(transformation(extent={{-254,280},{-234,300}})));
+      annotation (Placement(transformation(extent={{-254,282},{-234,302}})));
     Buildings.Templates.Plants.HeatPumps_PNNL.Components.Controls.OpenLoop ctlHeaInl(
       final cfg=datCtlHeaInl.cfg,
       final dat=datCtlHeaInl)
       "Plant controller"
       annotation (Placement(transformation(extent={{-6,360},{-26,380}})));
-    Fluid.FixedResistances.PressureDrop hpHea1
-                                             [valIsoHeaInl.nHp](
+    Fluid.FixedResistances.PressureDrop hpCoo[valIsoHeaInl.nHp](
       redeclare each final package Medium = Medium,
       m_flow_nominal=valIsoHeaInl.mHeaWatHp_flow_nominal,
       dp_nominal=fill(0, valIsoHeaInl.nHp))
@@ -476,12 +475,13 @@ package Validation
     Fluid.Sources.Boundary_pT retChiWat(
       redeclare final package Medium = Medium,
       p=supHeaWat1.p + max(valIsoHeaInl.dpHeaWat_nominal),
-      T=Buildings.Templates.Data.Defaults.THeaWatRetMed,
+      T=287.15,
       nPorts=1) "Boundary condition at HW return"
       annotation (Placement(transformation(extent={{116,276},{96,296}})));
     Fluid.Sources.Boundary_pT supChiWat(
       redeclare final package Medium = Medium,
       p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
+      T=279.85,
       nPorts=1) "Boundary condition at HW supply"
       annotation (Placement(transformation(extent={{116,304},{96,324}})));
   equation
@@ -489,20 +489,19 @@ package Validation
       annotation (Line(points={{-234,324},{-226,324},{-226,298.54},{-18,298.54}},
                                                                          color={0,127,255}));
     connect(valIsoHeaInl.port_bHeaWat, supHeaWat1.ports[1])
-      annotation (Line(points={{-18,289.51},{-226,289.51},{-226,290},{-234,290}},
+      annotation (Line(points={{-18,289.51},{-226,289.51},{-226,292},{-234,292}},
                                                                          color={0,127,255}));
     connect(ctlHeaInl.bus, valIsoHeaInl.bus)
       annotation (Line(points={{-6,370},{2.6,370},{2.6,302.53}},
                                                              color={255,204,51},thickness=0.5));
-    connect(hpHea.port_b, valIsoHeaInl.ports_aHeaWatHp) annotation (Line(points
-          ={{-18,216},{-16,216},{-16,262.21},{-12.6,262.21}}, color={0,127,255}));
-    connect(hpHea.port_a, valIsoHeaInl.ports_bHeaWatHp) annotation (Line(points
-          ={{2,216},{0,216},{0,262.21},{-2,262.21}}, color={0,127,255}));
-    connect(hpHea1.port_b, valIsoHeaInl.ports_aChiWatHp) annotation (Line(
-          points={{22,216},{8,216},{8,262.42},{8.6,262.42}}, color={0,127,255}));
-    connect(hpHea1.port_a, valIsoHeaInl.ports_bChiWatHp) annotation (Line(
-          points={{42,216},{58,216},{58,262.21},{18.8,262.21}}, color={0,127,
-            255}));
+    connect(hpHea.port_b, valIsoHeaInl.ports_aHeaWatHp) annotation (Line(points=
+           {{-18,216},{-16,216},{-16,262.21},{-12.6,262.21}}, color={0,127,255}));
+    connect(hpHea.port_a, valIsoHeaInl.ports_bHeaWatHp) annotation (Line(points=
+           {{2,216},{0,216},{0,262.21},{-2,262.21}}, color={0,127,255}));
+    connect(hpCoo.port_b, valIsoHeaInl.ports_aChiWatHp) annotation (Line(points=
+           {{22,216},{8,216},{8,262.42},{8.6,262.42}}, color={0,127,255}));
+    connect(hpCoo.port_a, valIsoHeaInl.ports_bChiWatHp) annotation (Line(points=
+           {{42,216},{58,216},{58,262.21},{18.8,262.21}}, color={0,127,255}));
     connect(retChiWat.ports[1], valIsoHeaInl.port_aChiWat) annotation (Line(
           points={{96,286},{60,286},{60,288.88},{24,288.88}}, color={0,127,255}));
     connect(supChiWat.ports[1], valIsoHeaInl.port_bChiWat) annotation (Line(
