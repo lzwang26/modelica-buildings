@@ -5,7 +5,8 @@ package HeatPumpGroups
   model WaterToWater
     "Water-to-water heat pump group"
 
-    extends Buildings.Templates.Plants.HeatPumps_PNNL.Components.Interface.PartialHeatPumpGroup(
+    extends
+      Buildings.Templates.Plants.HeatPumps_PNNL.Components.Interface.PartialHeatPumpGroup_WaterToWater(
       redeclare final package MediumSou=MediumHeaWat,
       final typ=Buildings.Templates.Components.Types.HeatPump.WaterToWater,
       final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit);
@@ -20,10 +21,7 @@ package HeatPumpGroups
       "Heat pump unit"
       annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
   equation
-    for i in 1:nHp loop
-      connect(busWea, hp[i].busWea)
-        annotation (Line(points={{40,200},{40,10},{6,10}},color={255,204,51},thickness=0.5));
-    end for;
+
     connect(ports_aChiHeaWat, hp.port_a)
       annotation (Line(points={{120,200},{120,0},{10,0}},color={0,127,255}));
     connect(hp.port_b, ports_bChiHeaWat)

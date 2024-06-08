@@ -1,8 +1,7 @@
 within Buildings.Templates.Plants.HeatPumps_PNNL.Components;
 package Interface
   extends Modelica.Icons.VariantsPackage;
-  model PartialHeatPumpGroup
-   "Interface for heat pump group"
+  model PartialHeatPumpGroup_WaterToWater "Interface for heat pump group"
     replaceable package MediumHeaWat=Buildings.Media.Water
       constrainedby Modelica.Media.Interfaces.PartialMedium
       "HW medium"
@@ -204,11 +203,6 @@ package Interface
       "Plant control bus"
       annotation (Placement(transformation(extent={{-20,180},{20,220}}),
         iconTransformation(extent={{-20,380},{20,420}})));
-    Buildings.BoundaryConditions.WeatherData.Bus busWea if
-         typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
-      "Weather bus"
-      annotation (Placement(transformation(extent={{20,180},{60,220}}),
-        iconTransformation(extent={{-220,380},{-180,420}})));
     // Diagnostics
     parameter Boolean show_T=false
       "= true, if actual temperature at port is computed"
@@ -327,5 +321,5 @@ This partial class provides a standard interface for heat pump
 group models.
 </p>
 </html>"));
-  end PartialHeatPumpGroup;
+  end PartialHeatPumpGroup_WaterToWater;
 end Interface;
