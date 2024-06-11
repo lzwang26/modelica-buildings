@@ -107,7 +107,7 @@ block OperationModeControl "Sequences for operation mode control"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter LoaFlo[2](
-    final k=rho_default*cp_default)
+    each final k=rho_default*cp_default)
     "Compute the product of specific heat and flow rate"
     annotation (Placement(transformation(extent={{-240,-150},{-220,-130}})));
 
@@ -116,7 +116,7 @@ block OperationModeControl "Sequences for operation mode control"
     annotation (Placement(transformation(extent={{-200,-126},{-180,-106}})));
 
   Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve[2](
-    delta=dtMea)
+    each delta=dtMea)
     "Compute moving average"
     annotation (Placement(transformation(extent={{-170,-126},{-150,-106}})));
 
@@ -131,6 +131,7 @@ block OperationModeControl "Sequences for operation mode control"
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(k=Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Cooling_1)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(k=Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Cooling_2)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
@@ -196,7 +197,7 @@ block OperationModeControl "Sequences for operation mode control"
     annotation (Placement(transformation(extent={{80,-66},{100,-46}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
-    annotation (Placement(transformation(extent={{-40,-142},{-20,-122}})));
+    annotation (Placement(transformation(extent={{-40,-128},{-20,-108}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla_ava
     "Plant availability status"
@@ -206,11 +207,11 @@ block OperationModeControl "Sequences for operation mode control"
   Buildings.Controls.OBC.CDL.Logical.Timer tim3(
     t=dtMod7)
     "Return true if system has been enabled for specified duration"
-    annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
+    annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
 
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
     t=T_CHWRetMin)
-    annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
+    annotation (Placement(transformation(extent={{-270,-90},{-250,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSchCoo2
     "Cooling mode enable via schedule 2"
@@ -218,34 +219,34 @@ block OperationModeControl "Sequences for operation mode control"
       iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi4
-    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
+    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim1(
     t=dtMod3)
     "Return true if system has been enabled for specified duration"
-    annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
+    annotation (Placement(transformation(extent={{-240,-30},{-220,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrRetCoo1(
     t=T_CHWSupSet)
-    annotation (Placement(transformation(extent={{-260,-30},{-240,-10}})));
+    annotation (Placement(transformation(extent={{-270,-30},{-250,-10}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi5
-    annotation (Placement(transformation(extent={{50,-150},{70,-130}})));
+    annotation (Placement(transformation(extent={{50,-142},{70,-122}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim2(
     t=dtMod5)
     "Return true if system has been enabled for specified duration"
-    annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
+    annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrRetCoo2(
     t=T_HHWRetMax)
-    annotation (Placement(transformation(extent={{-260,-60},{-240,-40}})));
+    annotation (Placement(transformation(extent={{-270,-60},{-250,-40}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi6
-    annotation (Placement(transformation(extent={{90,-134},{110,-114}})));
+    annotation (Placement(transformation(extent={{90,-130},{110,-110}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi7
-    annotation (Placement(transformation(extent={{140,-126},{160,-106}})));
+    annotation (Placement(transformation(extent={{140,-118},{160,-98}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{-280,110},{-260,130}})));
@@ -333,6 +334,18 @@ block OperationModeControl "Sequences for operation mode control"
     t=dtMod2)
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
+    annotation (Placement(transformation(extent={{210,-150},{230,-130}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and8
+    annotation (Placement(transformation(extent={{-210,-38},{-190,-18}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and9
+    annotation (Placement(transformation(extent={{-210,-68},{-190,-48}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
+    annotation (Placement(transformation(extent={{170,-146},{190,-126}})));
+
 equation
   connect(THeaSup, delT[1].u1) annotation (Line(points={{-320,10},{-280,10},{-280,
           -104},{-272,-104}}, color={0,0,127}));
@@ -397,37 +410,37 @@ equation
           -48},{78,-48}},
                       color={255,127,0}));
   connect(and1.y, intSwi3.u2)
-    annotation (Line(points={{-68,-110},{-60,-110},{-60,-132},{-42,-132}},
+    annotation (Line(points={{-68,-110},{-60,-110},{-60,-118},{-42,-118}},
                                                    color={255,0,255}));
   connect(TChiRet, lesThr.u)
-    annotation (Line(points={{-320,-80},{-262,-80}}, color={0,0,127}));
+    annotation (Line(points={{-320,-80},{-272,-80}}, color={0,0,127}));
   connect(lesThr.y, tim3.u)
-    annotation (Line(points={{-238,-80},{-222,-80}}, color={255,0,255}));
+    annotation (Line(points={{-248,-80},{-242,-80}}, color={255,0,255}));
   connect(conInt3.y, intSwi3.u1) annotation (Line(points={{-58,70},{-54,70},{-54,
-          -124},{-42,-124}}, color={255,127,0}));
+          -110},{-42,-110}}, color={255,127,0}));
   connect(conInt.y, intSwi3.u3) annotation (Line(points={{-58,120},{-48,120},{-48,
-          -140},{-42,-140}}, color={255,127,0}));
+          -126},{-42,-126}}, color={255,127,0}));
   connect(greThrRetCoo1.y, tim1.u)
-    annotation (Line(points={{-238,-20},{-222,-20}}, color={255,0,255}));
+    annotation (Line(points={{-248,-20},{-242,-20}}, color={255,0,255}));
   connect(TChiSup, greThrRetCoo1.u)
-    annotation (Line(points={{-320,-20},{-262,-20}}, color={0,0,127}));
+    annotation (Line(points={{-320,-20},{-272,-20}}, color={0,0,127}));
   connect(greThrRetCoo2.y, tim2.u)
-    annotation (Line(points={{-238,-50},{-222,-50}}, color={255,0,255}));
+    annotation (Line(points={{-248,-50},{-242,-50}}, color={255,0,255}));
   connect(THeaRet, greThrRetCoo2.u)
-    annotation (Line(points={{-320,-50},{-262,-50}}, color={0,0,127}));
+    annotation (Line(points={{-320,-50},{-272,-50}}, color={0,0,127}));
   connect(intSwi4.y, intSwi5.u3)
-    annotation (Line(points={{22,-140},{30,-140},{30,-148},{48,-148}},
+    annotation (Line(points={{22,-120},{34,-120},{34,-140},{48,-140}},
                                                    color={255,127,0}));
-  connect(conInt5.y, intSwi5.u1) annotation (Line(points={{22,40},{26,40},{26,-132},
-          {48,-132}}, color={255,127,0}));
-  connect(intSwi5.y, intSwi6.u3) annotation (Line(points={{72,-140},{80,-140},{80,
-          -132},{88,-132}},      color={255,127,0}));
-  connect(conInt6.y, intSwi6.u1) annotation (Line(points={{62,20},{66,20},{66,-116},
-          {88,-116}},  color={255,127,0}));
-  connect(intSwi6.y, intSwi7.u3) annotation (Line(points={{112,-124},{138,-124}},
-                                  color={255,127,0}));
-  connect(conInt7.y, intSwi7.u1) annotation (Line(points={{102,0},{106,0},{106,-108},
-          {138,-108}},color={255,127,0}));
+  connect(conInt5.y, intSwi5.u1) annotation (Line(points={{22,40},{26,40},{26,-124},
+          {48,-124}}, color={255,127,0}));
+  connect(intSwi5.y, intSwi6.u3) annotation (Line(points={{72,-132},{80,-132},{80,
+          -128},{88,-128}},      color={255,127,0}));
+  connect(conInt6.y, intSwi6.u1) annotation (Line(points={{62,20},{66,20},{66,-112},
+          {88,-112}},  color={255,127,0}));
+  connect(intSwi6.y, intSwi7.u3) annotation (Line(points={{112,-120},{120,-120},
+          {120,-116},{138,-116}}, color={255,127,0}));
+  connect(conInt7.y, intSwi7.u1) annotation (Line(points={{102,0},{106,0},{106,-100},
+          {138,-100}},color={255,127,0}));
   connect(uSchCoo1, not1.u) annotation (Line(points={{-320,110},{-290,110},{-290,
           120},{-282,120}}, color={255,0,255}));
   connect(uSchCoo2, not2.u)
@@ -445,20 +458,20 @@ equation
           100},{-242,100}}, color={255,0,255}));
   connect(not2.y, and3.u2) annotation (Line(points={{-258,80},{-248,80},{-248,92},
           {-242,92}}, color={255,0,255}));
-  connect(and3.y, intSwi6.u2) annotation (Line(points={{-218,100},{70,100},{70,-124},
-          {88,-124}},        color={255,0,255}));
+  connect(and3.y, intSwi6.u2) annotation (Line(points={{-218,100},{70,100},{70,-120},
+          {88,-120}},        color={255,0,255}));
   connect(uSchCoo2, and4.u2) annotation (Line(points={{-320,80},{-290,80},{-290,
           58},{-210,58}}, color={255,0,255}));
   connect(and4.y, intSwi7.u2) annotation (Line(points={{-186,66},{-88,66},{-88,-32},
-          {114,-32},{114,-116},{138,-116}},  color={255,0,255}));
-  connect(intSwi7.y, intSwi8.u3) annotation (Line(points={{162,-116},{210,-116},
+          {114,-32},{114,-108},{138,-108}},  color={255,0,255}));
+  connect(intSwi7.y, intSwi8.u3) annotation (Line(points={{162,-108},{210,-108},
           {210,-80},{218,-80}},
                            color={255,127,0}));
   connect(intSwi2.y, intSwi8.u1)
     annotation (Line(points={{102,-56},{210,-56},{210,-64},{218,-64}},
                                                    color={255,127,0}));
-  connect(and1.y, not3.u) annotation (Line(points={{-68,-110},{-60,-110},{-60,-100},
-          {130,-100},{130,-80},{138,-80}}, color={255,0,255}));
+  connect(and1.y, not3.u) annotation (Line(points={{-68,-110},{-60,-110},{-60,-94},
+          {130,-94},{130,-80},{138,-80}},  color={255,0,255}));
   connect(not3.y, and6.u2)
     annotation (Line(points={{162,-80},{178,-80}}, color={255,0,255}));
   connect(and2.y, and6.u1) annotation (Line(points={{-68,-50},{-60,-50},{-60,-88},
@@ -479,11 +492,7 @@ equation
                        color={255,127,0}));
   connect(or2.y, tim.u)
     annotation (Line(points={{-238,20},{-232,20}}, color={255,0,255}));
-  connect(tim1.passed, intSwi4.u2) annotation (Line(points={{-198,-28},{-170,-28},
-          {-170,-10},{-12,-10},{-12,-140},{-2,-140}}, color={255,0,255}));
-  connect(tim2.passed, intSwi5.u2) annotation (Line(points={{-198,-58},{-160,-58},
-          {-160,-20},{40,-20},{40,-140},{48,-140}}, color={255,0,255}));
-  connect(tim3.passed, intSwi1.u2) annotation (Line(points={{-198,-88},{-148,-88},
+  connect(tim3.passed, intSwi1.u2) annotation (Line(points={{-218,-88},{-148,-88},
           {-148,-26},{-10,-26},{-10,-64},{-2,-64}}, color={255,0,255}));
   connect(lat.y, yPla)
     annotation (Line(points={{282,60},{320,60}}, color={255,0,255}));
@@ -515,14 +524,14 @@ equation
           142.333},{218,142.333}},
                           color={255,0,255}));
   connect(or2.u1, greThrCoo.y) annotation (Line(points={{-262,20},{-270,20},{-270,
-          0},{-190,0},{-190,-94},{-104,-94},{-104,-140},{-108,-140}}, color={255,
+          0},{-186,0},{-186,-94},{-104,-94},{-104,-140},{-108,-140}}, color={255,
           0,255}));
   connect(greThrHea.y, or2.u2) annotation (Line(points={{-108,-80},{-104,-80},{-104,
           4},{-266,4},{-266,12},{-262,12}}, color={255,0,255}));
   connect(greThrHea.y, not6[1].u) annotation (Line(points={{-108,-80},{-104,-80},
-          {-104,4},{-190,4},{-190,20},{-182,20}}, color={255,0,255}));
+          {-104,0},{-186,0},{-186,20},{-182,20}}, color={255,0,255}));
   connect(greThrCoo.y, not6[2].u) annotation (Line(points={{-108,-140},{-104,-140},
-          {-104,-94},{-190,-94},{-190,20},{-182,20}}, color={255,0,255}));
+          {-104,-94},{-186,-94},{-186,20},{-182,20}}, color={255,0,255}));
   connect(not6[1].y, and7.u1)
     annotation (Line(points={{-158,20},{-150,20}}, color={255,0,255}));
   connect(not6[2].y, and7.u2) annotation (Line(points={{-158,20},{-154,20},{-154,
@@ -539,10 +548,30 @@ equation
           -4},{-100,-4},{-100,-118},{-92,-118}}, color={255,0,255}));
   connect(not1.y, and4.u1) annotation (Line(points={{-258,120},{-248,120},{-248,
           66},{-210,66}}, color={255,0,255}));
-  connect(intSwi3.y, intSwi4.u3) annotation (Line(points={{-18,-132},{-14,-132},
-          {-14,-148},{-2,-148}}, color={255,127,0}));
-  connect(conInt4.y, intSwi4.u1) annotation (Line(points={{-18,50},{-8,50},{-8,
-          -132},{-2,-132}}, color={255,127,0}));
+  connect(intSwi3.y, intSwi4.u3) annotation (Line(points={{-18,-118},{-14,-118},
+          {-14,-128},{-2,-128}}, color={255,127,0}));
+  connect(conInt4.y, intSwi4.u1) annotation (Line(points={{-18,50},{-8,50},{-8,-112},
+          {-2,-112}},       color={255,127,0}));
+  connect(and8.y, intSwi4.u2) annotation (Line(points={{-188,-28},{-180,-28},{-180,
+          -12},{-12,-12},{-12,-120},{-2,-120}}, color={255,0,255}));
+  connect(tim1.passed, and8.u1)
+    annotation (Line(points={{-218,-28},{-212,-28}}, color={255,0,255}));
+  connect(tim2.passed, and9.u1)
+    annotation (Line(points={{-218,-58},{-212,-58}}, color={255,0,255}));
+  connect(and9.y, intSwi5.u2) annotation (Line(points={{-188,-58},{-174,-58},{-174,
+          -20},{40,-20},{40,-132},{48,-132}}, color={255,0,255}));
+  connect(conInt4.y, intEqu1.u2) annotation (Line(points={{-18,50},{-8,50},{-8,-144},
+          {168,-144}}, color={255,127,0}));
+  connect(mulInt.y, intEqu1.u1) annotation (Line(points={{282,-60},{290,-60},{290,
+          -120},{160,-120},{160,-136},{168,-136}}, color={255,127,0}));
+  connect(mulInt.y, intEqu.u1) annotation (Line(points={{282,-60},{290,-60},{290,
+          -120},{200,-120},{200,-140},{208,-140}}, color={255,127,0}));
+  connect(conInt3.y, intEqu.u2) annotation (Line(points={{-58,70},{-54,70},{-54,
+          -148},{208,-148}},                       color={255,127,0}));
+  connect(intEqu1.y, and9.u2) annotation (Line(points={{192,-136},{196,-136},{196,
+          -152},{-214,-152},{-214,-66},{-212,-66}}, color={255,0,255}));
+  connect(intEqu.y, and8.u2) annotation (Line(points={{232,-140},{236,-140},{236,
+          -156},{-214,-156},{-214,-36},{-212,-36}}, color={255,0,255}));
 annotation (
     defaultComponentName="opeModCon",
     Icon(
