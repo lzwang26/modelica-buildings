@@ -1,0 +1,69 @@
+simulateModel("Buildings.Controls.OBC.HeatPumpPlant.Validation.OperationModeControl",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=86400.0,
+    resultFile="OperationModeControl");
+createPlot(
+    id=1,
+    position={5, 5, 300, 500},
+    y={"opeModCon.uSchHea", "opeModCon.uSchCoo1", "opeModCon.uSchCoo2"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=1,
+	subPlot=2,
+    position={310, 5, 300, 500},
+    y={"opeModCon.uPla_ava"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"opeModCon.movAve[1].y", "opeModCon.movAve[2].y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=1,
+    subPlot=4,
+    y={"opeModCon.yPla"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    y={"opeModCon.TChiRet", "opeModCon.T_CHWRetMin"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"opeModCon.TChiSup", "opeModCon.T_CHWSupSet"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"opeModCon.THeaRet", "opeModCon.T_HHWRetMax"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    subPlot=4,
+    y={"opeModCon.yOpeMod"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
