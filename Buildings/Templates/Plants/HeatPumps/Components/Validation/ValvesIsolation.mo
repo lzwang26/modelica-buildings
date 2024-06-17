@@ -387,14 +387,14 @@ equation
   connect(hpHea.port_b, valIsoHeaInl.ports_aChiHeaWatHp)
     annotation (Line(points={{-10,-40},{-50,-40}},        color={0,127,255}));
   connect(valIsoSep.port_bHeaWat, supHeaWat2.ports[1])
-    annotation (Line(points={{-240,-210},{-260,-210},{-260,-188}},
+    annotation (Line(points={{-240,-210},{-260,-210},{-260,-191}},
       color={0,127,255}));
   connect(ctlSep.bus, valIsoSep.bus)
     annotation (Line(points={{-30,-120},{0,-120},{0,-170}},  color={255,204,51},thickness=0.5));
   connect(valIsoSep.ports_bChiHeaWatHp, hpSep.port_a)
     annotation (Line(points={{50,-280},{50,-360},{10,-360}},color={0,127,255}));
   connect(supHeaWat2.ports[2], valIsoSep.port_aHeaWat)
-    annotation (Line(points={{-260,-192},{-260,-170},{-240,-170}},
+    annotation (Line(points={{-260,-189},{-260,-170},{-240,-170}},
       color={0,127,255}));
   connect(ctlSep.bus, busPla)
     annotation (Line(points={{-30,-120},{100,-120}},
