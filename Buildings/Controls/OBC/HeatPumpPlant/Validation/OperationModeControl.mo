@@ -46,15 +46,16 @@ model OperationModeControl
     "Design CHW volume flow rate"
     annotation (Dialog(group="Nominal condition"));
 
-  Buildings.Controls.OBC.HeatPumpPlant.OperationModeControl opeModCon
+  Buildings.Controls.OBC.HeatPumpPlant.OperationModeControl opeModCon(
+      T_CHWRetMin(displayUnit="degC") = 287.15)
     annotation (Placement(transformation(extent={{-40,-20},{-20,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[3](
     each k=false)
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(
-    table=[0,0,0; 5,0,0; 6,1,0; 12,0.2,0.2; 15,0,1; 22,0.1,0.1; 24,0,0],
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(table=[0,0,0;
+        1.5,0,0; 6,1,0; 12,0.2,0.2; 15,0,1; 22,0.1,0.1; 24,0,0],
     timeScale=3600)
     "Source signal for volume flow rate ratio – Index 1 for HHW, 2 for CHW"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
@@ -72,7 +73,8 @@ model OperationModeControl
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatRet(
     amplitude=6,
     freqHz=4/80000,
-    offset=47 + 273.15)
+    offset=47 + 273.15,
+    startTime=50000 + 5000)
     "HWRT"
     annotation (Placement(transformation(extent={{-170,-30},{-150,-10}})));
 
@@ -80,7 +82,8 @@ model OperationModeControl
     amplitude=2,
     freqHz=3/80000,
     phase=3.1415926535898,
-    offset=11 + 273.15)
+    offset=15 + 273.15,
+    startTime=6000)
     "CHWRT"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
 
@@ -95,16 +98,18 @@ model OperationModeControl
     amplitude=4,
     freqHz=3/80000,
     phase=3.1415926535898,
-    offset=10 + 273.15)
+    offset=13 + 273.15,
+    startTime=50000)
     "CHWST"
-    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
+    annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
 
-  CDL.Logical.Sources.Pulse booPul(period=86400, shift=30)
+  CDL.Logical.Sources.Pulse booPul(period=86400*2,
+                                                 shift=30)
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   CDL.Integers.Sources.Constant conInt[8](k={Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_3,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_2,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_1,
-        Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Not_Specified,
+        Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Disabled,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Cooling_1,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Cooling_2,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Cooling_3,
@@ -118,28 +123,34 @@ model OperationModeControl
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   CDL.Logical.MultiOr mulOr(nin=8)
     annotation (Placement(transformation(extent={{110,-10},{130,10}})));
+  CDL.Logical.Edge edg
+    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+  CDL.Logical.Pre pre
+    annotation (Placement(transformation(extent={{144,-56},{164,-36}})));
+  CDL.Reals.Sources.Constant TChiWatSupSet(k=273.15 + 12)
+    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
 equation
   connect(con[1].y, opeModCon.uSchHea) annotation (Line(points={{-138,80},{-50,
-          80},{-50,14},{-42,14}},      color={255,0,255}));
+          80},{-50,14.5455},{-42,14.5455}},
+                                       color={255,0,255}));
   connect(con[2].y, opeModCon.uSchCoo1) annotation (Line(points={{-138,80},{-50,
-          80},{-50,10},{-42,10}},
+          80},{-50,10.9091},{-42,10.9091}},
                             color={255,0,255}));
   connect(THeaWatSup.y, opeModCon.THeaSupSet) annotation (Line(points={{-148,20},
-          {-70,20},{-70,2},{-42,2}},color={0,0,127}));
-  connect(TChiWatSup.y, opeModCon.TChiSupSet)
-    annotation (Line(points={{-118,0},{-80,0},{-80,-10},{-42,-10}},
-                                                            color={0,0,127}));
+          {-70,20},{-70,3.63636},{-42,3.63636}},
+                                    color={0,0,127}));
   connect(THeaWatRet.y, opeModCon.THeaRet) annotation (Line(points={{-148,-20},
-          {-112,-20},{-112,-2},{-42,-2}},
+          {-112,-20},{-112,0},{-42,0}},
                                   color={0,0,127}));
   connect(TChiWatRet.y,opeModCon.TChiRet)  annotation (Line(points={{-118,-40},
-          {-104,-40},{-104,-14},{-42,-14}},
+          {-104,-40},{-104,-14.5455},{-42,-14.5455}},
                                   color={0,0,127}));
   connect(VHeaWat_flow.y, opeModCon.VWatHot_flow) annotation (Line(points={{-78,-50},
-          {-52,-50},{-52,-6},{-42,-6}},
+          {-52,-50},{-52,-3.63636},{-42,-3.63636}},
                                      color={0,0,127}));
   connect(VChiWat_flow.y, opeModCon.VWatChi_flow) annotation (Line(points={{-78,-80},
-          {-46,-80},{-46,-18},{-42,-18}},       color={0,0,127}));
+          {-46,-80},{-46,-18.1818},{-42,-18.1818}},
+                                                color={0,0,127}));
   connect(ratV_flow.y[1], VHeaWat_flow.u) annotation (Line(points={{-138,-70},{
           -110,-70},{-110,-50},{-102,-50}},
                                      color={0,0,127}));
@@ -147,7 +158,7 @@ equation
           -110,-70},{-110,-80},{-102,-80}},
                                      color={0,0,127}));
   connect(booPul.y, opeModCon.uPlaEna) annotation (Line(points={{-138,50},{-60,
-          50},{-60,6},{-42,6}},
+          50},{-60,7.27273},{-42,7.27273}},
                          color={255,0,255}));
   connect(conInt.y, intEqu.u2) annotation (Line(points={{12,70},{20,70},{20,-8},
           {28,-8}}, color={255,127,0}));
@@ -159,6 +170,16 @@ equation
     annotation (Line(points={{52,0},{68,0}}, color={255,0,255}));
   connect(truDel.y, mulOr.u[1:8]) annotation (Line(points={{92,0},{100,0},{100,
           3.0625},{108,3.0625}}, color={255,0,255}));
+  connect(mulOr.y, edg.u)
+    annotation (Line(points={{132,0},{138,0}}, color={255,0,255}));
+  connect(edg.y, pre.u) annotation (Line(points={{162,0},{168,0},{168,-30},{134,
+          -30},{134,-46},{142,-46}}, color={255,0,255}));
+  connect(pre.y, opeModCon.uProCom) annotation (Line(points={{166,-46},{170,-46},
+          {170,40},{-46,40},{-46,18.1818},{-42,18.1818}}, color={255,0,255}));
+  connect(TChiWatSup.y, opeModCon.TChiSup) annotation (Line(points={{-138,-110},
+          {-48,-110},{-48,-7.27273},{-42,-7.27273}}, color={0,0,127}));
+  connect(TChiWatSupSet.y, opeModCon.TChiSupSet) annotation (Line(points={{-138,
+          -150},{-44,-150},{-44,-10.9091},{-42,-10.9091}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=
