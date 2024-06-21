@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.StagingRotation;
+﻿within Buildings.Templates.Plants.Controls.StagingRotation;
 block EquipmentAvailability
   "Equipment availability for heating and cooling applications"
   parameter Boolean have_heaWat
@@ -15,18 +15,18 @@ block EquipmentAvailability
     "Equipment enable command"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea
-    if have_heaWat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea if
+       have_heaWat
     "Equipment available for heating"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
       iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea
-    if have_heaWat and have_chiWat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea if
+       have_heaWat and have_chiWat
     "Equipment operating mode command"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo
-    if have_chiWat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo if
+       have_chiWat
     "Equipment available for cooling"
     annotation (Placement(transformation(extent={{200,-140},{240,-100}}),
       iconTransformation(extent={{100,-80},{140,-40}})));

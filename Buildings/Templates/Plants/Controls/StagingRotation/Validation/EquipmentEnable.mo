@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
+﻿within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model EquipmentEnable "Validation model for equipment enable logic"
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1AvaEqu(
     table=[

@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.HeatPumps.Components.Data;
+﻿within Buildings.Templates.Plants.HeatPumps.Components.Data;
 record Controller
   "Record for plant controller"
   extends Modelica.Icons.Record;

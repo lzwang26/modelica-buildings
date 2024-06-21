@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.StagingRotation;
+﻿within Buildings.Templates.Plants.Controls.StagingRotation;
 block EventSequencing "Staging event sequencing"
   parameter Boolean have_heaWat
     "Set to true for plants that provide HW"
@@ -39,58 +39,58 @@ block EventSequencing "Staging event sequencing"
     min=0,
     unit="s") = 180
     "Heat pump internal shutdown cycle timing";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea
-    if have_heaWat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea if
+       have_heaWat
     "Enable command from heating mode sequence"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual
-    if have_heaWat and have_pumHeaWatPri
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual if
+       have_heaWat and have_pumHeaWatPri
     "Primary HW pump status (dedicated or lead headered pump)"
     annotation (Placement(transformation(extent={{-200,-30},{-160,10}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual
-    if have_chiWat and have_pumChiWatPri
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual if
+       have_chiWat and have_pumChiWatPri
     "Primary CHW pump status – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{-200,-70},{-160,-30}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatSec_actual
-    if have_heaWat and have_pumHeaWatSec
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatSec_actual if
+       have_heaWat and have_pumHeaWatSec
     "Lead headered secondary HW pump status"
     annotation (Placement(transformation(extent={{-200,-110},{-160,-70}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatSec_actual
-    if have_chiWat and have_pumChiWatSec
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatSec_actual if
+       have_chiWat and have_pumChiWatSec
     "Lead headered secondary CHW pump status"
     annotation (Placement(transformation(extent={{-200,-150},{-160,-110}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatInlIso
-    if have_heaWat and have_valInlIso
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatInlIso if
+       have_heaWat and have_valInlIso
     "Inlet HW inlet isolation valve command"
     annotation (Placement(transformation(extent={{160,20},{200,60}}),
       iconTransformation(extent={{100,0},{140,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatOutIso
-    if have_heaWat and have_valOutIso
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatOutIso if
+       have_heaWat and have_valOutIso
     "Outlet HW isolation valve command"
     annotation (Placement(transformation(extent={{160,0},{200,40}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatInlIso
-    if have_chiWat and have_valInlIso
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatInlIso if
+       have_chiWat and have_valInlIso
     "Inlet CHW isolation valve command"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
       iconTransformation(extent={{100,-40},{140,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatOutIso
-    if have_chiWat and have_valOutIso
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatOutIso if
+       have_chiWat and have_valOutIso
     "Outlet CHW isolation valve command"
     annotation (Placement(transformation(extent={{160,-40},{200,0}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPri
-    if have_heaWat and have_pumHeaWatPri
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPri if
+       have_heaWat and have_pumHeaWatPri
     "Primary HW pump start command – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri
-    if have_chiWat and have_pumChiWatPri
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri if
+       have_chiWat and have_pumChiWatPri
     "Primary CHW pump start command – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{160,-120},{200,-80}}),
       iconTransformation(extent={{100,-120},{140,-80}})));
@@ -98,8 +98,8 @@ block EventSequencing "Staging event sequencing"
     "Equipment enable command"
     annotation (Placement(transformation(extent={{160,120},{200,160}}),
       iconTransformation(extent={{100,100},{140,140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea
-    if have_heaWat and have_chiWat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea if
+       have_heaWat and have_chiWat
     "Heating/cooling mode command: true=heating, false=cooling"
     annotation (Placement(transformation(extent={{160,100},{200,140}}),
       iconTransformation(extent={{100,80},{140,120}})));
@@ -148,8 +148,8 @@ block EventSequencing "Staging event sequencing"
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo
-    if have_chiWat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo if
+       have_chiWat
     "Enable command from cooling mode sequence"
     annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
@@ -168,13 +168,13 @@ block EventSequencing "Staging event sequencing"
     final u_internal=false)
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{-150,130},{-130,150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1AndHea
-    if have_heaWat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1AndHea if
+       have_heaWat
     "Equipment commanded on in heating mode"
     annotation (Placement(transformation(extent={{160,80},{200,120}}),
       iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1AndCoo
-    if have_chiWat
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1AndCoo if
+       have_chiWat
     "Equipment commanded on in cooling mode"
     annotation (Placement(transformation(extent={{160,60},{200,100}}),
       iconTransformation(extent={{100,40},{140,80}})));
@@ -185,13 +185,13 @@ block EventSequencing "Staging event sequencing"
     "Return true if enabled in cooling mode"
     annotation (Placement(transformation(extent={{130,60},{150,80}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rou(
-    final nout=1)
-    if have_pumChiWatPri
+    final nout=1) if
+       have_pumChiWatPri
     "Signal routing for plants with dedicated primary CHW pumps"
     annotation (Placement(transformation(extent={{60,-76},{80,-56}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rou1(
-    final nout=1)
-    if not have_pumChiWatPri
+    final nout=1) if
+       not have_pumChiWatPri
     "Signal routing for plants without dedicated primary CHW pumps"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Nor off
@@ -200,20 +200,20 @@ block EventSequencing "Staging event sequencing"
   Buildings.Controls.OBC.CDL.Logical.Timer timHp(final t=dtOff)
     "Return true when heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch latValHeaWatIso
-    if have_heaWat
+  Buildings.Controls.OBC.CDL.Logical.Latch latValHeaWatIso if
+       have_heaWat
     "Keep valve open until heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch latValChiWatIso
-    if have_chiWat
+  Buildings.Controls.OBC.CDL.Logical.Latch latValChiWatIso if
+       have_chiWat
     "Keep valve open until heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch latPumHeaWatPri
-    if have_heaWat
+  Buildings.Controls.OBC.CDL.Logical.Latch latPumHeaWatPri if
+       have_heaWat
     "Keep pump running until heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch latPumChiWatPri
-    if have_chiWat and have_pumChiWatPri
+  Buildings.Controls.OBC.CDL.Logical.Latch latPumChiWatPri if
+       have_chiWat and have_pumChiWatPri
     "Keep pump running until heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
 equation

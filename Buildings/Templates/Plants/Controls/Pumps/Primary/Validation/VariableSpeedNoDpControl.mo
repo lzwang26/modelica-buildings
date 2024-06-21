@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Pumps.Primary.Validation;
+﻿within Buildings.Templates.Plants.Controls.Pumps.Primary.Validation;
 model VariableSpeedNoDpControl
   "Validation model for the control logic of variable speed primary pumps without ∆p control"
   Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedNoDpControl

@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Enabling;
+﻿within Buildings.Templates.Plants.Controls.Enabling;
 block Enable
   "Plant enable"
   parameter Buildings.Templates.Plants.Controls.Types.Application typ
@@ -32,8 +32,8 @@ block Enable
     final min=0,
     final unit="s")=3 * 60
     "Runtime with low number of request before disabling";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Sch
-    if have_inpSch
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Sch if
+       have_inpSch
     "System enable via schedule"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
@@ -53,8 +53,8 @@ block Enable
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable schEna(
     final table=sch,
-    final period=max(sch[:, 1]))
-    if not have_inpSch
+    final period=max(sch[:, 1])) if
+       not have_inpSch
     "Enable schedule"
     annotation (Placement(transformation(extent={{-150,50},{-130,70}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold greIgn(
@@ -62,13 +62,13 @@ block Enable
     "Return true if number of requests > number of ignored requests"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greLck(
-    final t=TOutLck)
-    if typ == Buildings.Templates.Plants.Controls.Types.Application.Cooling
+    final t=TOutLck) if
+       typ == Buildings.Templates.Plants.Controls.Types.Application.Cooling
     "Return true if OAT > lockout temperature"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesLck(
-    final t=TOutLck)
-    if typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
+    final t=TOutLck) if
+       typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
     "Return true if OAT < lockout temperature"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Pre preEna
@@ -105,13 +105,13 @@ block Enable
     "Return true if low number of requests for specified duration"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lowLckHys(
-    final t=TOutLck - dTOutLck)
-    if typ == Buildings.Templates.Plants.Controls.Types.Application.Cooling
+    final t=TOutLck - dTOutLck) if
+       typ == Buildings.Templates.Plants.Controls.Types.Application.Cooling
     "Return true if OAT < lockout temperature - hysteresis"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greLckHys(
-    final t=TOutLck + dTOutLck)
-    if typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
+    final t=TOutLck + dTOutLck) if
+       typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
     "Return true if OAT > lockout temperature + hysteresis"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And andRun

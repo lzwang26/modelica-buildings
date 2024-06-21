@@ -1,6 +1,7 @@
 within Buildings.Templates.Plants.HeatPumps;
 package Components "Package with component models"
   extends Modelica.Icons.VariantsPackage;
+
   annotation (
     Documentation(
       info="<html>

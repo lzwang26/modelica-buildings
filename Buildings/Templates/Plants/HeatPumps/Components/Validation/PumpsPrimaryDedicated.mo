@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.HeatPumps.Components.Validation;
+﻿within Buildings.Templates.Plants.HeatPumps.Components.Validation;
 model PumpsPrimaryDedicated
   "Validation model for dedicated primary pump component"
   extends Modelica.Icons.Example;

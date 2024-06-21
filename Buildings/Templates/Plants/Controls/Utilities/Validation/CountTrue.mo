@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Utilities.Validation;
+﻿within Buildings.Templates.Plants.Controls.Utilities.Validation;
 model CountTrue "Validation model"
   Utilities.FirstTrueIndex couTru(nin=6) "Return number of true elements"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));

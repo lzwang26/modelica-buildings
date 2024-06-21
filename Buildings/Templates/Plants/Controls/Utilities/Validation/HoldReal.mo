@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.Utilities.Validation;
+﻿within Buildings.Templates.Plants.Controls.Utilities.Validation;
 model HoldReal "Validation model"
   Buildings.Templates.Plants.Controls.Utilities.HoldReal hol(dtHol=0)
     "Hold signal – No minimum hold time"

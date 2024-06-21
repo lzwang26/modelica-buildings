@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.HeatPumps.Validation;
+﻿within Buildings.Templates.Plants.HeatPumps.Validation;
 model AirToWater
   "Validation of AWHP plant template"
   extends Modelica.Icons.Example;
@@ -44,8 +44,8 @@ model AirToWater
     final dp_nominal=0,
     final energyDynamics=energyDynamics,
     tau=300,
-    QMax_flow=pla.capCoo_nominal)
-    if have_chiWat
+    QMax_flow=pla.capCoo_nominal) if
+       have_chiWat
     "CHW system system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage     valDisHeaWat(
@@ -59,8 +59,8 @@ model AirToWater
     redeclare final package Medium=Medium,
     m_flow_nominal=pla.mChiWat_flow_nominal,
     dpValve_nominal=3E4,
-    dpFixed_nominal=datAll.pla.ctl.dpChiWatRemSet_max[1] - 3E4)
-    if have_chiWat
+    dpFixed_nominal=datAll.pla.ctl.dpChiWatRemSet_max[1] - 3E4) if
+       have_chiWat
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
@@ -116,8 +116,8 @@ model AirToWater
       Placement(transformation(extent={{-60,100},{-20,140}}),iconTransformation(
           extent={{-340,-140},{-300,-100}})));
   Interfaces.Bus busPla "Plant control bus" annotation (Placement(
-        transformation(extent={{-100,-40},{-60,0}}), iconTransformation(extent
-          ={{-370,-70},{-330,-30}})));
+        transformation(extent={{-100,-40},{-60,0}}), iconTransformation(extent=
+           {{-370,-70},{-330,-30}})));
   Buildings.Controls.OBC.CDL.Routing.RealVectorFilter dpChiWatRem(
     final nin=pla.cfg.nSenDpChiWatRem,
     final nout=pla.cfg.nSenDpChiWatRem) if have_chiWat
@@ -190,8 +190,8 @@ model AirToWater
     final m_flow_nominal=pla.mChiWat_flow_nominal,
     final dp_nominal=max(
       max(datAll.pla.pumChiWatPri.dp_nominal),
-      max(datAll.pla.pumChiWatSec.dp_nominal)) - datAll.pla.ctl.dpChiWatRemSet_max[1])
-    if have_chiWat
+      max(datAll.pla.pumChiWatSec.dp_nominal)) - datAll.pla.ctl.dpChiWatRemSet_max[1]) if
+       have_chiWat
     "Piping"
     annotation (Placement(transformation(extent={{10,-90},{-10,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=293.15)

@@ -3,21 +3,21 @@ package Types
   "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
   type Application = enumeration(
-    Cooling
+      Cooling
       "Cooling system",
-    Heating
+      Heating
       "Heating system")
     "Enumeration to specify the type of application";
   type Actuator = enumeration(
-    Modulating
+      Modulating
       "Modulating",
-    TwoPosition
+      TwoPosition
       "Two-position")
     "Enumeration to specify the type of actuator";
   type EquipmentConnection = enumeration(
-    Parallel
+      Parallel
       "Parallel piped",
-    Series
+      Series
       "Series piped")
     "Enumeration to specify the type of connection between equipment and primary loop";
   annotation (Documentation(info="<html>
