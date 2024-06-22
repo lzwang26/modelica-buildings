@@ -233,8 +233,8 @@ block OperationModeControl "Sequences for operation mode control"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   CDL.Integers.Switch intSwi
     annotation (Placement(transformation(extent={{360,-10},{380,10}})));
-  CDL.Logical.And                        and6
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+  CDL.Logical.MultiAnd                   and6(nin=3)
+    annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
   CDL.Logical.MultiOr
                  or3(nin=3)
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
@@ -249,7 +249,7 @@ block OperationModeControl "Sequences for operation mode control"
   CDL.Logical.Timer                        tim6(t=dtMod7)
     "Return true if system has been enabled for specified duration"
     annotation (Placement(transformation(extent={{30,90},{50,110}})));
-  CDL.Logical.And                        and9
+  CDL.Logical.MultiAnd                   and9(nin=3)
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   CDL.Logical.Not                        not5
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
@@ -272,10 +272,23 @@ block OperationModeControl "Sequences for operation mode control"
     annotation (Placement(transformation(extent={{-190,-90},{-170,-70}})));
   CDL.Reals.Subtract sub
     annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
-  CDL.Reals.GreaterThreshold                        greThrRetHea2(t=T_HHWRetMax)
+  CDL.Reals.GreaterThreshold                        greThrRetHea2(t=
+        T_CHWSupSetMax)
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
   CDL.Logical.Timer tim8(t=dtMod1)
     annotation (Placement(transformation(extent={{-190,-20},{-170,0}})));
+  CDL.Logical.Edge edg1
+    annotation (Placement(transformation(extent={{-4,-10},{16,10}})));
+  CDL.Logical.Not not6
+    annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
+  CDL.Logical.And                        and11
+    annotation (Placement(transformation(extent={{-22,-44},{-2,-24}})));
+  CDL.Logical.Pre pre1
+    annotation (Placement(transformation(extent={{70,-80},{50,-60}})));
+  CDL.Logical.Pre pre2
+    annotation (Placement(transformation(extent={{140,-10},{120,10}})));
+  CDL.Logical.TrueFalseHold truFalHol[3](trueHoldDuration=30)
+    annotation (Placement(transformation(extent={{-8,14},{12,34}})));
 equation
   connect(TChiRet, lesThr.u)
     annotation (Line(points={{-320,-140},{-274,-140},{-274,110},{-162,110}},
@@ -393,8 +406,6 @@ equation
           -52}}, color={255,0,255}));
   connect(and4.y, latHea2.u) annotation (Line(points={{2,110},{20,110},{20,130},
           {118,130}}, color={255,0,255}));
-  connect(tim.passed, and6.u1) annotation (Line(points={{-78,-88},{-38,-88},{-38,
-          -70},{-22,-70}}, color={255,0,255}));
   connect(and7.y, latCoo3.u) annotation (Line(points={{22,-120},{40,-120},{40,-110},
           {118,-110}}, color={255,0,255}));
   connect(mulInt1.y, mulSumInt.u)
@@ -405,8 +416,6 @@ equation
           -100},{298,-100}}, color={255,0,255}));
   connect(pre.y, and4.u2) annotation (Line(points={{322,-100},{340,-100},{340,-194},
           {-30,-194},{-30,102},{-22,102}},       color={255,0,255}));
-  connect(pre.y, and6.u2) annotation (Line(points={{322,-100},{340,-100},{340,-194},
-          {-30,-194},{-30,-78},{-22,-78}},       color={255,0,255}));
   connect(and8.y, latHea2.clr) annotation (Line(points={{102,110},{118,110},{118,
           124}}, color={255,0,255}));
   connect(tim4.passed, and8.u2) annotation (Line(points={{-38,-18},{70,-18},{70,
@@ -419,10 +428,6 @@ equation
           {-22,80}}, color={255,0,255}));
   connect(and8.y, latHea1.u) annotation (Line(points={{102,110},{108,110},{108,90},
           {118,90}}, color={255,0,255}));
-  connect(and6.y, latCoo1.u) annotation (Line(points={{2,-70},{12,-70},{12,-30},
-          {118,-30}}, color={255,0,255}));
-  connect(uPlaEna, and9.u2) annotation (Line(points={{-320,100},{-160,100},{
-          -160,-58},{-122,-58}},             color={255,0,255}));
   connect(and9.y, tim1.u)
     annotation (Line(points={{-98,-50},{-82,-50}}, color={255,0,255}));
   connect(and5.y, not5.u) annotation (Line(points={{-96,-120},{-90,-120},{-90,-150},
@@ -437,8 +442,6 @@ equation
           -116},{118,-116}}, color={255,0,255}));
   connect(and10.y, latCoo2.u) annotation (Line(points={{82,-130},{100,-130},{100,
           -70},{118,-70}}, color={255,0,255}));
-  connect(gre2.y, and9.u1)
-    annotation (Line(points={{-198,-50},{-122,-50}}, color={255,0,255}));
   connect(TChiSup, gre2.u1) annotation (Line(points={{-320,-60},{-260,-60},{
           -260,-50},{-222,-50}},
                             color={0,0,127}));
@@ -449,8 +452,8 @@ equation
                                                            color={255,0,255}));
   connect(falEdg.y, mulOr.u[1]) annotation (Line(points={{-118,50},{20,50},{20,
           -37.3333},{38,-37.3333}}, color={255,0,255}));
-  connect(tim1.passed, mulOr.u[2]) annotation (Line(points={{-58,-58},{24,-58},
-          {24,-42},{38,-42}}, color={255,0,255}));
+  connect(tim1.passed, mulOr.u[2]) annotation (Line(points={{-58,-58},{22,-58},
+          {22,-42},{38,-42}}, color={255,0,255}));
   connect(and8.y, mulOr.u[3]) annotation (Line(points={{102,110},{108,110},{108,
           30},{30,30},{30,-46.6667},{38,-46.6667}}, color={255,0,255}));
   connect(mulOr1.y, latHea1.clr) annotation (Line(points={{62,70},{104,70},{104,
@@ -459,9 +462,6 @@ equation
           74.6667},{38,74.6667}}, color={255,0,255}));
   connect(falEdg.y, mulOr1.u[2]) annotation (Line(points={{-118,50},{14,50},{14,
           70},{38,70}}, color={255,0,255}));
-  connect(and6.y, mulOr1.u[3]) annotation (Line(points={{2,-70},{12,-70},{12,
-          -30},{36,-30},{36,52},{28,52},{28,65.3333},{38,65.3333}}, color={255,
-          0,255}));
   connect(hys.y, not3.u) annotation (Line(points={{-168,-80},{-152,-80},{-152,0},
           {-142,0}}, color={255,0,255}));
   connect(hys.y, and1.u1)
@@ -474,8 +474,9 @@ equation
           -170},{-232,-74},{-222,-74}}, color={0,0,127}));
   connect(tim2.passed, and7.u[1]) annotation (Line(points={{-46,-128},{-24,-128},
           {-24,-115.333},{-2,-115.333}}, color={255,0,255}));
-  connect(tim.passed, and7.u[2]) annotation (Line(points={{-78,-88},{-38,-88},{-38,
-          -120},{-2,-120}}, color={255,0,255}));
+  connect(tim.passed, and7.u[2]) annotation (Line(points={{-78,-88},{-36,-88},{
+          -36,-120},{-2,-120}},
+                            color={255,0,255}));
   connect(pre.y, and7.u[3]) annotation (Line(points={{322,-100},{340,-100},{340,
           -194},{-30,-194},{-30,-124.667},{-2,-124.667}}, color={255,0,255}));
   connect(TChiSupSet, greThrRetHea2.u) annotation (Line(points={{-320,-100},{
@@ -484,10 +485,44 @@ equation
     annotation (Line(points={{-198,-10},{-192,-10}}, color={255,0,255}));
   connect(and7.y, or3.u[1]) annotation (Line(points={{22,-120},{26,-120},{26,
           -85.3333},{38,-85.3333}}, color={255,0,255}));
-  connect(tim8.passed, or3.u[2]) annotation (Line(points={{-168,-18},{-166,-18},
-          {-166,-34},{8,-34},{8,-90},{38,-90}}, color={255,0,255}));
-  connect(and6.y, or3.u[3]) annotation (Line(points={{2,-70},{20,-70},{20,
+  connect(edg1.y, or3.u[2]) annotation (Line(points={{18,0},{28,0},{28,-90},{38,
+          -90}}, color={255,0,255}));
+  connect(edg1.y, latCoo1.u) annotation (Line(points={{18,0},{68,0},{68,-30},{
+          118,-30}}, color={255,0,255}));
+  connect(edg1.y, mulOr1.u[3]) annotation (Line(points={{18,0},{28,0},{28,
+          65.3333},{38,65.3333}}, color={255,0,255}));
+  connect(edg1.u, and6.y)
+    annotation (Line(points={{-6,0},{-4,0}}, color={255,0,255}));
+  connect(tim.passed, and6.u[1]) annotation (Line(points={{-78,-88},{-36,-88},{
+          -36,4.66667},{-28,4.66667}}, color={255,0,255}));
+  connect(pre.y, and6.u[2]) annotation (Line(points={{322,-100},{340,-100},{340,
+          -194},{-30,-194},{-30,-4},{-28,-4},{-28,0}}, color={255,0,255}));
+  connect(not6.y, and6.u[3]) annotation (Line(points={{-38,16},{-34,16},{-34,
+          -4.66667},{-28,-4.66667}}, color={255,0,255}));
+  connect(tim1.passed, not6.u) annotation (Line(points={{-58,-58},{-48,-58},{
+          -48,-30},{-68,-30},{-68,16},{-62,16}}, color={255,0,255}));
+  connect(tim8.passed, and11.u1) annotation (Line(points={{-168,-18},{-166,-18},
+          {-166,-34},{-24,-34}}, color={255,0,255}));
+  connect(and11.y, or3.u[3]) annotation (Line(points={{0,-34},{8,-34},{8,
           -94.6667},{38,-94.6667}}, color={255,0,255}));
+  connect(latCoo2.y, pre1.u) annotation (Line(points={{142,-70},{150,-70},{150,
+          -50},{80,-50},{80,-70},{72,-70}}, color={255,0,255}));
+  connect(pre1.y, and11.u2) annotation (Line(points={{48,-70},{-24,-70},{-24,
+          -42}}, color={255,0,255}));
+  connect(gre2.y, and9.u[1]) annotation (Line(points={{-198,-50},{-160,-50},{
+          -160,-45.3333},{-122,-45.3333}}, color={255,0,255}));
+  connect(uPlaEna, and9.u[2]) annotation (Line(points={{-320,100},{-160,100},{
+          -160,-50},{-122,-50}}, color={255,0,255}));
+  connect(latCoo1.y, pre2.u)
+    annotation (Line(points={{142,-30},{142,0}}, color={255,0,255}));
+  connect(pre2.y, and9.u[3]) annotation (Line(points={{118,0},{24,0},{24,66},{
+          -146,66},{-146,-54.6667},{-122,-54.6667}}, color={255,0,255}));
+  connect(not6.y, truFalHol[1].u) annotation (Line(points={{-38,16},{-24,16},{
+          -24,24},{-10,24}}, color={255,0,255}));
+  connect(tim.passed, truFalHol[2].u) annotation (Line(points={{-78,-88},{-44,
+          -88},{-44,24},{-10,24}}, color={255,0,255}));
+  connect(pre.y, truFalHol[3].u) annotation (Line(points={{322,-100},{328,-100},
+          {328,38},{-12,38},{-12,24},{-10,24}}, color={255,0,255}));
 annotation (
     defaultComponentName="opeModCon",
     Icon(
