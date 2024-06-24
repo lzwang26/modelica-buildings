@@ -47,7 +47,8 @@ model OperationModeControl
     annotation (Dialog(group="Nominal condition"));
 
   Buildings.Controls.OBC.HeatPumpPlant.OperationModeControl opeModCon(
-      T_CHWRetMin(displayUnit="degC") = 287.15)
+      T_CHWRetMin(displayUnit="degC") = 287.15, T_CHWSupSetMax(displayUnit=
+          "degC") = 282.15)
     annotation (Placement(transformation(extent={{-30,20},{-10,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[3](
@@ -83,8 +84,7 @@ model OperationModeControl
   CDL.Reals.Sources.Constant TChiWatSup1(k=273.15 + 14) "CHWST"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
 
-  CDL.Logical.Sources.Pulse booPul(period=86400*2,
-                                                 shift=30)
+  CDL.Logical.Sources.Pulse booPul(period=86400*2, shift=30)
     annotation (Placement(transformation(extent={{-200,150},{-180,170}})));
   CDL.Integers.Sources.Constant conInt[8](k={Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_3,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_2,
@@ -107,8 +107,8 @@ model OperationModeControl
     annotation (Placement(transformation(extent={{150,30},{170,50}})));
   CDL.Logical.Pre pre
     annotation (Placement(transformation(extent={{154,-16},{174,4}})));
-  CDL.Reals.Sources.Constant TChiWatSupSet(k=273.15 + 9)
-    annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
+  CDL.Reals.Sources.Constant TChiWatSupSet(k=273.15 + 14.5)
+    annotation (Placement(transformation(extent={{-252,-148},{-232,-128}})));
   CDL.Reals.Sources.Constant TChiWatRet2(k=273.15 + 16) "CHWRT"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
   CDL.Reals.Sources.Constant                   THeaWatRet1(k=273.15 + 54)
@@ -122,8 +122,6 @@ model OperationModeControl
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
   CDL.Reals.Switch swi2
     annotation (Placement(transformation(extent={{-150,-120},{-130,-100}})));
-  CDL.Logical.Sources.Constant con1(k=false)
-    annotation (Placement(transformation(extent={{-200,-182},{-180,-162}})));
   CDL.Logical.Pre pre1[8]
     annotation (Placement(transformation(extent={{70,0},{90,20}})));
   CDL.Logical.TrueDelay truDel1(delayTime=14000)
@@ -149,21 +147,33 @@ model OperationModeControl
   CDL.Logical.Not not2
     annotation (Placement(transformation(extent={{70,-120},{90,-100}})));
   CDL.Logical.TrueDelay truDel2(delayTime=7000)
-    annotation (Placement(transformation(extent={{90,-160},{70,-140}})));
-  CDL.Logical.MultiAnd mulAnd1(nin=2)
-    annotation (Placement(transformation(extent={{0,-180},{-20,-160}})));
-  CDL.Logical.Latch lat1
-    annotation (Placement(transformation(extent={{-40,-180},{-60,-160}})));
+    annotation (Placement(transformation(extent={{90,-180},{70,-160}})));
   CDL.Logical.TrueDelay truDel3(delayTime=7000)
-    annotation (Placement(transformation(extent={{70,-200},{50,-180}})));
+    annotation (Placement(transformation(extent={{60,-260},{40,-240}})));
   CDL.Logical.Pre pre3
     annotation (Placement(transformation(extent={{10,-230},{30,-210}})));
-  CDL.Logical.Not not3
-    annotation (Placement(transformation(extent={{30,-200},{10,-180}})));
   CDL.Reals.Switch swi3
     annotation (Placement(transformation(extent={{-130,-150},{-110,-130}})));
   CDL.Reals.Sources.Constant TChiWatSupSet1(k=273.15 + 9)
-    annotation (Placement(transformation(extent={{-200,-218},{-180,-198}})));
+    annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
+  CDL.Logical.Timer tim1(t=7000)
+    annotation (Placement(transformation(extent={{60,-300},{40,-280}})));
+  CDL.Logical.Pre pre4
+    annotation (Placement(transformation(extent={{8,-280},{28,-260}})));
+  CDL.Logical.Latch lat1
+    annotation (Placement(transformation(extent={{-80,-260},{-100,-240}})));
+  CDL.Logical.And and2
+    annotation (Placement(transformation(extent={{-40,-260},{-60,-240}})));
+  CDL.Logical.Not not3
+    annotation (Placement(transformation(extent={{-8,-280},{-28,-260}})));
+  CDL.Logical.Latch lat2
+    annotation (Placement(transformation(extent={{30,-180},{10,-160}})));
+  CDL.Logical.Timer tim2(t=7000)
+    annotation (Placement(transformation(extent={{-120,-280},{-140,-260}})));
+  CDL.Reals.Sources.Constant TChiWatSupSet2(k=273.15 + 9)
+    annotation (Placement(transformation(extent={{-252,-110},{-232,-90}})));
+  CDL.Logical.Timer tim3(t=7000)
+    annotation (Placement(transformation(extent={{-170,-280},{-190,-260}})));
 equation
   connect(con[1].y, opeModCon.uSchHea) annotation (Line(points={{-178,190},{-90,
           190},{-90,54.5455},{-32,54.5455}},
@@ -219,8 +229,8 @@ equation
   connect(TChiWatRet1.y, swi1.u1) annotation (Line(points={{-178,40},{-168,40},
           {-168,38},{-162,38}},
                               color={0,0,127}));
-  connect(TChiWatRet2.y, swi1.u3) annotation (Line(points={{-178,0},{-168,0},{
-          -168,22},{-162,22}},  color={0,0,127}));
+  connect(TChiWatRet2.y, swi1.u3) annotation (Line(points={{-178,0},{-174,0},{
+          -174,22},{-162,22}},  color={0,0,127}));
   connect(swi1.y, opeModCon.TChiRet) annotation (Line(points={{-138,30},{-132,
           30},{-132,25.4545},{-32,25.4545}},
                                          color={0,0,127}));
@@ -230,8 +240,6 @@ equation
           -100},{-160,-118},{-152,-118}}, color={0,0,127}));
   connect(swi2.y, opeModCon.TChiSup) annotation (Line(points={{-128,-110},{-88,
           -110},{-88,32.7273},{-32,32.7273}},   color={0,0,127}));
-  connect(con1.y, swi.u2) annotation (Line(points={{-178,-172},{-166,-172},{
-          -166,80},{-162,80}}, color={255,0,255}));
   connect(intEqu.y, pre1.u) annotation (Line(points={{62,40},{68,40},{68,22},{
           60,22},{60,10},{68,10}}, color={255,0,255}));
   connect(pre1[3].y, truDel1.u) annotation (Line(points={{92,10},{96,10},{96,
@@ -247,7 +255,7 @@ equation
           -16},{22,-16},{22,-48},{28,-48}},     color={255,0,255}));
   connect(pre2.y, tim.u) annotation (Line(points={{22,-80},{60,-80},{60,-40},{
           52,-40}},  color={255,0,255}));
-  connect(lat.y, swi1.u2) annotation (Line(points={{-72,0},{-170,0},{-170,30},{
+  connect(lat.y, swi1.u2) annotation (Line(points={{-72,0},{-168,0},{-168,30},{
           -162,30}}, color={255,0,255}));
   connect(onCouInt.y, intGreEquThr.u)
     annotation (Line(points={{32,-110},{38,-110}}, color={255,127,0}));
@@ -266,31 +274,45 @@ equation
   connect(not2.y, mulAnd.u[3]) annotation (Line(points={{92,-110},{100,-110},{
           100,-4.66667},{-8,-4.66667}},  color={255,0,255}));
   connect(pre1[5].y, truDel2.u) annotation (Line(points={{92,10},{110,10},{110,
-          -150},{92,-150}}, color={255,0,255}));
-  connect(mulAnd1.u[1], truDel2.y) annotation (Line(points={{2,-166.5},{36,
-          -166.5},{36,-150},{68,-150}}, color={255,0,255}));
-  connect(mulAnd1.y, lat1.u)
-    annotation (Line(points={{-22,-170},{-38,-170}}, color={255,0,255}));
-  connect(lat1.y, swi2.u2) annotation (Line(points={{-62,-170},{-156,-170},{
-          -156,-110},{-152,-110}}, color={255,0,255}));
-  connect(not3.u, truDel3.y)
-    annotation (Line(points={{32,-190},{48,-190}}, color={255,0,255}));
-  connect(lat1.y, pre3.u) annotation (Line(points={{-62,-170},{-70,-170},{-70,
-          -220},{8,-220}}, color={255,0,255}));
-  connect(pre3.y, truDel3.u) annotation (Line(points={{32,-220},{80,-220},{80,
-          -190},{72,-190}}, color={255,0,255}));
-  connect(not3.y, mulAnd1.u[2]) annotation (Line(points={{8,-190},{6,-190},{6,
-          -173.5},{2,-173.5}}, color={255,0,255}));
-  connect(truDel3.y, lat1.clr) annotation (Line(points={{48,-190},{40,-190},{40,
-          -202},{-30,-202},{-30,-176},{-38,-176}}, color={255,0,255}));
+          -170},{92,-170}}, color={255,0,255}));
+  connect(pre3.y, truDel3.u) annotation (Line(points={{32,-220},{70,-220},{70,
+          -250},{62,-250}}, color={255,0,255}));
   connect(swi3.y, opeModCon.TChiSupSet) annotation (Line(points={{-108,-140},{
           -84,-140},{-84,29.0909},{-32,29.0909}}, color={0,0,127}));
-  connect(TChiWatSupSet.y, swi3.u1) annotation (Line(points={{-178,-130},{-156,
-          -130},{-156,-132},{-132,-132}}, color={0,0,127}));
-  connect(TChiWatSupSet1.y, swi3.u3) annotation (Line(points={{-178,-208},{-144,
-          -208},{-144,-148},{-132,-148}}, color={0,0,127}));
-  connect(con1.y, swi3.u2) annotation (Line(points={{-178,-172},{-166,-172},{
-          -166,-140},{-132,-140}}, color={255,0,255}));
+  connect(TChiWatSupSet1.y, swi3.u3) annotation (Line(points={{-178,-180},{-144,
+          -180},{-144,-148},{-132,-148}}, color={0,0,127}));
+  connect(truDel3.y, pre4.u) annotation (Line(points={{38,-250},{0,-250},{0,
+          -270},{6,-270}}, color={255,0,255}));
+  connect(pre4.y, tim1.u) annotation (Line(points={{30,-270},{74,-270},{74,-290},
+          {62,-290}}, color={255,0,255}));
+  connect(lat1.y, swi.u2) annotation (Line(points={{-102,-250},{-170,-250},{
+          -170,80},{-162,80}}, color={255,0,255}));
+  connect(tim1.passed, lat1.clr) annotation (Line(points={{38,-298},{-70,-298},
+          {-70,-256},{-78,-256}}, color={255,0,255}));
+  connect(truDel3.y, and2.u1)
+    annotation (Line(points={{38,-250},{-38,-250}}, color={255,0,255}));
+  connect(and2.y, lat1.u)
+    annotation (Line(points={{-62,-250},{-78,-250}}, color={255,0,255}));
+  connect(not3.y, and2.u2) annotation (Line(points={{-30,-270},{-34,-270},{-34,
+          -258},{-38,-258}}, color={255,0,255}));
+  connect(tim1.passed, not3.u) annotation (Line(points={{38,-298},{-4,-298},{-4,
+          -270},{-6,-270}}, color={255,0,255}));
+  connect(truDel2.y, lat2.u)
+    annotation (Line(points={{68,-170},{32,-170}}, color={255,0,255}));
+  connect(lat2.y, swi2.u2) annotation (Line(points={{8,-170},{-156,-170},{-156,
+          -110},{-152,-110}}, color={255,0,255}));
+  connect(lat2.y, pre3.u) annotation (Line(points={{8,-170},{-50,-170},{-50,
+          -220},{8,-220}}, color={255,0,255}));
+  connect(tim2.passed, swi3.u2) annotation (Line(points={{-142,-278},{-150,-278},
+          {-150,-140},{-132,-140}}, color={255,0,255}));
+  connect(tim1.passed, tim2.u) annotation (Line(points={{38,-298},{-70,-298},{
+          -70,-270},{-118,-270}}, color={255,0,255}));
+  connect(con2.y, lat2.clr) annotation (Line(points={{-28,-130},{40,-130},{40,
+          -176},{32,-176}}, color={255,0,255}));
+  connect(tim2.passed, tim3.u) annotation (Line(points={{-142,-278},{-156,-278},
+          {-156,-270},{-168,-270}}, color={255,0,255}));
+  connect(TChiWatSupSet.y, swi3.u1) annotation (Line(points={{-230,-138},{-180,
+          -138},{-180,-132},{-132,-132}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=
