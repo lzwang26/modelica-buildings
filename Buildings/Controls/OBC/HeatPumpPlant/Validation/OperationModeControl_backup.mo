@@ -112,33 +112,34 @@ model OperationModeControl_backup
   CDL.Logical.Pre pre1
     annotation (Placement(transformation(extent={{122,-8},{142,12}})));
 equation
-  connect(con[1].y, opeModCon.uSchHea) annotation (Line(points={{-108,80},{-20,80},
-          {-20,14},{-12,14}},          color={255,0,255}));
-  connect(con[2].y, opeModCon.uSchCoo1) annotation (Line(points={{-108,80},{-20,
-          80},{-20,10},{-12,10}},
-                            color={255,0,255}));
+  connect(con[1].y, opeModCon.uHotTanCha) annotation (Line(points={{-108,80},{
+          -20,80},{-20,14.5455},{-12,14.5455}}, color={255,0,255}));
+  connect(con[2].y, opeModCon.uCooTanCha) annotation (Line(points={{-108,80},{
+          -20,80},{-20,10.9091},{-12,10.9091}}, color={255,0,255}));
   connect(THeaWatSup.y, opeModCon.THeaSupSet) annotation (Line(points={{-118,20},
-          {-40,20},{-40,2},{-12,2}},color={0,0,127}));
+          {-40,20},{-40,3.63636},{-12,3.63636}},
+                                    color={0,0,127}));
   connect(TChiWatSup.y, opeModCon.TChiSupSet)
-    annotation (Line(points={{-88,0},{-50,0},{-50,-10},{-12,-10}},
+    annotation (Line(points={{-88,0},{-50,0},{-50,-10.9091},{-12,-10.9091}},
                                                             color={0,0,127}));
-  connect(THeaWatRet.y, opeModCon.THeaRet) annotation (Line(points={{-118,-20},{
-          -82,-20},{-82,-2},{-12,-2}},
+  connect(THeaWatRet.y, opeModCon.THeaRet) annotation (Line(points={{-118,-20},
+          {-82,-20},{-82,0},{-12,0}},
                                   color={0,0,127}));
-  connect(TChiWatRet.y,opeModCon.TChiRet)  annotation (Line(points={{-88,-40},{-74,
-          -40},{-74,-14},{-12,-14}},
+  connect(TChiWatRet.y,opeModCon.TChiRet)  annotation (Line(points={{-88,-40},{
+          -74,-40},{-74,-14.5455},{-12,-14.5455}},
                                   color={0,0,127}));
   connect(VHeaWat_flow.y, opeModCon.VWatHot_flow) annotation (Line(points={{-48,-50},
-          {-22,-50},{-22,-6},{-12,-6}},
+          {-22,-50},{-22,-3.63636},{-12,-3.63636}},
                                      color={0,0,127}));
   connect(VChiWat_flow.y, opeModCon.VWatChi_flow) annotation (Line(points={{-48,-80},
-          {-16,-80},{-16,-18},{-12,-18}},       color={0,0,127}));
+          {-16,-80},{-16,-18.1818},{-12,-18.1818}},
+                                                color={0,0,127}));
   connect(ratV_flow.y[1], VHeaWat_flow.u) annotation (Line(points={{-108,-70},{-80,
           -70},{-80,-50},{-72,-50}}, color={0,0,127}));
   connect(ratV_flow.y[2], VChiWat_flow.u) annotation (Line(points={{-108,-70},{-80,
           -70},{-80,-80},{-72,-80}}, color={0,0,127}));
-  connect(booPul.y, opeModCon.uPlaEna) annotation (Line(points={{-108,50},{-30,50},
-          {-30,6},{-12,6}},
+  connect(booPul.y, opeModCon.uPlaEna) annotation (Line(points={{-108,50},{-30,
+          50},{-30,7.27273},{-12,7.27273}},
                          color={255,0,255}));
   connect(opeModCon.yOpeMod, cha.u)
     annotation (Line(points={{12,0},{18,0}}, color={255,127,0}));
@@ -153,7 +154,7 @@ equation
   connect(tim.passed, pre1.u) annotation (Line(points={{104,-28},{114,-28},{114,
           2},{120,2}}, color={255,0,255}));
   connect(pre1.y, opeModCon.uProCom) annotation (Line(points={{144,2},{150,2},{
-          150,28},{-16,28},{-16,18},{-12,18}},
+          150,28},{-16,28},{-16,18.1818},{-12,18.1818}},
                                   color={255,0,255}));
   annotation (
     __Dymola_Commands(
