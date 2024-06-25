@@ -310,8 +310,8 @@ equation
           {-136,-130},{-136,-70},{-132,-70}}, color={255,0,255}));
   connect(latTChiWatSup.y, preTChiWatSup.u) annotation (Line(points={{28,-130},
           {-30,-130},{-30,-160},{28,-160}}, color={255,0,255}));
-  connect(timTChiWatSupSet.passed, swiTChiWatSupSet.u2) annotation (Line(points
-        ={{-122,-218},{-130,-218},{-130,-100},{-112,-100}}, color={255,0,255}));
+  connect(timTChiWatSupSet.passed, swiTChiWatSupSet.u2) annotation (Line(points=
+         {{-122,-218},{-130,-218},{-130,-100},{-112,-100}}, color={255,0,255}));
   connect(timTHotWatRet.passed, timTChiWatSupSet.u) annotation (Line(points={{
           58,-238},{-50,-238},{-50,-210},{-98,-210}}, color={255,0,255}));
   connect(TChiWatSupSet1.y, swiTChiWatSupSet.u1) annotation (Line(points={{-158,
