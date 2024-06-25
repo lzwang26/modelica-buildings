@@ -74,51 +74,45 @@ block OperationModeControl "Sequences for operation mode control"
     final quantity="time") = 900
     "Minimum run time for each operation mode";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSchHea
-    "Heating mode enable via schedule"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotTanCha
+    "Hot thermal energy storage dedicated charging mode enable signal"
     annotation (Placement(transformation(extent={{-340,160},{-300,200}}),
-      iconTransformation(extent={{-140,140},{-100,180}})));
+        iconTransformation(extent={{-140,140},{-100,180}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSchCoo1
-    "Cooling mode enable via schedule 1"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooTanCha
+    "Cold thermal energy storage dedicated charging mode enable signal"
     annotation (Placement(transformation(extent={{-340,120},{-300,160}}),
-      iconTransformation(extent={{-140,100},{-100,140}})));
+        iconTransformation(extent={{-140,100},{-100,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(final unit="K",
-      displayUnit="degC")
-    "Heating supply temperature setpoint used to compute required heating load"
+      displayUnit="degC") "Heating hot water loop supply temperature setpoint"
     annotation (Placement(transformation(extent={{-340,40},{-300,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaRet(
     final unit="K",
-    displayUnit="degC")
-    "Return temperature used to compute required heating or cooling load"
+    displayUnit="degC") "Heating hot water loop return temperature"
     annotation (Placement(transformation(extent={{-340,0},{-300,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VWatHot_flow(final unit=
-        "m3/s")
-    "Hot water volume flow rate used to compute required heating load"
+        "m3/s") "Heating hot water loop volume flow rate"
     annotation (Placement(transformation(extent={{-340,-40},{-300,0}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiSupSet(final unit="K",
-      displayUnit="degC")
-    "Cooling supply temperature setpoint used to compute required cooling load"
+      displayUnit="degC") "Chilled water loop supply temperature setpoint"
     annotation (Placement(transformation(extent={{-340,-120},{-300,-80}}),
         iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiRet(
     final unit="K",
-    displayUnit="degC")
-    "Return temperature used to compute required cooling load"
+    displayUnit="degC") "Chilled water loop return temperature"
     annotation (Placement(transformation(extent={{-340,-160},{-300,-120}}),
       iconTransformation(extent={{-140,-180},{-100,-140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VWatChi_flow(final unit=
-        "m3/s")
-    "Chilled water volume flow rate used to compute required cooling load"
+        "m3/s") "Chilled water loop volume flow rate"
     annotation (Placement(transformation(extent={{-340,-200},{-300,-160}}),
         iconTransformation(extent={{-140,-220},{-100,-180}})));
 
@@ -127,43 +121,39 @@ block OperationModeControl "Sequences for operation mode control"
     annotation (Placement(transformation(extent={{400,-20},{440,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timEnaHea2(t=dtMod7)
+    "Enable heating-2 only when enable conditions are continuously met for threshold time duration"
+    annotation (Placement(transformation(extent={{-30,140},{-10,160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim3(
-    t=dtMod7)
-    "Return true if system has been enabled for specified duration"
-    annotation (Placement(transformation(extent={{-82,100},{-62,120}})));
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThrCHWRet(t=T_CHWRetMin)
+    "Check if the chilled water loop return temperature is lower than the the minimum allowed return temperature"
+    annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
 
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
-    t=T_CHWRetMin)
-    annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timCoo1(t=dtMod3)
+    "Check if enable conditon is continuously true for threshold time duration"
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1(
-    t=dtMod3)
-    "Return true if system has been enabled for specified duration"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timEnaCoo3(t=dtMod5)
+    "Check if enable conditon is continuously true for threshold time duration"
+    annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim2(
-    t=dtMod5)
-    "Return true if system has been enabled for specified duration"
-    annotation (Placement(transformation(extent={{-68,-130},{-48,-110}})));
-
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrRetHea1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrEnaCoo3(
     t=T_HHWRetMax)
-    annotation (Placement(transformation(extent={{-168,-130},{-148,-110}})));
+    "Check if hot water loop return temperature is greater than the maximum allowed temperature"
+    annotation (Placement(transformation(extent={{-220,-160},{-200,-140}})));
 
   RequiredCapacity capReqHea(rho_default=rho_default, cp_default=cp_default,
     dtMea=dtMea)             "Required heating capacity"
     annotation (Placement(transformation(extent={{-260,20},{-240,40}})));
   RequiredCapacity capReqCoo(rho_default=rho_default, cp_default=cp_default,
     dtMea=dtMea)             "Required cooling capacity"
-    annotation (Placement(transformation(extent={{-260,-180},{-240,-160}})));
-  CDL.Logical.Latch latDis
+    annotation (Placement(transformation(extent={{-260,-140},{-240,-120}})));
+  CDL.Logical.Latch latDis "Latch to hold plant disable status"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
-  CDL.Conversions.BooleanToInteger booToInt1[8]
-    annotation (Placement(transformation(extent={{184,-30},{204,-10}})));
-  CDL.Integers.Sources.Constant conInt[8](k={Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_3,
+  CDL.Conversions.BooleanToInteger booToIntOpeMod[8]
+    "Convert operation mode enable signals to Integers"
+    annotation (Placement(transformation(extent={{180,-30},{200,-10}})));
+  CDL.Integers.Sources.Constant conIntOpeMods[8](k={Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_3,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_2,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_1,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Disabled,
@@ -171,323 +161,476 @@ block OperationModeControl "Sequences for operation mode control"
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Cooling_2,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Cooling_3,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Cooling_4})
-    annotation (Placement(transformation(extent={{184,10},{204,30}})));
-  CDL.Integers.Multiply mulInt1[8]
-    annotation (Placement(transformation(extent={{224,-10},{244,10}})));
-  CDL.Integers.MultiSum mulSumInt(nin=8)
+    "Constant Integer sources for the various available operation modes"
+    annotation (Placement(transformation(extent={{180,10},{200,30}})));
+  CDL.Integers.Multiply mulIntOpeMod[8]
+    "Output non-zero integer value only for enabled mode"
+    annotation (Placement(transformation(extent={{220,-10},{240,10}})));
+  CDL.Integers.MultiSum mulSumIntOpeMod(nin=8)
+    "Sum all mode integer outputs to determine currently enabled mode"
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
   CDL.Interfaces.BooleanInput uProCom "Staging process completion signal"
     annotation (Placement(transformation(extent={{-340,200},{-300,240}}),
         iconTransformation(extent={{-140,180},{-100,220}})));
-  CDL.Logical.Not not3
-    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  CDL.Logical.Timer                        tim4(t=dtMod1)
-    "Return true if system has been enabled for specified duration"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  CDL.Logical.Latch latCoo1
+  CDL.Logical.Not notCooLoa "Check if dominant load is heating and not cooling"
+    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
+  CDL.Logical.Timer timEnaHea1(t=dtMod1)
+    "Check if the conditions for enabling heating-1 are continuously met for threshold time duration"
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+  CDL.Logical.Latch latCoo1 "Latch to hold enable status of cooling-1 mode"
     annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
-  CDL.Logical.Latch latHea1
+  CDL.Logical.Latch latHea1 "Latch to hold enable status of heating-1 mode"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
-  CDL.Logical.Latch latHea2
+  CDL.Logical.Latch latHea2 "Latch to hold enable status of heating-2 mode"
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
-  CDL.Logical.Latch latHea3
+  CDL.Logical.Latch latHea3 "Latch to hold enable status of heating-3 mode"
     annotation (Placement(transformation(extent={{120,160},{140,180}})));
   CDL.Logical.Not                        not4
+    "Disable latch when input signal becomes false"
     annotation (Placement(transformation(extent={{60,140},{80,160}})));
-  CDL.Interfaces.BooleanInput uPlaEna "Staging process completion signal"
+  CDL.Interfaces.BooleanInput uPlaEna "Plant enable signal"
     annotation (Placement(transformation(extent={{-340,80},{-300,120}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  CDL.Logical.Timer tim(t=dtMod1)
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  CDL.Logical.And                        and2
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  CDL.Logical.FallingEdge falEdg
-    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  CDL.Logical.Edge edg
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  CDL.Logical.Latch latCoo2
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
-  CDL.Logical.Latch latCoo3
-    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
-  CDL.Logical.Latch latCoo4
+  CDL.Logical.MultiAnd mulAndEnaHea1(nin=3)
+    "Enable heating-1 only when the plant is enabled and other conditions are met"
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+  CDL.Logical.FallingEdge falEdgPlaEna
+    "Detect plant enable signal changing from enable to disable"
+    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
+  CDL.Logical.Latch latCoo2 "Latch to hold enable status of cooling-2 mode"
+    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
+  CDL.Logical.Latch latCoo3 "Latch to hold enable status of cooling-3 mode"
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
-  CDL.Logical.And                        and5
-    annotation (Placement(transformation(extent={{-118,-130},{-98,-110}})));
-  CDL.Logical.Not                        not1
-    annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
-  CDL.Logical.Latch latCoo5
+  CDL.Logical.Latch latCoo4 "Latch to hold enable status of cooling-4 mode"
+    annotation (Placement(transformation(extent={{120,-210},{140,-190}})));
+  CDL.Logical.And andEnaCoo3
+    "Enable cooling-3 only if the plant is enabled and other conditions are met"
+    annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
+  CDL.Logical.Not notDisCoo4
+    "Check if enable condition for cooling-4 is not met"
+    annotation (Placement(transformation(extent={{60,-230},{80,-210}})));
+  CDL.Logical.Latch latOpeMod "Latch to drive minimum runtime timer"
     annotation (Placement(transformation(extent={{230,-60},{250,-40}})));
-  CDL.Integers.Change cha
+  CDL.Integers.Change chaOpeMod "Detect changes in operation mode output"
     annotation (Placement(transformation(extent={{190,-90},{210,-70}})));
-  CDL.Logical.Timer tim5(t=tMinRun)
+  CDL.Logical.Timer timOpeMod(t=tMinRun)
+    "Check if operation mode has been enabled for minimum runtime duration"
     annotation (Placement(transformation(extent={{260,-60},{280,-40}})));
-  CDL.Conversions.IntegerToReal intToRea
+  CDL.Conversions.IntegerToReal intToReaOpeMod
+    "Convert operation mode output integer to real signal for sampling"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
-  CDL.Discrete.TriggeredSampler triSam
+  CDL.Discrete.TriggeredSampler triSamOpeMod
+    "Sample output when operation mode changes"
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  CDL.Conversions.RealToInteger reaToInt
+  CDL.Conversions.RealToInteger reaToIntOpeMod
+    "Convert sampled real value back to integer"
     annotation (Placement(transformation(extent={{360,-50},{380,-30}})));
-  CDL.Logical.And                        and3
-    annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  CDL.Logical.And                        and4
-    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  CDL.Integers.Switch intSwi
+  CDL.Logical.And andEnaHea2
+    "Enable heating-2 only when plant is enabled and condition is met"
+    annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
+  CDL.Integers.Switch intSwiOpeMod
+    "Switch to hold previously enabled operation mode when minimum run time threshold has not been crossed"
     annotation (Placement(transformation(extent={{360,-10},{380,10}})));
-  CDL.Logical.And                        and6
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  CDL.Logical.MultiOr
-                 or3(nin=3)
-    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  CDL.Logical.MultiAnd                   and7(nin=3)
-    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
-  CDL.Logical.Pre pre
+  CDL.Logical.Pre preMinRun
+    "Pre block for routing back signal indicating minimum runtime threshold has been crossed"
     annotation (Placement(transformation(extent={{300,-110},{320,-90}})));
-  CDL.Logical.And and8
-    annotation (Placement(transformation(extent={{80,100},{100,120}})));
-  CDL.Logical.Not not2
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+  CDL.Logical.Not notDisHea2 "Check if enable status is not met for heating-2"
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   CDL.Logical.Timer                        tim6(t=dtMod7)
-    "Return true if system has been enabled for specified duration"
-    annotation (Placement(transformation(extent={{30,90},{50,110}})));
-  CDL.Logical.And                        and9
-    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-  CDL.Logical.Not                        not5
-    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  CDL.Logical.Timer                        tim7(t=dtMod5)
-    "Return true if system has been enabled for specified duration"
-    annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
-  CDL.Logical.And and10
-    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  CDL.Reals.Greater                        gre2(h=1)
-    annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
+    "Disable heating-2 only when disable conditions are continuously met for threshold time duration"
+    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
+  CDL.Logical.MultiAnd andEnaCoo1(nin=3)
+    "Enable lowest cooling dominant mode operation only when plant is enabled and current mode is disabled or lowest heating"
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+  CDL.Logical.Not notDisCoo3
+    "Check if enable condition for cooling-3 is not met"
+    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
+  CDL.Logical.Timer timDisCoo3(t=dtMod5)
+    "Check if disable conditon is continuously true for threshold time duration"
+    annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
+  CDL.Reals.Greater greChiSup
+    "Check if chilled water loop supply temperature is greater than setpoint"
+    annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
   CDL.Interfaces.RealInput TChiSup(final unit="K", displayUnit="degC")
-    "Measured chilled water supply temperature" annotation (Placement(
+    "Measured chilled water loop supply temperature"
+                                                annotation (Placement(
         transformation(extent={{-340,-80},{-300,-40}}),  iconTransformation(
           extent={{-140,-100},{-100,-60}})));
-  CDL.Logical.MultiOr mulOr(nin=3)
-    annotation (Placement(transformation(extent={{40,-52},{60,-32}})));
-  CDL.Logical.MultiOr mulOr1(nin=3)
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  CDL.Reals.Hysteresis hys(uLow=-500, uHigh=500)
-    annotation (Placement(transformation(extent={{-190,-90},{-170,-70}})));
-  CDL.Reals.Subtract sub
-    annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
-  CDL.Reals.GreaterThreshold                        greThrRetHea2(t=T_HHWRetMax)
-    annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
-  CDL.Logical.Timer tim8(t=dtMod1)
-    annotation (Placement(transformation(extent={{-190,-20},{-170,0}})));
+  CDL.Reals.Hysteresis hysDomLoa(uLow=-500, uHigh=500)
+    "Determine dominant load between hot water and chilled water loop"
+    annotation (Placement(transformation(extent={{-190,-50},{-170,-30}})));
+  CDL.Reals.Subtract subDomLoa
+    "Relative difference between the calculated loads on the hot water loop and the chilled water loop"
+    annotation (Placement(transformation(extent={{-220,-50},{-200,-30}})));
+  CDL.Reals.GreaterThreshold                        greThrDisCoo2(t=
+        T_CHWSupSetMax)
+    "Check if chilled water loop supply temperature setpoint is greater than maximum allowed setpoint on the heat recovery heat pump"
+    annotation (Placement(transformation(extent={{-220,-120},{-200,-100}})));
+  CDL.Logical.Timer timDisCoo2(t=dtMod1)
+    "Check if disable conditon is continuously true for threshold time duration"
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+  CDL.Logical.Pre pre1[8]
+    "Pre block for routing back enable status signals of the various operation modes"
+    annotation (Placement(transformation(extent={{180,60},{200,80}})));
+  CDL.Logical.MultiOr mulOrDisHea1(nin=3)
+    "Check conditions for disabling heating-1"
+    annotation (Placement(transformation(extent={{80,60},{100,80}})));
+  CDL.Logical.And andEnaPreModHea2
+    "Enable heating-2 only when previous mode is heating-1"
+    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
+  CDL.Logical.And                        and6
+    "Disable heating-2 only when it is enabled"
+    annotation (Placement(transformation(extent={{-50,100},{-30,120}})));
+  CDL.Logical.Or orEnaHea1
+    "Enable heating-1 either when conditions are satisfied or when heating-2 is disabled"
+    annotation (Placement(transformation(extent={{80,90},{100,110}})));
+  CDL.Logical.Or orOpeModEnaHea1
+    "Check if current operating mode is disabled or cooling-1"
+    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
+  CDL.Logical.And andMinRunEnaHea2
+    "Enable mode only when previous mode has been enabled for minimum runtime"
+    annotation (Placement(transformation(extent={{10,140},{30,160}})));
+  CDL.Logical.And andMinRunDisHea2
+    "Disable and enable modes only when previous mode has been enabled for minimum runtime"
+    annotation (Placement(transformation(extent={{10,100},{30,120}})));
+  CDL.Logical.And andMinRunEnaHea1
+    "Enable mode only when previous mode has been enabled for minimum runtime"
+    annotation (Placement(transformation(extent={{10,70},{30,90}})));
+  CDL.Logical.Or orOpeModEnaCoo1
+    "Enable cooling-1 only if previous operation modes are disabled or heating-1"
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+  CDL.Logical.And andMinRunEnaCoo1
+    "Enable mode only after previous mode has been active for minimum run time"
+    annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
+  CDL.Logical.MultiOr mulOrDisCoo1(nin=3)
+    "Disable cooling-1 when any of the disable conditions become true"
+    annotation (Placement(transformation(extent={{80,-64},{100,-44}})));
+  CDL.Logical.MultiAnd mulAndEnaCoo2(nin=3)
+    "Enable cooling-2 only if plant is enabled and other conditions are met"
+    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+  CDL.Logical.Timer timEnaCoo2(t=dtMod3)
+    "Check if enable conditon is continuously true for threshold time duration"
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+  CDL.Logical.Or orEnaCoo2 "Check all conditions for enabling cooling-2"
+    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
+  CDL.Logical.And andMinRunEnaCoo2
+    "Enable mode only after previous mode has been active for minimum run time"
+    annotation (Placement(transformation(extent={{10,-80},{30,-60}})));
+  CDL.Logical.Or orDisCoo5 "Check all conditions for disabling cooling-2"
+    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
+  CDL.Logical.And andMinRunDisCoo2
+    "Disable mode only after previous mode has been active for minimum run time"
+    annotation (Placement(transformation(extent={{10,-120},{30,-100}})));
+  CDL.Logical.MultiAnd andDisCoo2(nin=3)
+    "Disable cooling-2 when the plant is enabled and other conditions are met"
+    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
+  CDL.Logical.And andOpeModEnaCoo3
+    "Enable cooling-3 only if the previous mode was cooling-2"
+    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+  CDL.Logical.And andMinRunEnaCoo3
+    "Enable mode only after previous mode has been active for minimum run time"
+    annotation (Placement(transformation(extent={{10,-160},{30,-140}})));
+  CDL.Logical.And andDisCoo3
+    "Disable cooling-3 only if the current operating mode is cooling-3"
+    annotation (Placement(transformation(extent={{-70,-190},{-50,-170}})));
+  CDL.Logical.And andMinRunDisCoo3
+    "Disable mode only after previous mode has been active for minimum run time"
+    annotation (Placement(transformation(extent={{10,-190},{30,-170}})));
+  CDL.Logical.Or orDisPla "Check conditions for setting disable mode latch"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  CDL.Logical.Not notDisPla "Check if plant is disabled"
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+  CDL.Logical.Or orEnaPla "Check for conditions for enabling plant"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  CDL.Logical.Or orEnaCoo1
+    "Enable cooling mode-1 when either enable conditios are met"
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 equation
-  connect(TChiRet, lesThr.u)
-    annotation (Line(points={{-320,-140},{-274,-140},{-274,110},{-162,110}},
-                                                     color={0,0,127}));
-  connect(THeaRet,greThrRetHea1. u)
-    annotation (Line(points={{-320,20},{-290,20},{-290,-120},{-170,-120}},
+  connect(TChiRet, lesThrCHWRet.u) annotation (Line(points={{-320,-140},{-274,-140},
+          {-274,150},{-202,150}}, color={0,0,127}));
+  connect(THeaRet,greThrEnaCoo3. u)
+    annotation (Line(points={{-320,20},{-280,20},{-280,-150},{-222,-150}},
                                                      color={0,0,127}));
   connect(THeaSupSet, capReqHea.TSupSet) annotation (Line(points={{-320,60},{
           -292,60},{-292,34},{-262,34}},
                                        color={0,0,127}));
-  connect(THeaRet, capReqHea.TRet) annotation (Line(points={{-320,20},{-284,20},
-          {-284,30},{-262,30}},    color={0,0,127}));
+  connect(THeaRet, capReqHea.TRet) annotation (Line(points={{-320,20},{-280,20},
+          {-280,30},{-262,30}},    color={0,0,127}));
   connect(VWatHot_flow, capReqHea.V_flow) annotation (Line(points={{-320,-20},{
           -266,-20},{-266,26},{-262,26}}, color={0,0,127}));
-  connect(TChiSupSet, capReqCoo.TSupSet) annotation (Line(points={{-320,-100},{
-          -270,-100},{-270,-166},{-262,-166}}, color={0,0,127}));
-  connect(TChiRet, capReqCoo.TRet) annotation (Line(points={{-320,-140},{-292,
-          -140},{-292,-170},{-262,-170}}, color={0,0,127}));
-  connect(VWatChi_flow, capReqCoo.V_flow) annotation (Line(points={{-320,-180},
-          {-270,-180},{-270,-174},{-262,-174}}, color={0,0,127}));
-  connect(conInt.y, mulInt1.u1) annotation (Line(points={{206,20},{214,20},{214,
-          6},{222,6}},  color={255,127,0}));
-  connect(booToInt1.y, mulInt1.u2) annotation (Line(points={{206,-20},{214,-20},
-          {214,-6},{222,-6}},
-                        color={255,127,0}));
-  connect(latDis.y, booToInt1[4].u) annotation (Line(points={{142,50},{160,50},{
-          160,-20},{182,-20}}, color={255,0,255}));
+  connect(TChiSupSet, capReqCoo.TSupSet) annotation (Line(points={{-320,-100},{-270,
+          -100},{-270,-126},{-262,-126}},      color={0,0,127}));
+  connect(TChiRet, capReqCoo.TRet) annotation (Line(points={{-320,-140},{-274,-140},
+          {-274,-130},{-262,-130}},       color={0,0,127}));
+  connect(VWatChi_flow, capReqCoo.V_flow) annotation (Line(points={{-320,-180},{
+          -270,-180},{-270,-134},{-262,-134}},  color={0,0,127}));
+  connect(conIntOpeMods.y, mulIntOpeMod.u1) annotation (Line(points={{202,20},{
+          214,20},{214,6},{218,6}}, color={255,127,0}));
+  connect(booToIntOpeMod.y, mulIntOpeMod.u2) annotation (Line(points={{202,-20},
+          {214,-20},{214,-6},{218,-6}}, color={255,127,0}));
+  connect(latDis.y, booToIntOpeMod[4].u) annotation (Line(points={{142,50},{160,
+          50},{160,-20},{178,-20}}, color={255,0,255}));
   connect(not4.y, latHea3.clr) annotation (Line(points={{82,150},{112,150},{112,
           164},{118,164}}, color={255,0,255}));
-  connect(latHea3.y, booToInt1[1].u) annotation (Line(points={{142,170},{160,170},
-          {160,-20},{182,-20}}, color={255,0,255}));
-  connect(uPlaEna, and1.u2) annotation (Line(points={{-320,100},{-160,100},{
-          -160,-88},{-142,-88}},
-                       color={255,0,255}));
-  connect(and1.y, tim.u)
-    annotation (Line(points={{-118,-80},{-102,-80}},color={255,0,255}));
-  connect(not3.y, and2.u1)
-    annotation (Line(points={{-118,0},{-112,0},{-112,-10},{-102,-10}},
-                                                     color={255,0,255}));
-  connect(uPlaEna, and2.u2) annotation (Line(points={{-320,100},{-160,100},{
-          -160,-18},{-102,-18}},             color={255,0,255}));
-  connect(uPlaEna, falEdg.u) annotation (Line(points={{-320,100},{-160,100},{
-          -160,50},{-142,50}},
-                          color={255,0,255}));
-  connect(falEdg.y, latDis.u)
-    annotation (Line(points={{-118,50},{118,50}}, color={255,0,255}));
-  connect(uPlaEna, edg.u) annotation (Line(points={{-320,100},{-160,100},{-160,
-          30},{-102,30}},
-                      color={255,0,255}));
-  connect(edg.y, latDis.clr) annotation (Line(points={{-78,30},{-20,30},{-20,44},
-          {118,44}}, color={255,0,255}));
-  connect(and2.y, tim4.u)
-    annotation (Line(points={{-78,-10},{-62,-10}}, color={255,0,255}));
-  connect(latHea1.y, booToInt1[3].u) annotation (Line(points={{142,90},{160,90},
-          {160,-20},{182,-20}}, color={255,0,255}));
-  connect(latHea2.y, booToInt1[2].u) annotation (Line(points={{142,130},{160,130},
-          {160,-20},{182,-20}}, color={255,0,255}));
-  connect(latCoo1.y, booToInt1[5].u) annotation (Line(points={{142,-30},{160,-30},
-          {160,-20},{182,-20}}, color={255,0,255}));
-  connect(greThrRetHea1.y, and5.u1)
-    annotation (Line(points={{-146,-120},{-120,-120}}, color={255,0,255}));
-  connect(and5.y, tim2.u)
-    annotation (Line(points={{-96,-120},{-70,-120}}, color={255,0,255}));
-  connect(uPlaEna, and5.u2) annotation (Line(points={{-320,100},{-160,100},{
-          -160,-100},{-130,-100},{-130,-128},{-120,-128}},             color={255,
-          0,255}));
-  connect(uSchHea, not4.u) annotation (Line(points={{-320,180},{40,180},{40,150},
-          {58,150}}, color={255,0,255}));
-  connect(uSchHea, latHea3.u) annotation (Line(points={{-320,180},{40,180},{40,170},
-          {118,170}}, color={255,0,255}));
-  connect(uSchCoo1, latCoo4.u) annotation (Line(points={{-320,140},{-234,140},{-234,
-          -180},{40,-180},{40,-160},{118,-160}},
-                             color={255,0,255}));
-  connect(latCoo2.y, booToInt1[6].u) annotation (Line(points={{142,-70},{160,-70},
-          {160,-20},{182,-20}}, color={255,0,255}));
-  connect(latCoo3.y, booToInt1[7].u) annotation (Line(points={{142,-110},{160,-110},
-          {160,-20},{182,-20}}, color={255,0,255}));
-  connect(latCoo4.y, booToInt1[8].u) annotation (Line(points={{142,-160},{160,-160},
-          {160,-20},{182,-20}}, color={255,0,255}));
-  connect(not1.y, latCoo4.clr) annotation (Line(points={{82,-180},{112,-180},{112,
-          -166},{118,-166}}, color={255,0,255}));
-  connect(uSchCoo1, not1.u) annotation (Line(points={{-320,140},{-234,140},{-234,
-          -180},{58,-180}},                     color={255,0,255}));
-  connect(mulSumInt.y, cha.u) annotation (Line(points={{282,0},{290,0},{290,-32},
-          {176,-32},{176,-80},{188,-80}}, color={255,127,0}));
-  connect(cha.y, latCoo5.clr) annotation (Line(points={{212,-80},{220,-80},{220,
-          -56},{228,-56}}, color={255,0,255}));
-  connect(uProCom, latCoo5.u) annotation (Line(points={{-320,220},{168,220},{168,
-          -50},{228,-50}}, color={255,0,255}));
-  connect(latCoo5.y, tim5.u)
+  connect(latHea3.y, booToIntOpeMod[1].u) annotation (Line(points={{142,170},{
+          160,170},{160,-20},{178,-20}}, color={255,0,255}));
+  connect(uPlaEna, falEdgPlaEna.u) annotation (Line(points={{-320,100},{-160,
+          100},{-160,20},{-142,20}}, color={255,0,255}));
+  connect(mulAndEnaHea1.y, timEnaHea1.u)
+    annotation (Line(points={{-78,80},{-62,80}}, color={255,0,255}));
+  connect(latHea1.y, booToIntOpeMod[3].u) annotation (Line(points={{142,90},{
+          160,90},{160,-20},{178,-20}}, color={255,0,255}));
+  connect(latHea2.y, booToIntOpeMod[2].u) annotation (Line(points={{142,130},{
+          160,130},{160,-20},{178,-20}}, color={255,0,255}));
+  connect(latCoo1.y, booToIntOpeMod[5].u) annotation (Line(points={{142,-30},{
+          160,-30},{160,-20},{178,-20}}, color={255,0,255}));
+  connect(uHotTanCha, not4.u) annotation (Line(points={{-320,180},{40,180},{40,
+          150},{58,150}}, color={255,0,255}));
+  connect(uHotTanCha, latHea3.u) annotation (Line(points={{-320,180},{40,180},{
+          40,170},{118,170}}, color={255,0,255}));
+  connect(uCooTanCha, latCoo4.u) annotation (Line(points={{-320,140},{-234,140},
+          {-234,-200},{118,-200}}, color={255,0,255}));
+  connect(latCoo2.y, booToIntOpeMod[6].u) annotation (Line(points={{142,-100},{
+          160,-100},{160,-20},{178,-20}}, color={255,0,255}));
+  connect(latCoo3.y, booToIntOpeMod[7].u) annotation (Line(points={{142,-160},{
+          160,-160},{160,-20},{178,-20}}, color={255,0,255}));
+  connect(latCoo4.y, booToIntOpeMod[8].u) annotation (Line(points={{142,-200},{
+          160,-200},{160,-20},{178,-20}}, color={255,0,255}));
+  connect(notDisCoo4.y, latCoo4.clr) annotation (Line(points={{82,-220},{112,-220},
+          {112,-206},{118,-206}}, color={255,0,255}));
+  connect(uCooTanCha, notDisCoo4.u) annotation (Line(points={{-320,140},{-234,
+          140},{-234,-220},{58,-220}}, color={255,0,255}));
+  connect(mulSumIntOpeMod.y, chaOpeMod.u) annotation (Line(points={{282,0},{290,
+          0},{290,-32},{176,-32},{176,-80},{188,-80}}, color={255,127,0}));
+  connect(chaOpeMod.y, latOpeMod.clr) annotation (Line(points={{212,-80},{220,-80},
+          {220,-56},{228,-56}}, color={255,0,255}));
+  connect(uProCom, latOpeMod.u) annotation (Line(points={{-320,220},{168,220},{
+          168,-50},{228,-50}}, color={255,0,255}));
+  connect(latOpeMod.y, timOpeMod.u)
     annotation (Line(points={{252,-50},{258,-50}}, color={255,0,255}));
-  connect(mulSumInt.y, intToRea.u) annotation (Line(points={{282,0},{290,0},{290,
-          -40},{298,-40}}, color={255,127,0}));
-  connect(intToRea.y, triSam.u)
+  connect(mulSumIntOpeMod.y, intToReaOpeMod.u) annotation (Line(points={{282,0},
+          {290,0},{290,-40},{298,-40}}, color={255,127,0}));
+  connect(intToReaOpeMod.y, triSamOpeMod.u)
     annotation (Line(points={{322,-40},{328,-40}}, color={0,0,127}));
-  connect(triSam.y, reaToInt.u)
+  connect(triSamOpeMod.y, reaToIntOpeMod.u)
     annotation (Line(points={{352,-40},{358,-40}}, color={0,0,127}));
-  connect(lesThr.y, and3.u1)
-    annotation (Line(points={{-138,110},{-122,110}}, color={255,0,255}));
-  connect(uPlaEna, and3.u2) annotation (Line(points={{-320,100},{-160,100},{
-          -160,102},{-122,102}},            color={255,0,255}));
-  connect(and3.y, tim3.u)
-    annotation (Line(points={{-98,110},{-84,110}}, color={255,0,255}));
-  connect(tim3.passed, and4.u1) annotation (Line(points={{-60,102},{-40,102},{-40,
-          110},{-22,110}}, color={255,0,255}));
-  connect(intSwi.y, yOpeMod)
+  connect(intSwiOpeMod.y, yOpeMod)
     annotation (Line(points={{382,0},{420,0}}, color={255,127,0}));
-  connect(reaToInt.y, intSwi.u3) annotation (Line(points={{382,-40},{390,-40},{390,
-          -20},{350,-20},{350,-8},{358,-8}}, color={255,127,0}));
-  connect(mulSumInt.y, intSwi.u1) annotation (Line(points={{282,0},{290,0},{290,
-          8},{358,8}}, color={255,127,0}));
-  connect(tim5.passed, intSwi.u2) annotation (Line(points={{282,-58},{294,-58},{
-          294,0},{358,0}}, color={255,0,255}));
-  connect(cha.y, triSam.trigger) annotation (Line(points={{212,-80},{340,-80},{340,
-          -52}}, color={255,0,255}));
-  connect(and4.y, latHea2.u) annotation (Line(points={{2,110},{20,110},{20,130},
-          {118,130}}, color={255,0,255}));
-  connect(tim.passed, and6.u1) annotation (Line(points={{-78,-88},{-38,-88},{-38,
-          -70},{-22,-70}}, color={255,0,255}));
-  connect(and7.y, latCoo3.u) annotation (Line(points={{22,-120},{40,-120},{40,-110},
-          {118,-110}}, color={255,0,255}));
-  connect(mulInt1.y, mulSumInt.u)
-    annotation (Line(points={{246,0},{258,0}}, color={255,127,0}));
-  connect(or3.y, latCoo2.clr) annotation (Line(points={{62,-90},{108,-90},{108,
-          -76},{118,-76}}, color={255,0,255}));
-  connect(tim5.passed, pre.u) annotation (Line(points={{282,-58},{280,-58},{280,
-          -100},{298,-100}}, color={255,0,255}));
-  connect(pre.y, and4.u2) annotation (Line(points={{322,-100},{340,-100},{340,-194},
-          {-30,-194},{-30,102},{-22,102}},       color={255,0,255}));
-  connect(pre.y, and6.u2) annotation (Line(points={{322,-100},{340,-100},{340,-194},
-          {-30,-194},{-30,-78},{-22,-78}},       color={255,0,255}));
-  connect(and8.y, latHea2.clr) annotation (Line(points={{102,110},{118,110},{118,
-          124}}, color={255,0,255}));
-  connect(tim4.passed, and8.u2) annotation (Line(points={{-38,-18},{70,-18},{70,
-          102},{78,102}}, color={255,0,255}));
-  connect(not2.y, tim6.u) annotation (Line(points={{2,80},{20,80},{20,100},{28,100}},
+  connect(reaToIntOpeMod.y, intSwiOpeMod.u3) annotation (Line(points={{382,-40},
+          {390,-40},{390,-20},{350,-20},{350,-8},{358,-8}}, color={255,127,0}));
+  connect(mulSumIntOpeMod.y, intSwiOpeMod.u1) annotation (Line(points={{282,0},
+          {290,0},{290,8},{358,8}}, color={255,127,0}));
+  connect(timOpeMod.passed, intSwiOpeMod.u2) annotation (Line(points={{282,-58},
+          {294,-58},{294,0},{358,0}}, color={255,0,255}));
+  connect(chaOpeMod.y, triSamOpeMod.trigger) annotation (Line(points={{212,-80},
+          {340,-80},{340,-52}}, color={255,0,255}));
+  connect(mulIntOpeMod.y, mulSumIntOpeMod.u)
+    annotation (Line(points={{242,0},{258,0}}, color={255,127,0}));
+  connect(timOpeMod.passed, preMinRun.u) annotation (Line(points={{282,-58},{
+          294,-58},{294,-100},{298,-100}}, color={255,0,255}));
+  connect(andEnaHea2.y, notDisHea2.u) annotation (Line(points={{-98,150},{-92,
+          150},{-92,110},{-82,110}}, color={255,0,255}));
+  connect(andEnaCoo3.y, notDisCoo3.u) annotation (Line(points={{-118,-150},{-110,
+          -150},{-110,-180},{-102,-180}}, color={255,0,255}));
+  connect(TChiSup, greChiSup.u1) annotation (Line(points={{-320,-60},{-250,-60},
+          {-250,-70},{-202,-70}}, color={0,0,127}));
+  connect(TChiSupSet, greChiSup.u2) annotation (Line(points={{-320,-100},{-250,
+          -100},{-250,-78},{-202,-78}}, color={0,0,127}));
+  connect(hysDomLoa.y, notCooLoa.u) annotation (Line(points={{-168,-40},{-152,-40},
+          {-152,100},{-142,100}}, color={255,0,255}));
+  connect(hysDomLoa.u, subDomLoa.y)
+    annotation (Line(points={{-192,-40},{-198,-40}}, color={0,0,127}));
+  connect(capReqHea.yCapReq, subDomLoa.u2) annotation (Line(points={{-238,30},{
+          -226,30},{-226,-46},{-222,-46}}, color={0,0,127}));
+  connect(capReqCoo.yCapReq, subDomLoa.u1) annotation (Line(points={{-238,-130},
+          {-232,-130},{-232,-34},{-222,-34}}, color={0,0,127}));
+  connect(TChiSupSet,greThrDisCoo2. u) annotation (Line(points={{-320,-100},{-250,
+          -100},{-250,-110},{-222,-110}},    color={0,0,127}));
+  connect(uPlaEna, andEnaCoo1.u[1]) annotation (Line(points={{-320,100},{-160,
+          100},{-160,-35.3333},{-62,-35.3333}}, color={255,0,255}));
+  connect(latHea3.y, pre1[1].u) annotation (Line(points={{142,170},{160,170},{160,
+          70},{178,70}}, color={255,0,255}));
+  connect(latHea2.y, pre1[2].u) annotation (Line(points={{142,130},{160,130},{160,
+          70},{178,70}}, color={255,0,255}));
+  connect(latHea1.y, pre1[3].u) annotation (Line(points={{142,90},{160,90},{160,
+          70},{178,70}}, color={255,0,255}));
+  connect(latDis.y, pre1[4].u) annotation (Line(points={{142,50},{160,50},{160,70},
+          {178,70}}, color={255,0,255}));
+  connect(latCoo1.y, pre1[5].u) annotation (Line(points={{142,-30},{160,-30},{160,
+          70},{178,70}}, color={255,0,255}));
+  connect(latCoo2.y, pre1[6].u) annotation (Line(points={{142,-100},{160,-100},{
+          160,70},{178,70}},
+                         color={255,0,255}));
+  connect(latCoo3.y, pre1[7].u) annotation (Line(points={{142,-160},{160,-160},{
+          160,70},{178,70}}, color={255,0,255}));
+  connect(latCoo4.y, pre1[8].u) annotation (Line(points={{142,-200},{160,-200},{
+          160,70},{178,70}}, color={255,0,255}));
+  connect(mulOrDisHea1.y, latHea1.clr) annotation (Line(points={{102,70},{110,
+          70},{110,84},{118,84}}, color={255,0,255}));
+  connect(lesThrCHWRet.y, andEnaHea2.u1)
+    annotation (Line(points={{-178,150},{-122,150}}, color={255,0,255}));
+  connect(uPlaEna, andEnaHea2.u2) annotation (Line(points={{-320,100},{-160,100},
+          {-160,142},{-122,142}}, color={255,0,255}));
+  connect(andEnaHea2.y, andEnaPreModHea2.u1)
+    annotation (Line(points={{-98,150},{-82,150}}, color={255,0,255}));
+  connect(andEnaPreModHea2.y, timEnaHea2.u)
+    annotation (Line(points={{-58,150},{-32,150}}, color={255,0,255}));
+  connect(notDisHea2.y, and6.u1)
+    annotation (Line(points={{-58,110},{-52,110}}, color={255,0,255}));
+  connect(tim6.u, and6.y)
+    annotation (Line(points={{-22,110},{-28,110}}, color={255,0,255}));
+  connect(pre1[3].y, andEnaPreModHea2.u2) annotation (Line(points={{202,70},{
+          212,70},{212,200},{-88,200},{-88,142},{-82,142}}, color={255,0,255}));
+  connect(pre1[2].y, and6.u2) annotation (Line(points={{202,70},{212,70},{212,200},
+          {-56,200},{-56,102},{-52,102}}, color={255,0,255}));
+  connect(orEnaHea1.y, latHea1.u) annotation (Line(points={{102,100},{110,100},
+          {110,90},{118,90}}, color={255,0,255}));
+  connect(notCooLoa.y, mulAndEnaHea1.u[1]) annotation (Line(points={{-118,100},
+          {-110,100},{-110,84.6667},{-102,84.6667}}, color={255,0,255}));
+  connect(uPlaEna, mulAndEnaHea1.u[2]) annotation (Line(points={{-320,100},{-160,
+          100},{-160,80},{-102,80}}, color={255,0,255}));
+  connect(orOpeModEnaHea1.y, mulAndEnaHea1.u[3]) annotation (Line(points={{-118,
+          60},{-110,60},{-110,75.3333},{-102,75.3333}}, color={255,0,255}));
+  connect(pre1[4].y, orOpeModEnaHea1.u1) annotation (Line(points={{202,70},{212,
+          70},{212,200},{-146,200},{-146,60},{-142,60}}, color={255,0,255}));
+  connect(pre1[5].y, orOpeModEnaHea1.u2) annotation (Line(points={{202,70},{212,
+          70},{212,200},{-146,200},{-146,52},{-142,52}}, color={255,0,255}));
+  connect(andMinRunEnaHea2.y, latHea2.u) annotation (Line(points={{32,150},{36,
+          150},{36,136},{118,136},{118,130}}, color={255,0,255}));
+  connect(timEnaHea2.passed, andMinRunEnaHea2.u2)
+    annotation (Line(points={{-8,142},{8,142}}, color={255,0,255}));
+  connect(preMinRun.y, andMinRunEnaHea2.u1) annotation (Line(points={{322,-100},
+          {330,-100},{330,-130},{6,-130},{6,150},{8,150}}, color={255,0,255}));
+  connect(andMinRunDisHea2.y, orEnaHea1.u1) annotation (Line(points={{32,110},{
+          70,110},{70,100},{78,100}}, color={255,0,255}));
+  connect(andMinRunDisHea2.y, latHea2.clr) annotation (Line(points={{32,110},{
+          70,110},{70,124},{118,124}}, color={255,0,255}));
+  connect(tim6.passed, andMinRunDisHea2.u2)
+    annotation (Line(points={{2,102},{8,102}}, color={255,0,255}));
+  connect(preMinRun.y, andMinRunDisHea2.u1) annotation (Line(points={{322,-100},
+          {330,-100},{330,-130},{6,-130},{6,110},{8,110}}, color={255,0,255}));
+  connect(timEnaHea1.passed, andMinRunEnaHea1.u2)
+    annotation (Line(points={{-38,72},{8,72}}, color={255,0,255}));
+  connect(preMinRun.y, andMinRunEnaHea1.u1) annotation (Line(points={{322,-100},
+          {330,-100},{330,-130},{6,-130},{6,80},{8,80}}, color={255,0,255}));
+  connect(andMinRunEnaHea1.y, orEnaHea1.u2) annotation (Line(points={{32,80},{
+          70,80},{70,92},{78,92}}, color={255,0,255}));
+  connect(andMinRunEnaHea2.y, mulOrDisHea1.u[1]) annotation (Line(points={{32,
+          150},{36,150},{36,74.6667},{78,74.6667}}, color={255,0,255}));
+  connect(orOpeModEnaCoo1.y, andEnaCoo1.u[2]) annotation (Line(points={{-118,-20},
+          {-110,-20},{-110,-40},{-62,-40}}, color={255,0,255}));
+  connect(pre1[3].y, orOpeModEnaCoo1.u1) annotation (Line(points={{202,70},{212,
+          70},{212,200},{-146,200},{-146,-20},{-142,-20}}, color={255,0,255}));
+  connect(pre1[4].y, orOpeModEnaCoo1.u2) annotation (Line(points={{202,70},{212,
+          70},{212,200},{-146,200},{-146,-28},{-142,-28}}, color={255,0,255}));
+  connect(timCoo1.passed, andMinRunEnaCoo1.u2)
+    annotation (Line(points={{2,-48},{8,-48}}, color={255,0,255}));
+  connect(preMinRun.y, andMinRunEnaCoo1.u1) annotation (Line(points={{322,-100},
+          {330,-100},{330,-130},{6,-130},{6,-40},{8,-40}}, color={255,0,255}));
+  connect(andEnaCoo1.y, timCoo1.u)
+    annotation (Line(points={{-38,-40},{-22,-40}}, color={255,0,255}));
+  connect(andMinRunEnaCoo1.y, mulOrDisHea1.u[2]) annotation (Line(points={{32,
+          -40},{40,-40},{40,70},{78,70}}, color={255,0,255}));
+  connect(mulOrDisCoo1.y, latCoo1.clr) annotation (Line(points={{102,-54},{112,
+          -54},{112,-36},{118,-36}}, color={255,0,255}));
+  connect(orEnaHea1.y, mulOrDisCoo1.u[1]) annotation (Line(points={{102,100},{
+          106,100},{106,0},{68,0},{68,-49.3333},{78,-49.3333}}, color={255,0,
+          255}));
+  connect(mulAndEnaCoo2.y, timEnaCoo2.u)
+    annotation (Line(points={{-118,-70},{-102,-70}}, color={255,0,255}));
+  connect(hysDomLoa.y, andEnaCoo1.u[3]) annotation (Line(points={{-168,-40},{
+          -116,-40},{-116,-44.6667},{-62,-44.6667}}, color={255,0,255}));
+  connect(timEnaCoo2.passed, andMinRunEnaCoo2.u2)
+    annotation (Line(points={{-78,-78},{8,-78}}, color={255,0,255}));
+  connect(greChiSup.y, mulAndEnaCoo2.u[1]) annotation (Line(points={{-178,-70},
+          {-164,-70},{-164,-65.3333},{-142,-65.3333}}, color={255,0,255}));
+  connect(pre1[5].y, mulAndEnaCoo2.u[2]) annotation (Line(points={{202,70},{212,
+          70},{212,200},{-146,200},{-146,-70},{-142,-70}}, color={255,0,255}));
+  connect(uPlaEna, mulAndEnaCoo2.u[3]) annotation (Line(points={{-320,100},{
+          -160,100},{-160,-74.6667},{-142,-74.6667}}, color={255,0,255}));
+  connect(andMinRunEnaCoo2.y, mulOrDisCoo1.u[2]) annotation (Line(points={{32,
+          -70},{48,-70},{48,-54},{78,-54}}, color={255,0,255}));
+  connect(preMinRun.y, andMinRunEnaCoo2.u1) annotation (Line(points={{322,-100},
+          {330,-100},{330,-130},{6,-130},{6,-70},{8,-70}}, color={255,0,255}));
+  connect(andMinRunEnaCoo2.y, orEnaCoo2.u1) annotation (Line(points={{32,-70},{
+          48,-70},{48,-80},{78,-80}}, color={255,0,255}));
+  connect(orEnaCoo2.y, latCoo2.u) annotation (Line(points={{102,-80},{110,-80},
+          {110,-100},{118,-100}}, color={255,0,255}));
+  connect(orDisCoo5.y, latCoo2.clr) annotation (Line(points={{102,-110},{110,-110},
+          {110,-106},{118,-106}}, color={255,0,255}));
+  connect(andMinRunDisCoo2.y, orDisCoo5.u1)
+    annotation (Line(points={{32,-110},{78,-110}}, color={255,0,255}));
+  connect(timDisCoo2.passed, andMinRunDisCoo2.u2)
+    annotation (Line(points={{-78,-118},{8,-118}}, color={255,0,255}));
+  connect(preMinRun.y, andMinRunDisCoo2.u1) annotation (Line(points={{322,-100},
+          {330,-100},{330,-130},{6,-130},{6,-110},{8,-110}}, color={255,0,255}));
+  connect(andDisCoo2.y, timDisCoo2.u)
+    annotation (Line(points={{-118,-110},{-102,-110}}, color={255,0,255}));
+  connect(greThrDisCoo2.y, andDisCoo2.u[1]) annotation (Line(points={{-198,-110},
+          {-170,-110},{-170,-105.333},{-142,-105.333}}, color={255,0,255}));
+  connect(uPlaEna, andDisCoo2.u[2]) annotation (Line(points={{-320,100},{-160,
+          100},{-160,-110},{-142,-110}}, color={255,0,255}));
+  connect(pre1[6].y, andDisCoo2.u[3]) annotation (Line(points={{202,70},{212,70},
+          {212,200},{-146,200},{-146,-114},{-142,-114},{-142,-114.667}}, color=
+          {255,0,255}));
+  connect(greThrEnaCoo3.y, andEnaCoo3.u1)
+    annotation (Line(points={{-198,-150},{-142,-150}}, color={255,0,255}));
+  connect(uPlaEna, andEnaCoo3.u2) annotation (Line(points={{-320,100},{-160,100},
+          {-160,-158},{-142,-158}}, color={255,0,255}));
+  connect(andEnaCoo3.y, andOpeModEnaCoo3.u1)
+    annotation (Line(points={{-118,-150},{-102,-150}}, color={255,0,255}));
+  connect(andOpeModEnaCoo3.y, timEnaCoo3.u)
+    annotation (Line(points={{-78,-150},{-62,-150}}, color={255,0,255}));
+  connect(andMinRunEnaCoo3.y, latCoo3.u) annotation (Line(points={{32,-150},{
+          100,-150},{100,-160},{118,-160}}, color={255,0,255}));
+  connect(timEnaCoo3.passed, andMinRunEnaCoo3.u2)
+    annotation (Line(points={{-38,-158},{8,-158}}, color={255,0,255}));
+  connect(preMinRun.y, andMinRunEnaCoo3.u1) annotation (Line(points={{322,-100},
+          {330,-100},{330,-130},{6,-130},{6,-150},{8,-150}}, color={255,0,255}));
+  connect(pre1[6].y, andOpeModEnaCoo3.u2) annotation (Line(points={{202,70},{
+          212,70},{212,200},{-146,200},{-146,-130},{-104,-130},{-104,-158},{-102,
+          -158}}, color={255,0,255}));
+  connect(notDisCoo3.y, andDisCoo3.u1)
+    annotation (Line(points={{-78,-180},{-72,-180}}, color={255,0,255}));
+  connect(andDisCoo3.y, timDisCoo3.u)
+    annotation (Line(points={{-48,-180},{-42,-180}}, color={255,0,255}));
+  connect(timDisCoo3.passed, andMinRunDisCoo3.u2)
+    annotation (Line(points={{-18,-188},{8,-188}}, color={255,0,255}));
+  connect(andMinRunEnaCoo3.y, orDisCoo5.u2) annotation (Line(points={{32,-150},
+          {70,-150},{70,-118},{78,-118}}, color={255,0,255}));
+  connect(andMinRunDisCoo3.y, latCoo3.clr) annotation (Line(points={{32,-180},{
+          100,-180},{100,-166},{118,-166}}, color={255,0,255}));
+  connect(preMinRun.y, andMinRunDisCoo3.u1) annotation (Line(points={{322,-100},
+          {330,-100},{330,-130},{6,-130},{6,-180},{8,-180}}, color={255,0,255}));
+  connect(pre1[7].y, andDisCoo3.u2) annotation (Line(points={{202,70},{212,70},
+          {212,200},{-146,200},{-146,-130},{-76,-130},{-76,-188},{-72,-188}},
         color={255,0,255}));
-  connect(tim6.passed, and8.u1) annotation (Line(points={{52,92},{68,92},{68,110},
-          {78,110}}, color={255,0,255}));
-  connect(and3.y, not2.u) annotation (Line(points={{-98,110},{-92,110},{-92,80},
-          {-22,80}}, color={255,0,255}));
-  connect(and8.y, latHea1.u) annotation (Line(points={{102,110},{108,110},{108,90},
-          {118,90}}, color={255,0,255}));
-  connect(and6.y, latCoo1.u) annotation (Line(points={{2,-70},{12,-70},{12,-30},
-          {118,-30}}, color={255,0,255}));
-  connect(uPlaEna, and9.u2) annotation (Line(points={{-320,100},{-160,100},{
-          -160,-58},{-122,-58}},             color={255,0,255}));
-  connect(and9.y, tim1.u)
-    annotation (Line(points={{-98,-50},{-82,-50}}, color={255,0,255}));
-  connect(and5.y, not5.u) annotation (Line(points={{-96,-120},{-90,-120},{-90,-150},
-          {-82,-150}}, color={255,0,255}));
-  connect(not5.y, tim7.u)
-    annotation (Line(points={{-58,-150},{-22,-150}}, color={255,0,255}));
-  connect(tim7.passed, and10.u2) annotation (Line(points={{2,-158},{40,-158},{40,
-          -138},{58,-138}}, color={255,0,255}));
-  connect(tim1.passed, and10.u1) annotation (Line(points={{-58,-58},{30,-58},{
-          30,-130},{58,-130}},                color={255,0,255}));
-  connect(and10.y, latCoo3.clr) annotation (Line(points={{82,-130},{100,-130},{100,
-          -116},{118,-116}}, color={255,0,255}));
-  connect(and10.y, latCoo2.u) annotation (Line(points={{82,-130},{100,-130},{100,
-          -70},{118,-70}}, color={255,0,255}));
-  connect(gre2.y, and9.u1)
-    annotation (Line(points={{-198,-50},{-122,-50}}, color={255,0,255}));
-  connect(TChiSup, gre2.u1) annotation (Line(points={{-320,-60},{-260,-60},{
-          -260,-50},{-222,-50}},
-                            color={0,0,127}));
-  connect(TChiSupSet, gre2.u2) annotation (Line(points={{-320,-100},{-250,-100},
-          {-250,-58},{-222,-58}}, color={0,0,127}));
-  connect(mulOr.y, latCoo1.clr)
-    annotation (Line(points={{62,-42},{100,-42},{100,-36},{118,-36}},
-                                                           color={255,0,255}));
-  connect(falEdg.y, mulOr.u[1]) annotation (Line(points={{-118,50},{20,50},{20,
-          -37.3333},{38,-37.3333}}, color={255,0,255}));
-  connect(tim1.passed, mulOr.u[2]) annotation (Line(points={{-58,-58},{24,-58},
-          {24,-42},{38,-42}}, color={255,0,255}));
-  connect(and8.y, mulOr.u[3]) annotation (Line(points={{102,110},{108,110},{108,
-          30},{30,30},{30,-46.6667},{38,-46.6667}}, color={255,0,255}));
-  connect(mulOr1.y, latHea1.clr) annotation (Line(points={{62,70},{104,70},{104,
-          84},{118,84}}, color={255,0,255}));
-  connect(and4.y, mulOr1.u[1]) annotation (Line(points={{2,110},{8,110},{8,
-          74.6667},{38,74.6667}}, color={255,0,255}));
-  connect(falEdg.y, mulOr1.u[2]) annotation (Line(points={{-118,50},{14,50},{14,
-          70},{38,70}}, color={255,0,255}));
-  connect(and6.y, mulOr1.u[3]) annotation (Line(points={{2,-70},{12,-70},{12,
-          -30},{36,-30},{36,52},{28,52},{28,65.3333},{38,65.3333}}, color={255,
-          0,255}));
-  connect(hys.y, not3.u) annotation (Line(points={{-168,-80},{-152,-80},{-152,0},
-          {-142,0}}, color={255,0,255}));
-  connect(hys.y, and1.u1)
-    annotation (Line(points={{-168,-80},{-142,-80}}, color={255,0,255}));
-  connect(hys.u, sub.y)
-    annotation (Line(points={{-192,-80},{-198,-80}}, color={0,0,127}));
-  connect(capReqHea.yCapReq, sub.u2) annotation (Line(points={{-238,30},{-226,
-          30},{-226,-86},{-222,-86}}, color={0,0,127}));
-  connect(capReqCoo.yCapReq, sub.u1) annotation (Line(points={{-238,-170},{-232,
-          -170},{-232,-74},{-222,-74}}, color={0,0,127}));
-  connect(tim2.passed, and7.u[1]) annotation (Line(points={{-46,-128},{-24,-128},
-          {-24,-115.333},{-2,-115.333}}, color={255,0,255}));
-  connect(tim.passed, and7.u[2]) annotation (Line(points={{-78,-88},{-38,-88},{-38,
-          -120},{-2,-120}}, color={255,0,255}));
-  connect(pre.y, and7.u[3]) annotation (Line(points={{322,-100},{340,-100},{340,
-          -194},{-30,-194},{-30,-124.667},{-2,-124.667}}, color={255,0,255}));
-  connect(TChiSupSet, greThrRetHea2.u) annotation (Line(points={{-320,-100},{
-          -264,-100},{-264,-10},{-222,-10}}, color={0,0,127}));
-  connect(greThrRetHea2.y, tim8.u)
-    annotation (Line(points={{-198,-10},{-192,-10}}, color={255,0,255}));
-  connect(and7.y, or3.u[1]) annotation (Line(points={{22,-120},{26,-120},{26,
-          -85.3333},{38,-85.3333}}, color={255,0,255}));
-  connect(tim8.passed, or3.u[2]) annotation (Line(points={{-168,-18},{-166,-18},
-          {-166,-34},{8,-34},{8,-90},{38,-90}}, color={255,0,255}));
-  connect(and6.y, or3.u[3]) annotation (Line(points={{2,-70},{20,-70},{20,
-          -94.6667},{38,-94.6667}}, color={255,0,255}));
+  connect(andMinRunDisCoo3.y, orEnaCoo2.u2) annotation (Line(points={{32,-180},
+          {60,-180},{60,-88},{78,-88}}, color={255,0,255}));
+  connect(orDisPla.y, mulOrDisCoo1.u[3]) annotation (Line(points={{-38,30},{60,
+          30},{60,-58.6667},{78,-58.6667}}, color={255,0,255}));
+  connect(orDisPla.y, mulOrDisHea1.u[3]) annotation (Line(points={{-38,30},{60,
+          30},{60,65.3333},{78,65.3333}}, color={255,0,255}));
+  connect(orDisPla.y, latDis.u) annotation (Line(points={{-38,30},{60,30},{60,
+          50},{118,50}}, color={255,0,255}));
+  connect(falEdgPlaEna.y, orDisPla.u2) annotation (Line(points={{-118,20},{-70,
+          20},{-70,22},{-62,22}}, color={255,0,255}));
+  connect(uPlaEna, notDisPla.u) annotation (Line(points={{-320,100},{-160,100},
+          {-160,40},{-102,40}}, color={255,0,255}));
+  connect(notDisPla.y, orDisPla.u1) annotation (Line(points={{-78,40},{-70,40},
+          {-70,30},{-62,30}}, color={255,0,255}));
+  connect(orEnaPla.y, latDis.clr) annotation (Line(points={{-38,0},{50,0},{50,
+          44},{118,44}}, color={255,0,255}));
+  connect(orEnaHea1.y, orEnaPla.u1) annotation (Line(points={{102,100},{106,100},
+          {106,16},{-70,16},{-70,0},{-62,0}}, color={255,0,255}));
+  connect(latCoo1.y, orEnaPla.u2) annotation (Line(points={{142,-30},{150,-30},
+          {150,-14},{-70,-14},{-70,-8},{-62,-8}}, color={255,0,255}));
+  connect(andMinRunEnaCoo1.y, orEnaCoo1.u1) annotation (Line(points={{32,-40},{
+          40,-40},{40,-30},{78,-30}}, color={255,0,255}));
+  connect(orEnaCoo1.y, latCoo1.u)
+    annotation (Line(points={{102,-30},{118,-30}}, color={255,0,255}));
+  connect(andMinRunDisCoo2.y, orEnaCoo1.u2) annotation (Line(points={{32,-110},
+          {54,-110},{54,-38},{78,-38}}, color={255,0,255}));
 annotation (
     defaultComponentName="opeModCon",
     Icon(
@@ -507,7 +650,7 @@ annotation (
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-300,-200},{400,240}})),
+        extent={{-300,-240},{400,240}})),
     Documentation(
       info="<html>
 <p>
