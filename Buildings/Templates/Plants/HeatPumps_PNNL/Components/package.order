@@ -4,3 +4,4 @@ Validation
 ValvesIsolation_UpdatePorts
 HeatPumpGroups
 Interface
+ExternalEnergyLoop

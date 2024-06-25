@@ -1072,7 +1072,7 @@ First implementation.
       final cfg=datCtlPlaAwNrv.cfg,
       final dat=datCtlPlaAwNrv)
       "Plant controller"
-      annotation (Placement(transformation(extent={{112,112},{92,132}})));
+      annotation (Placement(transformation(extent={{152,-4},{132,16}})));
     Buildings.Templates.Plants.HeatPumps_PNNL.Components.HeatPumpGroups.WaterToWater hpAwNrv(
       redeclare final package MediumHeaWat=Medium,
       nHp=2,
@@ -1080,7 +1080,7 @@ First implementation.
       final dat=datHpAwNrv,
       final energyDynamics=energyDynamics)
       "Non reversible AWHP"
-      annotation (Placement(transformation(extent={{234,-36},{-246,44}})));
+      annotation (Placement(transformation(extent={{274,-152},{-206,-72}})));
     parameter HeatPumps.Components.Data.Controller                            datCtlHeaInl(
       cfg(
         have_pumHeaWatPriVar=true,
@@ -1177,35 +1177,35 @@ First implementation.
       final energyDynamics=energyDynamics,
       y_start=0)
       "Isolation valves - Heating-only system with isolation valves at HP inlet"
-      annotation (Placement(transformation(extent={{-60,96},{-18,138}})));
+      annotation (Placement(transformation(extent={{-20,-20},{22,22}})));
 
     Fluid.Sources.Boundary_pT retHeaWat1(
       redeclare final package Medium = Medium,
       p=supHeaWat1.p + max(valIsoHeaInl.dpHeaWat_nominal),
       T=Buildings.Templates.Data.Defaults.THeaWatRetMed,
       nPorts=1) "Boundary condition at HW return"
-      annotation (Placement(transformation(extent={{-296,148},{-276,168}})));
+      annotation (Placement(transformation(extent={{-256,32},{-236,52}})));
     Fluid.Sources.Boundary_pT supHeaWat1(
       redeclare final package Medium = Medium,
       p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
       nPorts=2) "Boundary condition at HW supply"
-      annotation (Placement(transformation(extent={{-296,116},{-276,136}})));
-    Controls.OpenLoop                                                      ctlHeaInl(final cfg
-        =datCtlHeaInl.cfg, final dat=datCtlHeaInl)
+      annotation (Placement(transformation(extent={{-256,0},{-236,20}})));
+    Controls.OpenLoop                                                      ctlHeaInl(final cfg=
+         datCtlHeaInl.cfg, final dat=datCtlHeaInl)
       "Plant controller"
-      annotation (Placement(transformation(extent={{-48,194},{-68,214}})));
+      annotation (Placement(transformation(extent={{-8,78},{-28,98}})));
     Fluid.Sources.Boundary_pT retChiWat(
       redeclare final package Medium = Medium,
       p=supHeaWat1.p + max(valIsoHeaInl.dpHeaWat_nominal),
       T=287.15,
       nPorts=1) "Boundary condition at HW return"
-      annotation (Placement(transformation(extent={{74,110},{54,130}})));
+      annotation (Placement(transformation(extent={{114,-6},{94,14}})));
     Fluid.Sources.Boundary_pT supChiWat(
       redeclare final package Medium = Medium,
       p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
       T=279.85,
       nPorts=2) "Boundary condition at HW supply"
-      annotation (Placement(transformation(extent={{74,138},{54,158}})));
+      annotation (Placement(transformation(extent={{114,22},{94,42}})));
 
 
 
@@ -1214,7 +1214,7 @@ First implementation.
     nPum=2,
     dat=datPumMul,
     redeclare final package Medium = Medium)
-      annotation (Placement(transformation(extent={{10,150},{30,170}})));
+      annotation (Placement(transformation(extent={{50,34},{70,54}})));
     parameter Buildings.Templates.Components.Data.PumpMultiple
                                 datPumMul(
       final typ=Buildings.Templates.Components.Types.Pump.Multiple,
@@ -1222,115 +1222,119 @@ First implementation.
       m_flow_nominal=fill(1, pum.nPum),
       dp_nominal=fill(1E5, pum.nPum))
       "Multiple pump parameters"
-      annotation (Placement(transformation(extent={{150,170},{170,190}})));
+      annotation (Placement(transformation(extent={{190,54},{210,74}})));
     Buildings.Templates.Components.Routing.SingleToMultiple rou(
       redeclare package Medium = Medium,
       nPorts=2,
       m_flow_nominal=1)
-      annotation (Placement(transformation(extent={{-24,150},{-4,170}})));
+      annotation (Placement(transformation(extent={{16,34},{36,54}})));
     Buildings.Controls.OBC.CDL.Reals.Sources.Constant y(k=1) "Pump speed command"
-      annotation (Placement(transformation(extent={{-252,254},{-232,274}})));
+      annotation (Placement(transformation(extent={{-212,138},{-192,158}})));
     Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1(
       table=[0,0,0; 1,1,0; 2,1,1; 3,0,0],
       timeScale=100,
       period=300) "Pump enable signal"
-      annotation (Placement(transformation(extent={{-254,210},{-234,230}})));
+      annotation (Placement(transformation(extent={{-214,94},{-194,114}})));
     Buildings.Templates.Components.Routing.SingleToMultiple rou1(
       redeclare package Medium = Medium,
       nPorts=2,
       m_flow_nominal=1)
-      annotation (Placement(transformation(extent={{-104,106},{-124,126}})));
+      annotation (Placement(transformation(extent={{-64,-10},{-84,10}})));
     Buildings.Templates.Components.Pumps.Multiple pum1(
       final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       nPum=2,
       dat=datPumMul,
       redeclare final package Medium = Medium)
-      annotation (Placement(transformation(extent={{-148,104},{-168,124}})));
+      annotation (Placement(transformation(extent={{-108,-12},{-128,8}})));
   protected
     Buildings.Templates.Components.Interfaces.Bus
                    bus2 "Pump control bus" annotation (Placement(transformation(
-            extent={{74,182},{114,222}}),iconTransformation(extent={{-318,-118},{-278,
+            extent={{114,66},{154,106}}),iconTransformation(extent={{-318,-118},{-278,
               -78}})));
   protected
     Buildings.Templates.Components.Interfaces.Bus
                    bus1 "Pump control bus" annotation (Placement(transformation(
-            extent={{-220,158},{-180,198}}),
+            extent={{-180,42},{-140,82}}),
                                          iconTransformation(extent={{-318,-118},{-278,
               -78}})));
   equation
     connect(ctlPlaAwNrv.bus, hpAwNrv.bus)
-      annotation (Line(points={{112,122},{120,122},{120,54},{-6,54},{-6,44}},
+      annotation (Line(points={{152,6},{160,6},{160,-62},{34,-62},{34,-72}},
                                                           color={255,204,51},thickness=0.5));
     connect(retHeaWat1.ports[1],valIsoHeaInl. port_aHeaWat)
-      annotation (Line(points={{-276,158},{-268,158},{-268,132.54},{-60,132.54}},
+      annotation (Line(points={{-236,42},{-228,42},{-228,16.54},{-20,16.54}},
                                                                          color={0,127,255}));
     connect(retChiWat.ports[1],valIsoHeaInl. port_aChiWat) annotation (Line(
-          points={{54,120},{18,120},{18,122.88},{-18,122.88}},color={0,127,255}));
+          points={{94,4},{58,4},{58,6.88},{22,6.88}},         color={0,127,255}));
     connect(valIsoHeaInl.ports_bChiWatHp, hpAwNrv.ports_aChiHeaWat) annotation (
-       Line(points={{-23.2,96.21},{-23.2,50},{-56,50},{-56,44}}, color={0,127,
+       Line(points={{16.8,-19.79},{16.8,-66},{-16,-66},{-16,-72}},
+                                                                 color={0,127,
             255}));
     connect(hpAwNrv.ports_bChiHeaWat, valIsoHeaInl.ports_aChiWatHp) annotation (
-       Line(points={{44,44},{44,58},{-33.4,58},{-33.4,96.42}}, color={0,127,255}));
+       Line(points={{84,-72},{84,-58},{6.6,-58},{6.6,-19.58}}, color={0,127,255}));
     connect(hpAwNrv.ports_bSou, valIsoHeaInl.ports_aHeaWatHp) annotation (Line(
-          points={{-56,-35.8},{-56,-42},{-252,-42},{-252,90},{-54.6,90},{-54.6,
-            96.21}}, color={0,127,255}));
+          points={{-16,-151.8},{-16,-158},{-212,-158},{-212,-26},{-14.6,-26},{
+            -14.6,-19.79}},
+                     color={0,127,255}));
     connect(hpAwNrv.ports_aSou, valIsoHeaInl.ports_bHeaWatHp) annotation (Line(
-          points={{44,-36},{-10,-36},{-10,-34},{-44,-34},{-44,96.21}}, color={0,
+          points={{84,-152},{30,-152},{30,-150},{-4,-150},{-4,-19.79}},color={0,
             127,255}));
     connect(ctlHeaInl.bus, valIsoHeaInl.bus) annotation (Line(
-        points={{-48,204},{-39.4,204},{-39.4,136.53}},
+        points={{-8,88},{0.6,88},{0.6,20.53}},
         color={255,204,51},
         thickness=0.5));
-    connect(valIsoHeaInl.port_bChiWat, rou.port_a) annotation (Line(points={{-18,132.12},
-            {-12,132.12},{-12,144},{-30,144},{-30,160},{-24,160}}, color={0,127,255}));
+    connect(valIsoHeaInl.port_bChiWat, rou.port_a) annotation (Line(points={{22,
+            16.12},{28,16.12},{28,28},{10,28},{10,44},{16,44}},    color={0,127,255}));
     connect(rou.ports_b, pum.ports_a)
-      annotation (Line(points={{-4,160},{10,160}}, color={0,127,255}));
-    connect(pum.ports_b, supChiWat.ports[1:2]) annotation (Line(points={{30,160},{
-            48,160},{48,149},{54,149}}, color={0,127,255}));
+      annotation (Line(points={{36,44},{50,44}},   color={0,127,255}));
+    connect(pum.ports_b, supChiWat.ports[1:2]) annotation (Line(points={{70,44},
+            {88,44},{88,30},{94,30}},   color={0,127,255}));
     connect(bus2, pum.bus) annotation (Line(
-        points={{94,202},{94,176},{20,176},{20,170}},
+        points={{134,86},{134,60},{60,60},{60,54}},
         color={255,204,51},
         thickness=0.5), Text(
         string="%first",
         index=-1,
         extent={{6,3},{6,3}},
         horizontalAlignment=TextAlignment.Left));
-    connect(y.y, bus2.y) annotation (Line(points={{-230,264},{-224,264},{-224,236},
-            {94,236},{94,202}},
+    connect(y.y, bus2.y) annotation (Line(points={{-190,148},{-184,148},{-184,
+            120},{134,120},{134,86}},
           color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{6,3},{6,3}},
         horizontalAlignment=TextAlignment.Left));
-    connect(y1.y[1:2], bus2.y1) annotation (Line(points={{-232,220},{-76,220},{-76,
-            224},{64,224},{64,202},{94,202}},
+    connect(y1.y[1:2], bus2.y1) annotation (Line(points={{-192,104},{-36,104},{
+            -36,108},{104,108},{104,86},{134,86}},
                        color={255,0,255}), Text(
         string="%second",
         index=1,
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
-    connect(valIsoHeaInl.port_bHeaWat, rou1.port_a) annotation (Line(points={{-60,
-            123.51},{-92,123.51},{-92,116},{-104,116}}, color={0,127,255}));
-    connect(rou1.ports_b, pum1.ports_a) annotation (Line(points={{-124,116},{-124,
-            114},{-148,114}}, color={0,127,255}));
-    connect(pum1.ports_b, supHeaWat1.ports[1:2]) annotation (Line(points={{-168,114},
-            {-264,114},{-264,127},{-276,127}}, color={0,127,255}));
+    connect(valIsoHeaInl.port_bHeaWat, rou1.port_a) annotation (Line(points={{-20,
+            7.51},{-52,7.51},{-52,0},{-64,0}},          color={0,127,255}));
+    connect(rou1.ports_b, pum1.ports_a) annotation (Line(points={{-84,0},{-84,
+            -2},{-108,-2}},   color={0,127,255}));
+    connect(pum1.ports_b, supHeaWat1.ports[1:2]) annotation (Line(points={{-128,-2},
+            {-224,-2},{-224,8},{-236,8}},      color={0,127,255}));
     connect(bus1, pum1.bus) annotation (Line(
-        points={{-200,178},{-200,136},{-158,136},{-158,124}},
+        points={{-160,62},{-160,20},{-118,20},{-118,8}},
         color={255,204,51},
         thickness=0.5), Text(
         string="%first",
         index=-1,
         extent={{-3,6},{-3,6}},
         horizontalAlignment=TextAlignment.Right));
-    connect(y.y, bus1.y) annotation (Line(points={{-230,264},{-224,264},{-224,240},
-            {-264,240},{-264,178},{-200,178}}, color={0,0,127}), Text(
+    connect(y.y, bus1.y) annotation (Line(points={{-190,148},{-184,148},{-184,
+            124},{-224,124},{-224,62},{-160,62}},
+                                               color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
-    connect(y1.y[1:2], bus1.y1) annotation (Line(points={{-232,220},{-200,220},{-200,
-            178}}, color={255,0,255}), Text(
+    connect(y1.y[1:2], bus1.y1) annotation (Line(points={{-192,104},{-160,104},
+            {-160,62}},
+                   color={255,0,255}), Text(
         string="%second",
         index=1,
         extent={{6,3},{6,3}},
