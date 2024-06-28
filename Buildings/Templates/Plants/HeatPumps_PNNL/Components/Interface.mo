@@ -207,17 +207,17 @@ package Interface
     parameter Boolean show_T=false
       "= true, if actual temperature at port is computed"
       annotation (Dialog(tab="Advanced",group="Diagnostics"),HideResult=true);
-    MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_aChiHeaWat.p, noEvent(actualStream(ports_aChiHeaWat.h_outflow)), noEvent(actualStream(ports_aChiHeaWat.Xi_outflow))) if
-         show_T
+    MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_aChiHeaWat.p, noEvent(actualStream(ports_aChiHeaWat.h_outflow)), noEvent(actualStream(ports_aChiHeaWat.Xi_outflow)))
+      if show_T
       "CHW/HW medium properties in port_aChiHeaWat";
-    MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_bChiHeaWat.p, noEvent(actualStream(ports_bChiHeaWat.h_outflow)), noEvent(actualStream(ports_bChiHeaWat.Xi_outflow))) if
-         show_T
+    MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_bChiHeaWat.p, noEvent(actualStream(ports_bChiHeaWat.h_outflow)), noEvent(actualStream(ports_bChiHeaWat.Xi_outflow)))
+      if show_T
       "CHW/HW medium properties in port_bChiHeaWat";
-    MediumSou.ThermodynamicState sta_aSou[nHp]=MediumSou.setState_phX(ports_aSou.p, noEvent(actualStream(ports_aSou.h_outflow)), noEvent(actualStream(ports_aSou.Xi_outflow))) if
-         show_T
+    MediumSou.ThermodynamicState sta_aSou[nHp]=MediumSou.setState_phX(ports_aSou.p, noEvent(actualStream(ports_aSou.h_outflow)), noEvent(actualStream(ports_aSou.Xi_outflow)))
+      if show_T
       "Source medium properties in port_aSou";
-    MediumSou.ThermodynamicState sta_bSou[nHp]=MediumSou.setState_phX(ports_bSou.p, noEvent(actualStream(ports_bSou.h_outflow)), noEvent(actualStream(ports_bSou.Xi_outflow))) if
-         show_T
+    MediumSou.ThermodynamicState sta_bSou[nHp]=MediumSou.setState_phX(ports_bSou.p, noEvent(actualStream(ports_bSou.h_outflow)), noEvent(actualStream(ports_bSou.Xi_outflow)))
+      if show_T
       "Source medium properties in port_bSou";
   protected
     Buildings.Templates.Components.Interfaces.Bus busHp[nHp]
@@ -322,4 +322,40 @@ group models.
 </p>
 </html>"));
   end PartialHeatPumpGroup_WaterToWater;
+
+  expandable connector CoolingTowerWHEBus "Control bus"
+    extends Modelica.Icons.SignalBus;
+    Buildings.Templates.Components.Interfaces.Bus coolingTowerBus;
+    Buildings.Templates.Components.Interfaces.Bus condenserPumpBus;
+    Buildings.Templates.Components.Interfaces.Bus tempControlValveBus;
+    Buildings.Templates.Components.Interfaces.Bus heatExchBus;
+    annotation (
+      defaultComponentName="bus", Documentation(info="<html>
+<p>
+This expandable connector provides a standard interface for
+all control signals of the component models.
+</p>
+</html>"));
+  end CoolingTowerWHEBus;
+
+  expandable connector ExternalEnergyLoop "Control bus"
+    extends Modelica.Icons.SignalBus;
+    Buildings.Templates.Plants.HeatPumps_PNNL.Components.Interface.CoolingTowerWHEBus coolingTowerSystemBus;
+    Buildings.Templates.Components.Interfaces.Bus coolingPumpBus;
+    Buildings.Templates.Components.Interfaces.Bus heatingPumpBus;
+    Buildings.Templates.Components.Interfaces.Bus heatingInletValveBus;
+    Buildings.Templates.Components.Interfaces.Bus heatingOutletValveBus;
+    Buildings.Templates.Components.Interfaces.Bus coolingInletValveBus;
+    Buildings.Templates.Components.Interfaces.Bus coolingOutletValveBus;
+    Buildings.Templates.Components.Interfaces.Bus heatPumpBus;
+    Buildings.Templates.Components.Interfaces.Bus wseInletValveBus;
+    Buildings.Templates.Components.Interfaces.Bus wseOutletValveBus;
+    annotation (
+      defaultComponentName="bus", Documentation(info="<html>
+<p>
+This expandable connector provides a standard interface for
+all control signals of the component models.
+</p>
+</html>"));
+  end ExternalEnergyLoop;
 end Interface;

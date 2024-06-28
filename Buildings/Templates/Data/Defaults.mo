@@ -1,4 +1,4 @@
-within Buildings.Templates.Data;
+﻿within Buildings.Templates.Data;
 package Defaults
   "Package with default sizing parameters"
   extends Modelica.Icons.MaterialPropertiesPackage;
@@ -133,6 +133,12 @@ package Defaults
   constant Real COPHpWwCoo(
     unit="1")=5.07
     "Water(brine)-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)";
+  constant Real ratFloWatByAirTow(unit="1")=1.45
+    "CT CW mass flow rate divided by air mass flow rate";
+  constant Modelica.Units.SI.Temperature TAirDryCooEnt=TConAirEnt
+    "Dry cooler entering air drybulb temperature";
+  constant Modelica.Units.SI.Temperature TConAirEnt=35+273.15
+    "Condenser entering air temperature for air-cooled chillers";
   annotation (
     Documentation(
       info="<html>

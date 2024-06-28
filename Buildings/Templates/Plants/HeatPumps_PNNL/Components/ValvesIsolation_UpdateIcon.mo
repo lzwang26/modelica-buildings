@@ -171,8 +171,8 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
       max=if allowFlowReversal then + Modelica.Constants.inf else 0),
     h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default)) if
-       have_chiWat
+      nominal=Medium.h_default))
+    if have_chiWat
     "CHW supply (to primary loop)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -187,8 +187,8 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
       min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default)) if
-       have_chiWat
+      nominal=Medium.h_default))
+    if have_chiWat
     "CHW return (from primary loop)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -245,8 +245,8 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
       min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default)) if
-       not have_pumChiWatPriDed
+      nominal=Medium.h_default))
+    if not have_pumChiWatPriDed
     "CHW/HW supply (HP leaving)"
     annotation (Placement(transformation(
         extent={{-10,-40},{10,40}},
@@ -261,8 +261,8 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
       min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default)) if
-       have_pumChiWatPriDed
+      nominal=Medium.h_default))
+    if have_pumChiWatPriDed
     "HW supply (HP leaving)"
     annotation (Placement(transformation(
         extent={{-10,-40},{10,40}},
@@ -277,8 +277,8 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
       min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default)) if
-       have_pumChiWatPriDed
+      nominal=Medium.h_default))
+    if have_pumChiWatPriDed
     "CHW supply (HP leaving)"
     annotation (Placement(transformation(
         extent={{-10,-40},{10,40}},
@@ -301,8 +301,8 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
-    each final linearized=linearized) if
-       have_valHpOutIso
+    each final linearized=linearized)
+    if have_valHpOutIso
     "HP outlet HW isolation valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
       origin={-2054,-140})));
@@ -315,8 +315,8 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
-    each final linearized=linearized) if
-       have_valHpOutIso and have_chiWat
+    each final linearized=linearized)
+    if have_valHpOutIso and have_chiWat
     "HP outlet CHW isolation valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
       origin={-1974,-140})));
@@ -329,8 +329,8 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
-    each final linearized=linearized) if
-       have_valHpInlIso
+    each final linearized=linearized)
+    if have_valHpInlIso
     "HP inlet HW isolation valve"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
       origin={-1774,-140})));
@@ -343,20 +343,20 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
-    each final linearized=linearized) if
-       have_valHpInlIso and have_chiWat
+    each final linearized=linearized)
+    if have_valHpInlIso and have_chiWat
     "HP inlet CHW isolation valve"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
       origin={-1694,-140})));
   Buildings.Templates.Components.Routing.PassThroughFluid pasHeaWatHpOut[nHp](
-    redeclare each final package Medium=Medium) if
-       not have_valHpOutIso
+    redeclare each final package Medium=Medium)
+    if not have_valHpOutIso
     "Direct fluid pass-through"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
       origin={-2034,-140})));
   Buildings.Templates.Components.Routing.PassThroughFluid pasChiWatHpOut[nHp](
-    redeclare each final package Medium=Medium) if
-       not have_valHpOutIso and have_chiWat
+    redeclare each final package Medium=Medium)
+    if not have_valHpOutIso and have_chiWat
     "Direct fluid pass-through"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
       origin={-1954,-140})));
@@ -378,8 +378,8 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final prescribedHeatFlowRate=false,
-    final nPorts=nHp + 1) if
-       have_chiWat
+    final nPorts=nHp + 1)
+    if have_chiWat
     "Fluid volume at junction"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={-1956,-90})));
@@ -402,8 +402,8 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
     redeclare each final package Medium=Medium,
     final m_flow_nominal=mHeaWatHp_flow_nominal,
     final dp_nominal=if not have_valHpInlIso and not have_valHpOutIso then dpFixedHeaWat_nominal
-      else fill(0, nHp)) if
-       not have_valHpInlIso
+      else fill(0, nHp))
+    if not have_valHpInlIso
     "Direct fluid pass-through with optional fluid resistance"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
       origin={-1794,-140})));
@@ -415,8 +415,8 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
     redeclare each final package Medium=Medium,
     final m_flow_nominal=mChiWatHp_flow_nominal,
     final dp_nominal=if not have_valHpInlIso and not have_valHpOutIso then dpFixedChiWat_nominal
-      else fill(0, nHp)) if
-       not have_valHpInlIso and have_chiWat
+      else fill(0, nHp))
+    if not have_valHpInlIso and have_chiWat
     "Direct fluid pass-through with optional fluid resistance"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
       origin={-1714,-140})));
@@ -427,29 +427,29 @@ model ValvesIsolation_UpdateIcon "Heat pump isolation valves"
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final prescribedHeatFlowRate=false,
-    final nPorts=nHp + 1) if
-       have_chiWat
+    final nPorts=nHp + 1)
+    if have_chiWat
     "Fluid volume at junction"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={-1714,-90})));
 protected
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpInlIso[nHp] if
-       have_valHpInlIso
+  Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpInlIso[nHp]
+    if have_valHpInlIso
     "Heat pump inlet HW isolation valve control bus"
     annotation (Placement(transformation(extent={{-1834,0},{-1794,40}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpOutIso[nHp] if
-       have_valHpOutIso
+  Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpOutIso[nHp]
+    if have_valHpOutIso
     "Heat pump outlet HW isolation valve control bus"
     annotation (Placement(transformation(extent={{-1954,0},{-1914,40}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatHpInlIso[nHp] if
-       have_chiWat and have_valHpInlIso
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatHpInlIso[nHp]
+    if have_chiWat and have_valHpInlIso
     "Heat pump inlet CHW isolation valve control bus"
     annotation (Placement(transformation(extent={{-1864,20},{-1824,60}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatHpOutIso[nHp] if
-       have_chiWat and have_valHpOutIso
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatHpOutIso[nHp]
+    if have_chiWat and have_valHpOutIso
     "Heat pump outlet CHW isolation valve control bus"
     annotation (Placement(transformation(extent={{-1924,20},{-1884,60}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
