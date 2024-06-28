@@ -380,8 +380,8 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -140},{120,100}}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
                          graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

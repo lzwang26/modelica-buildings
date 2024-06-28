@@ -159,46 +159,62 @@ package Interface
       p=MediumSou.p_default,
       X=MediumSou.X_default)
       "Source fluid default state";
-    Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiHeaWat[nHp](
-      redeclare each final package Medium=MediumHeaWat,
-      each m_flow(
-        max=if allowFlowReversal then + Modelica.Constants.inf else 0),
-      each h_outflow(
-        start=MediumHeaWat.h_default,
-        nominal=MediumHeaWat.h_default)) "CHW supply (from heat pumps)"
-      annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
-        origin={-120,200}),
-        iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={-500,400})));
-    Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiHeaWat[nHp](
-      redeclare each final package Medium=MediumHeaWat,
-      each m_flow(
-        min=if allowFlowReversal then - Modelica.Constants.inf else 0),
-      each h_outflow(
-        start=MediumHeaWat.h_default,
-        nominal=MediumHeaWat.h_default)) "CHW Return (To heat pumps)"
-      annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
-        origin={120,200}),
-        iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={500,400})));
-    Modelica.Fluid.Interfaces.FluidPorts_b ports_bSou[nHp](
-      redeclare each final package Medium=MediumSou,
-      each m_flow(
-        max=if allowFlowReversalSou then + Modelica.Constants.inf else 0),
-      each h_outflow(
-        start=MediumSou.h_default,
-        nominal=MediumSou.h_default)) "HW Supply (from heat pumps)"
-      annotation (Placement(iconVisible=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater,
-        transformation(extent={{-10,-40},{10,40}},rotation=90,origin={120,-200}),
-        iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={500,-398})));
-    Modelica.Fluid.Interfaces.FluidPorts_a ports_aSou[nHp](
-      redeclare each final package Medium=MediumSou,
-      each m_flow(
-        min=if allowFlowReversalSou then - Modelica.Constants.inf else 0),
-      each h_outflow(
-        start=MediumSou.h_default,
-        nominal=MediumSou.h_default)) "HW Return (to heat pumps)"
-      annotation (Placement(iconVisible=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater,
-        transformation(extent={{-10,-40},{10,40}},rotation=90,origin={-120,-200}),
-        iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={-500,-400})));
+    Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWat[nHp](
+      redeclare each final package Medium = MediumHeaWat,
+      each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+
+      each h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
+      "CHW supply (from heat pumps)" annotation (Placement(transformation(
+          extent={{-10,-40},{10,40}},
+          rotation=90,
+          origin={-120,200}), iconTransformation(
+          extent={{-10,-40},{10,40}},
+          rotation=90,
+          origin={-500,400})));
+    Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWat[nHp](
+      redeclare each final package Medium = MediumHeaWat,
+      each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+
+      each h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
+      "CHW Return (To heat pumps)" annotation (Placement(transformation(
+          extent={{-10,-40},{10,40}},
+          rotation=90,
+          origin={120,200}), iconTransformation(
+          extent={{-10,-40},{10,40}},
+          rotation=90,
+          origin={500,400})));
+    Modelica.Fluid.Interfaces.FluidPorts_b ports_bHotWat[nHp](
+      redeclare each final package Medium = MediumSou,
+      each m_flow(max=if allowFlowReversalSou then +Modelica.Constants.inf
+             else 0),
+      each h_outflow(start=MediumSou.h_default, nominal=MediumSou.h_default))
+      "HW Supply (from heat pumps)" annotation (Placement(
+        iconVisible=typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater,
+
+        transformation(
+          extent={{-10,-40},{10,40}},
+          rotation=90,
+          origin={120,-200}),
+        iconTransformation(
+          extent={{-10,-40},{10,40}},
+          rotation=90,
+          origin={500,-398})));
+    Modelica.Fluid.Interfaces.FluidPorts_a ports_aHotWat[nHp](
+      redeclare each final package Medium = MediumSou,
+      each m_flow(min=if allowFlowReversalSou then -Modelica.Constants.inf
+             else 0),
+      each h_outflow(start=MediumSou.h_default, nominal=MediumSou.h_default))
+      "HW Return (to heat pumps)" annotation (Placement(
+        iconVisible=typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater,
+
+        transformation(
+          extent={{-10,-40},{10,40}},
+          rotation=90,
+          origin={-120,-200}),
+        iconTransformation(
+          extent={{-10,-40},{10,40}},
+          rotation=90,
+          origin={-500,-400})));
     Buildings.Templates.Plants.HeatPumps.Interfaces.Bus bus
       "Plant control bus"
       annotation (Placement(transformation(extent={{-20,180},{20,220}}),
@@ -207,26 +223,37 @@ package Interface
     parameter Boolean show_T=false
       "= true, if actual temperature at port is computed"
       annotation (Dialog(tab="Advanced",group="Diagnostics"),HideResult=true);
-    MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_aChiHeaWat.p, noEvent(actualStream(ports_aChiHeaWat.h_outflow)), noEvent(actualStream(ports_aChiHeaWat.Xi_outflow)))
-      if show_T
+    MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=
+        MediumHeaWat.setState_phX(
+          ports_aChiWat.p,
+          noEvent(actualStream(ports_aChiWat.h_outflow)),
+          noEvent(actualStream(ports_aChiWat.Xi_outflow))) if show_T
       "CHW/HW medium properties in port_aChiHeaWat";
-    MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_bChiHeaWat.p, noEvent(actualStream(ports_bChiHeaWat.h_outflow)), noEvent(actualStream(ports_bChiHeaWat.Xi_outflow)))
-      if show_T
+    MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=
+        MediumHeaWat.setState_phX(
+          ports_bChiWat.p,
+          noEvent(actualStream(ports_bChiWat.h_outflow)),
+          noEvent(actualStream(ports_bChiWat.Xi_outflow))) if show_T
       "CHW/HW medium properties in port_bChiHeaWat";
-    MediumSou.ThermodynamicState sta_aSou[nHp]=MediumSou.setState_phX(ports_aSou.p, noEvent(actualStream(ports_aSou.h_outflow)), noEvent(actualStream(ports_aSou.Xi_outflow)))
-      if show_T
+    MediumSou.ThermodynamicState sta_aSou[nHp]=MediumSou.setState_phX(
+          ports_aHotWat.p,
+          noEvent(actualStream(ports_aHotWat.h_outflow)),
+          noEvent(actualStream(ports_aHotWat.Xi_outflow))) if show_T
       "Source medium properties in port_aSou";
-    MediumSou.ThermodynamicState sta_bSou[nHp]=MediumSou.setState_phX(ports_bSou.p, noEvent(actualStream(ports_bSou.h_outflow)), noEvent(actualStream(ports_bSou.Xi_outflow)))
-      if show_T
+    MediumSou.ThermodynamicState sta_bSou[nHp]=MediumSou.setState_phX(
+          ports_bHotWat.p,
+          noEvent(actualStream(ports_bHotWat.h_outflow)),
+          noEvent(actualStream(ports_bHotWat.Xi_outflow))) if show_T
       "Source medium properties in port_bSou";
   protected
     Buildings.Templates.Components.Interfaces.Bus busHp[nHp]
       "Heat pump control bus"
-      annotation (Placement(transformation(extent={{-20,140},{20,180}}),
+      annotation (Placement(transformation(extent={{40,120},{80,160}}),
         iconTransformation(extent={{-522,206},{-482,246}})));
   equation
     connect(bus.hp, busHp)
-      annotation (Line(points={{0,200},{0,200},{0,160}},color={255,204,51},thickness=0.5));
+      annotation (Line(points={{0,200},{0,140},{60,140}},
+                                                        color={255,204,51},thickness=0.5));
     annotation (Diagram(coordinateSystem(extent={{-200,-200},{200,200}})), Icon(
           coordinateSystem(preserveAspectRatio=false, extent={{-2400,-400},{2400,
               400}}), graphics={
@@ -358,4 +385,18 @@ all control signals of the component models.
 </p>
 </html>"));
   end ExternalEnergyLoop;
+
+  expandable connector HeatRecoveryUnit "Control bus"
+    extends Modelica.Icons.SignalBus;
+    Buildings.Templates.Plants.HeatPumps.Interfaces.Bus plantControlBus;
+    Buildings.Templates.Components.Interfaces.Bus coolingPumpBus;
+    Buildings.Templates.Components.Interfaces.Bus heatingPumpBus;
+    annotation (
+      defaultComponentName="bus", Documentation(info="<html>
+<p>
+This expandable connector provides a standard interface for
+all control signals of the component models.
+</p>
+</html>"));
+  end HeatRecoveryUnit;
 end Interface;
