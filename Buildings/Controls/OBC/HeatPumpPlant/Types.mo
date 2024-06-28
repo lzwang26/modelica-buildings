@@ -21,49 +21,12 @@ package Types "Package with type definitions for control sequences"
   annotation (
   Documentation(info="<html>
 <p>
-Enumeration of heat pump plant operation modes. Possible values are:
+Collection of integer values to define the operation modes of a water-to-water 
+heat pump plant. For example, if the plant operates in heating only with 
+heat recovery unit (HRU) and chilled water (CHW) thermal energy storage (TES) 
+opportunistic charging, i.e., Heating_1=-1, use
+<code>Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_1</code>.
 </p>
-<table border=\"1\" summary=\"Explanation of the enumeration\">
-<tr>
-<th>Enumeration</th>
-<th>Description</th></tr>
-<tr><td><code>Not_Specified</code></td>
-<td>
-Not specified.
-</td></tr>
-<tr><td><code>Heating_1</code></td>
-<td>
-Heating only with heat recovery unit (HRU) and chilled water (CHW) thermal energy storage (TES) opportunistic charging.
-</td></tr>
-<tr><td><code>Heating_2</code></td>
-<td>
-Heating with HRU, CHW TES opportunistic charging and evaporator-side heating from Air-source heat pump (ASHP) in external energy loop.
-</td></tr>
-<tr><td><code>Heating_3</code></td>
-<td>
-Dedicated charging of heating hot water (HHW) TES with HRU and external energy loop.
-</td></tr>
-<tr><td><code>Cooling_1</code></td>
-<td>
-Cooling with cooling tower in external energy loop (water-side economizer).
-</td></tr>
-<tr><td><code>Cooling_2</code></td>
-<td>
-Cooling only with HRU and hot TES charging.
-</td></tr>
-<tr><td><code>Cooling_3</code></td>
-<td>
-Cooling with HRU, hot TES charging, and venting from cooling tower in external energy loop.
-</td></tr>
-<tr><td><code>Cooling_4</code></td>
-<td>
-Dedicated charging of CHW TES with primary loop.
-</td></tr>
-<tr><td><code>Cooling_5</code></td>
-<td>
-Dedicated charging of ice TES with HRU and primary loop.
-</td></tr>
-</table>
 </html>",   revisions="<html>
 <ul>
 <li>

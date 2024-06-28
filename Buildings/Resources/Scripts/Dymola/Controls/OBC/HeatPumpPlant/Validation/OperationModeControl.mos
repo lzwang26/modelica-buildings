@@ -6,7 +6,7 @@ simulateModel("Buildings.Controls.OBC.HeatPumpPlant.Validation.OperationModeCont
 createPlot(
     id=1,
     position={5, 5, 300, 500},
-    y={"opeModCon.uSchHea", "opeModCon.uSchCoo1", "opeModCon.uSchCoo2"},
+    y={"opeModCon.uProCom"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -15,7 +15,7 @@ createPlot(
     id=1,
 	subPlot=2,
     position={310, 5, 300, 500},
-    y={"opeModCon.uPla_ava"},
+    y={"opeModCon.uPlaEna"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -23,7 +23,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=3,
-    y={"opeModCon.movAve[1].y", "opeModCon.movAve[2].y"},
+    y={"opeModCon.uHotTanCha"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -31,7 +31,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=4,
-    y={"opeModCon.yPla"},
+    y={"opeModCon.uCooTanCha"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -46,7 +46,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"opeModCon.TChiSup", "opeModCon.T_CHWSupSet"},
+    y={"opeModCon.TChiSup", "opeModCon.TChiSupSet", "opeModCon.T_CHWSupSetMax"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -62,6 +62,14 @@ createPlot(
 createPlot(
     id=2,
     subPlot=4,
+    y={"opeModCon.capReqCoo.yCapReq", "opeModCon.capReqHea.yCapReq"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    subPlot=5,
     y={"opeModCon.yOpeMod"},
     autoscale=true,
     grid=true,

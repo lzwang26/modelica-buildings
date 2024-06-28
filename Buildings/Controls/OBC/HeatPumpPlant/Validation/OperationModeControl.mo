@@ -47,16 +47,18 @@ model OperationModeControl
     annotation (Dialog(group="Nominal condition"));
 
   Buildings.Controls.OBC.HeatPumpPlant.OperationModeControl opeModCon(
-      T_CHWRetMin(displayUnit="degC") = 287.15, T_CHWSupSetMax(displayUnit="degC")=
-         282.15) "Operation mode setpoint controller"
+    T_CHWRetMin(displayUnit="degC") = 287.15,
+    T_CHWSupSetMax(displayUnit="degC")= 282.15)
+    "Operation mode setpoint controller"
     annotation (Placement(transformation(extent={{-10,58},{10,102}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(each k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    each k=false)
     "Constant Boolean false source"
     annotation (Placement(transformation(extent={{-180,220},{-160,240}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(table=[0,0,0;
-        1.5,0,0; 6,1,0; 12,0.2,0.2; 15,0,1; 22,0.1,0.1; 24,0,0],
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(
+    table=[0,0,0; 1.5,0,0; 6,1,0; 12,0.2,0.2; 15,0,1; 22,0.1,0.1; 24,0,0],
     timeScale=3600)
     "Source signal for volume flow rate ratio – Index 1 for hot water, 2 for chilled water"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
@@ -71,26 +73,34 @@ model OperationModeControl
     "Scale by design flow"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
-  CDL.Reals.Sources.Constant THeaWatRet2(k=273.15 + 50)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet2(
+    k=273.15 + 50)
     "Measured hot water return temperature (Low)"
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
 
-  CDL.Reals.Sources.Constant TChiWatRet1(k=273.15 + 12)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRet1(
+    k=273.15 + 12)
     "Measured chilled water return temperature (High)"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
 
-  CDL.Reals.Sources.Constant THotWatSupSet(k=273.15 + 60)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(
+    k=273.15 + 60)
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,160},{-160,180}})));
 
-  CDL.Reals.Sources.Constant TChiWatSup1(k=273.15 + 14)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSup1(
+    k=273.15 + 14)
     "Measured chilled water supply temperature (High)"
     annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
 
-  CDL.Logical.Sources.Pulse booPul(period=86400*2, shift=30)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    period=86400*2,
+    shift=30)
     "Boolean pulse signal used to enable plant at non-zero simulation time"
     annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
-  CDL.Integers.Sources.Constant conIntOpeMod[8](k={Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_3,
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntOpeMod[8](
+    k={Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_3,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_2,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Heating_1,
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Disabled,
@@ -100,107 +110,167 @@ model OperationModeControl
         Buildings.Controls.OBC.HeatPumpPlant.Types.OperationMode.Cooling_4})
     "Constant integer source for enumerating operation modes"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
-  CDL.Integers.Equal intEquOpeMod[8]
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEquOpeMod[8]
     "Identify current operation mode in array of possible operation modes"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  CDL.Routing.IntegerScalarReplicator intScaRep(nout=8) "Integer replicator"
+
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
+    nout=8)
+    "Integer replicator"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  CDL.Logical.TrueDelay truDelProCha[8](delayTime=fill(30, 8))
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelProCha[8](
+    delayTime=fill(30, 8))
     "Delay for representing operation mode change process duration"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  CDL.Logical.MultiOr mulOrProCha(nin=8)
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOrProCha(
+    nin=8)
     "Identify any operation mode change completions"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
-  CDL.Logical.Edge edgProCha
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edgProCha
     "Edge block to change process change completion signal into pulse"
     annotation (Placement(transformation(extent={{170,70},{190,90}})));
-  CDL.Logical.Pre preProCha
+
+  Buildings.Controls.OBC.CDL.Logical.Pre preProCha
     "Pre block for routing back process change completion signal"
     annotation (Placement(transformation(extent={{174,24},{194,44}})));
-  CDL.Reals.Sources.Constant TChiWatSupSet1(k=273.15 + 14.5)
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet1(
+    k=273.15 + 14.5)
     "Chilled water supply temperature setpoint (High)"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
-  CDL.Reals.Sources.Constant TChiWatRet2(k=273.15 + 16)
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRet2(
+    k=273.15 + 16)
     "Measured chilled water return temperature (Low)"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
-  CDL.Reals.Sources.Constant                   THeaWatRet1(k=273.15 + 54)
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet1(
+    k=273.15 + 54)
     "Measured hot water return temperature (High)"
     annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
-  CDL.Reals.Switch swiTHotWatRet
+
+  Buildings.Controls.OBC.CDL.Reals.Switch swiTHotWatRet
     "Switch between two different hot water return temperatures to induce mode transition"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
-  CDL.Reals.Switch swiTChiWatRet
+
+  Buildings.Controls.OBC.CDL.Reals.Switch swiTChiWatRet
     "Switch between two different chilled water return temperatures to induce mode transition"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  CDL.Reals.Sources.Constant TChiWatSup2(k=273.15 + 9)
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSup2(
+    k=273.15 + 9)
     "Measured chilled water supply temperature (Low)"
     annotation (Placement(transformation(extent={{-180,-70},{-160,-50}})));
-  CDL.Reals.Switch swiTChiWatSup
+
+  Buildings.Controls.OBC.CDL.Reals.Switch swiTChiWatSup
     "Switch between two different chilled water supply temperatures to induce mode transition"
     annotation (Placement(transformation(extent={{-130,-80},{-110,-60}})));
-  CDL.Logical.Pre preOpeMod[8]
+
+  Buildings.Controls.OBC.CDL.Logical.Pre preOpeMod[8]
     "Pre block for routing back operation mode status signals"
     annotation (Placement(transformation(extent={{90,40},{110,60}})));
-  CDL.Logical.TrueDelay truDelTChiWatRet(delayTime=14000)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelTChiWatRet(
+    delayTime=14000)
     "Delay chilled water return temperature signal"
     annotation (Placement(transformation(extent={{110,10},{90,30}})));
-  CDL.Logical.Timer timTChiWatRet(t=18000)
+
+  Buildings.Controls.OBC.CDL.Logical.Timer timTChiWatRet(
+    t=18000)
     "Timer for disabling chilled water return temperature latch"
     annotation (Placement(transformation(extent={{70,-10},{50,10}})));
-  CDL.Logical.Not notTChiWatRet
+
+  Buildings.Controls.OBC.CDL.Logical.Not notTChiWatRet
     "Not operator for disabling latch required instant"
     annotation (Placement(transformation(extent={{34,-20},{14,0}})));
-  CDL.Logical.MultiAnd mulAndTChiWatRet(nin=3)
+
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAndTChiWatRet(
+    nin=3)
     "Enable latch for chilled water return temperature"
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
-  CDL.Logical.Latch latTChiWatRet
+
+  Buildings.Controls.OBC.CDL.Logical.Latch latTChiWatRet
     "Latch for holding signal to chilled water return temperature switch"
     annotation (Placement(transformation(extent={{-30,30},{-50,50}})));
-  CDL.Logical.Pre pre2
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2
+    "Pre block for routing signal to change chilled water return temperature latch"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  CDL.Integers.OnCounter onCouInt
+
+  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt
+    "Count falling edge signal based on the reset signal"
     annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
-  CDL.Integers.GreaterEqualThreshold intGreEquThr(t=1)
+
+  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr(
+    t=1)
+    "Pass signal greater than a threshold"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  CDL.Logical.FallingEdge falEdg
+
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
+    "Falling Edge block to change chilled water return temperature signal into pulse"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  CDL.Logical.Not not2
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Not operator for disabling the passing signal"
     annotation (Placement(transformation(extent={{90,-80},{110,-60}})));
-  CDL.Logical.TrueDelay truDelTChiWatSup(delayTime=7000)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelTChiWatSup(
+    delayTime=7000)
     "Delay signal to chilled water supply temperature"
     annotation (Placement(transformation(extent={{110,-140},{90,-120}})));
-  CDL.Logical.TrueDelay truDelTHotWatRet(delayTime=7000)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelTHotWatRet(
+    delayTime=7000)
     "Delay enable of hot water return temperature latch"
     annotation (Placement(transformation(extent={{80,-200},{60,-180}})));
-  CDL.Logical.Pre preTChiWatSup
+
+  Buildings.Controls.OBC.CDL.Logical.Pre preTChiWatSup
     "Pre block for routing back chilled water supply temperature switch signal"
     annotation (Placement(transformation(extent={{30,-170},{50,-150}})));
-  CDL.Reals.Switch swiTChiWatSupSet
+
+  Buildings.Controls.OBC.CDL.Reals.Switch swiTChiWatSupSet
     "Switch between two different chilled water supply temperature setpoints to induce mode transition"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
-  CDL.Reals.Sources.Constant TChiWatSupSet2(k=273.15 + 9)
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet2(
+    k=273.15 + 9)
     "Chilled water supply temperature setpoint (Low)"
     annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
-  CDL.Logical.Timer timTHotWatRet(t=7000)
+
+  Buildings.Controls.OBC.CDL.Logical.Timer timTHotWatRet(
+    t=7000)
     "Timer to disable hot water return temperature latch"
     annotation (Placement(transformation(extent={{80,-240},{60,-220}})));
-  CDL.Logical.Pre preTHotWatRet
+
+  Buildings.Controls.OBC.CDL.Logical.Pre preTHotWatRet
     "Pre block for routing signal to change hot water return temperature latch"
     annotation (Placement(transformation(extent={{28,-220},{48,-200}})));
-  CDL.Logical.Latch latTHotWatRet
+
+  Buildings.Controls.OBC.CDL.Logical.Latch latTHotWatRet
     "Latch to hold switch for hot water return temperature"
     annotation (Placement(transformation(extent={{-60,-200},{-80,-180}})));
-  CDL.Logical.And andTHotWatRet
+
+  Buildings.Controls.OBC.CDL.Logical.And andTHotWatRet
     "Enable latch only for fixed duration and then disable it"
     annotation (Placement(transformation(extent={{-20,-200},{-40,-180}})));
-  CDL.Logical.Not notTHotWatRet "Not operation for disabling latch"
+
+  Buildings.Controls.OBC.CDL.Logical.Not notTHotWatRet
+    "Not operation for disabling latch"
     annotation (Placement(transformation(extent={{12,-220},{-8,-200}})));
-  CDL.Logical.Latch latTChiWatSup
+
+  Buildings.Controls.OBC.CDL.Logical.Latch latTChiWatSup
     "Latch for holding signal to chilled water supply temperature signal"
     annotation (Placement(transformation(extent={{50,-140},{30,-120}})));
-  CDL.Logical.Timer timTChiWatSupSet(t=7000)
+
+  Buildings.Controls.OBC.CDL.Logical.Timer timTChiWatSupSet(
+    t=7000)
     "Timer to switch chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-100,-220},{-120,-200}})));
+
 equation
   connect(THotWatSupSet.y, opeModCon.THeaSupSet) annotation (Line(points={{-158,
           170},{-82,170},{-82,84},{-12,84}},           color={0,0,127}));
@@ -225,7 +295,8 @@ equation
   connect(intEquOpeMod.y, truDelProCha.u)
     annotation (Line(points={{82,80},{98,80}}, color={255,0,255}));
   connect(truDelProCha.y, mulOrProCha.u[1:8]) annotation (Line(points={{122,80},
-          {130,80},{130,73.875},{138,73.875}}, color={255,0,255}));
+          {130,80},{130,83.0625},{138,83.0625}},
+                                               color={255,0,255}));
   connect(mulOrProCha.y, edgProCha.u)
     annotation (Line(points={{162,80},{168,80}}, color={255,0,255}));
   connect(edgProCha.y, preProCha.u) annotation (Line(points={{192,80},{198,80},
@@ -270,8 +341,8 @@ equation
     annotation (Line(points={{52,-70},{58,-70}},   color={255,127,0}));
   connect(falEdg.y, onCouInt.trigger)
     annotation (Line(points={{22,-70},{28,-70}},   color={255,0,255}));
-  connect(truDelTChiWatRet.y, mulAndTChiWatRet.u[1]) annotation (Line(points={{
-          88,20},{44,20},{44,44.6667},{12,44.6667}}, color={255,0,255}));
+  connect(truDelTChiWatRet.y, mulAndTChiWatRet.u[1]) annotation (Line(points={{88,20},
+          {44,20},{44,37.6667},{12,37.6667}},        color={255,0,255}));
   connect(notTChiWatRet.y, mulAndTChiWatRet.u[2]) annotation (Line(points={{12,
           -10},{6,-10},{6,28},{18,28},{18,40},{12,40}}, color={255,0,255}));
   connect(pre2.y, falEdg.u) annotation (Line(points={{42,-40},{48,-40},{48,-52},
@@ -279,7 +350,7 @@ equation
   connect(intGreEquThr.y, not2.u)
     annotation (Line(points={{82,-70},{88,-70}},   color={255,0,255}));
   connect(not2.y, mulAndTChiWatRet.u[3]) annotation (Line(points={{112,-70},{
-          120,-70},{120,35.3333},{12,35.3333}}, color={255,0,255}));
+          120,-70},{120,42.3333},{12,42.3333}}, color={255,0,255}));
   connect(preOpeMod[5].y, truDelTChiWatSup.u) annotation (Line(points={{112,50},
           {130,50},{130,-130},{112,-130}}, color={255,0,255}));
   connect(preTChiWatSup.y, truDelTHotWatRet.u) annotation (Line(points={{52,
@@ -356,11 +427,61 @@ equation
 This model validates
 <a href=\"modelica://Buildings.Controls.OBC.HeatPumpPlant.OperationModeControl\">
 Buildings.Controls.OBC.HeatPumpPlant.OperationModeControl</a>
-in a heating operation, in a cooling operation, and in
-a heating operation with the enable schedule provided via an input point,
-and two cooling operations with the enable schedules provided via two
-input points.
+in both heating and cooling operations. 
 </p>
+<p>
+The following simulations can be observed: 
+</p>
+<ul>
+<li>
+The output integer <code>opeModCon.yOpeMod</code> is negative 
+when the heating capacity exceeds than the cooling capacity 
+<code>opeModCon.capReqCoo.yCapReq</code> for a period of 300 secconds. 
+</li>
+<li>
+The output integer <code>opeModCon.yOpeMod</code> is positive 
+when <code>opeModCon.capReqHea.yCapReq</code> is lower than 
+<code>opeModCon.capReqCoo.yCapReq</code> for a period of 300 secconds. 
+</li>
+<li>
+The output integer <code>opeModCon.yOpeMod</code> is zero 
+when <code>opeModCon.capReqHea.yCapReq</code> equals to 
+<code>opeModCon.capReqCoo.yCapReq</code>. 
+</li>
+</ul>
+<p>
+When <code>opeModCon.capReqHea.yCapReq</code> is larger than 
+<code>opeModCon.capReqCoo.yCapReq</code>: 
+</p>
+<ul>
+<li>
+The value of <code>opeModCon.yOpeMod</code> switches from 0 to -1 
+when <code>opeModCon.TChiRet</code> is higher than 
+<code>opeModCon.T_CHWRetMin</code> for a period of 900 secconds. 
+</li>
+<li>
+The value of <code>opeModCon.yOpeMod</code> switches from -1 to -2 
+when <code>opeModCon.TChiRet</code> is lower than 
+<code>opeModCon.T_CHWRetMin</code> for a period of 300 secconds. 
+</li>
+</ul>
+<p>
+When <code>opeModCon.capReqHea.yCapReq</code> is lower than 
+<code>opeModCon.capReqCoo.yCapReq</code>: 
+</p>
+<ul>
+<li>
+The value of <code>opeModCon.yOpeMod</code> switches from 1 to 2 
+when <code>opeModCon.TChiSup</code> is larger than 
+<code>opeModCon.TChiSupSet</code> for a period of 300 secconds. 
+</li>
+<li>
+The value of 
+<code>opeModCon.yOpeMod</code> switches from 2 to 3 
+when <code>opeModCon.THeaRet</code> is larger than 
+<code>opeModCon.T_HHWRetMax</code> for a period of 300 secconds. 
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
