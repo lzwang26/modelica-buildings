@@ -53,7 +53,7 @@ model CoolingTowerWHeatExchanger
             {10,80},{50,120}}), iconTransformation(extent={{30,90},{50,108}})));
 equation
   connect(busWea, coo.busWea) annotation (Line(
-      points={{-30,100},{-30,-86},{-6,-86},{-6,-80}},
+      points={{-30,100},{-30,-90},{-6,-90},{-6,-80}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -73,7 +73,7 @@ equation
   connect(temperature.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(waterBasedHeating.bus, bus.heatExchBus) annotation (Line(
-      points={{0,10},{0,74},{30.1,74},{30.1,100.1}},
+      points={{0,10},{0,76},{30.1,76},{30.1,100.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -81,8 +81,8 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(coo.bus, bus.coolingTowerBus) annotation (Line(
-      points={{-7.21645e-16,-80},{-7.21645e-16,-82},{22,-82},{22,72},{30.1,72},{
-          30.1,100.1}},
+      points={{-7.21645e-16,-80},{-7.21645e-16,-90},{30,-90},{30,72},{30.1,72},
+          {30.1,100.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -90,7 +90,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(pum.bus, bus.condenserPumpBus) annotation (Line(
-      points={{-50,-60},{-50,4},{-16,4},{-16,76},{30.1,76},{30.1,100.1}},
+      points={{-50,-60},{-50,76},{30.1,76},{30.1,100.1}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",

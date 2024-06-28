@@ -55,7 +55,7 @@ model ExternalEnergyLoop
   CoolingTowerWHeatExchanger coolingTowerWHeatExchanger(
     redeclare package Medium = Buildings.Media.Water,
     mCooTowAir_flow_nominal=8,
-    mChiWat_flow_nominal=1,
+    mChiWat_flow_nominal=0.75,
     mConWat_flow_nominal=15)                            annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

@@ -3,3 +3,4 @@ OpenLoop
 ExternalEnergyOpenLoop
 ExternalEnergy
 HeatRecoveryUnitControl
+HeatRecoveryUnitController

@@ -26,7 +26,7 @@ model ExternalEnergyLoop
         origin={-10,-40})));
   Fluid.Sources.Boundary_pT bou2(
     redeclare package Medium = Buildings.Media.Water,
-    T=288.7,
+    T(displayUnit="degC") = 288.7,
     nPorts=1)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
@@ -57,14 +57,14 @@ equation
       points={{-20,50},{-4,50},{-4,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(bou1.ports[1], externalEnergyLoop.portCon_b) annotation (Line(points={
-          {-10,-30},{-2,-30},{-2,-10},{-3,-10}}, color={0,127,255}));
-  connect(externalEnergyLoop.portCon_a, bou.ports[1]) annotation (Line(points={{
-          -7,-10},{-40,-10},{-40,-30}}, color={0,127,255}));
-  connect(bou2.ports[1], externalEnergyLoop.portEva_a) annotation (Line(points={
-          {20,-30},{20,-16},{3,-16},{3,-10}}, color={0,127,255}));
-  connect(bou3.ports[1], externalEnergyLoop.portEva_b) annotation (Line(points={
-          {50,-30},{50,-14},{7,-14},{7,-10}}, color={0,127,255}));
+  connect(bou1.ports[1], externalEnergyLoop.portCon_b) annotation (Line(points={{-10,-30},
+          {-2,-30},{-2,-10},{-3,-10}},           color={0,127,255}));
+  connect(externalEnergyLoop.portCon_a, bou.ports[1]) annotation (Line(points={{-7,-10},
+          {-40,-10},{-40,-30}},         color={0,127,255}));
+  connect(bou2.ports[1], externalEnergyLoop.portEva_a) annotation (Line(points={{20,-30},
+          {20,-16},{3,-16},{3,-10}},          color={0,127,255}));
+  connect(bou3.ports[1], externalEnergyLoop.portEva_b) annotation (Line(points={{50,-30},
+          {50,-14},{7,-14},{7,-10}},          color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=3600, __Dymola_Algorithm="Dassl"));
