@@ -386,7 +386,11 @@ equation
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-150,20},{150,-20}},
+          textString="%name",
+          textColor={0,0,255})}),                                Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,
             100}})));
 end ExternalEnergyLoop;

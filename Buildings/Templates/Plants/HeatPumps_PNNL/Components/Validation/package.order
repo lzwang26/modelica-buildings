@@ -2,6 +2,7 @@ HeatPumpPlant_Hydronics
 ValvesIsolation_Test
 ValvesIsolation_HeatPump
 HeatPumpGroupWaterToWater
-IsolationValveAndHeatPumpGroupWW
+HeatPumpPlantPrimarySecondary
 CoolingTowerWHeatExchanger
 ExternalEnergyLoop
+HeatPumpPlantPrimaryOnly

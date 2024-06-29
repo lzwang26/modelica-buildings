@@ -27,8 +27,8 @@ model CoolingTowerWHeatExchanger
   Interface.CoolingTowerWHEBus bus annotation (Placement(transformation(extent=
             {{-10,60},{30,100}}), iconTransformation(extent={{-278,-28},{-238,
             12}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=2*86400, shift
-      =300) annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=2*86400, shift=
+       300) annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 equation
   connect(boundary.ports[1], coolingTowerWHeatExchanger.port_a)
     annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
