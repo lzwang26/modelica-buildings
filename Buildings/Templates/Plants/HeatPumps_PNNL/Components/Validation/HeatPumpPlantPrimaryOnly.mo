@@ -321,12 +321,9 @@ model HeatPumpPlantPrimaryOnly "Validation model for heat pump group"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-130,-16})));
-  Controls.HeatRecoveryUnitControl hruCon "Heat recovery unit control"
-    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  Interface.HeatRecoveryUnit bus2 annotation (Placement(transformation(extent={
-            {-20,100},{0,120}}), iconTransformation(extent={{-56,54},{-16,94}})));
   Buildings.Templates.Components.Actuators.Valve valve(redeclare package Medium
-      = Buildings.Media.Water, typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
+      = Buildings.Media.Water, typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    dat(dpValve_nominal=50, dpFixed_nominal=500))
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -337,6 +334,41 @@ model HeatPumpPlantPrimaryOnly "Validation model for heat pump group"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={150,14})));
+  HeatPumps.Interfaces.Bus busIsoVal annotation (Placement(transformation(
+          extent={{-20,80},{20,120}}), iconTransformation(extent={{-226,16},{-186,
+            56}})));
+  Buildings.Templates.Components.Interfaces.Bus busHeaPum annotation (Placement(
+        transformation(extent={{-60,72},{-20,112}}), iconTransformation(extent={
+            {-228,-66},{-188,-26}})));
+  Buildings.Templates.Components.Interfaces.Bus busCooPum annotation (Placement(
+        transformation(extent={{64,80},{104,120}}), iconTransformation(extent={{
+            -228,-66},{-188,-26}})));
+  Controls.HeatRecoveryUnitController heatRecoveryUnitController
+    annotation (Placement(transformation(extent={{-10,140},{10,172}})));
+  Buildings.Templates.Components.Sensors.Temperature TSupCoo(redeclare package
+      Medium = Buildings.Media.Water)
+    annotation (Placement(transformation(extent={{170,30},{190,50}})));
+  Buildings.Templates.Components.Sensors.Temperature TSupHea(redeclare package
+      Medium = Buildings.Media.Water)
+    annotation (Placement(transformation(extent={{-258,-26},{-238,-6}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupCooSet(k=273.15 + 7.22)
+    annotation (Placement(transformation(extent={{100,150},{120,170}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupHeaSet(k=273.15 + 55)
+    annotation (Placement(transformation(extent={{-160,180},{-140,200}})));
+  Buildings.Templates.Components.Sensors.DifferentialPressure dPHea(redeclare
+      package Medium = Buildings.Media.Water) annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-240,10})));
+  Buildings.Templates.Components.Sensors.DifferentialPressure dPCoo(redeclare
+      package Medium = Buildings.Media.Water) annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={170,10})));
+  HeatPumps.Interfaces.Bus busHP annotation (Placement(transformation(extent={{
+            20,56},{60,96}}), iconTransformation(extent={{-226,16},{-186,56}})));
 equation
   connect(valIsoHeaInl.ports_bChiWatHp, hpAwNrv.ports_aChiWat) annotation (Line(
         points={{16.8,-19.79},{16.8,-66},{-16,-66},{-16,-72}}, color={0,127,255}));
@@ -378,9 +410,8 @@ equation
     annotation (Line(points={{120,40},{140,40}}, color={0,127,255}));
   connect(extEneLoo.portEva_b, jun4.port_3) annotation (Line(points={{-71.6,64},
           {110,64},{110,50}}, color={0,127,255}));
-  connect(valIsoHeaInl.port_bChiWat, jun5.port_2) annotation (Line(points={{22,
-          16.12},{50,16.12},{50,40},{60,40}},
-                                       color={0,127,255}));
+  connect(valIsoHeaInl.port_bChiWat, jun5.port_2) annotation (Line(points={{22,16.12},
+          {50,16.12},{50,40},{60,40}}, color={0,127,255}));
   connect(jun5.port_1, jun4.port_2)
     annotation (Line(points={{80,40},{100,40}}, color={0,127,255}));
   connect(extEneLoo.portEva_a, jun5.port_3) annotation (Line(points={{-76.4,64},
@@ -393,25 +424,11 @@ equation
           {-84,64},{-84,54},{-182,54},{-182,46}}, color={0,127,255}));
   connect(valIsoHeaInl.port_bHeaWat, jun7.port_1) annotation (Line(points={{-20,
           7.51},{-20,4},{-36,4},{-36,-16},{-120,-16}}, color={0,127,255}));
-  connect(jun7.port_2, jun.port_1) annotation (Line(points={{-140,-16},{-170,
-          -16},{-170,-16},{-200,-16}},
+  connect(jun7.port_2, jun.port_1) annotation (Line(points={{-140,-16},{-170,-16},
+          {-170,-16},{-200,-16}},
                                 color={0,127,255}));
-  connect(jun7.port_3, extEneLoo.portCon_a) annotation (Line(points={{-130,-6},
-          {-130,56},{-88.4,56},{-88.4,64}}, color={0,127,255}));
-  connect(hruCon.bus, bus2) annotation (Line(
-      points={{-10,100},{-10,110}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus2.plantControlBus, valIsoHeaInl.bus) annotation (Line(
-      points={{-9.95,110.05},{-9.95,110},{34,110},{34,40},{0.6,40},{0.6,20.53}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus2.plantControlBus, hpAwNrv.bus) annotation (Line(
-      points={{-9.95,110.05},{-9.95,110},{34,110},{34,-72}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(jun.port_2, supHeaWat1.ports[1]) annotation (Line(points={{-220,-16},
-          {-250,-16},{-250,-16},{-280,-16}}, color={0,127,255}));
+  connect(jun7.port_3, extEneLoo.portCon_a) annotation (Line(points={{-130,-6},{
+          -130,56},{-88.4,56},{-88.4,64}}, color={0,127,255}));
   connect(jun1.port_3, valve.port_b)
     annotation (Line(points={{-210,26},{-210,20}}, color={0,127,255}));
   connect(jun.port_3, valve.port_a)
@@ -420,8 +437,82 @@ equation
     annotation (Line(points={{150,30},{150,24}}, color={0,127,255}));
   connect(jun3.port_3, valve1.port_b)
     annotation (Line(points={{150,-2},{150,4}}, color={0,127,255}));
-  connect(supChiWat.ports[1], jun2.port_2)
-    annotation (Line(points={{200,40},{160,40}}, color={0,127,255}));
+  connect(busIsoVal, valIsoHeaInl.bus) annotation (Line(
+      points={{0,100},{0,60.265},{0.6,60.265},{0.6,20.53}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(pum1.bus,busHeaPum)  annotation (Line(
+      points={{-100,46},{-40,46},{-40,92}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busCooPum, pum.bus) annotation (Line(
+      points={{84,100},{84,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(supChiWat.ports[1], TSupCoo.port_b)
+    annotation (Line(points={{200,40},{190,40}}, color={0,127,255}));
+  connect(TSupCoo.port_a, jun2.port_2)
+    annotation (Line(points={{170,40},{160,40}}, color={0,127,255}));
+  connect(heatRecoveryUnitController.yVal, busIsoVal.valChiWatHpInlIso.y1)
+    annotation (Line(points={{12,162},{12,160},{40,160},{40,100},{0,100}},
+        color={255,0,255}));
+  connect(heatRecoveryUnitController.yVal, busIsoVal.valHeaWatHpInlIso.y1)
+    annotation (Line(points={{12,162},{12,160},{40,160},{40,100},{0,100}},
+        color={255,0,255}));
+  connect(heatRecoveryUnitController.yPum, busCooPum.y1) annotation (Line(
+        points={{12,158},{12,156},{84,156},{84,100}}, color={255,0,255}));
+  connect(heatRecoveryUnitController.yPum, busHeaPum.y1) annotation (Line(
+        points={{12,158},{12,156},{44,156},{44,92},{-40,92}}, color={255,0,255}));
+  connect(heatRecoveryUnitController.yPumSpeHea, busHeaPum.y) annotation (Line(
+        points={{12,154},{12,152},{24,152},{24,92},{-40,92}}, color={0,0,127}));
+  connect(heatRecoveryUnitController.yPumSpeCoo, busCooPum.y) annotation (Line(
+        points={{12,150},{12,148},{84,148},{84,100}}, color={0,0,127}));
+  connect(jun.port_2, TSupHea.port_b) annotation (Line(points={{-220,-16},{-229,
+          -16},{-229,-16},{-238,-16}}, color={0,127,255}));
+  connect(TSupHea.port_a, supHeaWat1.ports[1])
+    annotation (Line(points={{-258,-16},{-280,-16}}, color={0,127,255}));
+  connect(TSupHea.y, heatRecoveryUnitController.TSupHea)
+    annotation (Line(points={{-248,-4},{-122,-4},{-122,172},{-40,172},{-40,162},
+          {-12,162}},                                color={0,127,255}));
+  connect(TSupCoo.y, heatRecoveryUnitController.TSupCoo)
+    annotation (Line(points={{180,52},{200,52},{200,180},{-18,180},{-18,170},{-12,
+          170}},                                     color={0,127,255}));
+  connect(TSupCooSet.y, heatRecoveryUnitController.TSupCooSet) annotation (Line(
+        points={{122,160},{128,160},{128,186},{-24,186},{-24,166},{-12,166}},
+        color={0,0,127}));
+  connect(TSupHeaSet.y, heatRecoveryUnitController.TSupHeaSet) annotation (Line(
+        points={{-138,190},{-32,190},{-32,158},{-12,158}}, color={0,0,127}));
+  connect(busHeaPum.y1_actual, heatRecoveryUnitController.uHeaPumPro)
+    annotation (Line(
+      points={{-40,92},{-40,154},{-12,154}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busCooPum.y1_actual, heatRecoveryUnitController.uCooPumPro)
+    annotation (Line(
+      points={{84,100},{36,100},{36,124},{-20,124},{-20,150},{-12,150}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(dPHea.port_b, jun1.port_1) annotation (Line(points={{-240,20},{-232,20},
+          {-232,36},{-220,36}}, color={0,127,255}));
+  connect(dPHea.port_a, jun.port_2) annotation (Line(points={{-240,0},{-232,0},{
+          -232,-16},{-220,-16}}, color={0,127,255}));
+  connect(dPCoo.port_a, jun2.port_2)
+    annotation (Line(points={{170,20},{160,20},{160,40}}, color={0,127,255}));
+  connect(dPCoo.port_b, jun3.port_1) annotation (Line(points={{170,-3.55271e-15},
+          {160,-3.55271e-15},{160,-12}}, color={0,127,255}));
+  connect(dPHea.y, heatRecoveryUnitController.uDpHea) annotation (Line(
+        points={{-252,10},{186,10},{186,216},{-20,216},{-20,146},{-12,146}},
+        color={0,0,127}));
+  connect(dPCoo.y, heatRecoveryUnitController.uDpCoo) annotation (Line(
+        points={{182,10},{-32,10},{-32,142},{-12,142}},    color={0,0,127}));
+  connect(busHP, hpAwNrv.bus) annotation (Line(
+      points={{40,76},{40,4},{34,4},{34,-72}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(heatRecoveryUnitController.yHeaPum, busHP.hp.y1) annotation (Line(
+        points={{12,166},{12,164},{40,164},{40,76}}, color={255,0,255}));
+  connect(heatRecoveryUnitController.TSetHeaPum, busHP.hp.TSet) annotation (
+      Line(points={{12,146},{12,144},{40,144},{40,76}}, color={0,0,127}));
   annotation (
     Diagram(
       coordinateSystem(

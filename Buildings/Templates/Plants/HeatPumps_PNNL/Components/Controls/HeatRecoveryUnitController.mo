@@ -25,37 +25,69 @@ block HeatRecoveryUnitController
   Buildings.Controls.OBC.CDL.Logical.Or or1
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSet(k=273.15 + 7.22)
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoo annotation (Placement(
         transformation(extent={{-140,80},{-100,120}}), iconTransformation(
-          extent={{-140,80},{-100,120}})));
+          extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCooSet annotation (
       Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHea annotation (Placement(
-        transformation(extent={{-140,0},{-100,40}}), iconTransformation(extent=
-            {{-140,0},{-100,40}})));
+        transformation(extent={{-140,0},{-100,40}}), iconTransformation(extent={{-140,40},
+            {-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHeaSet annotation (
       Placement(transformation(extent={{-140,-40},{-100,0}}),
-        iconTransformation(extent={{-140,-40},{-100,0}})));
+        iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaPum annotation (
-      Placement(transformation(extent={{100,40},{140,80}}), iconTransformation(
-          extent={{100,40},{140,80}})));
+      Placement(transformation(extent={{160,40},{200,80}}), iconTransformation(
+          extent={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPumPro annotation (
       Placement(transformation(extent={{-140,-80},{-100,-40}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooPumPro annotation (
       Placement(transformation(extent={{-140,-120},{-100,-80}}),
-        iconTransformation(extent={{-140,-120},{-100,-80}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yVal annotation (
-      Placement(transformation(extent={{100,0},{140,40}}), iconTransformation(
-          extent={{100,0},{140,40}})));
+      Placement(transformation(extent={{160,0},{200,40}}), iconTransformation(
+          extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPum annotation (
-      Placement(transformation(extent={{100,-40},{140,0}}), iconTransformation(
-          extent={{100,-40},{140,0}})));
+      Placement(transformation(extent={{160,-40},{200,0}}), iconTransformation(
+          extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetHeaPum annotation (
-      Placement(transformation(extent={{100,-80},{140,-40}}),
+      Placement(transformation(extent={{160,-180},{200,-140}}),
+        iconTransformation(extent={{100,-120},{140,-80}})));
+  Buildings.Templates.Plants.Controls.Pumps.Primary.EnableLeadHeadered enaLea(
+    typCon=Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel,
+    typValIso=Buildings.Templates.Plants.Controls.Types.Actuator.TwoPosition,
+    nValIso=1)
+    annotation (Placement(transformation(extent={{112,10},{132,30}})));
+
+  Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure
+    ctlDpHea(
+    have_senDpRemWir=true,
+    nPum=1,
+    nSenDpRem=1)
+    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
+  Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure
+    ctlDpCoo(
+    have_senDpRemWir=true,
+    nPum=1,
+    nSenDpRem=1)
+    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpeHea annotation (
+      Placement(transformation(extent={{160,-70},{200,-30}}),
+        iconTransformation(extent={{100,-40},{140,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpeCoo annotation (
+      Placement(transformation(extent={{160,-100},{200,-60}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDpHea annotation (Placement(
+        transformation(extent={{-140,-150},{-100,-110}}), iconTransformation(
+          extent={{-140,-120},{-100,-80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDpCoo annotation (Placement(
+        transformation(extent={{-140,-180},{-100,-140}}), iconTransformation(
+          extent={{-140,-160},{-100,-120}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSet1(k=5000)
+    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
 equation
   connect(truDel.y, lat.u)
     annotation (Line(points={{28,50},{38,50}}, color={255,0,255}));
@@ -88,19 +120,42 @@ equation
           -10},{38,-10}}, color={255,0,255}));
   connect(uCooPumPro, or1.u2) annotation (Line(points={{-120,-100},{30,-100},{
           30,-18},{38,-18}}, color={255,0,255}));
-  connect(seqEve.y1, yHeaPum) annotation (Line(points={{96,46},{98,46},{98,60},
-          {120,60}}, color={255,0,255}));
-  connect(seqEve.y1ValHeaWatInlIso, yVal) annotation (Line(points={{96,36},{98,
-          36},{98,20},{120,20}}, color={255,0,255}));
-  connect(seqEve.y1PumHeaWatPri, yPum)
-    annotation (Line(points={{96,26},{96,-20},{120,-20}}, color={255,0,255}));
-  connect(TSet.y, TSetHeaPum) annotation (Line(points={{82,-60},{96,-60},{96,
-          -60},{120,-60}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  connect(seqEve.y1, yHeaPum) annotation (Line(points={{96,46},{158,46},{158,60},
+          {180,60}}, color={255,0,255}));
+  connect(seqEve.y1ValHeaWatInlIso, yVal) annotation (Line(points={{96,36},{158,
+          36},{158,20},{180,20}},color={255,0,255}));
+  connect(TSet.y, TSetHeaPum) annotation (Line(points={{142,-160},{180,-160}},
+                           color={0,0,127}));
+  connect(seqEve.y1ValHeaWatInlIso, enaLea.u1ValIso[1]) annotation (Line(points=
+         {{96,36},{104,36},{104,20},{110,20}}, color={255,0,255}));
+  connect(enaLea.y1, yPum) annotation (Line(points={{134,20},{154,20},{154,-20},
+          {180,-20}}, color={255,0,255}));
+  connect(ctlDpHea.y, yPumSpeHea) annotation (Line(points={{141.8,-40},{154,-40},
+          {154,-50},{180,-50}}, color={0,0,127}));
+  connect(ctlDpCoo.y, yPumSpeCoo)
+    annotation (Line(points={{141.8,-80},{180,-80}}, color={0,0,127}));
+  connect(uHeaPumPro, ctlDpHea.y1_actual[1]) annotation (Line(points={{-120,-60},
+          {20,-60},{20,-32},{118,-32}}, color={255,0,255}));
+  connect(uCooPumPro, ctlDpCoo.y1_actual[1]) annotation (Line(points={{-120,-100},
+          {30,-100},{30,-72},{118,-72}}, color={255,0,255}));
+  connect(uDpHea, ctlDpHea.dpRem[1]) annotation (Line(points={{-120,-130},{40,-130},
+          {40,-40},{118,-40}}, color={0,0,127}));
+  connect(uDpCoo, ctlDpCoo.dpRem[1]) annotation (Line(points={{-120,-160},{104,-160},
+          {104,-80},{118,-80}}, color={0,0,127}));
+  connect(TSet1.y, ctlDpHea.dpRemSet[1]) annotation (Line(points={{82,-110},{90,
+          -110},{90,-36},{118,-36}}, color={0,0,127}));
+  connect(TSet1.y, ctlDpCoo.dpRemSet[1]) annotation (Line(points={{82,-110},{90,
+          -110},{90,-76},{118,-76}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},
+            {100,160}}),                                        graphics={
           Rectangle(
-          extent={{-100,100},{100,-100}},
+          extent={{-100,160},{100,-160}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
-          preserveAspectRatio=false)));
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-150,200},{150,160}},
+          textString="%name",
+          textColor={0,0,255})}),           Diagram(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-180},{160,100}})));
 end HeatRecoveryUnitController;
