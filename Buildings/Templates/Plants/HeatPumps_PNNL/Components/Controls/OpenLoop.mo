@@ -19,29 +19,29 @@ block OpenLoop
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatHpInlIso[nHp](
     each table=[0,1; 1,1; 3,1; 5,1],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_heaWat and cfg.have_valHpInlIso
+    each period=5000)
+    if cfg.have_heaWat and cfg.have_valHpInlIso
     "Heat pump inlet HW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-180,250},{-200,270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatHpOutIso[nHp](
     each table=[0,1; 1,1; 3,1; 5,1],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_heaWat and cfg.have_valHpOutIso
+    each period=5000)
+    if cfg.have_heaWat and cfg.have_valHpOutIso
     "Heat pump outlet HW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-180,210},{-200,230}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatHpInlIso[nHp](
     each table=[0,1; 3.1,1; 5,1],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_chiWat and cfg.have_valHpInlIso
+    each period=5000)
+    if cfg.have_chiWat and cfg.have_valHpInlIso
     "Heat pump inlet CHW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-180,-90},{-200,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatHpOutIso[nHp](
     each table=[0,1; 3.1,1; 5,1],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_chiWat and cfg.have_valHpOutIso
+    each period=5000)
+    if cfg.have_chiWat and cfg.have_valHpOutIso
     "Heat pump outlet CHW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-180,-130},{-200,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Hp[nHp](
@@ -60,8 +60,8 @@ block OpenLoop
       3, 0;
       5, 0],
     each timeScale=1000,
-    each period=5000) if
-       cfg.is_rev
+    each period=5000)
+    if cfg.is_rev
     "Heat pump heating mode command"
     annotation (Placement(transformation(extent={{-180,290},{-200,310}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPri[cfg.nPumHeaWatPri](
@@ -78,8 +78,8 @@ block OpenLoop
       3.1, 1;
       5, 0],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_heaWat
+    each period=5000)
+    if cfg.have_heaWat
     "Primary CHW pump start/stop command"
     annotation (Placement(transformation(extent={{-180,170},{-200,190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatPri[cfg.nPumChiWatPri](
@@ -88,8 +88,8 @@ block OpenLoop
       3.1, 1;
       5, 0],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_pumChiWatPriDed
+    each period=5000)
+    if cfg.have_pumChiWatPriDed
     "Primary CHW pump start/stop command"
     annotation (Placement(transformation(extent={{-180,-210},{-200,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatSec[cfg.nPumHeaWatSec](
@@ -99,8 +99,8 @@ block OpenLoop
       3, 0;
       5, 0],
     each timeScale=1000,
-    each period=5000) if
-       cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    each period=5000)
+    if cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Secondary HW pump start/stop command"
     annotation (Placement(transformation(extent={{-180,130},{-200,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatSec[cfg.nPumChiWatSec](
@@ -109,18 +109,18 @@ block OpenLoop
       3, 1;
       5, 1],
     each timeScale=1000,
-    each period=5000) if
-       cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    each period=5000)
+    if cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Secondary CHW pump start/stop command"
     annotation (Placement(transformation(extent={{-180,-250},{-200,-230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatSec(
-    k=1) if
-       cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    k=1)
+    if cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Secondary HW pump speed signal"
     annotation (Placement(transformation(extent={{-140,130},{-160,150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatSec(
-    k=1) if
-       cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    k=1)
+    if cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Secondary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-140,-250},{-160,-230}})));
   Buildings.Controls.OBC.CDL.Reals.Switch TSet[nHp](
@@ -129,17 +129,17 @@ block OpenLoop
     "Active supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,310},{-160,330}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru[nHp](
-    each final k=true) if
-       not cfg.is_rev
+    each final k=true)
+    if not cfg.is_rev
     "Constant"
     annotation (Placement(transformation(extent={{-80,250},{-100,270}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriHdr(k=1) if
-       cfg.have_heaWat and cfg.have_pumHeaWatPriVar and
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriHdr(k=1)
+    if cfg.have_heaWat and cfg.have_pumHeaWatPriVar and
       cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Headered primary HW pump speed signal"
     annotation (Placement(transformation(extent={{-140,170},{-160,190}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriHdr(k=1) if
-       cfg.have_chiWat and cfg.have_pumHeaWatPriVar and
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriHdr(k=1)
+    if cfg.have_chiWat and cfg.have_pumHeaWatPriVar and
       cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Headered primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-140,-210},{-160,-190}})));

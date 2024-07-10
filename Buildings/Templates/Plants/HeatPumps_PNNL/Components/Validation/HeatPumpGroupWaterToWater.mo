@@ -88,7 +88,7 @@ model HeatPumpGroupWaterToWater
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
     nPorts=hpAwNrv.nHp)
     "Boundary condition at distribution system supply"
-    annotation (Placement(transformation(extent={{170,132},{150,152}})));
+    annotation (Placement(transformation(extent={{170,130},{150,150}})));
   Fluid.Sources.Boundary_pT inlHp1(
     redeclare final package Medium=Medium,
     use_p_in=false,
@@ -127,7 +127,7 @@ model HeatPumpGroupWaterToWater
     use_T_in=false,
     nPorts=hpAwNrv.nHp)
     "Boundary conditions at HP inlet"
-    annotation (Placement(transformation(extent={{82,-76},{102,-56}})));
+    annotation (Placement(transformation(extent={{82,-78},{102,-58}})));
   Fluid.Sensors.TemperatureTwoPort TRet2[hpAwNrv.nHp](redeclare each final
       package Medium = Medium, each final m_flow_nominal=datHpAwNrv.mHeaWatHp_flow_nominal)
     "Return temperature"
@@ -148,22 +148,21 @@ equation
                                                         color={255,204,51},thickness=0.5));
   connect(inlHp1.ports, TRet1.port_a)
     annotation (Line(points={{-100,160},{-80,160}},color={0,127,255}));
-  connect(TRet1.port_b, hpAwNrv.ports_aChiHeaWat)
-    annotation (Line(points={{-60,160},{-10,160},{-10,120}},color={0,127,255}));
-  connect(hpAwNrv.ports_bChiHeaWat, TSup1.port_a)
-    annotation (Line(points={{90,120},{90,140},{104,140}},
-                                                         color={0,127,255}));
+  connect(TRet1.port_b, hpAwNrv.ports_aChiWat) annotation (Line(points={{-60,
+          160},{-10,160},{-10,120}}, color={0,127,255}));
+  connect(hpAwNrv.ports_bChiWat, TSup1.port_a)
+    annotation (Line(points={{90,120},{90,140},{104,140}}, color={0,127,255}));
   connect(TSup1.port_b, sup.ports)
-    annotation (Line(points={{124,140},{138,140},{138,142},{150,142}},
+    annotation (Line(points={{124,140},{150,140}},
                                                  color={0,127,255}));
   connect(inlHp2.ports,TRet2. port_a)
-    annotation (Line(points={{102,-66},{108,-66},{108,-42},{50,-42},{50,-26},
+    annotation (Line(points={{102,-68},{108,-68},{108,-42},{50,-42},{50,-26},
           {56,-26}},                               color={0,127,255}));
-  connect(TRet2.port_b, hpAwNrv.ports_aSou)
+  connect(TRet2.port_b, hpAwNrv.ports_aHotWat)
     annotation (Line(points={{76,-26},{90,-26},{90,40}}, color={0,127,255}));
   connect(TSup2.port_b, sup1.ports)
     annotation (Line(points={{-28,-24},{-2,-24}}, color={0,127,255}));
-  connect(TSup2.port_a, hpAwNrv.ports_bSou) annotation (Line(points={{-48,-24},
+  connect(TSup2.port_a, hpAwNrv.ports_bHotWat) annotation (Line(points={{-48,-24},
           {-54,-24},{-54,34},{-10,34},{-10,40.2}}, color={0,127,255}));
   annotation (
     Diagram(
