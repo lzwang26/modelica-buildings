@@ -1,0 +1,141 @@
+simulateModel("Buildings.Controls.OBC.HeatPumpPlant.Validation.OperationModeProcess",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=60.0,
+    resultFile="OperationModeProcess");
+createPlot(
+    id=1,
+    position={30, 10, 700, 600},
+    y={"opeModPro.uOpeMod"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=1,
+	subPlot=2,
+    position={30, 10, 700, 600},
+    y={"opeModPro.yHru","opeModPro.yExtHea","opeModPro.yExtCoo"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=2,
+    position={230, 10, 700, 600},
+    y={"opeModPro1.uOpeMod"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=2,
+	subPlot=2,
+    position={230, 10, 700, 600},
+    y={"opeModPro1.yHru","opeModPro1.yExtHea","opeModPro1.yExtCoo"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=3,
+    position={430, 10, 700, 600},
+    y={"opeModPro2.uOpeMod"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=3,
+	subPlot=2,
+    position={430, 10, 700, 600},
+    y={"opeModPro2.yHru","opeModPro2.yExtHea","opeModPro2.yExtCoo"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=4,
+    position={630, 10, 700, 600},
+    y={"opeModPro3.uOpeMod"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=4,
+	subPlot=2,
+    position={630, 10, 700, 600},
+    y={"opeModPro3.yHru","opeModPro3.yExtHea","opeModPro3.yExtCoo"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=5,
+    position={30, 400, 700, 600},
+    y={"opeModPro4.uOpeMod"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=5,
+	subPlot=2,
+    position={30, 400, 700, 600},
+    y={"opeModPro4.yHru","opeModPro4.yExtHea","opeModPro4.yExtCoo"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=6,
+    position={230, 400, 700, 600},
+    y={"opeModPro5.uOpeMod"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=6,
+	subPlot=2,
+    position={230, 400, 700, 600},
+    y={"opeModPro5.yHru","opeModPro5.yExtHea","opeModPro5.yExtCoo"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=7,
+    position={430, 400, 700, 600},
+    y={"opeModPro6.uOpeMod"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=7,
+	subPlot=2,
+    position={430, 400, 700, 600},
+    y={"opeModPro6.yHru","opeModPro6.yExtHea","opeModPro6.yExtCoo"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=8,
+    position={630, 400, 700, 600},
+    y={"opeModPro7.uOpeMod"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);
+createPlot(
+    id=8,
+	subPlot=2,
+    position={630, 400, 700, 600},
+    y={"opeModPro7.yHru","opeModPro7.yExtHea","opeModPro7.yExtCoo"},
+    autoscale=true,
+    grid=true,
+    timeUnit="s"
+);

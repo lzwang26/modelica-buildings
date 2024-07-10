@@ -6,7 +6,7 @@ partial model PartialCoil "Interface class for coil"
     final allowFlowReversal=allowFlowReversalAir)
     annotation(__ctrlFlow(enable=false));
 
-  replaceable package MediumAir=Buildings.Media.Air
+  replaceable package MediumAir=Buildings.Media.Water
     "Air medium"
     annotation(__ctrlFlow(enable=false));
   /*

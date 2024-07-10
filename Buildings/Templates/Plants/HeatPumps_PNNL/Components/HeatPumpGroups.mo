@@ -22,16 +22,16 @@ package HeatPumpGroups
       annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
   equation
 
-    connect(ports_aChiHeaWat, hp.port_a)
-      annotation (Line(points={{120,200},{120,0},{10,0}},color={0,127,255}));
-    connect(hp.port_b, ports_bChiHeaWat)
-      annotation (Line(points={{-10,0},{-120,0},{-120,200}},color={0,127,255}));
+    connect(ports_aChiWat, hp.port_a)
+      annotation (Line(points={{120,200},{120,0},{10,0}}, color={0,127,255}));
+    connect(hp.port_b, ports_bChiWat) annotation (Line(points={{-10,0},{-120,0},
+            {-120,200}}, color={0,127,255}));
     connect(busHp, hp.bus)
       annotation (Line(points={{0,160},{0,10}},color={255,204,51},thickness=0.5));
-    connect(ports_aSou, hp.port_aSou)
-      annotation (Line(points={{-120,-200},{-120,-10},{-10,-10}},color={0,127,255}));
-    connect(ports_bSou, hp.port_bSou)
-      annotation (Line(points={{120,-200},{120,-10},{10,-10}},color={0,127,255}));
+    connect(ports_aHotWat, hp.port_aSou) annotation (Line(points={{-120,-200},{
+            -120,-10},{-10,-10}}, color={0,127,255}));
+    connect(ports_bHotWat, hp.port_bSou) annotation (Line(points={{120,-200},{
+            120,-10},{10,-10}}, color={0,127,255}));
     annotation (
       defaultComponentName="hp", Documentation(info="<html>
 <p>
