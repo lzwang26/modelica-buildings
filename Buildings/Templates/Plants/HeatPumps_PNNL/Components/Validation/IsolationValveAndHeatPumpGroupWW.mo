@@ -285,17 +285,6 @@ equation
                                                                        color={0,127,255}));
   connect(retChiWat.ports[1],valIsoHeaInl. port_aChiWat) annotation (Line(
         points={{54,120},{18,120},{18,122.88},{-18,122.88}},color={0,127,255}));
-  connect(valIsoHeaInl.ports_bChiWatHp, hpAwNrv.ports_aChiHeaWat) annotation (
-     Line(points={{-23.2,96.21},{-23.2,50},{-56,50},{-56,44}}, color={0,127,
-          255}));
-  connect(hpAwNrv.ports_bChiHeaWat, valIsoHeaInl.ports_aChiWatHp) annotation (
-     Line(points={{44,44},{44,58},{-33.4,58},{-33.4,96.42}}, color={0,127,255}));
-  connect(hpAwNrv.ports_bSou, valIsoHeaInl.ports_aHeaWatHp) annotation (Line(
-        points={{-56,-35.8},{-56,-42},{-252,-42},{-252,90},{-54.6,90},{-54.6,
-          96.21}}, color={0,127,255}));
-  connect(hpAwNrv.ports_aSou, valIsoHeaInl.ports_bHeaWatHp) annotation (Line(
-        points={{44,-36},{-10,-36},{-10,-34},{-44,-34},{-44,96.21}}, color={0,
-          127,255}));
   connect(ctlHeaInl.bus, valIsoHeaInl.bus) annotation (Line(
       points={{-48,204},{-39.4,204},{-39.4,136.53}},
       color={255,204,51},
@@ -354,6 +343,17 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(hpAwNrv.ports_bHotWat, valIsoHeaInl.ports_aHeaWatHp) annotation (Line(
+        points={{-56,-35.8},{-56,-44},{-256,-44},{-256,84},{-54.6,84},{-54.6,
+          96.21}}, color={0,127,255}));
+  connect(valIsoHeaInl.ports_bHeaWatHp, hpAwNrv.ports_aHotWat) annotation (Line(
+        points={{-44,96.21},{-44,88},{-260,88},{-260,-48},{44,-48},{44,-36}},
+        color={0,127,255}));
+  connect(valIsoHeaInl.ports_aChiWatHp, hpAwNrv.ports_bChiWat) annotation (Line(
+        points={{-33.4,96.42},{-33.4,88},{-4,88},{-4,52},{44,52},{44,44}},
+        color={0,127,255}));
+  connect(valIsoHeaInl.ports_bChiWatHp, hpAwNrv.ports_aChiWat) annotation (Line(
+        points={{-23.2,96.21},{-23.2,52},{-56,52},{-56,44}}, color={0,127,255}));
   annotation (
     Diagram(
       coordinateSystem(
