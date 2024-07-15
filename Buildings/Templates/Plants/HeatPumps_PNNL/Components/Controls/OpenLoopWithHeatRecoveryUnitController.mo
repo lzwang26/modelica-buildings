@@ -1,8 +1,9 @@
 within Buildings.Templates.Plants.HeatPumps_PNNL.Components.Controls;
-block OpenLoop
+block OpenLoopWithHeatRecoveryUnitController
   "Open-loop controller"
+
   extends
-    Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
+    Buildings.Templates.Plants.HeatPumps_PNNL.Components.Controls.PartialController(
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop);
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet[nHp](
     y(each final unit="K",
@@ -152,6 +153,8 @@ block OpenLoop
      each k=1) if cfg.have_pumChiWatPriDed and cfg.have_pumHeaWatPriVar
     "Dedicated primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-100,-210},{-120,-190}})));
+  HeatRecoveryUnitController heatRecoveryUnitController
+    annotation (Placement(transformation(extent={{-48,-80},{42,116}})));
 equation
   /* Control point connection - start */
   connect(y1PumHeaWatPri.y[1], busPumHeaWatPri.y1);
@@ -159,16 +162,16 @@ equation
   connect(yPumHeaWatPriDed.y, busPumHeaWatPri.y);
   connect(y1PumHeaWatSec.y[1], busPumHeaWatSec.y1);
   connect(yPumHeaWatSec.y, busPumHeaWatSec.y);
-  connect(y1ValHeaWatHpInlIso.y[1], busValHeaWatHpInlIso.y1);
-  connect(y1ValHeaWatHpOutIso.y[1], busValHeaWatHpOutIso.y1);
+//  connect(y1ValHeaWatHpInlIso.y[1], busValHeaWatHpInlIso.y1);
+//  connect(y1ValHeaWatHpOutIso.y[1], busValHeaWatHpOutIso.y1);
   connect(yPumChiWatSec.y, busPumChiWatSec.y);
-  connect(y1ValChiWatHpOutIso.y[1], busValChiWatHpOutIso.y1);
+//  connect(y1ValChiWatHpOutIso.y[1], busValChiWatHpOutIso.y1);
   connect(y1PumChiWatPri.y[1], busPumChiWatPri.y1);
   connect(yPumChiWatPriHdr.y, busPumChiWatPri.y);
   connect(yPumChiWatPriDed.y, busPumChiWatPri.y);
-  connect(y1ValChiWatHpInlIso.y[1], busValChiWatHpInlIso.y1);
+//  connect(y1ValChiWatHpInlIso.y[1], busValChiWatHpInlIso.y1);
   connect(y1PumChiWatSec.y[1], busPumChiWatSec.y1);
-  connect(y1Hp.y[1], busHp.y1);
+  //connect(y1Hp.y[1], busHp.y1);
   connect(y1HeaHp.y[1], busHp.y1Hea);
   connect(TSet.y, busHp.TSet);
   /* Control point connection - stop */
@@ -182,6 +185,43 @@ equation
       color={255,0,255}));
   connect(tru.y, TSet.u2)
     annotation (Line(points={{-102,260},{-130,260},{-130,320},{-138,320}},color={255,0,255}));
+
+
+
+// Heat Recovery Unit Control Input Connection
+  connect(bus.TSupCoo, heatRecoveryUnitController.TSupCoo);
+  connect(bus.TSupCooSet, heatRecoveryUnitController.TSupCooSet);
+  connect(bus.TSupHea, heatRecoveryUnitController.TSupHea);
+  connect(bus.TSupHeaSet, heatRecoveryUnitController.TSupHeaSet);
+  connect(bus.uDpHea, heatRecoveryUnitController.uDpHea);
+  connect(bus.uDpCoo, heatRecoveryUnitController.uDpCoo);
+  connect(bus_HeaPum.y1_actual[1], heatRecoveryUnitController.uHeaPumPro);
+  connect(busPumChiWatPri.y1_actual[1], heatRecoveryUnitController.uCooPumPro);
+// Heat Recovery Unit Control Output Connection
+  connect(heatRecoveryUnitController.yHP, busHp[1].y1);
+    connect(heatRecoveryUnitController.yVal, busValHeaWatHpInlIso[1].y1);
+  connect(heatRecoveryUnitController.yVal, busValHeaWatHpOutIso[1].y1);
+  connect(heatRecoveryUnitController.yVal, busValChiWatHpOutIso[1].y1);
+    connect(heatRecoveryUnitController.yVal, busValChiWatHpInlIso[1].y1);
+ // connect(heatRecoveryUnitController.yPum, bus_HeaPum.y1);
+//  connect(heatRecoveryUnitController.yPum, bus_CooPum.y1);
+
+
+
+  connect(heatRecoveryUnitController.yPum, busPumChiWatPri.y1[1]) annotation (
+      Line(points={{51,30.25},{68,30.25},{68,-168},{-240,-168},{-240,-200}},
+        color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(heatRecoveryUnitController.yPumSpeCoo, busPumChiWatPri.y[1])
+    annotation (Line(points={{51,-18.75},{72,-18.75},{72,-184},{-172,-184},{-172,
+          -200},{-240,-200}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>
@@ -192,4 +232,4 @@ Buildings.Templates.Plants.HeatPumps.AirToWater</a>.
 It is only used for testing purposes.
 </p>
 </html>"));
-end OpenLoop;
+end OpenLoopWithHeatRecoveryUnitController;

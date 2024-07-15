@@ -8,3 +8,4 @@ HeatPumpPlantPrimarySecondary
 CoolingTowerWHeatExchanger
 ExternalEnergyLoop
 HeatPumpPlantPrimaryOnly
+ControlBoxTest
