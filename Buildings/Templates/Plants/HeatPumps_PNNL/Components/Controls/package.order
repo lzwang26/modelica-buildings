@@ -4,3 +4,5 @@ ExternalEnergyOpenLoop
 ExternalEnergy
 HeatRecoveryUnitControl
 HeatRecoveryUnitController
+OpenLoopWithHeatRecoveryUnitController
+PartialController

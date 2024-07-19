@@ -321,8 +321,8 @@ model HeatPumpPlantPrimaryOnly "Validation model for heat pump group"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-130,-16})));
-  Buildings.Templates.Components.Actuators.Valve valve(redeclare package Medium
-      = Buildings.Media.Water, typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+  Buildings.Templates.Components.Actuators.Valve valve(redeclare package Medium =
+        Buildings.Media.Water, typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     dat(dpValve_nominal=50, dpFixed_nominal=500))
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -369,6 +369,8 @@ model HeatPumpPlantPrimaryOnly "Validation model for heat pump group"
         origin={170,10})));
   HeatPumps.Interfaces.Bus busHP annotation (Placement(transformation(extent={{
             20,56},{60,96}}), iconTransformation(extent={{-226,16},{-186,56}})));
+  Controls.OpenLoopWithHeatRecoveryUnitController ctl
+    annotation (Placement(transformation(extent={{142,100},{162,120}})));
 equation
   connect(valIsoHeaInl.ports_bChiWatHp, hpAwNrv.ports_aChiWat) annotation (Line(
         points={{16.8,-19.79},{16.8,-66},{-16,-66},{-16,-72}}, color={0,127,255}));
@@ -464,7 +466,8 @@ equation
   connect(heatRecoveryUnitController.yPum, busHeaPum.y1) annotation (Line(
         points={{12,158},{12,156},{44,156},{44,92},{-40,92}}, color={255,0,255}));
   connect(heatRecoveryUnitController.yPumSpeHea, busHeaPum.y) annotation (Line(
-        points={{12,154},{12,152},{24,152},{24,92},{-40,92}}, color={0,0,127}));
+        points={{12,154},{12,152},{26,152},{26,74},{-24,74},{-24,92},{-40,92}},
+                                                              color={0,0,127}));
   connect(heatRecoveryUnitController.yPumSpeCoo, busCooPum.y) annotation (Line(
         points={{12,150},{12,148},{84,148},{84,100}}, color={0,0,127}));
   connect(jun.port_2, TSupHea.port_b) annotation (Line(points={{-220,-16},{-229,
@@ -474,9 +477,6 @@ equation
   connect(TSupHea.y, heatRecoveryUnitController.TSupHea)
     annotation (Line(points={{-248,-4},{-122,-4},{-122,172},{-40,172},{-40,162},
           {-12,162}},                                color={0,127,255}));
-  connect(TSupCoo.y, heatRecoveryUnitController.TSupCoo)
-    annotation (Line(points={{180,52},{200,52},{200,180},{-18,180},{-18,170},{-12,
-          170}},                                     color={0,127,255}));
   connect(TSupCooSet.y, heatRecoveryUnitController.TSupCooSet) annotation (Line(
         points={{122,160},{128,160},{128,186},{-24,186},{-24,166},{-12,166}},
         color={0,0,127}));
@@ -509,10 +509,10 @@ equation
       points={{40,76},{40,4},{34,4},{34,-72}},
       color={255,204,51},
       thickness=0.5));
-  connect(heatRecoveryUnitController.yHeaPum, busHP.hp.y1) annotation (Line(
-        points={{12,166},{12,164},{40,164},{40,76}}, color={255,0,255}));
-  connect(heatRecoveryUnitController.TSetHeaPum, busHP.hp.TSet) annotation (
-      Line(points={{12,146},{12,144},{40,144},{40,76}}, color={0,0,127}));
+  connect(heatRecoveryUnitController.yHP, busHP.hp.y1) annotation (Line(points=
+          {{12,166},{12,164},{40,164},{40,76}}, color={255,0,255}));
+  connect(heatRecoveryUnitController.TSetHP, busHP.hp.TSet) annotation (Line(
+        points={{12,146},{12,144},{40,144},{40,76}}, color={0,0,127}));
   annotation (
     Diagram(
       coordinateSystem(

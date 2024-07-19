@@ -26,36 +26,37 @@ block HeatRecoveryUnitController
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSet(k=273.15 + 7.22)
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoo annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoo "Chilled Water Supply Temperature" annotation (Placement(
         transformation(extent={{-140,80},{-100,120}}), iconTransformation(
           extent={{-140,120},{-100,160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCooSet annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCooSet "Chilled Water Supply Temperature Setpoint" annotation (
       Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHea annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHea "Hot Water Supply Temperature" annotation (Placement(
         transformation(extent={{-140,0},{-100,40}}), iconTransformation(extent={{-140,40},
             {-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHeaSet annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupHeaSet "Hot Water Supply Temperature Setpoint" annotation (
       Placement(transformation(extent={{-140,-40},{-100,0}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaPum annotation (
-      Placement(transformation(extent={{160,40},{200,80}}), iconTransformation(
-          extent={{100,80},{140,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPumPro annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHP
+    "Heat pump enable signal" annotation (Placement(transformation(extent={{160,
+            40},{200,80}}), iconTransformation(extent={{100,80},{140,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPumPro "Hot Water Pump Enable Signal" annotation (
       Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooPumPro annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooPumPro "Chilled Water Pump Enable Signal" annotation (
       Placement(transformation(extent={{-140,-120},{-100,-80}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yVal annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yVal "Valve signal" annotation (
       Placement(transformation(extent={{160,0},{200,40}}), iconTransformation(
           extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPum annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPum "Pump enable sigal" annotation (
       Placement(transformation(extent={{160,-40},{200,0}}), iconTransformation(
           extent={{100,0},{140,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetHeaPum annotation (
-      Placement(transformation(extent={{160,-180},{200,-140}}),
-        iconTransformation(extent={{100,-120},{140,-80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetHP
+    "Heat Pump Setpoint Temperature" annotation (Placement(transformation(
+          extent={{160,-180},{200,-140}}), iconTransformation(extent={{100,-120},
+            {140,-80}})));
   Buildings.Templates.Plants.Controls.Pumps.Primary.EnableLeadHeadered enaLea(
     typCon=Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel,
     typValIso=Buildings.Templates.Plants.Controls.Types.Actuator.TwoPosition,
@@ -120,12 +121,12 @@ equation
           -10},{38,-10}}, color={255,0,255}));
   connect(uCooPumPro, or1.u2) annotation (Line(points={{-120,-100},{30,-100},{
           30,-18},{38,-18}}, color={255,0,255}));
-  connect(seqEve.y1, yHeaPum) annotation (Line(points={{96,46},{158,46},{158,60},
-          {180,60}}, color={255,0,255}));
+  connect(seqEve.y1, yHP) annotation (Line(points={{96,46},{158,46},{158,60},{180,
+          60}}, color={255,0,255}));
   connect(seqEve.y1ValHeaWatInlIso, yVal) annotation (Line(points={{96,36},{158,
           36},{158,20},{180,20}},color={255,0,255}));
-  connect(TSet.y, TSetHeaPum) annotation (Line(points={{142,-160},{180,-160}},
-                           color={0,0,127}));
+  connect(TSet.y, TSetHP)
+    annotation (Line(points={{142,-160},{180,-160}}, color={0,0,127}));
   connect(seqEve.y1ValHeaWatInlIso, enaLea.u1ValIso[1]) annotation (Line(points=
          {{96,36},{104,36},{104,20},{110,20}}, color={255,0,255}));
   connect(enaLea.y1, yPum) annotation (Line(points={{134,20},{154,20},{154,-20},

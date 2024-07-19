@@ -1,8 +1,9 @@
-within Buildings.Templates.Plants.HeatPumps.Components.Controls;
-block OpenLoop
+within Buildings.Templates.Plants.HeatPumps_PNNL.Components.Controls;
+block OpenLoopWithHeatRecoveryUnitController
   "Open-loop controller"
+
   extends
-    Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
+    Buildings.Templates.Plants.HeatPumps_PNNL.Components.Controls.PartialController(
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop);
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet[nHp](
     y(each final unit="K",
@@ -17,58 +18,51 @@ block OpenLoop
     "Heat pump CHW supply temperature set point"
     annotation (Placement(transformation(extent={{-80,290},{-100,310}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatHpInlIso[nHp](
-    each table=[
-      0, 0;
-      1, 1;
-      3, 0;
-      5, 0],
+    each table=[0,1; 1,1; 3,1; 5,1],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_heaWat and cfg.have_valHpInlIso
+    each period=5000)
+    if cfg.have_heaWat and cfg.have_valHpInlIso
     "Heat pump inlet HW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-180,250},{-200,270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatHpOutIso[nHp](
-    each table=[
-      0, 0;
-      1, 1;
-      3, 0;
-      5, 0],
+    each table=[0,1; 1,1; 3,1; 5,1],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_heaWat and cfg.have_valHpOutIso
+    each period=5000)
+    if cfg.have_heaWat and cfg.have_valHpOutIso
     "Heat pump outlet HW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-180,210},{-200,230}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatHpInlIso[nHp](
-    each table=[
-      0, 0;
-      3.1, 1;
-      5, 0],
+    each table=[0,1; 3.1,1; 5,1],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_chiWat and cfg.have_valHpInlIso
+    each period=5000)
+    if cfg.have_chiWat and cfg.have_valHpInlIso
     "Heat pump inlet CHW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-180,-90},{-200,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatHpOutIso[nHp](
-    each table=[
-      0, 0;
-      3.1, 1;
-      5, 0],
+    each table=[0,1; 3.1,1; 5,1],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_chiWat and cfg.have_valHpOutIso
+    each period=5000)
+    if cfg.have_chiWat and cfg.have_valHpOutIso
     "Heat pump outlet CHW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-180,-130},{-200,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Hp[nHp](
-    each table=[0,1; 1,1; 1,1; 5,1],
+    each table=[
+      0, 0;
+      1, 0;
+      1, 1;
+      5, 1],
     each timeScale=1000,
     each period=5000)
     "Heat pump start/stop command"
     annotation (Placement(transformation(extent={{-180,330},{-200,350}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1HeaHp[nHp](
-    each table=[0,0; 3,0; 5,0],
+    each table=[
+      0, 1;
+      3, 0;
+      5, 0],
     each timeScale=1000,
-    each period=5000) if
-       cfg.is_rev
+    each period=5000)
+    if cfg.is_rev
     "Heat pump heating mode command"
     annotation (Placement(transformation(extent={{-180,290},{-200,310}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPri[cfg.nPumHeaWatPri](
@@ -85,8 +79,8 @@ block OpenLoop
       3.1, 1;
       5, 0],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_heaWat
+    each period=5000)
+    if cfg.have_heaWat
     "Primary CHW pump start/stop command"
     annotation (Placement(transformation(extent={{-180,170},{-200,190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatPri[cfg.nPumChiWatPri](
@@ -95,8 +89,8 @@ block OpenLoop
       3.1, 1;
       5, 0],
     each timeScale=1000,
-    each period=5000) if
-       cfg.have_pumChiWatPriDed
+    each period=5000)
+    if cfg.have_pumChiWatPriDed
     "Primary CHW pump start/stop command"
     annotation (Placement(transformation(extent={{-180,-210},{-200,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatSec[cfg.nPumHeaWatSec](
@@ -106,8 +100,8 @@ block OpenLoop
       3, 0;
       5, 0],
     each timeScale=1000,
-    each period=5000) if
-       cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    each period=5000)
+    if cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Secondary HW pump start/stop command"
     annotation (Placement(transformation(extent={{-180,130},{-200,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatSec[cfg.nPumChiWatSec](
@@ -116,18 +110,18 @@ block OpenLoop
       3, 1;
       5, 1],
     each timeScale=1000,
-    each period=5000) if
-       cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    each period=5000)
+    if cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Secondary CHW pump start/stop command"
     annotation (Placement(transformation(extent={{-180,-250},{-200,-230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatSec(
-    k=1) if
-       cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    k=1)
+    if cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Secondary HW pump speed signal"
     annotation (Placement(transformation(extent={{-140,130},{-160,150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatSec(
-    k=1) if
-       cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    k=1)
+    if cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Secondary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-140,-250},{-160,-230}})));
   Buildings.Controls.OBC.CDL.Reals.Switch TSet[nHp](
@@ -136,17 +130,17 @@ block OpenLoop
     "Active supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,310},{-160,330}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru[nHp](
-    each final k=true) if
-       not cfg.is_rev
+    each final k=true)
+    if not cfg.is_rev
     "Constant"
     annotation (Placement(transformation(extent={{-80,250},{-100,270}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriHdr(k=1) if
-       cfg.have_heaWat and cfg.have_pumHeaWatPriVar and
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriHdr(k=1)
+    if cfg.have_heaWat and cfg.have_pumHeaWatPriVar and
       cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Headered primary HW pump speed signal"
     annotation (Placement(transformation(extent={{-140,170},{-160,190}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriHdr(k=1) if
-       cfg.have_chiWat and cfg.have_pumHeaWatPriVar and
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriHdr(k=1)
+    if cfg.have_chiWat and cfg.have_pumHeaWatPriVar and
       cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Headered primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-140,-210},{-160,-190}})));
@@ -159,6 +153,8 @@ block OpenLoop
      each k=1) if cfg.have_pumChiWatPriDed and cfg.have_pumHeaWatPriVar
     "Dedicated primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-100,-210},{-120,-190}})));
+  HeatRecoveryUnitController heatRecoveryUnitController
+    annotation (Placement(transformation(extent={{-48,-80},{42,116}})));
 equation
   /* Control point connection - start */
   connect(y1PumHeaWatPri.y[1], busPumHeaWatPri.y1);
@@ -166,20 +162,20 @@ equation
   connect(yPumHeaWatPriDed.y, busPumHeaWatPri.y);
   connect(y1PumHeaWatSec.y[1], busPumHeaWatSec.y1);
   connect(yPumHeaWatSec.y, busPumHeaWatSec.y);
-  connect(y1ValHeaWatHpInlIso.y[1], busValHeaWatHpInlIso.y1);
-  connect(y1ValHeaWatHpOutIso.y[1], busValHeaWatHpOutIso.y1);
+//  connect(y1ValHeaWatHpInlIso.y[1], busValHeaWatHpInlIso.y1);
+//  connect(y1ValHeaWatHpOutIso.y[1], busValHeaWatHpOutIso.y1);
   connect(yPumChiWatSec.y, busPumChiWatSec.y);
-  connect(y1ValChiWatHpOutIso.y[1], busValChiWatHpOutIso.y1);
+//  connect(y1ValChiWatHpOutIso.y[1], busValChiWatHpOutIso.y1);
   connect(y1PumChiWatPri.y[1], busPumChiWatPri.y1);
   connect(yPumChiWatPriHdr.y, busPumChiWatPri.y);
   connect(yPumChiWatPriDed.y, busPumChiWatPri.y);
-  connect(y1ValChiWatHpInlIso.y[1], busValChiWatHpInlIso.y1);
+//  connect(y1ValChiWatHpInlIso.y[1], busValChiWatHpInlIso.y1);
   connect(y1PumChiWatSec.y[1], busPumChiWatSec.y1);
-  connect(y1Hp.y[1], busHp.y1);
+  //connect(y1Hp.y[1], busHp.y1);
   connect(y1HeaHp.y[1], busHp.y1Hea);
   connect(TSet.y, busHp.TSet);
   /* Control point connection - stop */
-                                       connect(TChiWatSupSet.y, TSet.u3)
+  connect(TChiWatSupSet.y, TSet.u3)
     annotation (Line(points={{-102,300},{-120,300},{-120,312},{-138,312}},color={0,0,127}));
   connect(THeaWatSupSet.y, TSet.u1)
     annotation (Line(points={{-102,340},{-120,340},{-120,328},{-138,328}},color={0,0,127}));
@@ -189,6 +185,43 @@ equation
       color={255,0,255}));
   connect(tru.y, TSet.u2)
     annotation (Line(points={{-102,260},{-130,260},{-130,320},{-138,320}},color={255,0,255}));
+
+
+
+// Heat Recovery Unit Control Input Connection
+  connect(bus.TSupCoo, heatRecoveryUnitController.TSupCoo);
+  connect(bus.TSupCooSet, heatRecoveryUnitController.TSupCooSet);
+  connect(bus.TSupHea, heatRecoveryUnitController.TSupHea);
+  connect(bus.TSupHeaSet, heatRecoveryUnitController.TSupHeaSet);
+  connect(bus.uDpHea, heatRecoveryUnitController.uDpHea);
+  connect(bus.uDpCoo, heatRecoveryUnitController.uDpCoo);
+  connect(bus_HeaPum.y1_actual[1], heatRecoveryUnitController.uHeaPumPro);
+  connect(busPumChiWatPri.y1_actual[1], heatRecoveryUnitController.uCooPumPro);
+// Heat Recovery Unit Control Output Connection
+  connect(heatRecoveryUnitController.yHP, busHp[1].y1);
+    connect(heatRecoveryUnitController.yVal, busValHeaWatHpInlIso[1].y1);
+  connect(heatRecoveryUnitController.yVal, busValHeaWatHpOutIso[1].y1);
+  connect(heatRecoveryUnitController.yVal, busValChiWatHpOutIso[1].y1);
+    connect(heatRecoveryUnitController.yVal, busValChiWatHpInlIso[1].y1);
+ // connect(heatRecoveryUnitController.yPum, bus_HeaPum.y1);
+//  connect(heatRecoveryUnitController.yPum, bus_CooPum.y1);
+
+
+
+  connect(heatRecoveryUnitController.yPum, busPumChiWatPri.y1[1]) annotation (
+      Line(points={{51,30.25},{68,30.25},{68,-168},{-240,-168},{-240,-200}},
+        color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(heatRecoveryUnitController.yPumSpeCoo, busPumChiWatPri.y[1])
+    annotation (Line(points={{51,-18.75},{72,-18.75},{72,-184},{-172,-184},{-172,
+          -200},{-240,-200}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>
@@ -199,4 +232,4 @@ Buildings.Templates.Plants.HeatPumps.AirToWater</a>.
 It is only used for testing purposes.
 </p>
 </html>"));
-end OpenLoop;
+end OpenLoopWithHeatRecoveryUnitController;

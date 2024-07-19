@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps_PNNL.Components.Validation;
-model ValvesIsolation_Test
+model FixingHeatPumpGroupError
   "Validation model for isolation valve component"
 
   extends Modelica.Icons.Example;
@@ -117,7 +117,6 @@ model ValvesIsolation_Test
   Fluid.Sources.Boundary_pT retHeaWat1(
     redeclare final package Medium=Medium,
     p=supHeaWat1.p + max(valIsoHeaInl.dpHeaWat_nominal),
-    T=Buildings.Templates.Data.Defaults.THeaWatRetMed,
     nPorts=1) "Boundary condition at HW return"
     annotation (Placement(transformation(extent={{-254,314},{-234,334}})));
   Fluid.Sources.Boundary_pT supHeaWat1(
@@ -139,19 +138,14 @@ model ValvesIsolation_Test
   Fluid.Sources.Boundary_pT retChiWat(
     redeclare final package Medium = Medium,
     p=supHeaWat1.p + max(valIsoHeaInl.dpHeaWat_nominal),
-    T=287.15,
     nPorts=1) "Boundary condition at HW return"
     annotation (Placement(transformation(extent={{116,276},{96,296}})));
   Fluid.Sources.Boundary_pT supChiWat(
     redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
-    T=279.85,
     nPorts=1) "Boundary condition at HW supply"
     annotation (Placement(transformation(extent={{116,304},{96,324}})));
 equation
-  connect(retHeaWat1.ports[1], valIsoHeaInl.port_aHeaWat)
-    annotation (Line(points={{-234,324},{-226,324},{-226,298.54},{-18,298.54}},
-                                                                       color={0,127,255}));
   connect(valIsoHeaInl.port_bHeaWat, supHeaWat1.ports[1])
     annotation (Line(points={{-18,289.51},{-226,289.51},{-226,292},{-234,292}},
                                                                        color={0,127,255}));
@@ -170,6 +164,9 @@ equation
         points={{96,286},{60,286},{60,288.88},{24,288.88}}, color={0,127,255}));
   connect(supChiWat.ports[1], valIsoHeaInl.port_bChiWat) annotation (Line(
         points={{96,314},{60,314},{60,298.12},{24,298.12}}, color={0,127,255}));
+  connect(valIsoHeaInl.port_aHeaWat, retHeaWat1.ports[1]) annotation (Line(
+        points={{-18,298.54},{-224,298.54},{-224,324},{-234,324}}, color={0,
+          127,255}));
   annotation (
     __Dymola_Commands(
       file=
@@ -220,4 +217,4 @@ The model uses open loop controls and the simulation allows verifying that desig
 flow is obtained in each loop and each heat pump when the valves are open.
 </p>
 </html>"));
-end ValvesIsolation_Test;
+end FixingHeatPumpGroupError;

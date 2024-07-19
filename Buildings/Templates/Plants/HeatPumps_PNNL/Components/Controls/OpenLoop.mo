@@ -17,28 +17,28 @@ block OpenLoop
     "Heat pump CHW supply temperature set point"
     annotation (Placement(transformation(extent={{-80,290},{-100,310}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatHpInlIso[nHp](
-    each table=[0,0; 1,1; 3,0; 5,0],
+    each table=[0,1; 1,1; 3,1; 5,1],
     each timeScale=1000,
     each period=5000)
     if cfg.have_heaWat and cfg.have_valHpInlIso
     "Heat pump inlet HW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-180,250},{-200,270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatHpOutIso[nHp](
-    each table=[0,0; 1,1; 3,0; 5,0],
+    each table=[0,1; 1,1; 3,1; 5,1],
     each timeScale=1000,
     each period=5000)
     if cfg.have_heaWat and cfg.have_valHpOutIso
     "Heat pump outlet HW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-180,210},{-200,230}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatHpInlIso[nHp](
-    each table=[0,0; 3.1,1; 5,0],
+    each table=[0,1; 3.1,1; 5,1],
     each timeScale=1000,
     each period=5000)
     if cfg.have_chiWat and cfg.have_valHpInlIso
     "Heat pump inlet CHW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-180,-90},{-200,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatHpOutIso[nHp](
-    each table=[0,0; 3.1,1; 5,0],
+    each table=[0,1; 3.1,1; 5,1],
     each timeScale=1000,
     each period=5000)
     if cfg.have_chiWat and cfg.have_valHpOutIso
@@ -172,7 +172,7 @@ equation
   connect(y1HeaHp.y[1], busHp.y1Hea);
   connect(TSet.y, busHp.TSet);
   /* Control point connection - stop */
-                                       connect(TChiWatSupSet.y, TSet.u3)
+  connect(TChiWatSupSet.y, TSet.u3)
     annotation (Line(points={{-102,300},{-120,300},{-120,312},{-138,312}},color={0,0,127}));
   connect(THeaWatSupSet.y, TSet.u1)
     annotation (Line(points={{-102,340},{-120,340},{-120,328},{-138,328}},color={0,0,127}));

@@ -2,7 +2,10 @@ HeatPumpPlant_Hydronics
 ValvesIsolation_Test
 ValvesIsolation_HeatPump
 HeatPumpGroupWaterToWater
+IsolationValveAndHeatPumpGroupWW
+FixingHeatPumpGroupError
 HeatPumpPlantPrimarySecondary
 CoolingTowerWHeatExchanger
 ExternalEnergyLoop
 HeatPumpPlantPrimaryOnly
+ControlBoxTest
