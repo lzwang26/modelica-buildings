@@ -155,6 +155,8 @@ block OpenLoopWithHeatRecoveryUnitController
     annotation (Placement(transformation(extent={{-100,-210},{-120,-190}})));
   HeatRecoveryUnitController heatRecoveryUnitController
     annotation (Placement(transformation(extent={{-48,-80},{42,116}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
 equation
   /* Control point connection - start */
   connect(y1PumHeaWatPri.y[1], busPumHeaWatPri.y1);
@@ -196,7 +198,6 @@ equation
   connect(bus.uDpHea, heatRecoveryUnitController.uDpHea);
   connect(bus.uDpCoo, heatRecoveryUnitController.uDpCoo);
   connect(bus_HeaPum.y1_actual[1], heatRecoveryUnitController.uHeaPumPro);
-  connect(busPumChiWatPri.y1_actual[1], heatRecoveryUnitController.uCooPumPro);
 // Heat Recovery Unit Control Output Connection
   connect(heatRecoveryUnitController.yHP, busHp[1].y1);
     connect(heatRecoveryUnitController.yVal, busValHeaWatHpInlIso[1].y1);
@@ -208,18 +209,43 @@ equation
 
 
 
-  connect(heatRecoveryUnitController.yPum, busPumChiWatPri.y1[1]) annotation (
-      Line(points={{51,30.25},{68,30.25},{68,-168},{-240,-168},{-240,-200}},
+  connect(heatRecoveryUnitController.yPum, booScaRep.u) annotation (Line(points={{51,
+          30.25},{64.5,30.25},{64.5,30},{78,30}},     color={255,0,255}));
+  connect(heatRecoveryUnitController.yPumSpeHea, bus_HeaPum.y) annotation (
+      Line(points={{51,5.75},{68,5.75},{68,-336},{-164,-336},{-164,-372}},
+        color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(booScaRep.y[1], bus_HeaPum.y1[1]) annotation (Line(points={{102,30},{
+          136,30},{136,-316},{128,-316},{128,-404},{-164,-404},{-164,-372}},
         color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(heatRecoveryUnitController.yPumSpeCoo, busPumChiWatPri.y[1])
-    annotation (Line(points={{51,-18.75},{72,-18.75},{72,-184},{-172,-184},{-172,
-          -200},{-240,-200}}, color={0,0,127}), Text(
+  connect(heatRecoveryUnitController.yPumSpeCoo, bus_CooPum.y) annotation (Line(
+        points={{51,-18.75},{51,-16},{70,-16},{70,-358}}, color={0,0,127}),
+      Text(
       string="%second",
       index=1,
+      extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(booScaRep.y[1], busPumChiWatPri.y1[1]) annotation (Line(points={{102,
+          30},{136,30},{136,-316},{128,-316},{128,-404},{-240,-404},{-240,-200}},
+        color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busPumChiWatPri.y1_actual[1], heatRecoveryUnitController.uCooPumPro)
+    annotation (Line(
+      points={{-240,-200},{-240,-152},{-72,-152},{-72,-18.75},{-57,-18.75}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   annotation (

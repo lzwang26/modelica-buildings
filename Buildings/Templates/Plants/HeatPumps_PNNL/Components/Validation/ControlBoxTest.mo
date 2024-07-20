@@ -110,14 +110,10 @@ model ControlBoxTest
       have_chiWat=valIsoHeaInl.have_chiWat,
       have_pumChiWatPriDed=valIsoHeaInl.have_pumChiWatPriDed,
       typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-
       typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
-
       is_rev=true,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
-
       typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only,
-
       nPumChiWatSec=0,
       rhoHeaWat_default=Buildings.Media.Water.d_const,
       typCtl=Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop,
@@ -132,7 +128,6 @@ model ControlBoxTest
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-
       nHp=1,
       nPumHeaWatPri=1,
       have_heaWat=true,
@@ -140,7 +135,6 @@ model ControlBoxTest
       rhoSou_default=Buildings.Media.Air.dStp,
       have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
-
       nPumChiWatPri=1,
       nSenDpHeaWatRem=0,
       nSenDpChiWatRem=0,
@@ -214,10 +208,10 @@ model ControlBoxTest
     nPorts=1) "Boundary condition at HW supply"
     annotation (Placement(transformation(extent={{-396,14},{-376,34}})));
   Buildings.Templates.Plants.HeatPumps_PNNL.Components.Controls.OpenLoopWithHeatRecoveryUnitController
-  ctlHeaInl(final cfg
-      =datCtlHeaInl.cfg, final dat=datCtlHeaInl)
+  ctlHeaInl(final cfg=
+       datCtlHeaInl.cfg, final dat=datCtlHeaInl)
     "Plant controller"
-    annotation (Placement(transformation(extent={{-20,96},{-40,116}})));
+    annotation (Placement(transformation(extent={{-50,110},{-70,130}})));
   Fluid.Sources.Boundary_pT retChiWat(
     redeclare final package Medium = Medium,
     T=287.15,
@@ -234,7 +228,7 @@ model ControlBoxTest
     nPum=1,
   dat=datPumMul,
   redeclare final package Medium = Medium)
-    annotation (Placement(transformation(extent={{68,72},{48,92}})));
+    annotation (Placement(transformation(extent={{68,64},{48,84}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple
                               datPumMul(
     final typ=Buildings.Templates.Components.Types.Pump.Multiple,
@@ -359,13 +353,6 @@ model ControlBoxTest
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupCooSet(k=0 + 273.15)
     "Pump speed command"
     annotation (Placement(transformation(extent={{-386,154},{-366,174}})));
-  Buildings.Templates.Components.Interfaces.Bus bus_CooPum "Pump control bus"
-    annotation (Placement(transformation(extent={{112,104},{152,144}}),
-        iconTransformation(extent={{-318,-118},{-278,-78}})));
-
-  Buildings.Templates.Components.Interfaces.Bus bus_HeaPum "Pump control bus"
-    annotation (Placement(transformation(extent={{-184,82},{-144,122}}),
-        iconTransformation(extent={{-318,-118},{-278,-78}})));
 
   Buildings.Templates.Components.Interfaces.Bus bus_HeaVal "Pump control bus"
     annotation (Placement(transformation(extent={{-262,166},{-222,206}}),
@@ -378,38 +365,13 @@ model ControlBoxTest
     annotation (Placement(transformation(extent={{16,108},{56,148}})));
 equation
   connect(ctlHeaInl.bus, valIsoHeaInl.bus) annotation (Line(
-      points={{-20,112.4},{-1.4,112.4},{-1.4,58.53}},
+      points={{-50,126.4},{-1.4,126.4},{-1.4,58.53}},
       color={255,204,51},
       thickness=0.5));
   connect(valIsoHeaInl.port_bChiWat, rou.port_a) annotation (Line(points={{20,54.12},
           {26,54.12},{26,66},{8,66},{8,82},{14,82}},             color={0,127,255}));
-  connect(y.y, bus_CooPum.y) annotation (Line(points={{-192,186},{-186,186},{-186,
-          158},{132,158},{132,124}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(y1.y, bus_CooPum.y1) annotation (Line(points={{-194,142},{-38,
-          142},{-38,146},{102,146},{102,124},{132,124}}, color={255,0,255}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(valIsoHeaInl.port_bHeaWat, rou1.port_a) annotation (Line(points={{-22,
           45.51},{-54,45.51},{-54,38},{-66,38}},      color={0,127,255}));
-  connect(y.y, bus_HeaPum.y) annotation (Line(points={{-192,186},{-186,186},{-186,
-          162},{-226,162},{-226,102},{-164,102}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(y1.y, bus_HeaPum.y1) annotation (Line(points={{-194,142},{-164,142},
-          {-164,102}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(hpAwNrv.ports_bHotWat, valIsoHeaInl.ports_aHeaWatHp) annotation (Line(
         points={{-18,-113.8},{-18,-122},{-218,-122},{-218,6},{-16.6,6},{-16.6,18.21}},
                    color={0,127,255}));
@@ -462,9 +424,11 @@ equation
   connect(pum1.ports_a, rou2.ports_b) annotation (Line(points={{-130,36},{-146,
           36},{-146,34},{-152,34}}, color={0,127,255}));
   connect(rou3.ports_b, pum.ports_a)
-    annotation (Line(points={{90,82},{68,82}}, color={0,127,255}));
+    annotation (Line(points={{90,82},{80,82},{80,74},{68,74}},
+                                               color={0,127,255}));
   connect(pum.ports_b, rou.ports_b)
-    annotation (Line(points={{48,82},{34,82}}, color={0,127,255}));
+    annotation (Line(points={{48,74},{42,74},{42,82},{34,82}},
+                                               color={0,127,255}));
   connect(retChiWat.ports[1], jun2.port_1)
     annotation (Line(points={{276,4},{150,4},{150,24},{144,24}},
                                                  color={0,127,255}));
@@ -504,46 +468,38 @@ connect(TSupCoo.y, bus_sensor.TSupCoo);
 connect(dPHea.y, bus_sensor.uDpHea);
 connect(dPCoo.y, bus_sensor.uDpCoo);
   connect(ctlHeaInl.bus, hpAwNrv.bus) annotation (Line(
-      points={{-20,112.4},{0,112.4},{0,104},{76,104},{76,8},{32,8},{32,-34}},
+      points={{-50,126.4},{0,126.4},{0,62},{32,62},{32,-34}},
       color={255,204,51},
       thickness=0.5));
   connect(bus_sensor, ctlHeaInl.bus) annotation (Line(
-      points={{-320,130},{-320,220},{-184,220},{-184,136},{-8,136},{-8,112.4},{
-          -20,112.4}},
+      points={{-320,130},{-222,130},{-222,126},{-76,126},{-76,136},{-44,136},{
+          -44,126.4},{-50,126.4}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pum1.bus, bus_HeaPum) annotation (Line(
-      points={{-120,46},{-120,72},{-164,72},{-164,102}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(pum1.bus, ctlHeaInl.bus_HeaPum) annotation (Line(
-      points={{-120,46},{-120,84},{-12,84},{-12,100},{-19.8,100}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(pum.bus, bus.pumChiWatPri) annotation (Line(
-      points={{58,92},{60,92},{60,128},{36,128}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(bus, ctlHeaInl.bus) annotation (Line(
-      points={{36,128},{-8,128},{-8,112.4},{-20,112.4}},
+      points={{36,128},{0,128},{0,126.4},{-50,126.4}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(pum1.bus, ctlHeaInl.bus_HeaPum) annotation (Line(
+      points={{-120,46},{-120,102},{-40,102},{-40,114},{-49.8,114}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(pum.bus, bus.pumChiWatPri) annotation (Line(
+      points={{58,84},{58,102},{36,102},{36,128}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     Diagram(
       coordinateSystem(
