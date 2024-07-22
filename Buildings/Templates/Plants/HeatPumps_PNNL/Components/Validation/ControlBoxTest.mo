@@ -361,8 +361,6 @@ model ControlBoxTest
   Buildings.Templates.Components.Interfaces.Bus bus_CooVal "Pump control bus"
     annotation (Placement(transformation(extent={{150,122},{190,162}}),
         iconTransformation(extent={{-318,-118},{-278,-78}})));
-  HeatPumps.Interfaces.Bus bus
-    annotation (Placement(transformation(extent={{16,108},{56,148}})));
 equation
   connect(ctlHeaInl.bus, valIsoHeaInl.bus) annotation (Line(
       points={{-50,126.4},{-1.4,126.4},{-1.4,58.53}},
@@ -480,26 +478,14 @@ connect(dPCoo.y, bus_sensor.uDpCoo);
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(bus, ctlHeaInl.bus) annotation (Line(
-      points={{36,128},{0,128},{0,126.4},{-50,126.4}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(pum1.bus, ctlHeaInl.bus_HeaPum) annotation (Line(
       points={{-120,46},{-120,102},{-40,102},{-40,114},{-49.8,114}},
       color={255,204,51},
       thickness=0.5));
-  connect(pum.bus, bus.pumChiWatPri) annotation (Line(
-      points={{58,84},{58,102},{36,102},{36,128}},
+  connect(pum.bus, ctlHeaInl.bus_CooPum) annotation (Line(
+      points={{58,84},{58,100},{-38,100},{-38,120.2},{-50,120.2}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+      thickness=0.5));
   annotation (
     Diagram(
       coordinateSystem(

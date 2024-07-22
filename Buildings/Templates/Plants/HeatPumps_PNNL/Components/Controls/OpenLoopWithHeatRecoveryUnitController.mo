@@ -198,6 +198,7 @@ equation
   connect(bus.uDpHea, heatRecoveryUnitController.uDpHea);
   connect(bus.uDpCoo, heatRecoveryUnitController.uDpCoo);
   connect(bus_HeaPum.y1_actual[1], heatRecoveryUnitController.uHeaPumPro);
+  connect(bus_CooPum.y1_actual[1], heatRecoveryUnitController.uCooPumPro);
 // Heat Recovery Unit Control Output Connection
   connect(heatRecoveryUnitController.yHP, busHp[1].y1);
     connect(heatRecoveryUnitController.yVal, busValHeaWatHpInlIso[1].y1);
@@ -232,20 +233,11 @@ equation
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(booScaRep.y[1], busPumChiWatPri.y1[1]) annotation (Line(points={{102,
-          30},{136,30},{136,-316},{128,-316},{128,-404},{-240,-404},{-240,-200}},
-        color={255,0,255}), Text(
+  connect(booScaRep.y[1], bus_CooPum.y1[1]) annotation (Line(points={{102,30},{136,
+          30},{136,-316},{128,-316},{128,-404},{70,-404},{70,-358}}, color={255,
+          0,255}), Text(
       string="%second",
       index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(busPumChiWatPri.y1_actual[1], heatRecoveryUnitController.uCooPumPro)
-    annotation (Line(
-      points={{-240,-200},{-240,-152},{-72,-152},{-72,-18.75},{-57,-18.75}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   annotation (
