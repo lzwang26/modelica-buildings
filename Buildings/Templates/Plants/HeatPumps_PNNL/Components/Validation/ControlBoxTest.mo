@@ -228,7 +228,7 @@ model ControlBoxTest
     nPum=1,
   dat=datPumMul,
   redeclare final package Medium = Medium)
-    annotation (Placement(transformation(extent={{68,64},{48,84}})));
+    annotation (Placement(transformation(extent={{48,64},{68,84}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple
                               datPumMul(
     final typ=Buildings.Templates.Components.Types.Pump.Multiple,
@@ -260,7 +260,7 @@ model ControlBoxTest
     nPum=1,
     dat=datPumMul,
     redeclare final package Medium = Medium)
-    annotation (Placement(transformation(extent={{-130,26},{-110,46}})));
+    annotation (Placement(transformation(extent={{-110,26},{-130,46}})));
   Buildings.Templates.Components.Routing.SingleToMultiple rou2(
     redeclare package Medium = Medium,
     nPorts=pum1.nPum,
@@ -361,6 +361,9 @@ model ControlBoxTest
   Buildings.Templates.Components.Interfaces.Bus bus_CooVal "Pump control bus"
     annotation (Placement(transformation(extent={{150,122},{190,162}}),
         iconTransformation(extent={{-318,-118},{-278,-78}})));
+  Buildings.Templates.Components.Sensors.Temperature TRetCoo(redeclare package
+      Medium = Buildings.Media.Water, m_flow_nominal=1)
+    annotation (Placement(transformation(extent={{218,4},{198,24}})));
 equation
   connect(ctlHeaInl.bus, valIsoHeaInl.bus) annotation (Line(
       points={{-50,126.4},{-1.4,126.4},{-1.4,58.53}},
@@ -417,19 +420,6 @@ equation
 
   connect(rou3.port_a, jun1.port_1)
     annotation (Line(points={{110,82},{126,82}}, color={0,127,255}));
-  connect(pum1.ports_b, rou1.ports_b) annotation (Line(points={{-110,36},{-92,
-          36},{-92,38},{-86,38}}, color={0,127,255}));
-  connect(pum1.ports_a, rou2.ports_b) annotation (Line(points={{-130,36},{-146,
-          36},{-146,34},{-152,34}}, color={0,127,255}));
-  connect(rou3.ports_b, pum.ports_a)
-    annotation (Line(points={{90,82},{80,82},{80,74},{68,74}},
-                                               color={0,127,255}));
-  connect(pum.ports_b, rou.ports_b)
-    annotation (Line(points={{48,74},{42,74},{42,82},{34,82}},
-                                               color={0,127,255}));
-  connect(retChiWat.ports[1], jun2.port_1)
-    annotation (Line(points={{276,4},{150,4},{150,24},{144,24}},
-                                                 color={0,127,255}));
   connect(jun2.port_2, valIsoHeaInl.port_aChiWat) annotation (Line(points={{124,
           24},{26,24},{26,44.88},{20,44.88}}, color={0,127,255}));
   connect(jun2.port_3, valve1.port_a)
@@ -486,6 +476,18 @@ connect(dPCoo.y, bus_sensor.uDpCoo);
       points={{58,84},{58,100},{-38,100},{-38,120.2},{-50,120.2}},
       color={255,204,51},
       thickness=0.5));
+  connect(retChiWat.ports[1], TRetCoo.port_a) annotation (Line(points={{276,4},
+          {248,4},{248,14},{218,14}}, color={0,127,255}));
+  connect(TRetCoo.port_b, jun2.port_1) annotation (Line(points={{198,14},{156,
+          14},{156,24},{144,24}}, color={0,127,255}));
+  connect(rou.ports_b, pum.ports_a) annotation (Line(points={{34,82},{40,82},{
+          40,74},{48,74}}, color={0,127,255}));
+  connect(pum.ports_b, rou3.ports_b) annotation (Line(points={{68,74},{68,76},{
+          80,76},{80,82},{90,82}}, color={0,127,255}));
+  connect(rou1.ports_b, pum1.ports_a)
+    annotation (Line(points={{-86,38},{-84,36},{-110,36}}, color={0,127,255}));
+  connect(pum1.ports_b, rou2.ports_b) annotation (Line(points={{-130,36},{-128,
+          34},{-152,34}}, color={0,127,255}));
   annotation (
     Diagram(
       coordinateSystem(

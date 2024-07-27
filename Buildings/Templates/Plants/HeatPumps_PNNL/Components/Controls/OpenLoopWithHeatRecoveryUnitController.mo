@@ -56,10 +56,7 @@ block OpenLoopWithHeatRecoveryUnitController
     "Heat pump start/stop command"
     annotation (Placement(transformation(extent={{-180,330},{-200,350}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1HeaHp[nHp](
-    each table=[
-      0, 1;
-      3, 0;
-      5, 0],
+    each table=[0,0; 3,0; 5,0],
     each timeScale=1000,
     each period=5000)
     if cfg.is_rev
