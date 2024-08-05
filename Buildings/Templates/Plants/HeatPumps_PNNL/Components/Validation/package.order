@@ -9,3 +9,4 @@ CoolingTowerWHeatExchanger
 ExternalEnergyLoop
 HeatPumpPlantPrimaryOnly
 ControlBoxTest
+ExternalEnergyLoopIntegration
