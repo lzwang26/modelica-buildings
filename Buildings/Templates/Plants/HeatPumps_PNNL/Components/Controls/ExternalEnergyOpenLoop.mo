@@ -30,7 +30,8 @@ block ExternalEnergyOpenLoop
     annotation (Placement(transformation(extent={{-88,40},{-68,60}})));
   CoolingTowerControl coolingTowerControl
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=2*1300, shift=300)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=2*1300, shift=
+        1600)
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(k=273.15 + 24)
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
@@ -53,7 +54,7 @@ block ExternalEnergyOpenLoop
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=3)
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
@@ -190,8 +191,8 @@ equation
           -98},{18,-98}}, color={255,127,0}));
   connect(and1.u1, intEqu1.y)
     annotation (Line(points={{58,-90},{42,-90}}, color={255,0,255}));
-  connect(booPul1.y, and1.u2) annotation (Line(points={{-70,-100},{10,-100},{10,
-          -110},{50,-110},{50,-98},{58,-98}}, color={255,0,255}));
+  connect(booPul1.y, and1.u2) annotation (Line(points={{-70,-100},{8,-100},{8,
+          -110},{48,-110},{48,-98},{58,-98}}, color={255,0,255}));
   connect(and1.y, logSwi1.u2) annotation (Line(points={{82,-90},{92,-90},{92,-22},
           {-24,-22},{-24,-10},{-12,-10}}, color={255,0,255}));
   connect(con1.y, bus.wseInletValveBus.y1) annotation (Line(points={{-66,50},

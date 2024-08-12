@@ -548,16 +548,10 @@ connect(dPCoo.y, bus_sensor.uDpCoo);
           {-164,84},{-150,84}}, color={0,127,255}));
   connect(jun3.port_2, valIsoHeaInl.port_aHeaWat) annotation (Line(points={{
           -130,84},{-40,84},{-40,54.54},{-22,54.54}}, color={0,127,255}));
-  connect(jun3.port_3, externalEnergyLoop.portCon_b) annotation (Line(points={{
-          -140,94},{-110,94},{-110,152},{-80,152},{-80,214},{5,214},{5,210}},
-        color={0,127,255}));
   connect(jun.port_1, jun4.port_2) annotation (Line(points={{-216,24},{-216,28},
           {-198,28}}, color={0,127,255}));
   connect(jun4.port_1, rou2.port_a) annotation (Line(points={{-178,28},{-168,28},
           {-168,46},{-160,46}}, color={0,127,255}));
-  connect(jun4.port_3, externalEnergyLoop.portCon_a) annotation (Line(points={{
-          -188,38},{-188,180},{-122,180},{-122,200},{1,200},{1,210}}, color={0,
-          127,255}));
   connect(rou3.port_a, jun5.port_2)
     annotation (Line(points={{100,82},{100,84},{116,84}}, color={0,127,255}));
   connect(jun5.port_1, jun1.port_1)
@@ -566,10 +560,16 @@ connect(dPCoo.y, bus_sensor.uDpCoo);
     annotation (Line(points={{154,24},{116,24}}, color={0,127,255}));
   connect(jun7.port_2, valIsoHeaInl.port_aChiWat) annotation (Line(points={{96,
           24},{40,24},{40,44.88},{20,44.88}}, color={0,127,255}));
-  connect(jun5.port_3, externalEnergyLoop.portEva_a) annotation (Line(points={{
-          126,94},{126,176},{11,176},{11,210}}, color={0,127,255}));
-  connect(externalEnergyLoop.portEva_b, jun7.port_3) annotation (Line(points={{
-          15,210},{15,104},{106,104},{106,34}}, color={0,127,255}));
+  connect(externalEnergyLoop.portEva_a, jun7.port_3) annotation (Line(points={{
+          11,210},{11,104},{106,104},{106,34}}, color={0,127,255}));
+  connect(externalEnergyLoop.portEva_b, jun5.port_3) annotation (Line(points={{
+          15,210},{15,108},{126,108},{126,94}}, color={0,127,255}));
+  connect(externalEnergyLoop.portCon_b, jun4.port_3) annotation (Line(points={{
+          5,210},{5,96},{-120,96},{-120,64},{-184,64},{-184,48},{-188,48},{-188,
+          38}}, color={0,127,255}));
+  connect(externalEnergyLoop.portCon_a, jun3.port_3) annotation (Line(points={{
+          1,210},{1,140},{-92,140},{-92,108},{-140,108},{-140,94}}, color={0,
+          127,255}));
   annotation (
     Diagram(
       coordinateSystem(
